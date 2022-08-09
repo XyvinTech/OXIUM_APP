@@ -1,16 +1,1 @@
-const String welcomRoute = '/';
-const String splashScreenRoute = '/splashScreen';
-const String loginRoute = "/login";
-const String registerRoute = "/register";
-const String vehicleChooseRoute = "/vehiclechoose";
-const String documentUploadRoute = "/documentupload";
-const String vehicleInfoRoute = "/vehicleinfo";
-const String homepageRoute = "/homepage";
-const String googleMapWidgetRoute = "/googlemapwidget";
-const String inboxRoute = "/inbox";
-const String referRoute = "/refer";
-const String promotionsRoute = "/promotions";
-const String earningsRoute = "/earnings";
-const String earningsDetailsRoute = "/earningsDetails";
-const String walletRoute = "/wallet";
-const String accountRoute = "/account";
+const String homepageRoute = '/';
