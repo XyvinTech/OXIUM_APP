@@ -1,7 +1,7 @@
 import 'package:validators/validators.dart';
-import 'package:vox_ryder/utils/SharedPreferenceUtils.dart';
 
 import '../Singletones/app_data.dart';
+import 'SharedPreferenceUtils.dart';
 
 String? validateText(String value) {
   if (value.isEmpty) {
