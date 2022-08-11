@@ -26,7 +26,7 @@ Widget SocialButton(
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 11),
                 child: Text(
-                  "facebook",
+                  text,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 18,
