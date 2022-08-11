@@ -36,3 +36,10 @@ String? validateNumber(String value) {
 Future<String> getToken()async{
   return appData.token = await getString('token') ?? '';
 }
+
+
+
+
+
+
+

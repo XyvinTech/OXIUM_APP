@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Utils/routes.dart';
+import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
 import 'Utils/app_pages.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Freelancer App',
+      title: kAppName,
       debugShowCheckedModeBanner: false,
       builder: EasyLoading.init(),
       theme: ThemeData(

@@ -14,6 +14,8 @@ final Color blue = Colors.blue;
 final Color transparent = Colors.transparent;
 final Color textFieldColor = Color(0xffEEEEEE);
 
+final String kAppName = 'Freelancer app';
+
 kLog(String value) {
   log(value);
 }
