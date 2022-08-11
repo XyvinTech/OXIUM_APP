@@ -1,5 +1,3 @@
-
-
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:get/get.dart';
@@ -15,10 +13,10 @@ abstract class AppPages {
       binding: HomePageBinding(),
       page: () => HomePageScreen(),
     ),
-     GetPage(
+    GetPage(
       name: loginpageRoute,
       binding: LoginPageBinding(),
-      page: () => LoginScreen(),
+      page: () => LoginPageScreen(),
     ),
   ];
 }

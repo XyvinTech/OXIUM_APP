@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'Utils/app_pages.dart';
 
@@ -17,14 +18,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: kAppName,
+      title: 'Freelancer App',
       debugShowCheckedModeBanner: false,
       builder: EasyLoading.init(),
       theme: ThemeData(
-        fontFamily: 'Lato',
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme.apply(),
+        ),
+        fontFamily: 'Poppins',
         primarySwatch: Colors.grey,
+        scaffoldBackgroundColor: kscaffoldBackgroundColor,
       ),
-      initialRoute: homepageRoute,
+      initialRoute: loginpageRoute,
       getPages: AppPages.pages,
     );
   }
