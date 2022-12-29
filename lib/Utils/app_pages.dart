@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../Bindings/loginpage_binding.dart';
 import '../View/Homepage/homepage.dart';
-import '../View/Login/loginpage.dart';
 
 abstract class AppPages {
   static final List<GetPage> pages = [
@@ -13,10 +12,6 @@ abstract class AppPages {
       binding: HomePageBinding(),
       page: () => HomePageScreen(),
     ),
-    GetPage(
-      name: loginpageRoute,
-      binding: LoginPageBinding(),
-      page: () => LoginPageScreen(),
-    ),
+    
   ];
 }
