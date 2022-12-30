@@ -24,12 +24,12 @@ class CustomAppBar extends StatelessWidget {
         Row(
           children: [
             Text(
-              text!,
+              text,
               style: kAppSkipButtonTextStyle,
             ),
             IconButton(
               onPressed: () {},
-              icon: icon!,
+              icon: icon,
             ),
           ],
         )
