@@ -1,2 +1,2 @@
-const String homepageRoute = '/';
-const String loginpageRoute = '/login';
+const String loginpageRoute = '/';
+const String enterphnnumberpageRoute = '/login';
