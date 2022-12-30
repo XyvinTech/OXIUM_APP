@@ -84,7 +84,7 @@ class LoginPage extends GetView<LoginPageController> {
                             style: kAppBottomTextSpanTextStyle1,
                           ),
                           TextSpan(
-                            text: 'Privacy plicy',
+                            text: 'Privacy Policy.',
                             style: kAppBottomTextSpanTextStyle2,
                           ),
                         ],
