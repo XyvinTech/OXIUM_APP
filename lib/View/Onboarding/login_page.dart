@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
+import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/constants.dart';
@@ -26,7 +26,7 @@ class LoginPage extends GetView<LoginPageController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomAppBar(),
+              LoginCustomAppBar(),
               Spacer(
                 flex: 18,
               ),
@@ -46,7 +46,13 @@ class LoginPage extends GetView<LoginPageController> {
               ),
               //Create Account button
 
-              AppButton(color: Color(0xff00FFB3), text: "Get Started"),
+              AppButton(
+                color: Color(0xff00FFB3),
+                text: "Get Started",
+                onTap: () {
+                  Get.to(EnterNumberPage());
+                },
+              ),
               Spacer(
                 flex: 1,
               ),

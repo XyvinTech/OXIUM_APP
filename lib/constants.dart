@@ -66,6 +66,20 @@ final TextStyle kAppBottomTextSpanTextStyle2 = TextStyle(
   decoration: TextDecoration.underline,
 );
 
+final TextStyle kAppBigTextStyle = TextStyle(
+  fontFamily: "Poppins",
+  fontSize: 20,
+  fontWeight: FontWeight.w600,
+  color: Color(0xff828282),
+);
+
+final TextStyle kAppSmallTextStyle = TextStyle(
+  fontFamily: "Poppins",
+  fontSize: 12,
+  fontWeight: FontWeight.w400,
+  color: Color(0xff828282),
+);
+
 kLog(String value) {
   log(value);
 }

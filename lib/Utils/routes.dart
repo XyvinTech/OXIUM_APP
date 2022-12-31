@@ -1,2 +1,2 @@
 const String loginpageRoute = '/';
-const String enterphnnumberpageRoute = '/login';
+const String enternumberpageRoute = '/enternumber';
