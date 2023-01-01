@@ -1,8 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/constants.dart';
 
+//app button
 class AppButton extends StatelessWidget {
-  const AppButton(
+  const AppButton({Key? key, this.color, required this.text, this.onTap})
+      : super(key: key);
+  final Color? color;
+  final String text;
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
+        height: size.height * 0.1,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(65),
+          color: color ?? Color(0xff0047C3),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontFamily: "Poppins",
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              color: Color(0xffF2F2F2),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//get stated button
+class StartedButton extends StatelessWidget {
+  const StartedButton(
       {Key? key,
       required this.color,
       required this.text,
@@ -55,6 +92,7 @@ class AppButton extends StatelessWidget {
   }
 }
 
+//Login button
 class LoginButton extends StatelessWidget {
   const LoginButton(
       {Key? key, required this.color, required this.text, this.onTap})
@@ -72,7 +110,7 @@ class LoginButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
         height: size.height * 0.1,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(82),
+            borderRadius: BorderRadius.circular(65),
             color: Colors.transparent,
             border: Border.all(
               color: Color(0xff00FFB3),

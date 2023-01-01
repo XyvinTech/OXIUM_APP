@@ -21,14 +21,21 @@ class CustomBigText extends StatelessWidget {
 //CustomSmallText Widget
 class CustomSmallText extends StatelessWidget {
   final String text;
-  const CustomSmallText({super.key, required this.text});
+  final double? size;
+  final Color? color;
+  const CustomSmallText({super.key, required this.text, this.size, this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Text(
         text,
-        style: kAppSmallTextStyle,
+        style: TextStyle(
+          fontFamily: "Poppins",
+          fontSize: size ?? 14,
+          fontWeight: FontWeight.w400,
+          color: color ?? Color(0xff828282),
+        ),
       ),
     );
   }

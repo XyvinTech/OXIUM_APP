@@ -46,11 +46,11 @@ class LoginPage extends GetView<LoginPageController> {
               ),
               //Create Account button
 
-              AppButton(
+              StartedButton(
                 color: Color(0xff00FFB3),
                 text: "Get Started",
                 onTap: () {
-                  Get.to(EnterNumberPage());
+                  Get.to(() => EnterNumberPage());
                 },
               ),
               Spacer(
