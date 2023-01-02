@@ -1,7 +1,9 @@
-import 'package:country_picker/country_picker.dart';
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_pickers.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
+import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Onboarding/enterotp_page.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
@@ -47,7 +49,9 @@ class EnterNumberPage extends GetView<LoginPageController> {
                 ),
                 // enterphnnumber button
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20),
+                  padding: EdgeInsets.only(
+                    left: size.width * 0.05,
+                  ),
                   height: size.height * 0.1,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(60),
@@ -57,31 +61,25 @@ class EnterNumberPage extends GetView<LoginPageController> {
                       )),
                   child: Row(
                     children: [
-                      //  showCountryPicker(
-                      //   context: context,
-                      //   showPhoneCode: true,
-                      //   onSelect: (Country country) {
-                      //     print('Select country: ${country.displayName}');
-                      //   },
-                      // ),
-
-                      Text(
-                        "+880",
-                        style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff4F4F4F),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(bottom: 5),
-                        height: size.height * 0.03,
-                        width: size.width * 0.06,
-                        child: Icon(
-                          Icons.chevron_left,
-                          color: Color(0xff4F4F4F),
-                        ),
+                      CountryPickerDropdown(
+                        onValuePicked: (c) {
+                          controller.country?.value = c.phoneCode;
+                        },
+                        initialValue: "IN",
+                        itemBuilder: (Country country) {
+                          return Text(
+                            "+${country.phoneCode}",
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          );
+                        },
+                        icon: Container(
+                            margin: EdgeInsets.only(right: 5),
+                            height: size.height * 0.03,
+                            width: size.width * 0.03,
+                            child:
+                                Image.asset("assets/images/chevron_left.png")),
                       ),
                       SizedBox(
                         width: size.width * 0.014,
@@ -101,7 +99,6 @@ class EnterNumberPage extends GetView<LoginPageController> {
                           child: TextFormField(
                             onChanged: (String value) {
                               controller.textfield.value = value;
-                              print(controller.textfield);
                             },
                             keyboardType: TextInputType.number,
                             maxLines: 1,
@@ -144,7 +141,7 @@ class EnterNumberPage extends GetView<LoginPageController> {
                     0xffF2F2F2,
                   ),
                   iconColor: Color(0xffF2F2F2),
-                  onTap: () => Get.to(() => EnterOtpPage()),
+                  onTap: () => Get.toNamed(enterotppageRoute),
                 ),
 
                 SizedBox(

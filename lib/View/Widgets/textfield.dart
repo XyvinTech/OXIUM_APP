@@ -9,13 +9,17 @@ class AppTextField extends GetView<LoginPageController> {
   final TextInputType keyboardtype;
   final TextEditingController Controller;
   final void Function(String) onChanged;
+  final void Function()? onTap;
+  final Color color;
   AppTextField(
       {Key? key,
       required this.hintText,
       required this.icon,
       required this.keyboardtype,
       required this.Controller,
-      required this.onChanged})
+      required this.onChanged,
+      required this.color,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -28,11 +32,12 @@ class AppTextField extends GetView<LoginPageController> {
       ),
       height: size.height * 0.08,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(70),
-          border: Border.all(
-            width: 2,
-            color: Color(0xffE0E0E0),
-          )),
+        borderRadius: BorderRadius.circular(70),
+        border: Border.all(
+          width: 2,
+          color: color,
+        ),
+      ),
       child: Row(
         children: [
           Container(
@@ -52,6 +57,7 @@ class AppTextField extends GetView<LoginPageController> {
               child: TextFormField(
                 controller: Controller,
                 onChanged: onChanged,
+                onTap: onTap,
                 keyboardType: keyboardtype,
                 maxLines: 1,
                 decoration: InputDecoration(

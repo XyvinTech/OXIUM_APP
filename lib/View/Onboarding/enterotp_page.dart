@@ -50,7 +50,8 @@ class EnterOtpPage extends GetView<LoginPageController> {
                 Align(
                   alignment: Alignment.center,
                   child: CustomSmallText(
-                      text: "verify your Number ${controller.textfield}"),
+                      text:
+                          "verify your Number ${controller.country}${controller.textfield}"),
                 ),
                 SizedBox(
                   height: size.height * 0.04,

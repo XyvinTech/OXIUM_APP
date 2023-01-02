@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
+import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
@@ -50,7 +51,7 @@ class LoginPage extends GetView<LoginPageController> {
                 color: Color(0xff00FFB3),
                 text: "Get Started",
                 onTap: () {
-                  Get.to(() => EnterNumberPage());
+                  Get.toNamed(enternumberpageRoute);
                 },
               ),
               Spacer(

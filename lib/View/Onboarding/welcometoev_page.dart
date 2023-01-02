@@ -52,8 +52,14 @@ class WelcomeToEvPage extends GetView<LoginPageController> {
 
                 //UserNameTextfield
                 AppTextField(
+                  color: controller.enablenameTextfield == true
+                      ? Color(0xff0047C3)
+                      : Color(0xffE0E0E0),
                   Controller: controller.nameEditingController,
                   onChanged: (String val) {},
+                  onTap: () {
+                    controller.nameTextfieldColorChange();
+                  },
                   hintText: "Enter Your Name",
                   icon: Image.asset(
                     "assets/images/face.png",
@@ -64,6 +70,12 @@ class WelcomeToEvPage extends GetView<LoginPageController> {
                   height: size.height * 0.025,
                 ),
                 AppTextField(
+                  color: controller.enablemailTextfield == true
+                      ? Color(0xff0047C3)
+                      : Color(0xffE0E0E0),
+                  onTap: () {
+                    controller.mailTextFieldColorChange();
+                  },
                   hintText: "Email",
                   icon: Image.asset("assets/images/sms.png"),
                   keyboardtype: TextInputType.emailAddress,
