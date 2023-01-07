@@ -141,7 +141,7 @@ class EnterNumberPage extends GetView<LoginPageController> {
                     0xffF2F2F2,
                   ),
                   iconColor: Color(0xffF2F2F2),
-                  onTap: () => Get.toNamed(enterotppageRoute),
+                  onTap: () => Get.toNamed(Routes.enterotppageRoute),
                 ),
 
                 SizedBox(

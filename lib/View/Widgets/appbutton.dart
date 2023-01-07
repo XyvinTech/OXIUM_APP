@@ -56,15 +56,15 @@ class StartedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-        height: size.height * 0.1,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(82),
-          color: color,
-        ),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
+      height: size.height * 0.1,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(82),
+        color: color,
+      ),
+      child: InkWell(
+        onTap: () {},
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
