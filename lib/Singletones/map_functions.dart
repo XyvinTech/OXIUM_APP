@@ -18,12 +18,14 @@ class MapFunctions {
   String token = '';
   late GoogleMapController controller;
   late StreamSubscription mapStream;
+  double zoom = 16;
+  Position? curPos;
   Rx<CameraPosition> initialPosition = CameraPosition(
-          target: LatLng(37.42796133580664, -122.085749655962), zoom: 14)
+          target: LatLng(37.42796133580664, -122.085749655962), zoom: 15)
       .obs;
 
   void initCameraPosition(LatLng latLng) {
-    initialPosition.value = CameraPosition(target: latLng, zoom: 14);
+    initialPosition.value = CameraPosition(target: latLng, zoom: zoom);
   }
 
   void setMapStyle(GoogleMapController controller) {
@@ -88,12 +90,14 @@ class MapFunctions {
   Future<Position?> getCurrentPosition() async {
     if (await checkLocationPermission())
       return await Geolocator.getCurrentPosition();
+    return null;
   }
 
   Future<void> myPositionListener() async {
     if ((await checkLocationPermission()))
       mapStream = await Geolocator.getPositionStream().listen((event) async {
         await animateToNewPosition(LatLng(event.latitude, event.longitude));
+        curPos = event;
       });
   }
 
