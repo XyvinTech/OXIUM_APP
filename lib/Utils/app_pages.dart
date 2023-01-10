@@ -1,7 +1,11 @@
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Utils/routes.dart';
+
+import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
+
 import 'package:freelancer_app/View/Homepage/homepage.dart';
+
 import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/enterotp_page.dart';
 import 'package:freelancer_app/View/Onboarding/login_page.dart';
@@ -35,6 +39,12 @@ abstract class AppPages {
       name: Routes.welcometoevRoute,
       binding: LoginPageBinding(),
       page: () => WelcomeToEvPage(),
+    ),
+
+    GetPage(
+      name: Routes.addvehiclesRoute,
+      binding: LoginPageBinding(),
+      page: () => AddVehiclesPage(),
     ),
 
     ///

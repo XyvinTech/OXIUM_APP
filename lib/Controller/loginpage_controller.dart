@@ -1,5 +1,6 @@
 import 'package:country_pickers/country.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:freelancer_app/Model/vehiclesModel.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -15,6 +16,16 @@ class LoginPageController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxString textfield = "".obs;
   RxString? country = "+91".obs;
+  VehiclesModel? vehiclesModel;
+
+  List vehiclesdata = [
+    VehiclesModel(image: "assets/images/jeep.png", vehiclesName: "Jeep"),
+    VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
+    VehiclesModel(image: "assets/images/jeep.png", vehiclesName: "Jeep"),
+    VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
+    VehiclesModel(image: "assets/images/jeep.png", vehiclesName: "Jeep"),
+    VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
+  ];
 
   void nameTextfieldColorChange() {
     enablenameTextfield.value = true;
