@@ -9,4 +9,5 @@ class Routes {
   static String enterotppageRoute = '/enterotp';
   static String welcometoevRoute = '/welcometoev';
   static String homePageRoute = '/homepage';
+  static String searchPageRoute = '/search';
 }

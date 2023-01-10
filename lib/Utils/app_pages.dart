@@ -8,6 +8,8 @@ import 'package:freelancer_app/View/Onboarding/login_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
 import 'package:get/get.dart';
 import '../Bindings/loginpage_binding.dart';
+import '../Bindings/search_screen_binding.dart';
+import '../View/Homepage/search_screen.dart';
 
 abstract class AppPages {
   static final List<GetPage> pages = [
@@ -42,6 +44,11 @@ abstract class AppPages {
       name: Routes.homePageRoute,
       binding: HomePageBinding(),
       page: () => HomePageScreen(),
+    ),
+    GetPage(
+      name: Routes.searchPageRoute,
+      binding: SearchScreenBinding(),
+      page: () => SearchScreen(),
     ),
   ];
 }
