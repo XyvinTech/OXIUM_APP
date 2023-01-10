@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
+import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -86,7 +87,12 @@ class WelcomeToEvPage extends GetView<LoginPageController> {
                 SizedBox(
                   height: size.height * 0.25,
                 ),
-                AppButton(text: "Submit"),
+                AppButton(
+                  text: "Submit",
+                  onTap: () {
+                    Get.toNamed(addvehiclesRoute);
+                  },
+                ),
               ],
             ),
           ),
