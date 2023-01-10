@@ -10,7 +10,6 @@ import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Utils/routes.dart';
@@ -22,6 +21,7 @@ class HomePageScreen extends GetView<HomePageController> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Color(0xffF0F1F6),
       body: Container(
           alignment: Alignment.center,
           child: ClipRRect(
@@ -120,30 +120,40 @@ class HomePageScreen extends GetView<HomePageController> {
                 Positioned(
                     bottom: size.height * .19,
                     right: size.width * .03,
-                    child: Container(
-                        padding: EdgeInsets.all(size.width * .037),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 10, color: Colors.grey.shade400)
-                            ]),
-                        child:
-                            SvgPicture.asset('assets/svg/notifications.svg'))),
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(Routes.notificationPageRoute);
+                      },
+                      child: Container(
+                          padding: EdgeInsets.all(size.width * .037),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 10, color: Colors.grey.shade400)
+                              ]),
+                          child:
+                              SvgPicture.asset('assets/svg/notifications.svg')),
+                    )),
                 Positioned(
                     bottom: size.height * .11,
                     right: size.width * .03,
-                    child: Container(
-                        padding: EdgeInsets.all(size.width * .037),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 10, color: Colors.grey.shade400)
-                            ]),
-                        child: SvgPicture.asset('assets/svg/tune.svg'))),
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(Routes.filterPageRoute);
+                      },
+                      child: Container(
+                          padding: EdgeInsets.all(size.width * .037),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 10, color: Colors.grey.shade400)
+                              ]),
+                          child: SvgPicture.asset('assets/svg/tune.svg')),
+                    )),
                 Positioned(
                     bottom: size.height * .03,
                     right: size.width * .03,

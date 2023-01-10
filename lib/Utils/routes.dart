@@ -19,4 +19,6 @@ class Routes {
   static String addvehiclesRoute = '/addvehicles';
 
   static String searchPageRoute = '/search';
+  static String notificationPageRoute = '/notification';
+  static String filterPageRoute = '/filter';
 }
