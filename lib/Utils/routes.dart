@@ -15,5 +15,8 @@ class Routes {
   static String enterotppageRoute = '/enterotp';
   static String welcometoevRoute = '/welcometoev';
   static String homePageRoute = '/homepage';
+
   static String addvehiclesRoute = '/addvehicles';
+
+  static String searchPageRoute = '/search';
 }

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -20,6 +22,9 @@ class MapFunctions {
   late StreamSubscription mapStream;
   double zoom = 16;
   Position? curPos;
+  Set<Marker> markers_homepage = {};
+  Uint8List? bytesBlue, bytesGreen;
+
   Rx<CameraPosition> initialPosition = CameraPosition(
           target: LatLng(37.42796133580664, -122.085749655962), zoom: 15)
       .obs;
@@ -36,7 +41,7 @@ class MapFunctions {
     "elementType": "geometry",
     "stylers": [
       {
-        // "color": "#dfe1e6"
+        "color": "#F2F6FC"
       }
     ]
   },
@@ -96,7 +101,7 @@ class MapFunctions {
   Future<void> myPositionListener() async {
     if ((await checkLocationPermission()))
       mapStream = await Geolocator.getPositionStream().listen((event) async {
-        await animateToNewPosition(LatLng(event.latitude, event.longitude));
+        // await animateToNewPosition(LatLng(event.latitude, event.longitude));
         curPos = event;
       });
   }
@@ -126,5 +131,22 @@ class MapFunctions {
             southwest: LatLng(minLat, minLong),
             northeast: LatLng(maxLat, maxLong)),
         90));
+  }
+
+  addMarkerHomePage({
+    required String name,
+    required LatLng latLng,
+    required bool isGreen,
+  }) {
+    markers_homepage.add(Marker(
+        onTap: () {
+          //TODO: show bottom sheet when clicked on marker
+          MapFunctions().animateToNewPosition(latLng);
+        },
+        markerId: MarkerId(name),
+        // infoWindow: InfoWindow(title: name),
+        icon: BitmapDescriptor.fromBytes(isGreen ? bytesGreen! : bytesBlue!),
+        position: latLng,
+        anchor: Offset(.5, .5)));
   }
 }
