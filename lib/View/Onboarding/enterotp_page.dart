@@ -120,7 +120,7 @@ class EnterOtpPage extends GetView<LoginPageController> {
                 AppButton(
                   text: "Verify Number",
                   onTap: () {
-                    Get.toNamed(welcometoevRoute);
+                    Get.toNamed(Routes.welcometoevRoute);
                   },
                 ),
               ],

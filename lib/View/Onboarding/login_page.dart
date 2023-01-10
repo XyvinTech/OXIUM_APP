@@ -51,7 +51,7 @@ class LoginPage extends GetView<LoginPageController> {
                 color: Color(0xff00FFB3),
                 text: "Get Started",
                 onTap: () {
-                  Get.toNamed(enternumberpageRoute);
+                  Get.toNamed(Routes.enternumberpageRoute);
                 },
               ),
               Spacer(

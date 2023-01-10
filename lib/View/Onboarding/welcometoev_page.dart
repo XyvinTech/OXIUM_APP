@@ -90,7 +90,7 @@ class WelcomeToEvPage extends GetView<LoginPageController> {
                 AppButton(
                   text: "Submit",
                   onTap: () {
-                    Get.toNamed(addvehiclesRoute);
+                    Get.toNamed(Routes.addvehiclesRoute);
                   },
                 ),
               ],
