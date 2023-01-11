@@ -47,7 +47,8 @@ class LoginCustomAppBar extends StatelessWidget {
 class CustomAppBar extends StatelessWidget {
   final String? text;
   final Widget? icon;
-  const CustomAppBar({super.key, this.text, this.icon});
+  final Color? color;
+  const CustomAppBar({super.key, this.text, this.icon, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,7 @@ class CustomAppBar extends StatelessWidget {
         right: size.width * 0.055,
       ),
       height: size.height * 0.09,
-      color: kOnboardingBackgroundColors,
+      color: color ?? kOnboardingBackgroundColors,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

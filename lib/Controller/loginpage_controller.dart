@@ -16,16 +16,6 @@ class LoginPageController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxString textfield = "".obs;
   RxString? country = "+91".obs;
-  VehiclesModel? vehiclesModel;
-
-  List vehiclesdata = [
-    VehiclesModel(image: "assets/images/jeep.png", vehiclesName: "Jeep"),
-    VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
-    VehiclesModel(image: "assets/images/jeep.png", vehiclesName: "Jeep"),
-    VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
-    VehiclesModel(image: "assets/images/jeep.png", vehiclesName: "Jeep"),
-    VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
-  ];
 
   void nameTextfieldColorChange() {
     enablenameTextfield.value = true;

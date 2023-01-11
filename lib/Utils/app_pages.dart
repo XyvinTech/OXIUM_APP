@@ -1,4 +1,5 @@
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
+import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 
@@ -43,7 +44,7 @@ abstract class AppPages {
 
     GetPage(
       name: Routes.addvehiclesRoute,
-      binding: LoginPageBinding(),
+      binding: VehicleScreenBinding(),
       page: () => AddVehiclesPage(),
     ),
 
