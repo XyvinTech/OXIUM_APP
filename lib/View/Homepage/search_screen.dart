@@ -24,16 +24,17 @@ class SearchScreen extends GetView<SearchScreenController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: EdgeInsets.all(size.height * .024),
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(color: Colors.grey.shade400, blurRadius: 8)
-                ], shape: BoxShape.circle, color: Colors.white),
-                child: InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: SvgPicture.asset('assets/svg/arrow_back_ios.svg')),
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  padding: EdgeInsets.all(size.height * .024),
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(color: Colors.grey.shade400, blurRadius: 8)
+                  ], shape: BoxShape.circle, color: Colors.white),
+                  child: SvgPicture.asset('assets/svg/arrow_back_ios.svg'),
+                ),
               ),
               width(size.width * .02),
               Container(
@@ -136,51 +137,55 @@ class SearchScreen extends GetView<SearchScreenController> {
                 shrinkWrap: true,
                 itemCount: controller.chargingCafeModelList.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: size.width * .04),
-                    child: Column(
-                      children: [
-                        Row(children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset('assets/svg/device_reset.svg'),
-                              CustomText(
-                                  text: '650 m',
-                                  size: 10,
-                                  color: Color(0xff828282))
-                            ],
+                  return InkWell(
+                    onTap: () {},
+                    child: Container(
+                      margin:
+                          EdgeInsets.symmetric(horizontal: size.width * .04),
+                      child: Column(
+                        children: [
+                          Row(children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/svg/device_reset.svg'),
+                                CustomText(
+                                    text: '650 m',
+                                    size: 10,
+                                    color: Color(0xff828282))
+                              ],
+                            ),
+                            width(size.width * .06),
+                            Expanded(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomText(
+                                  text: controller
+                                      .chargingCafeModelList[index].name,
+                                  size: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff4F4F4F),
+                                ),
+                                CustomText(
+                                  text: controller
+                                      .chargingCafeModelList[index].location,
+                                  size: 12,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xff828282),
+                                ),
+                              ],
+                            )),
+                            SvgPicture.asset('assets/svg/arrow_forward_ios.svg')
+                          ]),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: size.height * .007),
+                            child: Divider(),
                           ),
-                          width(size.width * .06),
-                          Expanded(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomText(
-                                text: controller
-                                    .chargingCafeModelList[index].name,
-                                size: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff4F4F4F),
-                              ),
-                              CustomText(
-                                text: controller
-                                    .chargingCafeModelList[index].location,
-                                size: 12,
-                                fontWeight: FontWeight.normal,
-                                color: Color(0xff828282),
-                              ),
-                            ],
-                          )),
-                          SvgPicture.asset('assets/svg/arrow_forward_ios.svg')
-                        ]),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: size.height * .007),
-                          child: Divider(),
-                        ),
-                        height(size.height * .0065)
-                      ],
+                          height(size.height * .0065)
+                        ],
+                      ),
                     ),
                   );
                 }),
