@@ -34,6 +34,9 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                 automaticallyImplyLeading: false,
                 expandedHeight: size.height * 0.25,
                 collapsedHeight: size.height * 0.25,
+                snap: true,
+                floating: true,
+                // pinned: true,
                 flexibleSpace: _allVehicles(),
               ),
             ];
@@ -88,83 +91,86 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
       children: [
         Padding(
           padding: const EdgeInsets.only(right: 5),
-          child: Container(
-            height: 89,
-            width: 89,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(28),
-              color: kwhite,
-              border: Border.all(
-                width: 1,
-                color: Color(0xffE0E0E0),
+          child: InkWell(
+            onTap: () {
+              controller.isSelectedVehicleindex.value = -1;
+              controller.isSelectedindex.value = -1;
+            },
+            child: Container(
+              height: 89,
+              width: 89,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(28),
+                color: kwhite,
+                border: Border.all(
+                  width: 1,
+                  color: Color(0xffE0E0E0),
+                ),
               ),
-            ),
-            child: Center(
-              child: CustomBigText(text: "All"),
+              child: Center(
+                child: CustomBigText(text: "All"),
+              ),
             ),
           ),
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Container(
-            height: 95,
-            width: 275,
-            child: ListView.builder(
-              itemCount: controller.vehiclesdata.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (_, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Obx(() => InkWell(
-                        onTap: () {
-                          controller.isSelectedindex!.value = index;
-                        },
-                        child: Container(
-                          height: 89,
-                          width: 89,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(28),
-                            color: controller.isSelectedindex == index
-                                ? Color(0xff0047C3)
-                                : kwhite,
-                            border: Border.all(
-                              width: 1,
-                              color: Color(0xffE0E0E0),
-                            ),
+        Container(
+          height: 95,
+          width: 275,
+          child: ListView.builder(
+            itemCount: controller.vehiclesdata.length,
+            scrollDirection: Axis.horizontal,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (_, index) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Obx(() => InkWell(
+                      onTap: () {
+                        controller.isSelectedindex!.value = index;
+                      },
+                      child: Container(
+                        height: 89,
+                        width: 89,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(28),
+                          color: controller.isSelectedindex == index
+                              ? Color(0xff0047C3)
+                              : kwhite,
+                          border: Border.all(
+                            width: 1,
+                            color: Color(0xffE0E0E0),
                           ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: Container(
-                                  height: 48,
-                                  width: 48,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          controller.vehiclesdata[index].image),
-                                    ),
+                        ),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Container(
+                                height: 48,
+                                width: 48,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        controller.vehiclesdata[index].image),
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              CustomSmallText(
-                                text:
-                                    controller.vehiclesdata[index].vehiclesName,
-                                color: controller.isSelectedindex == index
-                                    ? Color(0xffF2F2F2)
-                                    : Color(0xff828282),
-                                size: 12,
-                              ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            CustomSmallText(
+                              text: controller.vehiclesdata[index].vehiclesName,
+                              color: controller.isSelectedindex == index
+                                  ? Color(0xffF2F2F2)
+                                  : Color(0xff828282),
+                              size: 12,
+                            ),
+                          ],
                         ),
-                      )),
-                );
-              },
-            ),
+                      ),
+                    )),
+              );
+            },
           ),
         ),
       ],
@@ -177,101 +183,104 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
       color: kscaffoldBackgroundColor,
       child: Column(
         children: [
-          Container(
-            color: kscaffoldBackgroundColor,
-            height: size.height * 0.55,
-            width: 320,
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: 6,
-              itemBuilder: (_, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Obx(() => InkWell(
-                        onTap: (() {
-                          controller.isSelectedVehicleindex!.value = index;
-                        }),
-                        child: Container(
-                          height: size.height * 0.155,
-                          width: size.width * 0.075,
-                          decoration: BoxDecoration(
-                            color: controller.isSelectedVehicleindex == index
-                                ? Color(0xffEFFFF6)
-                                : kwhite,
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(
-                              width: 2,
+          Expanded(
+            child: Container(
+              color: kscaffoldBackgroundColor,
+              padding: EdgeInsets.symmetric(horizontal: size.width * .05),
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: 100,
+                itemBuilder: (_, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Obx(() => InkWell(
+                          onTap: (() {
+                            controller.isSelectedVehicleindex!.value = index;
+                          }),
+                          child: Container(
+                            height: size.height * 0.155,
+                            width: size.width * 0.075,
+                            decoration: BoxDecoration(
                               color: controller.isSelectedVehicleindex == index
-                                  ? Color.fromRGBO(135, 221, 171, 0.6)
-                                  : Color(0xffE0E0E0),
+                                  ? Color(0xffEFFFF6)
+                                  : kwhite,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                width: 2,
+                                color:
+                                    controller.isSelectedVehicleindex == index
+                                        ? Color.fromRGBO(135, 221, 171, 0.6)
+                                        : Color(0xffE0E0E0),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Image.asset(
+                                  "assets/images/jeep1.png",
+                                  height: size.height * 0.12,
+                                  width: size.width * 0.32,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CustomSmallText(
+                                          text: "Jeep",
+                                          color: Color(0xff828282),
+                                        ),
+                                        CustomBigText(
+                                          text: "RUBICON",
+                                          size: 16,
+                                          color: Color(0xff4F4F4F),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: 22,
+                                          color: Color.fromRGBO(
+                                              184, 210, 255, 0.6),
+                                          child: Center(
+                                            child: CustomSmallText(
+                                              text: "Type2 CCS",
+                                              color: Color(0xff0047C3),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.02,
+                                        ),
+                                        Container(
+                                          height: 22,
+                                          color: Color.fromRGBO(
+                                              184, 210, 255, 0.6),
+                                          child: Center(
+                                            child: CustomSmallText(
+                                              text: "Type2 CCS",
+                                              color: Color(0xff0047C3),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                "assets/images/jeep1.png",
-                                height: size.height * 0.12,
-                                width: size.width * 0.32,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CustomSmallText(
-                                        text: "Jeep",
-                                        color: Color(0xff828282),
-                                      ),
-                                      CustomBigText(
-                                        text: "RUBICON",
-                                        size: 16,
-                                        color: Color(0xff4F4F4F),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 22,
-                                        color:
-                                            Color.fromRGBO(184, 210, 255, 0.6),
-                                        child: Center(
-                                          child: CustomSmallText(
-                                            text: "Type2 CCS",
-                                            color: Color(0xff0047C3),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: size.width * 0.02,
-                                      ),
-                                      Container(
-                                        height: 22,
-                                        color:
-                                            Color.fromRGBO(184, 210, 255, 0.6),
-                                        child: Center(
-                                          child: CustomSmallText(
-                                            text: "Type2 CCS",
-                                            color: Color(0xff0047C3),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      )),
-                );
-              },
+                        )),
+                  );
+                },
+              ),
             ),
           ),
         ],
