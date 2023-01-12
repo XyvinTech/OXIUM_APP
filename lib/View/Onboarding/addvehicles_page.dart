@@ -119,7 +119,6 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
           child: ListView.builder(
             itemCount: controller.vehiclesdata.length,
             scrollDirection: Axis.horizontal,
-            physics: NeverScrollableScrollPhysics(),
             itemBuilder: (_, index) {
               return Padding(
                 padding: const EdgeInsets.only(left: 10),
