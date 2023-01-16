@@ -4,8 +4,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:freelancer_app/Controller/vehicles_screen_controller.dart';
+import 'package:freelancer_app/Utils/routes.dart';
 
 import 'package:freelancer_app/View/Widgets/appbar.dart';
+import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -124,6 +126,7 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                 padding: const EdgeInsets.only(left: 10),
                 child: Obx(() => InkWell(
                       onTap: () {
+                        controller.isVisible.value = true;
                         controller.isSelectedindex!.value = index;
                       },
                       child: Container(
@@ -194,6 +197,7 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                     padding: const EdgeInsets.only(top: 10),
                     child: Obx(() => InkWell(
                           onTap: (() {
+                            controller.isVisible.value = true;
                             controller.isSelectedVehicleindex!.value = index;
                           }),
                           child: Container(
@@ -279,6 +283,37 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                         )),
                   );
                 },
+              ),
+            ),
+          ),
+          Visibility(
+            maintainState: true,
+            visible: controller.isVisible.value,
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(Routes.vehicledetailspageRoute);
+              },
+              child: Container(
+                margin: EdgeInsets.only(
+                    left: size.width * 0.055,
+                    right: size.width * 0.055,
+                    bottom: size.height * 0.03),
+                height: size.height * 0.08,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(65),
+                  color: Color(0xff0047C3),
+                ),
+                child: Center(
+                  child: Text(
+                    "Add Vehicles",
+                    style: TextStyle(
+                      fontFamily: "Poppins",
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: Color(0xffF2F2F2),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
