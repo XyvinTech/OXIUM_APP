@@ -16,7 +16,7 @@ class AppButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-        height: size.height * 0.1,
+        height: size.height * 0.08,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(65),
           color: color ?? Color(0xff0047C3),
@@ -58,7 +58,7 @@ class StartedButton extends StatelessWidget {
     size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-      height: size.height * 0.1,
+      height: size.height * 0.08,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(82),
         color: color,
@@ -108,7 +108,7 @@ class LoginButton extends StatelessWidget {
       onTap: () {},
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-        height: size.height * 0.1,
+        height: size.height * 0.08,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(65),
             color: Colors.transparent,
@@ -172,7 +172,7 @@ class SignUpButton extends StatelessWidget {
       onTap: () {},
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-        height: size.height * 0.1,
+        height: size.height * 0.08,
         decoration: BoxDecoration(
           border: Border.all(
               width: borderWidth ?? 0,

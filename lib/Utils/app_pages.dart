@@ -10,6 +10,8 @@ import 'package:freelancer_app/View/Homepage/homepage.dart';
 import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/enterotp_page.dart';
 import 'package:freelancer_app/View/Onboarding/login_page.dart';
+import 'package:freelancer_app/View/Onboarding/myvehicle_page.dart';
+import 'package:freelancer_app/View/Onboarding/personal_vehicle_details_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
 import 'package:get/get.dart';
 import '../Bindings/filter_screen_binding.dart';
@@ -50,6 +52,16 @@ abstract class AppPages {
       name: Routes.addvehiclesRoute,
       binding: VehicleScreenBinding(),
       page: () => AddVehiclesPage(),
+    ),
+    GetPage(
+      name: Routes.vehicledetailspageRoute,
+      binding: VehicleScreenBinding(),
+      page: () => PersonalVechileDetailsPage(),
+    ),
+    GetPage(
+      name: Routes.myvehicleRoute,
+      binding: VehicleScreenBinding(),
+      page: () => MyVehiclePage(),
     ),
 
     ///
