@@ -1,13 +1,7 @@
-import 'dart:developer';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-
 import 'package:freelancer_app/Controller/vehicles_screen_controller.dart';
 import 'package:freelancer_app/Utils/routes.dart';
-
 import 'package:freelancer_app/View/Widgets/appbar.dart';
-import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';

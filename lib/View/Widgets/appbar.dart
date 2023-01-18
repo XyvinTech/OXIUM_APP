@@ -48,7 +48,8 @@ class CustomAppBar extends StatelessWidget {
   final String? text;
   final Widget? icon;
   final Color? color;
-  const CustomAppBar({super.key, this.text, this.icon, this.color});
+  final void Function()? ontap;
+  const CustomAppBar({super.key, this.text, this.icon, this.color, this.ontap});
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,7 @@ class CustomAppBar extends StatelessWidget {
               if (icon != null)
                 IconButton(
                   color: kwhite,
-                  onPressed: () {},
+                  onPressed: ontap,
                   icon: icon!,
                 ),
             ],

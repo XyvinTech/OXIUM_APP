@@ -13,7 +13,6 @@ class LoginPage extends GetView<LoginPageController> {
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         backgroundColor: kOnboardingBackgroundColors,

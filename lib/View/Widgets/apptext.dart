@@ -7,20 +7,29 @@ class CustomBigText extends StatelessWidget {
   final String text;
   final double? size;
   final Color? color;
+  final void Function()? ontap;
   final FontWeight? fontWeight;
   const CustomBigText(
-      {super.key, required this.text, this.size, this.color, this.fontWeight});
+      {super.key,
+      required this.text,
+      this.size,
+      this.color,
+      this.fontWeight,
+      this.ontap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        text,
-        style: TextStyle(
-          fontFamily: "Poppins",
-          fontSize: size ?? 20,
-          fontWeight: fontWeight ?? FontWeight.w600,
-          color: color ?? Color(0xff828282),
+    return InkWell(
+      onTap: ontap,
+      child: Container(
+        child: Text(
+          text,
+          style: TextStyle(
+            fontFamily: "Poppins",
+            fontSize: size ?? 20,
+            fontWeight: fontWeight ?? FontWeight.w600,
+            color: color ?? Color(0xff828282),
+          ),
         ),
       ),
     );
@@ -32,20 +41,29 @@ class CustomSmallText extends StatelessWidget {
   final String text;
   final double? size;
   final Color? color;
+  final void Function()? ontap;
   final FontWeight? fontWeight;
   const CustomSmallText(
-      {super.key, required this.text, this.size, this.color, this.fontWeight});
+      {super.key,
+      required this.text,
+      this.size,
+      this.color,
+      this.fontWeight,
+      this.ontap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        text,
-        style: TextStyle(
-          fontFamily: "Poppins",
-          fontSize: size ?? 14,
-          fontWeight: fontWeight ?? FontWeight.w400,
-          color: color ?? Color(0xff828282),
+    return InkWell(
+      onTap: ontap,
+      child: Container(
+        child: Text(
+          text,
+          style: TextStyle(
+            fontFamily: "Poppins",
+            fontSize: size ?? 14,
+            fontWeight: fontWeight ?? FontWeight.w400,
+            color: color ?? Color(0xff828282),
+          ),
         ),
       ),
     );
