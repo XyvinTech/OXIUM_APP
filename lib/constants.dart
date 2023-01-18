@@ -15,6 +15,7 @@ final Color ktransparent = Colors.transparent;
 final Color kOnboardingBackgroundColors = Color(0xff0047C3);
 final Color ktextFieldColor = Color(0xffEEEEEE);
 final Color kscaffoldBackgroundColor = Color(0xFFF5F5F5);
+final Color kDefaultHomePageBackgroundColor = Color(0xffF0F1F6);
 
 //appStrings
 final String kAppName = 'Freelancer app';
@@ -83,5 +84,3 @@ final TextStyle kAppSmallTextStyle = TextStyle(
 kLog(String value) {
   log(value);
 }
-
-

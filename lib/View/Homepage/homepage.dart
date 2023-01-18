@@ -7,6 +7,7 @@ import 'package:freelancer_app/Model/chargingCafeModel.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/my_flutter_app_icons.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/View/Homepage/drawer.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,9 @@ class HomePageScreen extends GetView<HomePageController> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xffF0F1F6),
+      key: controller.drawerKey,
+      backgroundColor: kDefaultHomePageBackgroundColor,
+      drawer: CustomDrawer(),
       body: Container(
           alignment: Alignment.center,
           child: ClipRRect(
@@ -67,17 +70,18 @@ class HomePageScreen extends GetView<HomePageController> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            padding: EdgeInsets.all(size.height * .024),
-                            decoration: BoxDecoration(boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey.shade400, blurRadius: 8)
-                            ], shape: BoxShape.circle, color: Colors.white),
-                            child: InkWell(
-                                onTap: () {
-                                  //TODO: open menu
-                                },
-                                child: SvgPicture.asset('assets/svg/list.svg')),
+                          InkWell(
+                            onTap: () {
+                              controller.drawerKey.currentState!.openDrawer();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(size.height * .024),
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    color: Colors.grey.shade400, blurRadius: 8)
+                              ], shape: BoxShape.circle, color: Colors.white),
+                              child: SvgPicture.asset('assets/svg/list.svg'),
+                            ),
                           ),
                           width(size.width * .02),
                           Container(

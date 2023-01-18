@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';
@@ -10,6 +11,7 @@ class HomePageController extends GetxController {
   RxString done = 'do'.obs;
   RxInt activeIndex = 0.obs;
   RxInt reload = 0.obs;
+    final GlobalKey<ScaffoldState>  drawerKey = GlobalKey();
 
   @override
   void onInit() async {
