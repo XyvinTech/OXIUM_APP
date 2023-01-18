@@ -124,7 +124,7 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                 padding: const EdgeInsets.only(left: 10),
                 child: Obx(() => InkWell(
                       onTap: () {
-                        controller.isSelectedindex!.value = index;
+                        controller.isSelectedindex.value = index;
                       },
                       child: Container(
                         height: 89,
@@ -194,7 +194,7 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                     padding: const EdgeInsets.only(top: 10),
                     child: Obx(() => InkWell(
                           onTap: (() {
-                            controller.isSelectedVehicleindex!.value = index;
+                            controller.isSelectedVehicleindex.value = index;
                           }),
                           child: Container(
                             height: size.height * 0.155,
