@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
-
+import 'package:get/get.dart';
+import '../../Utils/routes.dart';
 import '../../constants.dart';
 import '../Widgets/appbar.dart';
 import '../Widgets/apptext.dart';
@@ -18,6 +18,7 @@ class MyVehiclePage extends StatelessWidget {
           preferredSize: Size.fromHeight(size.height * 0.09),
           child: CustomAppBar(
             icon: Image.asset("assets/images/add.png"),
+            ontap: (() {}),
           ),
         ),
         body: Padding(
@@ -35,6 +36,9 @@ class MyVehiclePage extends StatelessWidget {
               _myVehicle(),
               Expanded(child: Container()),
               StartedButton(
+                onTap: () {
+                  Get.toNamed(Routes.smartchargeRoute);
+                },
                 color: Color(0xff0047C3),
                 text: "Get Charged",
                 textColor: Color(0xffF2F2F2),

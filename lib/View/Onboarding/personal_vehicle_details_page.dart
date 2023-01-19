@@ -4,7 +4,6 @@ import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/View/Widgets/textfield.dart';
 import 'package:get/get.dart';
-
 import '../../Utils/routes.dart';
 import '../../constants.dart';
 import '../Widgets/appbar.dart';
