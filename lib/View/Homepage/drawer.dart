@@ -4,6 +4,7 @@ import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
+import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -22,10 +23,15 @@ class CustomDrawer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SvgPicture.asset('assets/svg/drawer_logo.svg'),
-                  Icon(
-                    Icons.close,
-                    size: 30,
-                    color: Colors.white,
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Icon(
+                      Icons.close,
+                      size: 30,
+                      color: Colors.white,
+                    ),
                   )
                 ]),
           ),
