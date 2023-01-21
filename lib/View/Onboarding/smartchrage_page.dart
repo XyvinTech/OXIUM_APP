@@ -28,32 +28,35 @@ class SmartChargeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: size.width * 0.055,
-                    right: size.width * 0.055,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomBigText(
-                        text: "GO EC Smart Charge RFID",
-                        color: Color(0xff4F4F4f),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.015,
-                      ),
-                      CustomSmallText(text: "GO EC RFID make your charging"),
-                      CustomSmallText(text: "much easier"),
-                    ],
+              Expanded(
+                child: Container(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: size.width * 0.055,
+                      right: size.width * 0.055,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomBigText(
+                          text: "GO EC Smart Charge RFID",
+                          color: Color(0xff4F4F4f),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.015,
+                        ),
+                        CustomSmallText(text: "GO EC RFID make your charging"),
+                        CustomSmallText(text: "much easier"),
+                      ],
+                    ),
                   ),
                 ),
               ),
               Container(
                 height: size.height * 0.724,
                 width: size.width,
-                color: Color(0xffF3F5F9),
+                // color: Color(0xffF3F5F9),
+
                 child: Stack(
                   children: [
                     Positioned(
@@ -104,7 +107,9 @@ class SmartChargeScreen extends StatelessWidget {
                         bottom: size.height * 0.1,
                         left: size.width * 0.1,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(Routes.rfidNumberRoute);
+                          },
                           child: Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: size.width * 0.1),
@@ -132,7 +137,7 @@ class SmartChargeScreen extends StatelessWidget {
                       left: size.width * 0.37,
                       child: InkWell(
                         onTap: (() {
-                          Get.toNamed(Routes.rfidNumberRoute);
+                          Get.offAllNamed(Routes.homePageRoute);
                         }),
                         child: Row(
                           children: [

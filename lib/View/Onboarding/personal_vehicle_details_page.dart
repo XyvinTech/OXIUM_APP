@@ -18,7 +18,11 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
         child: Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.09),
-        child: CustomAppBar(),
+        child: CustomAppBar(
+          ontap: () {
+            Get.toNamed(Routes.vehicledetailspageRoute);
+          },
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.only(

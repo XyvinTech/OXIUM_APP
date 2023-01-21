@@ -1,4 +1,4 @@
-import 'package:country_pickers/country.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:freelancer_app/Model/vehiclesModel.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
@@ -15,7 +15,7 @@ class LoginPageController extends GetxController {
   RxBool enablemailTextfield = false.obs;
   RxInt selectedIndex = 0.obs;
   RxString textfield = "".obs;
-  RxString? country = "+91".obs;
+  RxString country = "+91".obs;
 
   void nameTextfieldColorChange() {
     enablenameTextfield.value = true;

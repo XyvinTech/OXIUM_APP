@@ -1,5 +1,4 @@
-import 'package:country_pickers/country.dart';
-import 'package:country_pickers/country_pickers.dart';
+import 'package:country_picker/country_picker.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
@@ -26,8 +25,8 @@ class EnterNumberPage extends GetView<LoginPageController> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(size.height * 0.09),
           child: CustomAppBar(
-            text: "skip",
-            icon: Icon(Icons.arrow_forward),
+            text: "Skip",
+            icon: Icon(Icons.arrow_forward,color: Colors.white,),
           ),
         ),
         body: Padding(
@@ -61,25 +60,43 @@ class EnterNumberPage extends GetView<LoginPageController> {
                       )),
                   child: Row(
                     children: [
-                      CountryPickerDropdown(
-                        onValuePicked: (c) {
-                          controller.country?.value = c.phoneCode;
-                        },
-                        initialValue: "IN",
-                        itemBuilder: (Country country) {
-                          return Text(
-                            "+${country.phoneCode}",
-                            style: TextStyle(
-                              fontSize: 15,
+                      Obx(
+                        () {
+                          return InkWell(
+                            onTap: () {
+                              showCountryPicker(
+                                context: context,
+                                favorite: ['IN', 'BD'],
+                                showPhoneCode: true,
+                                onSelect: (Country country) {
+                                  print(
+                                      'Select country: ${country.displayName}');
+                                  controller.country.value = country.phoneCode;
+                                },
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  "+${controller.country.value}",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.expand_more,
+                                  size: 20,
+                                )
+                              ],
                             ),
                           );
                         },
-                        icon: Container(
-                            margin: EdgeInsets.only(right: 5),
-                            height: size.height * 0.03,
-                            width: size.width * 0.03,
-                            child:
-                                Image.asset("assets/images/chevron_left.png")),
+                        // icon: Container(
+                        //     margin: EdgeInsets.only(right: 5),
+                        //     height: size.height * 0.03,
+                        //     width: size.width * 0.03,
+                        //     child:
+                        //         Image.asset("assets/images/chevron_left.png")),
                       ),
                       SizedBox(
                         width: size.width * 0.014,
@@ -103,7 +120,7 @@ class EnterNumberPage extends GetView<LoginPageController> {
                             keyboardType: TextInputType.number,
                             maxLines: 1,
                             inputFormatters: [
-                              LengthLimitingTextInputFormatter(15),
+                              LengthLimitingTextInputFormatter(10),
                               FilteringTextInputFormatter.digitsOnly,
                             ],
                             decoration: InputDecoration(

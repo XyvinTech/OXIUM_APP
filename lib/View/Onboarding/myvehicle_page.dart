@@ -18,7 +18,9 @@ class MyVehiclePage extends StatelessWidget {
           preferredSize: Size.fromHeight(size.height * 0.09),
           child: CustomAppBar(
             icon: Image.asset("assets/images/add.png"),
-            ontap: (() {}),
+            ontap: (() {
+              Get.toNamed(Routes.addvehiclesRoute);
+            }),
           ),
         ),
         body: Padding(

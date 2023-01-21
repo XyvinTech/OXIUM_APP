@@ -64,7 +64,7 @@ class StartedButton extends StatelessWidget {
         color: color,
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

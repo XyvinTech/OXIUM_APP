@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -35,48 +35,53 @@ class CustomDrawer extends StatelessWidget {
                   )
                 ]),
           ),
-          Container(
-            height: size.height * .12,
-            color: Color(0xff00399B),
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
-            child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Container(
-                  height: size.height * .07,
-                  width: size.height * .07,
-                  decoration: BoxDecoration(shape: BoxShape.circle),
-                  //replace child with cachedNetworkImage with url
-                  child:
-                      // cachedNetworkImage(imageUrl)
-                      Image.asset('assets/images/profile_pic.png'),
+          InkWell(
+            onTap: () {
+              Get.toNamed(Routes.profilePageRoute);
+            },
+            child: Container(
+              height: size.height * .12,
+              color: Color(0xff00399B),
+              padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Container(
+                    height: size.height * .07,
+                    width: size.height * .07,
+                    decoration: BoxDecoration(shape: BoxShape.circle),
+                    //replace child with cachedNetworkImage with url
+                    child:
+                        // cachedNetworkImage(imageUrl)
+                        Image.asset('assets/images/profile_pic.png'),
+                  ),
                 ),
-              ),
-              width(size.width * .03),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText(
-                      text: 'Jane Doe',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                  height(size.height * .002),
-                  CustomText(
-                      text: '+91 9567892341',
-                      fontWeight: FontWeight.normal,
-                      size: 13,
-                      isAutoSize: true,
-                      color: Colors.white),
-                ],
-              ),
-              Spacer(),
-              Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
-                size: 15,
-              ),
-            ]),
+                width(size.width * .03),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                        text: 'Jane Doe',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    height(size.height * .002),
+                    CustomText(
+                        text: '+91 9567892341',
+                        fontWeight: FontWeight.normal,
+                        size: 13,
+                        isAutoSize: true,
+                        color: Colors.white),
+                  ],
+                ),
+                Spacer(),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  size: 15,
+                ),
+              ]),
+            ),
           ),
           height(size.height * .065),
           Padding(

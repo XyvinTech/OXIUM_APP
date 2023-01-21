@@ -18,8 +18,14 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(size.height * 0.09),
           child: CustomAppBar(
-            text: "skip",
-            icon: Icon(Icons.arrow_forward),
+            text: "Skip",
+            icon: Icon(
+              Icons.arrow_forward,
+              color: Colors.white,
+            ),
+            ontap: () {
+              Get.toNamed(Routes.vehicledetailspageRoute);
+            },
           ),
         ),
         body: NestedScrollView(
