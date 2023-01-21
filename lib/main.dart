@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         scaffoldBackgroundColor: kscaffoldBackgroundColor,
       ),
-      initialRoute: Routes.loginpageRoute,
+      initialRoute: Routes.rfidNumberRoute,
       getPages: AppPages.pages,
     );
   }
