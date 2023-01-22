@@ -84,7 +84,7 @@ final TextStyle kApphintTextStyle = TextStyle(
   fontFamily: "Poppins",
   fontSize: 14,
   fontWeight: FontWeight.w400,
-  color: Color(0xff828282),
+  color: Color(0xffBDBDBD),
 );
 
 kLog(String value) {

@@ -84,14 +84,15 @@ class CustomAppBar extends StatelessWidget {
                     style: kAppSkipButtonTextStyle,
                   ),
                 ),
-              SizedBox(
-                width: 10,
-              ),
+              
               if (icon != null)
-                IconButton(
-                  color: kwhite,
-                  onPressed: icononTap,
-                  icon: icon!,
+                Padding(
+                  padding:  EdgeInsets.only(top: size.height *0.004),
+                  child: IconButton(
+                    color: kwhite,
+                    onPressed: icononTap,
+                    icon: icon!,
+                  ),
                 ),
             ],
           )

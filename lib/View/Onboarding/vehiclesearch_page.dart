@@ -40,7 +40,7 @@ class VehicleSearchScreen extends GetView<VehicleSearchController> {
              SizedBox(height: size.height *0.02,),
              Align(
               alignment: Alignment.bottomLeft,
-              child: CustomSmallText(text: "Result 16",size: 14,)),
+              child: CustomSmallText(text: "Result 16",size: 14,color: Color(0xffBDBDBD),)),
              SizedBox(height: size.height *0.02,),
              _resultSearchVehicle(),
              Visibility(

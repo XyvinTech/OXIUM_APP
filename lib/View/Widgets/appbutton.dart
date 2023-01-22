@@ -3,8 +3,10 @@ import 'package:freelancer_app/constants.dart';
 
 //app button
 class AppButton extends StatelessWidget {
-  const AppButton({Key? key, this.color, required this.text, this.onTap})
+  const AppButton(
+      {Key? key, this.color, required this.text, this.onTap, this.sizeheight})
       : super(key: key);
+  final double? sizeheight;
   final Color? color;
   final String text;
   final void Function()? onTap;
@@ -16,7 +18,7 @@ class AppButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-        height: size.height * 0.08,
+        height: sizeheight ?? size.height * 0.08,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(65),
           color: color ?? Color(0xff0047C3),

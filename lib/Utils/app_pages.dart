@@ -1,3 +1,4 @@
+import 'package:freelancer_app/Bindings/bottom_nav_screen_binding.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
 import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
@@ -8,6 +9,7 @@ import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
 
 import 'package:freelancer_app/View/Homepage/homepage.dart';
+import 'package:freelancer_app/View/Onboarding/bottom_nav_page.dart';
 
 import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/enterotp_page.dart';
@@ -86,6 +88,11 @@ abstract class AppPages {
       name: Routes.vehiclesearchPageRoute,
       binding: VehicleSearchBinding(),
       page: () => VehicleSearchScreen(),
+    ),
+     GetPage(
+      name: Routes.bottomNavPageRoute,
+      binding: BottomNavScreenBinding(),
+      page: () => BottomNavScreen(),
     ),
 
 

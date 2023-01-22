@@ -26,7 +26,7 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
             icononTap: () {
               Get.toNamed(Routes.vehicledetailspageRoute);
             },
-            skiponTap: (){},
+            skiponTap: () {},
           ),
         ),
         body: NestedScrollView(
@@ -285,31 +285,33 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
               ),
             ),
           ),
-          Visibility(
-            maintainState: true,
-            visible: controller.isVisible.value,
-            child: InkWell(
-              onTap: () {
-                Get.toNamed(Routes.vehicledetailspageRoute);
-              },
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: size.width * 0.055,
-                    right: size.width * 0.055,
-                    bottom: size.height * 0.03),
-                height: size.height * 0.08,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(65),
-                  color: Color(0xff0047C3),
-                ),
-                child: Center(
-                  child: Text(
-                    "Add Vehicles",
-                    style: TextStyle(
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Color(0xffF2F2F2),
+          Obx(
+            () => Visibility(
+              maintainState: true,
+              visible: controller.isVisible.value,
+              child: InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.vehicledetailspageRoute);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(
+                      left: size.width * 0.055,
+                      right: size.width * 0.055,
+                      bottom: size.height * 0.03),
+                  height: size.height * 0.08,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(65),
+                    color: Color(0xff0047C3),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Add Vehicles",
+                      style: TextStyle(
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: Color(0xffF2F2F2),
+                      ),
                     ),
                   ),
                 ),
