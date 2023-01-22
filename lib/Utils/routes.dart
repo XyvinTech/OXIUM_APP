@@ -20,6 +20,7 @@ class Routes {
   static String myvehicleRoute = '/myvehicleRoute';
   static String smartchargeRoute = '/smartcharge';
   static String rfidNumberRoute = '/rfidNumber';
+  static String vehiclesearchPageRoute = '/vehiclesearch';
 
   static String searchPageRoute = '/search';
   static String notificationPageRoute = '/notification';

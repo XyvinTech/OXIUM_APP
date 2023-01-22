@@ -48,8 +48,9 @@ class CustomAppBar extends StatelessWidget {
   final String? text;
   final Widget? icon;
   final Color? color;
-  final void Function()? ontap;
-  const CustomAppBar({super.key, this.text, this.icon, this.color, this.ontap});
+  final void Function()? skiponTap;
+   final void Function()? icononTap;
+  const CustomAppBar({super.key, this.text, this.icon, this.color, this.skiponTap, this.icononTap});
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +77,12 @@ class CustomAppBar extends StatelessWidget {
           Row(
             children: [
               if (text != null)
-                Text(
-                  text!,
-                  style: kAppSkipButtonTextStyle,
+                InkWell(
+                  onTap: skiponTap,
+                  child: Text(
+                    text!,
+                    style: kAppSkipButtonTextStyle,
+                  ),
                 ),
               SizedBox(
                 width: 10,
@@ -86,7 +90,7 @@ class CustomAppBar extends StatelessWidget {
               if (icon != null)
                 IconButton(
                   color: kwhite,
-                  onPressed: ontap,
+                  onPressed: icononTap,
                   icon: icon!,
                 ),
             ],

@@ -23,9 +23,10 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
               Icons.arrow_forward,
               color: Colors.white,
             ),
-            ontap: () {
+            icononTap: () {
               Get.toNamed(Routes.vehicledetailspageRoute);
             },
+            skiponTap: (){},
           ),
         ),
         body: NestedScrollView(

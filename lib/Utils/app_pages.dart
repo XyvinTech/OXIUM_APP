@@ -1,5 +1,6 @@
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
+import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
 
 import 'package:freelancer_app/Utils/routes.dart';
@@ -15,6 +16,7 @@ import 'package:freelancer_app/View/Onboarding/myvehicle_page.dart';
 import 'package:freelancer_app/View/Onboarding/personal_vehicle_details_page.dart';
 import 'package:freelancer_app/View/Onboarding/rfidnumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/smartchrage_page.dart';
+import 'package:freelancer_app/View/Onboarding/vehiclesearch_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
 import 'package:get/get.dart';
 import '../Bindings/editprofile_screen_binding.dart';
@@ -80,6 +82,12 @@ abstract class AppPages {
       binding: SmartChargeBinding(),
       page: () => RFIDnumberScreen(),
     ),
+    GetPage(
+      name: Routes.vehiclesearchPageRoute,
+      binding: VehicleSearchBinding(),
+      page: () => VehicleSearchScreen(),
+    ),
+
 
     ///
     ///

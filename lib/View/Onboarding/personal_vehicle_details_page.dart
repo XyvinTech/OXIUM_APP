@@ -19,7 +19,7 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.09),
         child: CustomAppBar(
-          ontap: () {
+          icononTap: () {
             Get.toNamed(Routes.vehicledetailspageRoute);
           },
         ),
