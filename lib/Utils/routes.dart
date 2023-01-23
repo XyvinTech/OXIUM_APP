@@ -23,6 +23,12 @@ class Routes {
   static String vehiclesearchPageRoute = '/vehiclesearch';
   static String bottomNavPageRoute = '/bottomNav';
 
+//
+  //charge
+  static String chargePageRoute = '/charge';
+//
+//
+//
   static String searchPageRoute = '/search';
   static String notificationPageRoute = '/notification';
   static String filterPageRoute = '/filter';

@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    
     return GetMaterialApp(
       title: 'Freelancer App',
       debugShowCheckedModeBanner: false,
@@ -31,8 +30,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         scaffoldBackgroundColor: kscaffoldBackgroundColor,
       ),
-      initialRoute: Routes.bottomNavPageRoute
-      ,
+      initialRoute: Routes.bottomNavPageRoute,
       getPages: AppPages.pages,
     );
   }
