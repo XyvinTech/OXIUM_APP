@@ -19,17 +19,20 @@ class EnterNumberPage extends GetView<LoginPageController> {
     size = MediaQuery.of(context).size;
     // print(size.height);
     // print(size.width);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: kwhite,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(size.height * 0.09),
-          child: CustomAppBar(
-            text: "Skip",
-            icon: Icon(Icons.arrow_forward,color: Colors.white,),
+    return Scaffold(
+      backgroundColor: kwhite,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(size.height * 0.09),
+        child: CustomAppBar(
+          text: "Skip",
+          icon: Icon(
+            Icons.arrow_forward,
+            color: Colors.white,
           ),
         ),
-        body: Padding(
+      ),
+      body: SafeArea(
+        child: Padding(
           padding: EdgeInsets.only(
             left: size.width * 0.055,
             right: size.width * 0.055,

@@ -49,8 +49,14 @@ class CustomAppBar extends StatelessWidget {
   final Widget? icon;
   final Color? color;
   final void Function()? skiponTap;
-   final void Function()? icononTap;
-  const CustomAppBar({super.key, this.text, this.icon, this.color, this.skiponTap, this.icononTap});
+  final void Function()? icononTap;
+  const CustomAppBar(
+      {super.key,
+      this.text,
+      this.icon,
+      this.color,
+      this.skiponTap,
+      this.icononTap});
 
   @override
   Widget build(BuildContext context) {
@@ -59,44 +65,46 @@ class CustomAppBar extends StatelessWidget {
       padding: EdgeInsets.only(
         left: size.width * 0.055,
         right: size.width * 0.055,
+        // top: size.height * .02
       ),
-      height: size.height * 0.09,
+      // height: size.height * 0.09,
       color: color ?? kOnboardingBackgroundColors,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Image.asset(
-                "assets/images/goeclogo.png",
-                height: size.height * 0.065,
-                width: size.width * 0.17,
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              if (text != null)
-                InkWell(
-                  onTap: skiponTap,
-                  child: Text(
-                    text!,
-                    style: kAppSkipButtonTextStyle,
-                  ),
+      child: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  "assets/images/goeclogo.png",
+                  height: size.height * 0.065,
+                  width: size.width * 0.17,
                 ),
-              
-              if (icon != null)
-                Padding(
-                  padding:  EdgeInsets.only(top: size.height *0.004),
-                  child: IconButton(
-                    color: kwhite,
-                    onPressed: icononTap,
-                    icon: icon!,
+              ],
+            ),
+            Row(
+              children: [
+                if (text != null)
+                  InkWell(
+                    onTap: skiponTap,
+                    child: Text(
+                      text!,
+                      style: kAppSkipButtonTextStyle,
+                    ),
                   ),
-                ),
-            ],
-          )
-        ],
+                if (icon != null)
+                  Padding(
+                    padding: EdgeInsets.only(top: size.height * 0.004),
+                    child: IconButton(
+                      color: kwhite,
+                      onPressed: icononTap,
+                      icon: icon!,
+                    ),
+                  ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

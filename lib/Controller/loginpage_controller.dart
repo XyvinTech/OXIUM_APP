@@ -15,7 +15,7 @@ class LoginPageController extends GetxController {
   RxBool enablemailTextfield = false.obs;
   RxInt selectedIndex = 0.obs;
   RxString textfield = "".obs;
-  RxString country = "+91".obs;
+  RxString country = "91".obs;
 
   void nameTextfieldColorChange() {
     enablenameTextfield.value = true;
