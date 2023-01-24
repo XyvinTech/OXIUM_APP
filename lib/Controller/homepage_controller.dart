@@ -11,7 +11,8 @@ class HomePageController extends GetxController {
   RxString done = 'do'.obs;
   RxInt activeIndex = 0.obs;
   RxInt reload = 0.obs;
-    final GlobalKey<ScaffoldState>  drawerKey = GlobalKey();
+  final GlobalKey<ScaffoldState> drawerKey = GlobalKey();
+  PageController pageController = PageController();
 
   @override
   void onInit() async {

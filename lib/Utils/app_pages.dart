@@ -97,14 +97,6 @@ abstract class AppPages {
       page: () => BottomNavScreen(),
     ),
 
-    ///
-    ///
-    //Charge PAGE
-    GetPage(
-      name: Routes.chargePageRoute,
-      binding: ChargeScreenBinding(),
-      page: () => ChargeScreen(),
-    ),
 
     ///
     ///
@@ -138,6 +130,16 @@ abstract class AppPages {
       name: Routes.editProfilePageRoute,
       binding: EditProfileScreenBinding(),
       page: () => EditProfileScreen(),
+    ),
+
+
+    ///
+    ///
+    //Charge PAGE
+    GetPage(
+      name: Routes.chargePageRoute,
+      binding: ChargeScreenBinding(),
+      page: () => ChargeScreen(),
     ),
   ];
 }
