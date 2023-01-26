@@ -1,12 +1,15 @@
 import 'package:freelancer_app/Bindings/bottom_nav_screen_binding.dart';
 import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
+import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
+import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
 import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
 
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
+import 'package:freelancer_app/View/Charge/reservation_page.dart';
 
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
 
@@ -52,7 +55,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.enterotppageRoute,
-      binding: LoginPageBinding(),
+      binding: OtpScreenBindings(),
       page: () => EnterOtpPage(),
     ),
     GetPage(
@@ -104,6 +107,11 @@ abstract class AppPages {
       name: Routes.chargePageRoute,
       binding: ChargeScreenBinding(),
       page: () => ChargeScreen(),
+    ),
+    GetPage(
+      name: Routes.reservationPageRoute,
+      binding: ReservationScreenBindigs(),
+      page: () => ReservationScreen(),
     ),
 
     ///

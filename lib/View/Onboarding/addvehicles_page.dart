@@ -33,15 +33,14 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
           headerSliverBuilder: (_, isScolled) {
             return [
               SliverAppBar(
-                backgroundColor: kwhite,
-                automaticallyImplyLeading: false,
-                expandedHeight: size.height * 0.25,
-                collapsedHeight: size.height * 0.25,
-                snap: true,
-                floating: true,
-                // pinned: true,
-                flexibleSpace: _allVehicles(),
-              ),
+                  backgroundColor: kwhite,
+                  automaticallyImplyLeading: false,
+                  expandedHeight: size.height * 0.25,
+                  collapsedHeight: size.height * 0.25,
+                  snap: true,
+                  floating: true,
+                  // pinned: true,
+                  flexibleSpace: _allVehicles()),
             ];
           },
           body: _vehiclesModel(),
@@ -127,6 +126,7 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                 padding: const EdgeInsets.only(left: 10),
                 child: Obx(() => InkWell(
                       onTap: () {
+                        controller.isVisible.value = true;
                         controller.isSelectedindex.value = index;
                       },
                       child: Container(
@@ -197,6 +197,7 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                     padding: const EdgeInsets.only(top: 10),
                     child: Obx(() => InkWell(
                           onTap: (() {
+                            controller.isVisible.value = true;
                             controller.isSelectedVehicleindex.value = index;
                           }),
                           child: Container(
@@ -287,7 +288,7 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
           ),
           Obx(
             () => Visibility(
-              maintainState: true,
+              // maintainState: true,
               visible: controller.isVisible.value,
               child: InkWell(
                 onTap: () {

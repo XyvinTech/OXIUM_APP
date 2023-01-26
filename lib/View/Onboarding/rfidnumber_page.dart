@@ -16,10 +16,15 @@ class RFIDnumberScreen extends GetView<SmartChargeController> {
         appBar: AppBar(
           backgroundColor: Color(0xffF5F9FF),
           elevation: 0,
-          leading: Icon(
-            Icons.arrow_back,
-            size: size.width * 0.05,
-            color: Color(0xff828282),
+          leading: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: Icon(
+              Icons.arrow_back,
+              size: size.width * 0.05,
+              color: Color(0xff828282),
+            ),
           ),
           centerTitle: true,
           title: CustomBigText(
