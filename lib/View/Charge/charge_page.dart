@@ -378,93 +378,99 @@ class ChargeScreen extends GetView<ChargeScreenController> {
   }
 
   Widget _chargeHistoryCard() {
-    return InkWell(
-      onTap: () {
-        Get.toNamed(Routes.reservationPageRoute);
-      },
-      child: Container(
-        padding: EdgeInsets.only(
-          left: size.width * 0.03,
-          top: size.height * 0.015,
-          bottom: size.height * 0.015,
-          right: size.width * 0.03,
-        ),
-        height: size.height * 0.09,
-        width: size.width,
-        decoration: BoxDecoration(
-          color: kwhite,
-          border: Border.all(
-            color: Color(0xffBDBDBD),
-            width: 0.4,
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            Get.toNamed(Routes.reservationPageRoute);
+          },
+          child: Container(
+            padding: EdgeInsets.only(
+              left: size.width * 0.03,
+              top: size.height * 0.015,
+              bottom: size.height * 0.015,
+              right: size.width * 0.03,
+            ),
+            height: size.height * 0.09,
+            width: size.width,
+            // decoration: BoxDecoration(
+            //   color: kwhite,
+            //   border: Border.all(
+            //     color: Color(0xffBDBDBD),
+            //     width: 0.4,
+            //   ),
+            // ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset(
-                  "assets/images/coffee.png",
-                  height: size.height * 0.055,
-                  width: size.width * 0.13,
+                Row(
+                  children: [
+                    //TODO: use cached network image here
+                    Image.asset(
+                      "assets/images/coffee.png",
+                      height: size.height * 0.055,
+                      width: size.width * 0.13,
+                    ),
+                    SizedBox(
+                      width: size.width * 0.03,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: size.height * 0.012),
+                      child: Column(
+                        children: [
+                          CustomSmallText(
+                            text: "Calista cafe",
+                            size: 10,
+                          ),
+                          SizedBox(
+                            height: size.height * 0.007,
+                          ),
+                          CustomSmallText(
+                            text: "DC 45 kWh",
+                            size: 12,
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  width: size.width * 0.03,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.012),
-                  child: Column(
-                    children: [
-                      CustomSmallText(
-                        text: "Calista cafe",
-                        size: 10,
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: size.height * 0.004),
+                      child: Column(
+                        children: [
+                          CustomSmallText(
+                            text: "1 H 23 MIN",
+                            size: 12,
+                          ),
+                          SizedBox(
+                            height: size.height * 0.007,
+                          ),
+                          CustomBigText(
+                            text: "Cr. 523 ",
+                            size: 16,
+                            color: Color(0xff4F4F4F),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: size.height * 0.007,
-                      ),
-                      CustomSmallText(
-                        text: "DC 45 kWh",
-                        size: 12,
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      width: size.width * 0.05,
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: size.height * 0.03,
+                      color: Color(0xffBDBDBD),
+                    )
+                  ],
                 )
               ],
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.004),
-                  child: Column(
-                    children: [
-                      CustomSmallText(
-                        text: "1 H 23 MIN",
-                        size: 12,
-                      ),
-                      SizedBox(
-                        height: size.height * 0.007,
-                      ),
-                      CustomBigText(
-                        text: "Cr. 523 ",
-                        size: 16,
-                        color: Color(0xff4F4F4F),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: size.width * 0.05,
-                ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: size.height * 0.03,
-                  color: Color(0xffBDBDBD),
-                )
-              ],
-            )
-          ],
+          ),
         ),
-      ),
+        Divider(),
+      ],
     );
   }
 
