@@ -14,10 +14,10 @@ class LoginPage extends GetView<LoginPageController> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: kOnboardingBackgroundColors,
-        body: Padding(
+    return Scaffold(
+      backgroundColor: kOnboardingBackgroundColors,
+      body: SafeArea(
+        child: Padding(
           padding: EdgeInsets.only(
             left: size.width * 0.055,
             right: size.width * 0.055,

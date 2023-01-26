@@ -100,6 +100,7 @@ abstract class AppPages {
       page: () => BottomNavScreen(),
     ),
 
+<<<<<<< HEAD
     ///
     ///
     //Charge PAGE
@@ -113,6 +114,8 @@ abstract class AppPages {
       binding: ReservationScreenBindigs(),
       page: () => ReservationScreen(),
     ),
+=======
+>>>>>>> 56f1a8f658ee33924af0c666687a78d579cde412
 
     ///
     ///
@@ -146,6 +149,16 @@ abstract class AppPages {
       name: Routes.editProfilePageRoute,
       binding: EditProfileScreenBinding(),
       page: () => EditProfileScreen(),
+    ),
+
+
+    ///
+    ///
+    //Charge PAGE
+    GetPage(
+      name: Routes.chargePageRoute,
+      binding: ChargeScreenBinding(),
+      page: () => ChargeScreen(),
     ),
   ];
 }

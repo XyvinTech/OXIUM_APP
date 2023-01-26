@@ -30,7 +30,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         scaffoldBackgroundColor: kscaffoldBackgroundColor,
       ),
+<<<<<<< HEAD
       initialRoute: Routes.chargePageRoute,
+=======
+      initialRoute: Routes.homePageRoute,
+>>>>>>> 56f1a8f658ee33924af0c666687a78d579cde412
       getPages: AppPages.pages,
     );
   }
