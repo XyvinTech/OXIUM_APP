@@ -209,8 +209,11 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                         height: size.height * 0.005,
                       ),
                       Container(
-                        child: Align(
-                          alignment: Alignment.centerLeft,
+                        child: Container(
+                          height: size.height * .06,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * .03,
+                              vertical: size.height * .01),
                           child: TabBar(
                             labelColor: kblue,
                             controller: controller.tabController,
@@ -218,66 +221,30 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                             onTap: (index) {
                               controller.IsTabIndex.value = index;
                             },
-                          
+                            indicator: BoxDecoration(
+                              borderRadius: BorderRadius.circular(42),
+                              color: Color(0xffDEEAFF),
+                            ),
                             tabs: [
                               Tab(
-                                child: Obx(
-                                  () => Container(
-                                    height: size.height * 0.035,
-                                    width: size.width * 0.19,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(42),
-                                      color: controller.IsTabIndex == 0
-                                          ? Color(0xffDEEAFF)
-                                          : kwhite,
-                                    ),
-                                    child: Center(
-                                        child: CustomSmallText(
-                                      text: "Charge",
-                                      size: 14,
-                                      color: kblue,
-                                    )),
-                                  ),
+                                child: CustomSmallText(
+                                  text: "Charge",
+                                  size: 14,
+                                  color: kblue,
                                 ),
                               ),
                               Tab(
-                                child: Obx(
-                                  () => Container(
-                                    height: size.height * 0.038,
-                                    width: size.width * 0.38,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(42),
-                                      color: controller.IsTabIndex == 1
-                                          ? Color(0xffDEEAFF)
-                                          : kwhite,
-                                    ),
-                                    child: Center(
-                                        child: CustomSmallText(
-                                      text: "Reservations",
-                                      size: 14,
-                                      color: kblue,
-                                    )),
-                                  ),
+                                child: CustomSmallText(
+                                  text: "Reservations",
+                                  size: 14,
+                                  color: kblue,
                                 ),
                               ),
                               Tab(
-                                child: Obx(
-                                  () => Container(
-                                    height: size.height * 0.035,
-                                    width: size.width * 0.16,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(42),
-                                      color: controller.IsTabIndex == 2
-                                          ? Color(0xffDEEAFF)
-                                          : kwhite,
-                                    ),
-                                    child: Center(
-                                        child: CustomSmallText(
-                                      text: "Trips",
-                                      size: 14,
-                                      color: kblue,
-                                    )),
-                                  ),
+                                child: CustomSmallText(
+                                  text: "Trips",
+                                  size: 14,
+                                  color: kblue,
                                 ),
                               ),
                             ],
