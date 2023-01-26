@@ -18,7 +18,7 @@ class ReservationScreen extends GetView<ReservationScreenController> {
         height: size.height,
         width: size.width,
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
@@ -72,9 +72,14 @@ class ReservationScreen extends GetView<ReservationScreenController> {
                         ),
                         Align(
                             alignment: Alignment.center,
-                            child: CustomBigText(
-                              text: "Back to Reservation",
-                              size: 14,
+                            child: InkWell(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: CustomBigText(
+                                text: "Back to Reservation",
+                                size: 14,
+                              ),
                             ))
                       ],
                     ),
@@ -102,10 +107,15 @@ class ReservationScreen extends GetView<ReservationScreenController> {
         padding: EdgeInsets.only(left: size.width * 0.07),
         child: Row(
           children: [
-            Icon(
-              Icons.arrow_back_ios,
-              size: size.width * 0.05,
-              color: Color(0xff828282),
+            InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: size.width * 0.05,
+                color: Color(0xff828282),
+              ),
             ),
             SizedBox(
               width: size.width * 0.17,

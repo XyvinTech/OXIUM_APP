@@ -147,15 +147,5 @@ abstract class AppPages {
       binding: EditProfileScreenBinding(),
       page: () => EditProfileScreen(),
     ),
-
-
-    ///
-    ///
-    //Charge PAGE
-    GetPage(
-      name: Routes.chargePageRoute,
-      binding: ChargeScreenBinding(),
-      page: () => ChargeScreen(),
-    ),
   ];
 }
