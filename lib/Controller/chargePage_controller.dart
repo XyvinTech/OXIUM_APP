@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,12 +8,23 @@ class ChargeScreenController extends GetxController
     with GetSingleTickerProviderStateMixin {
   RxInt IsTabIndex = 0.obs;
 
-  TabController? tabController;
+  late TabController tabController;
   @override
   void onInit() {
     // TODO: implement onInit
     tabController = TabController(length: 3, vsync: this);
     super.onInit();
+    tabController.addListener(() {
+      log('changed');
+      IsTabIndex.value = tabController.index;
+    });
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    tabController.dispose();
   }
 
   @override
