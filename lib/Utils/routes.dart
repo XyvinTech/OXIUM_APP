@@ -35,4 +35,5 @@ class Routes {
   static String filterPageRoute = '/filter';
   static String profilePageRoute = '/profile';
   static String editProfilePageRoute = '/editprofile';
+  static String calistaCafePageRoute = '/calistacafe';
 }

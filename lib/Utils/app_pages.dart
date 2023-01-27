@@ -1,4 +1,5 @@
 import 'package:freelancer_app/Bindings/bottom_nav_screen_binding.dart';
+import 'package:freelancer_app/Bindings/calista_cafePage_bindings.dart';
 import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
@@ -10,6 +11,7 @@ import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
 import 'package:freelancer_app/View/Charge/reservation_page.dart';
+import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
 
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
 
@@ -100,7 +102,6 @@ abstract class AppPages {
       page: () => BottomNavScreen(),
     ),
 
-<<<<<<< HEAD
     ///
     ///
     //Charge PAGE
@@ -114,8 +115,6 @@ abstract class AppPages {
       binding: ReservationScreenBindigs(),
       page: () => ReservationScreen(),
     ),
-=======
->>>>>>> 56f1a8f658ee33924af0c666687a78d579cde412
 
     ///
     ///
@@ -150,7 +149,11 @@ abstract class AppPages {
       binding: EditProfileScreenBinding(),
       page: () => EditProfileScreen(),
     ),
-
+    GetPage(
+      name: Routes.calistaCafePageRoute,
+      binding: CalistaCafePageBindings(),
+      page: () => CalistaCafeScreen(),
+    ),
 
     ///
     ///

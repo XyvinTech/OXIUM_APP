@@ -9,13 +9,15 @@ class CustomBigText extends StatelessWidget {
   final Color? color;
   final void Function()? ontap;
   final FontWeight? fontWeight;
+  final String? fontFamily;
   const CustomBigText(
       {super.key,
       required this.text,
       this.size,
       this.color,
       this.fontWeight,
-      this.ontap});
+      this.ontap,
+      this.fontFamily});
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +27,11 @@ class CustomBigText extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontFamily: "Poppins",
+            fontFamily: fontFamily ?? "Poppins",
             fontSize: size ?? 20,
             fontWeight: fontWeight ?? FontWeight.w600,
             color: color ?? Color(0xff828282),
+            fontStyle: FontStyle.normal,
           ),
         ),
       ),
