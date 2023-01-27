@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'Utils/app_pages.dart';
 
 void main() {

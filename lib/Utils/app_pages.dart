@@ -149,6 +149,7 @@ abstract class AppPages {
       binding: EditProfileScreenBinding(),
       page: () => EditProfileScreen(),
     ),
+
     GetPage(
       name: Routes.calistaCafePageRoute,
       binding: CalistaCafePageBindings(),
