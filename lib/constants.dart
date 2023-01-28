@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-late Size size;
+late Size size = Size(0, 0);
 double zoom = 15;
 
 final Color kblack = Colors.black;

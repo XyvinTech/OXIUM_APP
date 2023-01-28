@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/calista_cafePage_controller.dart';
+import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -17,15 +19,26 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: kwhite,
-        body: Stack(
-          children: [
-            Column(
+    return Scaffold(
+      backgroundColor: kwhite,
+      appBar: AppBar(
+        backgroundColor: Color(0xff0047C3),
+        foregroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Get.back();
+            }),
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          SingleChildScrollView(
+            child: Column(
               children: [
                 Container(
-                  height: size.height * .32,
+                  // height: size.height * .32,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -33,14 +46,14 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                           topRight: Radius.circular(20))),
                   child: Column(children: [
                     height(size.height * .01),
-                    Container(
-                      height: size.height * .006,
-                      width: size.width * .25,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Color(0xffD9D9D9)),
-                    ),
-                    height(size.height * .05),
+                    // Container(
+                    //   height: size.height * .006,
+                    //   width: size.width * .25,
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //       color: Color(0xffD9D9D9)),
+                    // ),
+                    height(size.height * .015),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: size.width * .06),
@@ -220,301 +233,114 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   ]),
                 ),
                 height(size.height * 0.04),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: size.height * 0.27,
-                    decoration: BoxDecoration(
-                      color: kwhite,
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        width: 1.5,
-                        color: Color(0xffBFD6FF).withOpacity(0.6),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        // Container(
-
-                        //   child: ExpansionTile(
-                        //     initiallyExpanded: true,
-                        //     title: CustomBigText(
-                        //       text: "Charger 1",
-                        //       size: 12,
-                        //       color: Color(0xff0047C3),
-                        //     ),
-                        //     subtitle: CustomSmallText(
-                        //       text: "DC 45 kWh",
-                        //       size: 12,
-                        //     ),
-                        //     trailing: Row(
-                        //       children: [
-                        //         Container(
-                        //           alignment: Alignment.center,
-                        //           height: size.height * 0.025,
-                        //           width: size.width * 0.25,
-                        //           decoration: BoxDecoration(
-                        //             borderRadius: BorderRadius.circular(10),
-                        //             color: Color(0xff219653).withOpacity(0.24),
-                        //           ),
-                        //           child: CustomBigText(
-                        //             text: "Available 2/3",
-                        //             size: 12,
-                        //             color: Color(0xff219653),
-                        //           ),
-                        //         ),
-                        //         width(size.width * 0.06),
-                        //         SvgPicture.asset("assets/svg/arrow_upward_ios.svg")
-                        //       ],
-                        //     ),
-                        //     children: [
-                        //       _chargerCard(title: "Charger", subTitle: "Ac 12 KWh"),
-                        //     ],
-                        //   ),
-                        // ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.04,
-                              vertical: size.height * 0.02),
-                          child: Row(
-                            // mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CustomBigText(
-                                    text: "Charger 1",
-                                    size: 12,
-                                    color: Color(0xff0047C3),
-                                  ),
-                                  height(size.height * 0.01),
-                                  CustomSmallText(
-                                    text: "DC 45 kWh",
-                                    size: 12,
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: size.height * 0.025,
-                                    width: size.width * 0.25,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color:
-                                          Color(0xff219653).withOpacity(0.24),
-                                    ),
-                                    child: CustomBigText(
-                                      text: "Available 2/3",
-                                      size: 12,
-                                      color: Color(0xff219653),
-                                    ),
-                                  ),
-                                  width(size.width * 0.06),
-                                  SvgPicture.asset(
-                                      "assets/svg/arrow_upward_ios.svg")
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        height(size.height * 0.01),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.04),
-                          child: Container(
-                            height: size.height * 0.001,
-                            width: size.width,
-                            color: Color(0xffE0E0E0),
-                          ),
-                        ),
-                        height(size.height * 0.025),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.04),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                onTap: () {},
-                                child: type2(
-                                  containerColor:
-                                      Color(0xff6FCF97).withOpacity(.28),
-                                  color: Color(0xff333333),
-                                  borderColor:
-                                      Color(0xff6FCF97).withOpacity(.28),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {},
-                                child: type2(
-                                  containerColor:
-                                      Color(0xff0047C3).withOpacity(.0),
-                                  color: Color(0xff0047C3),
-                                  borderColor:
-                                      Color(0xff0047C3).withOpacity(0.6),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                height(size.height * 0.01),
-                _chargerCard(title: "Charger 1", subTitle: "DC 45 kWh"),
-                height(size.height * 0.01),
-                _chargerCard(title: "Charger 2", subTitle: "AC 45 kWh"),
-                height(size.height * 0.02),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
-                  child: Row(
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            height: size.height * 0.04,
-                            width: size.width * .92,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                            "assets/svg/location_on.svg"),
-                                        width(size.width * 0.02),
-                                        Text(
-                                          "Location",
-                                          style: GoogleFonts.inter(
-                                              textStyle: TextStyle(
-                                            fontSize: 12.5,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0xff000000)
-                                                .withOpacity(.44),
-                                            fontStyle: FontStyle.normal,
-                                          )),
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      "Vaitilla , Ernakulam , Kerala",
-                                      style: GoogleFonts.inter(
-                                          textStyle: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: Color(0xff4F4F4F),
-                                        fontStyle: FontStyle.normal,
-                                      )),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  padding:
-                                      EdgeInsets.only(left: size.width * 0.03),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xff2F80ED),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  height: size.height * 0.037,
-                                  width: size.width * 0.24,
-                                  child: Row(
-                                    children: [
-                                      CustomBigText(
-                                        text: "Navigate",
-                                        size: 12,
-                                        color: kwhite,
-                                      ),
-                                      width(size.width * 0.02),
-                                      SvgPicture.asset(
-                                          "assets/svg/assistant_direction.svg")
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 4,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: size.width * .04,
+                            vertical: size.height * .01),
+                        child: ExpandablePanel(
+                            collapsed: ExpandableButton(
+                                child: _chargerCard(
+                                    title: 'Charge 1 ',
+                                    subTitle: 'DC 45 kWh',
+                                    trailing: 'Available 2/3',
+                                    index: index)),
+                            expanded: _chargerCardExpanded(
+                                title: 'Charge 1',
+                                subTitle: 'DC 45 kWh',
+                                trailing: 'Available 2/3',
+                                index: index)),
+                      );
+                    }),
+                height(size.height * .2),
               ],
             ),
-            Positioned(
-              bottom: 0,
-              child: Container(
-                padding: EdgeInsets.only(bottom: size.height * 0.02),
-                height: size.height * 0.11,
-                width: size.width,
-                color: kwhite,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: size.height * 0.07,
-                        width: size.width * 0.4,
-                        decoration: BoxDecoration(
-                            color: Color(0xff0047C3),
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Center(
-                          child: CustomBigText(
-                            text: "Start Charging",
-                            size: 15,
-                            color: Color(0xffF2F2F2),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Container(
+              padding: EdgeInsets.only(bottom: size.height * 0.02),
+              height: size.height * 0.15,
+              width: size.width,
+              color: kwhite,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    navigationCard(),
+                    Spacer(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: size.height * 0.07,
+                          width: size.width * 0.4,
+                          decoration: BoxDecoration(
+                              color: Color(0xff0047C3),
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Center(
+                            child: CustomBigText(
+                              text: "Start Charging",
+                              size: 15,
+                              color: Color(0xffF2F2F2),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        height: size.height * 0.07,
-                        width: size.width * 0.4,
-                        decoration: BoxDecoration(
-                            color: Color(0xffCBFFC7),
-                            borderRadius: BorderRadius.circular(30),
-                            border:
-                                Border.all(width: 2, color: Color(0xff219653))),
-                        child: Center(
-                          child: CustomBigText(
-                            text: "Reserved",
-                            size: 15,
-                            color: Color(0xff219653),
+                        Container(
+                          height: size.height * 0.07,
+                          width: size.width * 0.4,
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                  width: 2, color: Color(0xff0047C3))),
+                          child: Center(
+                            child: CustomBigText(
+                              text: "Reserve",
+                              size: 15,
+                              color: Color(0xff0047C3),
+                            ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Widget type2(
-      {required Color containerColor,
-      required Color color,
-      required Color borderColor}) {
+      {
+      // required Color containerColor,
+      // required Color color,
+      // required Color borderColor,
+      required bool isSelected,
+      required String title,
+      required}) {
     return Container(
       height: size.height * 0.06,
       width: size.width * 0.4,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: containerColor,
+          color: isSelected
+              ? Color(0xff6FCF97).withOpacity(.28)
+              : Colors.transparent,
           border: Border.all(
             width: 1.3,
-            color: borderColor,
+            color: isSelected
+                ? Color(0xff6FCF97).withOpacity(.28)
+                : Color(0xff0047C3).withOpacity(.6),
           )),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
@@ -528,17 +354,17 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
             ),
             width(size.width * 0.02),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
+              padding: EdgeInsets.symmetric(vertical: size.height * 0.008),
               child: Column(
                 children: [
                   SvgPicture.asset(
                     "assets/svg/type 2 icon1.svg",
-                    color: color,
+                    color: isSelected ? Color(0xff4f4f4f) : Color(0xff0047C3),
                   ),
                   height(size.height * 0.005),
                   SvgPicture.asset(
                     "assets/svg/type 2 icon2.svg",
-                    color: color,
+                    color: isSelected ? Color(0xff333333) : Color(0xff0047C3),
                   ),
                 ],
               ),
@@ -547,7 +373,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
             CustomBigText(
               text: "Type 2",
               size: 14,
-              color: color,
+              color: isSelected ? Color(0xff333333) : Color(0xff0047C3),
             ),
           ],
         ),
@@ -555,9 +381,137 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     );
   }
 
-  Widget _chargerCard({required String title, required String subTitle}) {
+  Widget _chargerCardExpanded({
+    required String title,
+    required String subTitle,
+    required String trailing,
+    required int index,
+  }) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
+        alignment: Alignment.center,
+        height: size.height * 0.27,
+        decoration: BoxDecoration(
+          color: kwhite,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(
+            width: 1.5,
+            color: Color(0xffBFD6FF).withOpacity(0.6),
+          ),
+        ),
+        child: Column(
+          children: [
+            ExpandableButton(
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.04,
+                ),
+                child: Row(
+                  // mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: size.height * 0.0075),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(
+                            () => CustomBigText(
+                              text: title,
+                              size: 13,
+                              color: index == controller.selectedCharger.value
+                                  ? Color(0xff0047C3)
+                                  : Color(0xff4f4f4f),
+                            ),
+                          ),
+                          height(size.height * 0.004),
+                          CustomSmallText(
+                            text: subTitle,
+                            size: 12,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            height: size.height * 0.025,
+                            width: size.width * 0.25,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xff219653).withOpacity(0.24),
+                            ),
+                            child: CustomBigText(
+                              text: trailing,
+                              size: 12,
+                              color: Color(0xff219653),
+                            ),
+                          ),
+                          width(size.width * 0.06),
+                          SvgPicture.asset("assets/svg/arrow_upward_ios.svg")
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            height(size.height * 0.01),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+              child: Container(
+                height: size.height * 0.001,
+                width: size.width,
+                color: Color(0xffE0E0E0),
+              ),
+            ),
+            height(size.height * 0.025),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+                child: GridView.builder(
+                    itemCount: 4,
+                    scrollDirection: Axis.vertical,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 3.2,
+                      crossAxisCount: 2,
+                      mainAxisSpacing: size.width * .01,
+                      crossAxisSpacing: size.height * .01,
+                    ),
+                    itemBuilder: (context, index_grid) {
+                      return InkWell(
+                        onTap: () {
+                          controller.changeCharger(index, index_grid);
+                        },
+                        child: Obx(
+                          () => type2(
+                              isSelected: index ==
+                                      controller.selectedCharger.value &&
+                                  controller.selectedType.value == index_grid,
+                              title: 'Type 2'),
+                        ),
+                      );
+                    }),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _chargerCard({
+    required String title,
+    required String subTitle,
+    required String trailing,
+    required int index,
+  }) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
       child: Container(
         padding: EdgeInsets.symmetric(
             horizontal: size.width * 0.04, vertical: size.height * 0.01),
@@ -573,14 +527,19 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: size.height * 0.012),
+              padding: EdgeInsets.only(top: size.height * 0.00),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomBigText(
-                    text: title,
-                    size: 12,
-                    color: Color(0xff0047C3),
+                  Obx(
+                    () => CustomBigText(
+                      text: title,
+                      size: 13,
+                      color: controller.selectedCharger.value == index
+                          ? Color(0xff0047C3)
+                          : Color(0xff4f4f4f),
+                    ),
                   ),
                   height(size.height * 0.004),
                   CustomSmallText(
@@ -602,13 +561,80 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       color: Color(0xff219653).withOpacity(0.24),
                     ),
                     child: CustomBigText(
-                      text: "Available 2/3",
+                      text: trailing,
                       size: 12,
                       color: Color(0xff219653),
                     ),
                   ),
                   width(size.width * 0.06),
                   SvgPicture.asset("assets/svg/arrow_downward_ios.svg")
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget navigationCard() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+      child: Container(
+        // height: size.height * 0.04,
+        // width: size.width * .92,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    SvgPicture.asset("assets/svg/location_on.svg"),
+                    width(size.width * 0.02),
+                    Text(
+                      "Location",
+                      style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff000000).withOpacity(.44),
+                        fontStyle: FontStyle.normal,
+                      )),
+                    ),
+                  ],
+                ),
+                Text(
+                  "Vaitilla , Ernakulam , Kerala",
+                  style: GoogleFonts.inter(
+                      textStyle: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff4F4F4F),
+                    fontStyle: FontStyle.normal,
+                  )),
+                ),
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.only(left: size.width * 0.03),
+              decoration: BoxDecoration(
+                color: Color(0xff2F80ED),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              height: size.height * 0.037,
+              width: size.width * 0.24,
+              child: Row(
+                children: [
+                  CustomBigText(
+                    text: "Navigate",
+                    size: 12,
+                    color: kwhite,
+                  ),
+                  width(size.width * 0.02),
+                  SvgPicture.asset("assets/svg/assistant_direction.svg")
                 ],
               ),
             ),

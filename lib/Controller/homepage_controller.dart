@@ -4,6 +4,7 @@ import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class HomePageController extends GetxController {
   RxDouble height = 80.0.obs;
@@ -13,6 +14,7 @@ class HomePageController extends GetxController {
   RxInt reload = 0.obs;
   final GlobalKey<ScaffoldState> drawerKey = GlobalKey();
   PageController pageController = PageController();
+  PanelController panelController = PanelController();
 
   @override
   void onInit() async {

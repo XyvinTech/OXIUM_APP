@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/View/Homepage/homepage.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
@@ -138,6 +139,7 @@ class MapFunctions {
     required String name,
     required LatLng latLng,
     required bool isGreen,
+    required HomePageController controller,
   }) {
     markers_homepage.add(Marker(
         onTap: () async {
@@ -145,7 +147,7 @@ class MapFunctions {
           await MapFunctions().animateToNewPosition(latLng);
           //TODO: you should pass the model here to show on bottom sheet when clicked
           Future.delayed(Duration(milliseconds: 500), () {
-            showBottomSheetWhenClickedOnMarker(null);
+            showBottomSheetWhenClickedOnMarker(null,controller);
           });
         },
         markerId: MarkerId(name),

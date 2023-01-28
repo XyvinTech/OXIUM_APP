@@ -55,6 +55,8 @@ dependencies:
   animated_bottom_navigation_bar: ^1.1.0+1
   flutter_svg: ^1.1.6
   auto_size_text: ^3.0.0
+  expandable: ^5.0.1
+  sliding_up_panel: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:
