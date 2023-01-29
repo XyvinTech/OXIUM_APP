@@ -58,6 +58,7 @@ dependencies:
   expandable: ^5.0.1
   sliding_up_panel: ^2.0.0+1
   percent_indicator: ^4.2.2
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
