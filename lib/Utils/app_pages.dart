@@ -28,6 +28,7 @@ import 'package:freelancer_app/View/Onboarding/smartchrage_page.dart';
 import 'package:freelancer_app/View/Onboarding/vehiclesearch_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
 import 'package:get/get.dart';
+import '../Bindings/bookaslot_screen_binding.dart';
 import '../Bindings/editprofile_screen_binding.dart';
 import '../Bindings/filter_screen_binding.dart';
 import '../Bindings/loginpage_binding.dart';
@@ -115,6 +116,11 @@ abstract class AppPages {
       binding: ReservationScreenBindigs(),
       page: () => ReservationScreen(),
     ),
+    GetPage(
+      name: Routes.bookASlotPageRoute,
+      binding: BookASlotScreenBinding(),
+      page: () => BookASlotScreen(),
+    ),
 
     ///
     ///
@@ -154,15 +160,6 @@ abstract class AppPages {
       name: Routes.calistaCafePageRoute,
       binding: CalistaCafePageBindings(),
       page: () => CalistaCafeScreen(),
-    ),
-
-    ///
-    ///
-    //Charge PAGE
-    GetPage(
-      name: Routes.chargePageRoute,
-      binding: ChargeScreenBinding(),
-      page: () => ChargeScreen(),
     ),
   ];
 }

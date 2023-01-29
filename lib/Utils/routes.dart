@@ -27,6 +27,7 @@ class Routes {
   //charge
   static String chargePageRoute = '/charge';
   static String reservationPageRoute = '/reservation';
+  static String bookASlotPageRoute = '/bookaslot';
 //
 //
 //

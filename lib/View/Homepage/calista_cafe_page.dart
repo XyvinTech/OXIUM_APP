@@ -9,6 +9,7 @@ import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../Utils/toastUtils.dart';
 import '../Widgets/customText.dart';
@@ -256,6 +257,103 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                 index: index)),
                       );
                     }),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: size.height * .04),
+                  child: navigationCard(),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomBigText(
+                        text: 'Customer Review',
+                        color: Color(0xff4f4f4f),
+                      ),
+                      CustomText(
+                          text: 'View Reviews',
+                          color: Color(0xff0047C3),
+                          size: 13)
+                    ],
+                  ),
+                ),
+                height(size.height * .022),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                // height: size.height * .023,
+                                padding: EdgeInsets.symmetric(
+                                  vertical: size.height * .005,
+                                  horizontal: size.width * .02,
+                                ),
+                                width: size.width * .17,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color(0xffFFE1C7)),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Color(0xffF2994A),
+                                        size: 17,
+                                      ),
+                                      CustomText(
+                                          text: '4.6',
+                                          size: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xffF2994A)),
+                                    ]),
+                              ),
+                              height(size.height * .006),
+                              CustomText(text: '24 Reviews', color: Colors.grey)
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: size.width * .005,
+                        height: size.height * .1,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.grey.shade300),
+                      ),
+                      Expanded(
+                          flex: 3,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * .09),
+                            child: Column(children: [
+                              reviewProgressBar('5', .3),
+                              reviewProgressBar('4', .7),
+                              reviewProgressBar('3', .5),
+                              reviewProgressBar('2', .8),
+                              reviewProgressBar('1', .1),
+                            ]),
+                          ))
+                    ],
+                  ),
+                ),
+                height(size.height * .03),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 4,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: ((context, index) {
+                    return customerReviewCard();
+                  }),
+                ),
                 height(size.height * .2),
               ],
             ),
@@ -263,53 +361,47 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
           Positioned(
             bottom: 0,
             child: Container(
-              padding: EdgeInsets.only(bottom: size.height * 0.02),
-              height: size.height * 0.15,
+              // padding: EdgeInsets.only(bottom: size.height * 0.02),
+              height: size.height * 0.1,
               width: size.width,
               color: kwhite,
+              alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    navigationCard(),
-                    Spacer(),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: size.height * 0.07,
-                          width: size.width * 0.4,
-                          decoration: BoxDecoration(
-                              color: Color(0xff0047C3),
-                              borderRadius: BorderRadius.circular(30)),
-                          child: Center(
-                            child: CustomBigText(
-                              text: "Start Charging",
-                              size: 15,
-                              color: Color(0xffF2F2F2),
-                            ),
-                          ),
+                    Container(
+                      height: size.height * 0.07,
+                      width: size.width * 0.4,
+                      decoration: BoxDecoration(
+                          color: Color(0xff0047C3),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Center(
+                        child: CustomBigText(
+                          text: "Start Charging",
+                          size: 15,
+                          color: Color(0xffF2F2F2),
                         ),
-                        Container(
-                          height: size.height * 0.07,
-                          width: size.width * 0.4,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(
-                                  width: 2, color: Color(0xff0047C3))),
-                          child: Center(
-                            child: CustomBigText(
-                              text: "Reserve",
-                              size: 15,
-                              color: Color(0xff0047C3),
-                            ),
-                          ),
-                        )
-                      ],
+                      ),
                     ),
+                    Container(
+                      height: size.height * 0.07,
+                      width: size.width * 0.4,
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(30),
+                          border:
+                              Border.all(width: 2, color: Color(0xff0047C3))),
+                      child: Center(
+                        child: CustomBigText(
+                          text: "Reserve",
+                          size: 15,
+                          color: Color(0xff0047C3),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -641,6 +733,81 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget reviewProgressBar(String title, double value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        LinearPercentIndicator(
+          width: size.width * .3,
+          animation: true,
+          lineHeight: 6.0,
+          animationDuration: 1000,
+          percent: value,
+          barRadius: Radius.circular(15),
+          progressColor: Color(0xff0047C3),
+          padding: EdgeInsets.zero,
+        ),
+        Spacer(),
+        CustomText(text: title, color: Colors.grey, size: 12)
+      ],
+    );
+  }
+
+  Widget customerReviewCard() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: size.width * .04, vertical: size.height * .01),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Expanded(
+            child: Container(
+          // color: Colors.amber,
+          alignment: Alignment.topRight,
+          child: Container(
+            height: size.height * .045,
+            width: size.height * .045,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey.shade300,
+            ),
+          ),
+        )),
+        width(size.width * .015),
+        Expanded(
+            flex: 8,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    CustomBigText(
+                      text: 'Jane Doe',
+                      size: 17,
+                      color: Color(0xff4f4f4f),
+                    ),
+                    width(size.width * .02),
+                    Row(
+                      children: List.generate(
+                        4,
+                        (index) => Icon(
+                          Icons.star,
+                          color: Color(0xffF2994A),
+                          size: 17,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                height(size.height * .01),
+                CustomText(
+                    color: Color(0xff4f4f4f),
+                    size: 15,
+                    text:
+                        'Lorem ipsom doler set amet, consequent is the worlds best company. Thanks in this case. ')
+              ],
+            ))
+      ]),
     );
   }
 }
