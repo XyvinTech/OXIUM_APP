@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelancer_app/Controller/smartcharge_screen_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -8,12 +9,13 @@ import '../../Utils/routes.dart';
 import '../../constants.dart';
 import '../Widgets/appbar.dart';
 
-class SmartChargeScreen extends StatelessWidget {
+class SmartChargeScreen extends GetView<SmartChargeController> {
   const SmartChargeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
+    print(size.width);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xffF3F5F9),
@@ -68,26 +70,24 @@ class SmartChargeScreen extends StatelessWidget {
                         )),
                     Positioned(
                         top: size.height * 0.055,
-                        left: size.width * 0.17,
+                        left: size.width * 0.16,
                         child: Container(
-                          height: size.height * 0.452,
-                          width: size.width * 0.67,
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "assets/images/key.png",
-                                height: size.height * 0.34,
-                                width: size.width * 0.67,
-                              ),
-                              Container(
-                                height: size.height * 0.11,
-                                width: size.width * 0.7,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage("assets/images/sub.png"),
-                                  ),
-                                ),
-                                child: Row(
+                          height: size.height * 0.46,
+                          width: size.width * 0.68,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage("assets/images/goecpower.png"),
+                                  fit: BoxFit.cover)),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                bottom: size.height * 0.065,
+                                left: size.width * 0.03,
+                                right: size.width * 0.03),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
@@ -99,8 +99,8 @@ class SmartChargeScreen extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                              )
-                            ],
+                              ],
+                            ),
                           ),
                         )),
                     Positioned(
@@ -134,7 +134,7 @@ class SmartChargeScreen extends StatelessWidget {
                         )),
                     Positioned(
                       bottom: size.height * 0.04,
-                      left: size.width * 0.37,
+                      left: size.width * 0.318,
                       child: InkWell(
                         onTap: (() {
                           Get.offAllNamed(Routes.homePageRoute);
@@ -191,6 +191,36 @@ class SmartChargeScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget no() {
+    return Column(
+      children: [
+        Image.asset(
+          "assets/images/goecpower.png",
+        ),
+        Container(
+          height: size.height * 0.11,
+          width: size.width * 0.7,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/sub.png"),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomBigText(text: "GO EC RFID"),
+              CustomBigText(
+                text: "₹ 399",
+                fontWeight: FontWeight.w400,
+                color: Color(0xff219653),
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 }

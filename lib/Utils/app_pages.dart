@@ -32,14 +32,12 @@ import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
 import 'package:freelancer_app/View/WalletPage/popup_page.dart';
 import 'package:freelancer_app/View/WalletPage/walletpage.dart';
 import 'package:get/get.dart';
-import '../Bindings/bookaslot_screen_binding.dart';
 import '../Bindings/editprofile_screen_binding.dart';
 import '../Bindings/filter_screen_binding.dart';
 import '../Bindings/loginpage_binding.dart';
 import '../Bindings/notification_screen_binding.dart';
 import '../Bindings/profile_screen_binding.dart';
 import '../Bindings/search_screen_binding.dart';
-import '../View/Charge/bookaslot_page.dart';
 import '../View/Homepage/editprofile_screen.dart';
 import '../View/Homepage/filter_screen.dart';
 import '../View/Homepage/notification_screen.dart';
@@ -121,11 +119,6 @@ abstract class AppPages {
       binding: ReservationScreenBindigs(),
       page: () => ReservationScreen(),
     ),
-    GetPage(
-      name: Routes.bookASlotPageRoute,
-      binding: BookASlotScreenBinding(),
-      page: () => BookASlotScreen(),
-    ),
 
     ///
     ///
@@ -166,7 +159,6 @@ abstract class AppPages {
       binding: CalistaCafePageBindings(),
       page: () => CalistaCafeScreen(),
     ),
-<<<<<<< HEAD
 
     ///
     ///
@@ -192,7 +184,5 @@ abstract class AppPages {
       binding: PopupPageBindigs(),
       page: () => PopUpPage(),
     ),
-=======
->>>>>>> d3f33405da054726db8c243362a8a3fcfb31980a
   ];
 }
