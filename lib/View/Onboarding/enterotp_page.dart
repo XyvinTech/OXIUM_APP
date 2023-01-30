@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:freelancer_app/Controller/otpnumberPage_controller.dart';
 import 'package:freelancer_app/Utils/routes.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -28,78 +29,72 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
           ),
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   height: size.height * 0.06,
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: CustomBigText(text: "Confirm OTP"),
+                CustomBigText(
+                  text: "Confirm OTP",
+                  size: 21,
                 ),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child:
-                      CustomSmallText(text: "Enter the OTP we just send to   "),
+                CustomSmallText(
+                  text: "Enter the OTP we just send to",
+                  size: 16,
                 ),
                 SizedBox(
                   height: size.height * 0.006,
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: CustomSmallText(
-                      text: "verify your Number +91 0123658948"),
+                CustomSmallText(
+                  text: "verify your Number xxxxxxx701",
+                  size: 16,
                 ),
                 SizedBox(
                   height: size.height * 0.04,
                 ),
-                Obx(
-                  () => Wrap(
-                    children: List.generate(
-                      5,
-                      (index) => InkWell(
-                        onTap: () {
-                          controller.isIndex.value = index;
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(right: size.width * 0.025),
-                          height: size.height * 0.1,
-                          // width: size.width / 6.53,
-                          width: size.width * .15,
+                Wrap(
+                  children: List.generate(
+                    5,
+                    (index) => InkWell(
+                      onTap: () {},
+                      child: Container(
+                        margin: EdgeInsets.only(right: size.width * 0.025),
+                        height: size.height * 0.1,
+                        // width: size.width / 6.53,
+                        width: size.width * .15,
 
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(48),
-                            border: Border.all(
-                              width: 2,
-                              color: controller.isIndex == index
-                                  ? Color(0xff0047C3).withOpacity(.6)
-                                  : Color(0xffE0E0E0),
-                            ),
+                        decoration: BoxDecoration(
+                          color: kwhite,
+                          borderRadius: BorderRadius.circular(48),
+                          border: Border.all(
+                            width: 2,
+                            color: Color(0xffE0E0E0),
                           ),
-                          child: Center(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(1),
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                // contentPadding:
-                                //     EdgeInsets.only(left: size.width * 0.0175),
-                                border: InputBorder.none,
-                              ),
-                              onChanged: (Value) {
-                                if (Value.length == 1) {
-                                  FocusScope.of(context).nextFocus();
-                                } else {
-                                  FocusScope.of(context).previousFocus();
-                                }
-                              },
+                        ),
+                        child: Center(
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1),
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                              // contentPadding:
+                              //     EdgeInsets.only(left: size.width * 0.0175),
+                              border: InputBorder.none,
                             ),
+                            onChanged: (Value) {
+                              if (Value.length == 1) {
+                                FocusScope.of(context).nextFocus();
+                              } else {
+                                FocusScope.of(context).previousFocus();
+                              }
+                            },
                           ),
                         ),
                       ),
@@ -114,17 +109,16 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
                   children: [
                     CustomSmallText(
                       text: "Time remining is 30s",
-                      size: 12,
+                      size: 14,
                     ),
                     CustomSmallText(
                       text: "Resend OTP",
                       color: Color(0xff0047C3),
+                      size: 16,
                     )
                   ],
                 ),
-                SizedBox(
-                  height: size.height * 0.3,
-                ),
+                height(size.height * 0.4),
                 AppButton(
                   text: "Verify Number",
                   onTap: () {

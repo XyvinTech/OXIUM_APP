@@ -54,23 +54,26 @@ class AppTextField extends GetView<LoginPageController> {
             child: Container(
               height: size.height * 0.065,
               width: size.width * 0.5,
-              child: TextFormField(
-                controller: Controller,
-                onChanged: onChanged,
-                onTap: onTap,
-                keyboardType: keyboardtype,
-                maxLines: 1,
-                decoration: InputDecoration(
-                  hintText: hintText,
-                  hintStyle: TextStyle(
-                    fontFamily: "Poppins",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xffBDBDBD),
+              child: Padding(
+                padding: EdgeInsets.only(top: size.height * 0.001),
+                child: TextFormField(
+                  controller: Controller,
+                  onChanged: onChanged,
+                  onTap: onTap,
+                  keyboardType: keyboardtype,
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    hintText: hintText,
+                    hintStyle: TextStyle(
+                      fontFamily: "Poppins",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff828282),
+                    ),
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
                   ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
                 ),
               ),
             ),

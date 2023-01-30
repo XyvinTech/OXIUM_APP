@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:freelancer_app/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 //CustomBigText Widget
 class CustomBigText extends StatelessWidget {
@@ -10,6 +11,7 @@ class CustomBigText extends StatelessWidget {
   final void Function()? ontap;
   final FontWeight? fontWeight;
   final String? fontFamily;
+  final double? laterspacing;
   const CustomBigText(
       {super.key,
       required this.text,
@@ -17,7 +19,8 @@ class CustomBigText extends StatelessWidget {
       this.color,
       this.fontWeight,
       this.ontap,
-      this.fontFamily});
+      this.fontFamily,
+      this.laterspacing});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +29,8 @@ class CustomBigText extends StatelessWidget {
       child: Container(
         child: Text(
           text,
-          style: TextStyle(
-            fontFamily: fontFamily ?? "Poppins",
+          style: GoogleFonts.poppins(
+            letterSpacing: laterspacing ?? null,
             fontSize: size ?? 20,
             fontWeight: fontWeight ?? FontWeight.w600,
             color: color ?? Color(0xff828282),
@@ -46,13 +49,16 @@ class CustomSmallText extends StatelessWidget {
   final Color? color;
   final void Function()? ontap;
   final FontWeight? fontWeight;
+  final double? laterspacing;
+
   const CustomSmallText(
       {super.key,
       required this.text,
       this.size,
       this.color,
       this.fontWeight,
-      this.ontap});
+      this.ontap,
+      this.laterspacing});
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +67,8 @@ class CustomSmallText extends StatelessWidget {
       child: Container(
         child: Text(
           text,
-          style: TextStyle(
-            fontFamily: "Poppins",
+          style: GoogleFonts.poppins(
+            letterSpacing: laterspacing ?? null,
             fontSize: size ?? 14,
             fontWeight: fontWeight ?? FontWeight.w400,
             color: color ?? Color(0xff828282),
