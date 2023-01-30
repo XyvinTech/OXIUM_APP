@@ -96,7 +96,7 @@ showBottomSheetWhenClickedOnMarker(
       color: Colors.transparent,
       controller: controller.panelController,
       minHeight: size.height * .32,
-      maxHeight: size.height * .55,
+      maxHeight: size.height * .80,
       onPanelSlide: (value) {},
       onPanelClosed: () {},
       onPanelOpened: () {

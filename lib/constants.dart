@@ -90,3 +90,24 @@ final TextStyle kApphintTextStyle = TextStyle(
 kLog(String value) {
   log(value);
 }
+
+class Const {
+  //time slot page
+
+  static Color titleColor = const Color(0xff4B4B4B);
+  static Color subTitleColor = const Color(0xff494949);
+  static Color hashTagTextColor = const Color(0xffF1673B);
+  static Color cardBorderColor = const Color(0xffC7C7C7);
+  static Color cardBorderActiveColor = const Color(0xff579A35);
+
+  static Color availableTextColor = const Color(0xff7AC368);
+  static Color notAvailableTextColor = Color.fromARGB(255, 205, 57, 43);
+  static Color activeCardBgColor = const Color(0xffF1FFEA);
+
+  static Color activeCardTimeColor = const Color(0xff579A35);
+  static Color inactiveDateTextColor = const Color(0xff828282);
+  static Color inactiveDateBgtColor = Color(0xFFE2E2E2);
+
+  static Color activeDateTextColor = const Color(0xffFF8C68);
+  static Color activeDateBgtColor = const Color(0xffFF8C68).withOpacity(0.15);
+}
