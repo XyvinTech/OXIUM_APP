@@ -1,6 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:freelancer_app/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 //CustomBigText Widget
@@ -27,8 +27,9 @@ class CustomBigText extends StatelessWidget {
     return InkWell(
       onTap: ontap,
       child: Container(
-        child: Text(
+        child: AutoSizeText(
           text,
+          minFontSize: 10,
           style: GoogleFonts.poppins(
             letterSpacing: laterspacing ?? null,
             fontSize: size ?? 20,
@@ -65,8 +66,9 @@ class CustomSmallText extends StatelessWidget {
     return InkWell(
       onTap: ontap,
       child: Container(
-        child: Text(
+        child: AutoSizeText(
           text,
+          minFontSize: 12,
           style: GoogleFonts.poppins(
             letterSpacing: laterspacing ?? null,
             fontSize: size ?? 14,

@@ -8,7 +8,6 @@ import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class WalletScreen extends GetView<WalletPageController> {
   const WalletScreen({super.key});
@@ -42,10 +41,13 @@ class WalletScreen extends GetView<WalletPageController> {
                                   height: size.height * 0.46,
                                   width: size.width,
                                   decoration: BoxDecoration(
-                                      gradient: LinearGradient(colors: [
-                                    Color(0xff4F4F4F),
-                                    Color(0xff202020),
-                                  ])),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.bottomLeft,
+                                          end: Alignment.topRight,
+                                          colors: [
+                                        Color(0xff202020),
+                                        Color(0xff4F4F4F),
+                                      ])),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -155,145 +157,161 @@ class WalletScreen extends GetView<WalletPageController> {
                 ),
                 bottom: PreferredSize(
                   preferredSize: Size.fromHeight(size.height * 0.1),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: size.height * 0.01,
-                      ),
-                      Container(
-                        height: size.height * 0.006,
-                        width: size.width * 0.35,
-                        color: Color(0xffE0E0E0),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.015,
-                      ),
-                      CustomBigText(
-                        text: "Payments",
-                        size: 14,
-                        color: Color(0xff828282),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                    ],
+                  child: Container(
+                    color: Colors.white,
+                    width: double.infinity,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
+                        Container(
+                          height: size.height * 0.008,
+                          width: size.width * 0.34,
+                          decoration: BoxDecoration(
+                              color: Color(0xffE0E0E0),
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.015,
+                        ),
+                        CustomBigText(
+                          text: "Payments",
+                          size: 14,
+                          color: Color(0xff828282),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
               SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    height(size.height * 0.01),
-                    Container(
-                      height: 1000,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              width: size.width * .92,
-                              child: ListView.builder(
-                                  itemCount: 40,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemBuilder: (_, index) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(
-                                          top: size.height * 0.01),
-                                      child: Container(
-                                        height: size.height * 0.08,
-                                        decoration: BoxDecoration(
-                                            color: kwhite,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  offset: Offset(0, 4),
-                                                  blurRadius: 32,
-                                                  spreadRadius: 0,
-                                                  color: Color(0xff000000)
-                                                      .withOpacity(.08))
-                                            ]),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: size.width * 0.03),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    height: size.height * 0.05,
-                                                    width: size.width * 0.12,
-                                                    child: CircleAvatar(
-                                                      backgroundImage:
-                                                          AssetImage(
-                                                        "assets/images/coffee1.png",
+                child: Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      height(size.height * 0.01),
+                      Container(
+                        height: 1000,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                // width: size.width * .92,
+                                padding:
+                                    EdgeInsets.only(top: size.height * .01),
+                                child: ListView.builder(
+                                    itemCount: 40,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (_, index) {
+                                      return Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: size.width * .03,
+                                            vertical: size.height * .01),
+                                        child: Container(
+                                          height: size.height * 0.08,
+                                          decoration: BoxDecoration(
+                                              color: kwhite,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    offset: Offset(0, 4),
+                                                    blurRadius: 8,
+                                                    spreadRadius: 0,
+                                                    color: Color(0xff000000)
+                                                        .withOpacity(.08))
+                                              ]),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: size.width * 0.03),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      height:
+                                                          size.height * 0.05,
+                                                      width: size.width * 0.12,
+                                                      child: CircleAvatar(
+                                                        backgroundImage:
+                                                            AssetImage(
+                                                          "assets/images/coffee1.png",
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  width(size.width * 0.03),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: size.height *
-                                                            0.015),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        CustomSmallText(
-                                                          text: "Calista Cafe",
-                                                          laterspacing: -0.408,
-                                                          size: 16,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              "assets/svg/calendar_month.svg",
-                                                              width:
-                                                                  size.width *
-                                                                      0.045,
-                                                            ),
-                                                            width(size.width *
-                                                                0.01),
-                                                            CustomSmallText(
-                                                              text:
-                                                                  "12 Jun 2022 at 03:30 PM",
-                                                              size: 12,
-                                                            )
-                                                          ],
-                                                        )
-                                                      ],
+                                                    width(size.width * 0.03),
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: size.height *
+                                                              0.015),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          CustomSmallText(
+                                                            text:
+                                                                "Calista Cafe",
+                                                            laterspacing:
+                                                                -0.408,
+                                                            size: 16,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              SvgPicture.asset(
+                                                                "assets/svg/calendar_month.svg",
+                                                                width:
+                                                                    size.width *
+                                                                        0.045,
+                                                              ),
+                                                              width(size.width *
+                                                                  0.01),
+                                                              CustomSmallText(
+                                                                text:
+                                                                    "12 Jun 2022 at 03:30 PM",
+                                                                size: 12,
+                                                              )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    CustomBigText(
+                                                      text: "+500 Cr",
+                                                      size: 16,
+                                                      color: Color(0xff27AE60),
                                                     ),
-                                                  )
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  CustomBigText(
-                                                    text: "+500 Cr",
-                                                    size: 16,
-                                                    color: Color(0xff27AE60),
-                                                  ),
-                                                  width(size.width * 0.03),
-                                                  SvgPicture.asset(
-                                                      "assets/svg/arrow_forward_ios.svg")
-                                                ],
-                                              )
-                                            ],
+                                                    width(size.width * 0.03),
+                                                    SvgPicture.asset(
+                                                        "assets/svg/arrow_forward_ios.svg")
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                          )
-                        ],
+                                      );
+                                    }),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )
             ],
@@ -353,8 +371,8 @@ class WalletScreen extends GetView<WalletPageController> {
                     width: size.width,
                     decoration: BoxDecoration(
                         gradient: LinearGradient(colors: [
-                      Color(0xff4F4F4F),
                       Color(0xff202020),
+                      Color(0xff4F4F4F),
                     ])),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -30,7 +30,7 @@ class Routes {
   static String bookASlotPageRoute = '/bookaslot';
 //
 //
-//
+//HOMEPAGE
   static String searchPageRoute = '/search';
   static String notificationPageRoute = '/notification';
   static String filterPageRoute = '/filter';
@@ -38,6 +38,8 @@ class Routes {
   static String editProfilePageRoute = '/editprofile';
   static String calistaCafePageRoute = '/calistacafe';
 
+//TRIPS
+  static String tripsPageRoute = '/trips';
   //
   //
   //

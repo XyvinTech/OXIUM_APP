@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Controller/smartcharge_screen_controller.dart';
-import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/routes.dart';
 import '../../constants.dart';
-import '../Widgets/appbar.dart';
 
 class SmartChargeScreen extends GetView<SmartChargeController> {
   const SmartChargeScreen({Key? key}) : super(key: key);
@@ -64,40 +61,51 @@ class SmartChargeScreen extends GetView<SmartChargeController> {
                     Positioned(
                         bottom: 0,
                         child: Container(
-                          height: size.height * 0.47,
+                          height: size.height * 0.48,
                           width: size.width,
-                          color: Color(0xff0047C2),
+                          decoration: BoxDecoration(
+                            color: Color(0xff0047C2),
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.elliptical(
+                                    MediaQuery.of(context).size.width * 4,
+                                    300.0)),
+                          ),
                         )),
                     Positioned(
                         top: size.height * 0.055,
-                        left: size.width * 0.16,
+                        left: size.width * 0.10,
+                        right: size.width * 0.10,
                         child: Container(
                           height: size.height * 0.46,
-                          width: size.width * 0.68,
+                          width: size.width * 0.70,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image:
                                       AssetImage("assets/images/goecpower.png"),
-                                  fit: BoxFit.cover)),
+                                  fit: BoxFit.fill)),
                           child: Padding(
                             padding: EdgeInsets.only(
                                 bottom: size.height * 0.065,
-                                left: size.width * 0.03,
-                                right: size.width * 0.03),
+                                left: size.width * 0.04,
+                                right: size.width * 0.04),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    CustomBigText(text: "GO EC RFID"),
-                                    CustomBigText(
-                                      text: "₹ 399",
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xff219653),
-                                    )
-                                  ],
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * .06),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      CustomBigText(text: "GO EC RFID"),
+                                      CustomBigText(
+                                        text: "₹ 399",
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0xff219653),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -126,7 +134,7 @@ class SmartChargeScreen extends GetView<SmartChargeController> {
                                   fontFamily: "Poppins",
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
-                                  color: Color(0xffF2F2F2),
+                                  color: Color(0xff0047C3),
                                 ),
                               ),
                             ),
