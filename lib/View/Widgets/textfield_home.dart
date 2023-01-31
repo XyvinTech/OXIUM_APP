@@ -14,6 +14,7 @@ class textField extends StatelessWidget {
     this.formKey,
     this.onChanged,
     this.suffix,
+    this.autofocus,
   });
   final Size size;
   final TextEditingController controller;
@@ -23,12 +24,14 @@ class textField extends StatelessWidget {
   final String Function(String?)? validator;
   final Function(String)? onChanged;
   final Widget? suffix;
+  bool? autofocus = false;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
         key: formKey,
         controller: controller,
+        autofocus: autofocus!,
         decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: suffix,

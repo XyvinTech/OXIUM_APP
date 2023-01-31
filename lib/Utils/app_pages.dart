@@ -32,6 +32,7 @@ import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
 import 'package:freelancer_app/View/WalletPage/popup_page.dart';
 import 'package:freelancer_app/View/WalletPage/walletpage.dart';
 import 'package:get/get.dart';
+import '../Bindings/directions_screen_binding.dart';
 import '../Bindings/editprofile_screen_binding.dart';
 import '../Bindings/filter_screen_binding.dart';
 import '../Bindings/loginpage_binding.dart';
@@ -45,6 +46,7 @@ import '../View/Homepage/filter_screen.dart';
 import '../View/Homepage/notification_screen.dart';
 import '../View/Homepage/profile_screen.dart';
 import '../View/Homepage/search_screen.dart';
+import '../View/Trips/directions_page.dart';
 import '../View/Trips/search_places_page.dart';
 import '../View/Trips/trips_page.dart';
 
@@ -185,6 +187,11 @@ abstract class AppPages {
       name: Routes.searchPlacesPageRoute,
       binding: SearchPlacesScreenBinding(),
       page: () =>SearchPlacesScreen(),
+    ),
+    GetPage(
+      name: Routes.directionsPageRoute,
+      binding: DirectionsScreenBinding(),
+      page: () =>DirectionsScreen(),
     ),
 
     //

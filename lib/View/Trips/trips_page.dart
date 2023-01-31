@@ -176,19 +176,51 @@ class TripsScreen extends GetView<TripsScreenController> {
                                       Expanded(
                                         child: Column(
                                           children: [
-                                            rounded_container(
-                                                hintText: 'Starting point',
-                                                onTap: () {
-                                                  Get.toNamed(Routes
-                                                      .searchPlacesPageRoute);
-                                                }),
+                                            Obx(
+                                              () => rounded_container(
+                                                  hintText: 'Starting point',
+                                                  text: controller.source.value
+                                                              .placeId ==
+                                                          null
+                                                      ? null
+                                                      : controller.source.value
+                                                          .description!
+                                                          .split(', ')
+                                                          .first,
+                                                  onTap: () {
+                                                    Get.toNamed(Routes
+                                                            .searchPlacesPageRoute)!
+                                                        .then((value) {
+                                                      if (value == null ||
+                                                          value.isEmpty) return;
+                                                      controller.source.value =
+                                                          value[0];
+                                                    });
+                                                  }),
+                                            ),
                                             height(size.height * .02),
-                                            rounded_container(
-                                                hintText: 'Destination',
-                                                onTap: () {
-                                                  Get.toNamed(Routes
-                                                      .searchPlacesPageRoute);
-                                                }),
+                                            Obx(
+                                              () => rounded_container(
+                                                  hintText: 'Destination',
+                                                  text: controller.destination
+                                                              .value.placeId ==
+                                                          null
+                                                      ? null
+                                                      : controller.destination
+                                                          .value.description!
+                                                          .split(', ')
+                                                          .first,
+                                                  onTap: () {
+                                                    Get.toNamed(Routes
+                                                            .searchPlacesPageRoute)!
+                                                        .then((value) {
+                                                      if (value == null ||
+                                                          value.isEmpty) return;
+                                                      controller.destination
+                                                          .value = value[0];
+                                                    });
+                                                  }),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -202,7 +234,12 @@ class TripsScreen extends GetView<TripsScreenController> {
                                         right: size.width * 0.055,
                                       ),
                                       child: InkWell(
-                                        onTap: () {},
+                                        onTap: () async {
+                                          await controller
+                                              .getDirectionsPolyline();
+                                          Get.toNamed(
+                                              Routes.directionsPageRoute,arguments: controller.directionsResult);
+                                        },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: size.width * 0.065),

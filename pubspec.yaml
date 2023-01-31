@@ -60,6 +60,7 @@ dependencies:
   intl: ^0.17.0
   google_place: ^0.4.7
   google_directions_api: ^0.9.1
+  flutter_polyline_points: ^1.0.0
 
 dev_dependencies:
   flutter_test:
