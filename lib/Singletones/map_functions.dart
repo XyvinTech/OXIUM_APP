@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/View/Homepage/homepage.dart';
+import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_directions_api/google_directions_api.dart';
@@ -123,7 +124,8 @@ class MapFunctions {
     ));
   }
 
-  void setMapFitToPolyline(Set<Polyline> p, GoogleMapController controller) {
+  void setMapFitToPolyline(
+      Set<Polyline> p, GoogleMapController controller) async {
     double minLat = p.first.points.first.latitude;
     double minLong = p.first.points.first.longitude;
     double maxLat = p.first.points.first.latitude;
@@ -137,13 +139,23 @@ class MapFunctions {
         if (point.longitude > maxLong) maxLong = point.longitude;
       });
     });
-    // controller.animateCamera(CameraUpdate.newCameraPosition(
-    //     CameraPosition(target: LatLng(minLat, minLong), bearing: 90)));
+
     controller.animateCamera(CameraUpdate.newLatLngBounds(
         LatLngBounds(
             southwest: LatLng(minLat, minLong),
             northeast: LatLng(maxLat, maxLong)),
         30));
+    Future.delayed(Duration(milliseconds: 4000), () async {
+      ScreenCoordinate minScreen =
+          await controller.getScreenCoordinate(LatLng(minLat, minLong));
+      ScreenCoordinate maxScreen =
+          await controller.getScreenCoordinate(LatLng(maxLat, maxLong));
+      print(minScreen);
+      print(maxScreen);
+      print(size);
+      controller.animateCamera(CameraUpdate.zoomBy(
+          (minScreen.y - maxScreen.y) > size.height * .50 ? -1.1 : 0));
+    });
   }
 
   addMarkerHomePage({
@@ -235,51 +247,55 @@ class MapFunctions {
       destination: 'place_id:' + destination.placeId!,
     );
 
-    await directinosService.route(request,
-        (DirectionsResult response, DirectionsStatus? status) {
-      if (status == DirectionsStatus.ok) {
-        List<LatLng> polylineOne = [];
-        polylineString = response.routes!.first.overviewPolyline!.points!;
-        log(polylineString);
-        //DECODE POLYLINE
-        polylineOne = polylinePoints
-            .decodePolyline(polylineString)
-            .map((e) => LatLng(e.latitude, e.longitude))
-            .toList();
-        var legs = response.routes!.first.legs!;
-        addCircleOnSourceDest(
-          name: 'source',
-          lat: legs.first.startLocation!.latitude,
-          lng: legs.first.startLocation!.longitude,
-          bytes: bytesBlue,
-        );
-        log(legs.first.endLocation.toString());
-        log(legs.first.startLocation.toString());
-        addCircleOnSourceDest(
-          name: 'destination',
-          lat: legs.first.endLocation!.latitude,
-          lng: legs.first.endLocation!.longitude,
-          bytes: bytesBlue,
-        );
+    try {
+      await directinosService.route(request,
+          (DirectionsResult response, DirectionsStatus? status) {
+        if (status == DirectionsStatus.ok) {
+          List<LatLng> polylineOne = [];
+          polylineString = response.routes!.first.overviewPolyline!.points!;
+          log(polylineString);
+          //DECODE POLYLINE
+          polylineOne = polylinePoints
+              .decodePolyline(polylineString)
+              .map((e) => LatLng(e.latitude, e.longitude))
+              .toList();
+          var legs = response.routes!.first.legs!;
+          addCircleOnSourceDest(
+            name: 'source',
+            lat: legs.first.startLocation!.latitude,
+            lng: legs.first.startLocation!.longitude,
+            bytes: bytesBlue,
+          );
+          log(legs.first.endLocation.toString());
+          log(legs.first.startLocation.toString());
+          addCircleOnSourceDest(
+            name: 'destination',
+            lat: legs.first.endLocation!.latitude,
+            lng: legs.first.endLocation!.longitude,
+            bytes: bytesBlue,
+          );
 
-        polylines.add(Polyline(
-          polylineId: PolylineId('1'),
-          points: polylineOne,
-          color: Color(0xff0047c3),
-          width: 3,
-        ));
-        // setMapFitToPolyline(polylines, dirMapController);
+          polylines.add(Polyline(
+            polylineId: PolylineId('1'),
+            points: polylineOne,
+            color: Color(0xff0047c3),
+            width: 3,
+          ));
+          // setMapFitToPolyline(polylines, dirMapController);
 
-        polylineString = response.routes!.first.overviewPolyline!.points!;
-        finalResponse = response;
-        // animatePolyline(response.routes!.first.overviewPolyline!.points!);
-      } else {
-        // do something with error response
-        log('failed to get directions');
-      }
-    });
-    log('direction get complete');
-    return finalResponse;
+          polylineString = response.routes!.first.overviewPolyline!.points!;
+          finalResponse = response;
+          // animatePolyline(response.routes!.first.overviewPolyline!.points!);
+        } else {
+          // do something with error response
+          log('failed to get directions');
+        }
+      });
+      log('direction get complete');
+      return finalResponse;
+    } on Exception catch (e) {
+      // TODO
+    }
   }
 
   animatePolyline(String points, RxInt reload) {

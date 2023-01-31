@@ -44,19 +44,22 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
                       },
                       onTap: (value) {
                         print(value);
+                        MapFunctions().setMapFitToPolyline(
+                            MapFunctions().polylines,
+                            MapFunctions().dirMapController);
                         // MapFunctions().addMarkerHomePage(
                         //     name: value.latitude.toString(),
                         //     latLng: value,
                         //     isGreen: false,
                         //     controller: controller);
                         controller.reload++;
-                        print(MapFunctions().markers_homepage);
                       },
                     ),
                   ),
                 ),
               ),
               yourDestinationCard(),
+              startYourTripCard(),
             ],
           ),
         ));
@@ -240,5 +243,39 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
             ),
           ),
         ));
+  }
+
+  Widget startYourTripCard() {
+    return Positioned(
+        bottom: size.height * 0.04,
+        width: size.width * .90,
+        child: Container(
+            child: Container(
+                padding: EdgeInsets.only(
+                    // top: size.height * 0.07,
+                    // bottom: size.height * 0.02,
+                    ),
+                height: size.height * 0.22,
+                width: size.width,
+                decoration: BoxDecoration(
+                  color: kwhite,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                      blurRadius: 32,
+                      color: Color(0xff000000).withOpacity(0.06),
+                    )
+                  ],
+                ),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * .045),
+                          child: Row(children: []))
+                    ]))));
   }
 }

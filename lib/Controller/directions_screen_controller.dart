@@ -17,8 +17,8 @@ class DirectionsScreenController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     directionsResult = Get.arguments[0];
-    source.value = Get.arguments[1];
-    destination.value = Get.arguments[2];
+    source = Get.arguments[1];
+    destination = Get.arguments[2];
     Future.delayed(Duration(milliseconds: 1000), () {
       log('delayed');
       log(MapFunctions().polylineString);
