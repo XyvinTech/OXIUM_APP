@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
+import 'package:freelancer_app/View/Widgets/button.dart';
+import 'package:freelancer_app/View/Widgets/customText.dart';
+import 'package:freelancer_app/View/Widgets/rounded_container.dart';
+import 'package:freelancer_app/View/Widgets/textfield_home.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +24,7 @@ class TripsScreen extends GetView<TripsScreenController> {
           SliverAppBar(
               backgroundColor: Color(0xffF5F9FF),
               automaticallyImplyLeading: false,
-              expandedHeight: size.height * 0.6,
+              expandedHeight: size.height * 0.65,
               // collapsedHeight: size.height * 0.01,
               floating: true,
               pinned: true,
@@ -31,10 +36,10 @@ class TripsScreen extends GetView<TripsScreenController> {
                         left: size.width * 0.055,
                         right: size.width * 0.055,
                         top: size.height * 0.020,
-                        bottom: size.height * 0.02,
+                        bottom: size.height * 0.01,
                       ),
                       child: Container(
-                        height: size.height * 0.4,
+                        height: size.height * 0.6,
                         width: size.width,
                         child: Column(
                           children: [
@@ -107,10 +112,10 @@ class TripsScreen extends GetView<TripsScreenController> {
                             //resereve charger card
                             Container(
                               padding: EdgeInsets.only(
-                                top: size.height * 0.07,
-                                bottom: size.height * 0.02,
-                              ),
-                              height: size.height * 0.28,
+                                  // top: size.height * 0.07,
+                                  // bottom: size.height * 0.02,
+                                  ),
+                              height: size.height * 0.37,
                               width: size.width,
                               decoration: BoxDecoration(
                                 color: kwhite,
@@ -125,63 +130,121 @@ class TripsScreen extends GetView<TripsScreenController> {
                                 ],
                               ),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  CustomBigText(
+                                    text: 'Choose destinations',
+                                    size: 14,
+                                    color: Color(0xff4f4f4f),
+                                  ),
+                                  height(size.height * .02),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
                                     children: [
-                                      Column(
-                                        children: [
-                                          CustomBigText(
-                                            text: "500 kWh",
-                                            size: 16,
-                                            color: kblue,
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.01,
-                                          ),
-                                          CustomSmallText(
-                                            text: "Energy Charged",
-                                            size: 12,
-                                          ),
-                                        ],
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: size.width * .05,
+                                          right: size.width * .015,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            SvgPicture.asset(
+                                                'assets/svg/adjust.svg'),
+                                            Column(
+                                              children: List.generate(
+                                                  4,
+                                                  (index) => Container(
+                                                        height: 5,
+                                                        width: 1,
+                                                        margin: EdgeInsets
+                                                            .symmetric(
+                                                                vertical:
+                                                                    size.height *
+                                                                        .0038),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            color: Colors.grey),
+                                                      )),
+                                            ),
+                                            SvgPicture.asset(
+                                                'assets/svg/location_on_red.svg')
+                                          ],
+                                        ),
                                       ),
-                                      Container(
-                                        height: size.height * 0.04,
-                                        width: size.width * 0.0055,
-                                        color: Color(0xffBDBDBD),
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            rounded_container(
+                                                hintText: 'Starting point',
+                                                onTap: () {
+                                                  Get.toNamed(Routes
+                                                      .searchPlacesPageRoute);
+                                                }),
+                                            height(size.height * .02),
+                                            rounded_container(
+                                                hintText: 'Destination',
+                                                onTap: () {
+                                                  Get.toNamed(Routes
+                                                      .searchPlacesPageRoute);
+                                                }),
+                                          ],
+                                        ),
                                       ),
-                                      Column(
-                                        children: [
-                                          CustomBigText(
-                                            text: "2,340",
-                                            size: 16,
-                                            color: kblue,
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.01,
-                                          ),
-                                          CustomSmallText(
-                                            text: "KMS Driven",
-                                            size: 12,
-                                          ),
-                                        ],
-                                      )
+                                      width(size.width * .051)
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.045,
-                                  ),
+                                  height(size.height * .025),
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                      left: size.width * 0.055,
-                                      right: size.width * 0.055,
+                                      padding: EdgeInsets.only(
+                                        left: size.width * 0.055,
+                                        right: size.width * 0.055,
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {},
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: size.width * 0.065),
+                                          height: size.height * 0.064,
+                                          width: size.width * .45,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(65),
+                                            color: Color(0xff0047C3),
+                                          ),
+                                          child: Center(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                SvgPicture.asset(
+                                                    'assets/svg/route.svg'),
+                                                Text(
+                                                  'Find route',
+                                                  style: TextStyle(
+                                                    fontFamily: "Poppins",
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 15,
+                                                    color: Color(0xffF2F2F2),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      )),
+                                  Visibility(
+                                    visible: false,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(top: 8.0),
+                                      child: CustomText(
+                                        text: 'Empty Fields',
+                                        size: 14,
+                                        color: Color(0xffEB5757),
+                                      ),
                                     ),
-                                    child: AppButton(
-                                      text: "Reserve Charger",
-                                      sizeheight: size.height * 0.07,
-                                    ),
-                                  ),
+                                  )
                                 ],
                               ),
                             )
@@ -193,7 +256,7 @@ class TripsScreen extends GetView<TripsScreenController> {
                 ),
               ),
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(size.height * .14),
+                preferredSize: Size.fromHeight(size.height * .11),
                 child: Container(
                   color: kwhite,
                   child: Column(
@@ -212,11 +275,11 @@ class TripsScreen extends GetView<TripsScreenController> {
                       CustomBigText(
                         text: 'Trips',
                         size: 14,
-                        color: Color(0xff828282),
+                        color: Color(0xff4f4f4f),
                       ),
                       height(size.height * .01),
                       Container(
-                        height: size.height * .065,
+                        height: size.height * .057,
                         margin: EdgeInsets.symmetric(
                             horizontal: size.width * .045,
                             vertical: size.height * .00),

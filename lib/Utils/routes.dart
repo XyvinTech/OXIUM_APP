@@ -40,6 +40,7 @@ class Routes {
 
 //TRIPS
   static String tripsPageRoute = '/trips';
+  static String searchPlacesPageRoute = '/searchplaces';
   //
   //
   //

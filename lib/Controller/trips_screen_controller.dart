@@ -7,9 +7,11 @@ class TripsScreenController extends GetxController
   RxInt IsTabIndex = 0.obs;
 
   late TabController tabController;
+  final TextEditingController sourceTextController = TextEditingController();
   @override
   void onInit() {
     // TODO: implement onInit
+
     tabController = TabController(length: 2, vsync: this);
     super.onInit();
     tabController.addListener(() {

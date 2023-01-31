@@ -58,6 +58,8 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   percent_indicator: ^4.2.2
   intl: ^0.17.0
+  google_place: ^0.4.7
+  google_directions_api: ^0.9.1
 
 dev_dependencies:
   flutter_test:
