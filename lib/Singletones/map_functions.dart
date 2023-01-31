@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/View/Homepage/homepage.dart';
-import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_directions_api/google_directions_api.dart';
@@ -34,8 +33,8 @@ class MapFunctions {
   String polylineString = '';
   Timer? timer;
   Uint8List? bytesBlue, bytesGreen, navigationMarker;
-  String googleApiKey = "AIzaSyC-KnRoUdTT4_xQ_xbyVkvXPoKUNTZptnE";
-  var googlePlace = GooglePlace('AIzaSyC-KnRoUdTT4_xQ_xbyVkvXPoKUNTZptnE');
+  String googleApiKey = "AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs";
+  var googlePlace = GooglePlace('AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs');
 
   Rx<CameraPosition> initialPosition = CameraPosition(
           target: LatLng(37.42796133580664, -122.085749655962), zoom: 15)
@@ -138,11 +137,13 @@ class MapFunctions {
         if (point.longitude > maxLong) maxLong = point.longitude;
       });
     });
+    // controller.animateCamera(CameraUpdate.newCameraPosition(
+    //     CameraPosition(target: LatLng(minLat, minLong), bearing: 90)));
     controller.animateCamera(CameraUpdate.newLatLngBounds(
         LatLngBounds(
             southwest: LatLng(minLat, minLong),
             northeast: LatLng(maxLat, maxLong)),
-        90));
+        30));
   }
 
   addMarkerHomePage({
@@ -168,22 +169,30 @@ class MapFunctions {
   }
 
   Future<List<AutocompletePrediction>?> searchPlaceByName(String place) async {
-    var result = await googlePlace.autocomplete.get(
-      place,
-      origin: LatLon(
-          MapFunctions().curPos!.latitude, MapFunctions().curPos!.longitude),
-      location: LatLon(
-          MapFunctions().curPos!.latitude, MapFunctions().curPos!.longitude),
-    );
+    log('search by $place');
 
-    if (result != null && result.predictions != null) {
-      result.predictions!.forEach((element) {
-        log(element.placeId.toString());
-        log(element.description.toString());
-      });
+    try {
+      var result = await googlePlace.autocomplete.get(
+        place,
+        origin: LatLon(
+            MapFunctions().curPos!.latitude, MapFunctions().curPos!.longitude),
+        location: LatLon(
+            MapFunctions().curPos!.latitude, MapFunctions().curPos!.longitude),
+      );
+      if (result != null && result.predictions != null) {
+        result.predictions!.forEach((element) {
+          log(element.placeId.toString());
+          log(element.description.toString());
+        });
+      }
+
+      return result?.predictions ?? [];
+    } on Exception catch (e) {
+      // TODO
+      log(e.toString());
     }
 
-    return result?.predictions ?? [];
+    return [];
   }
 
   Future<DetailsResponse?> getDetailsByPlaceId(String placeId) async {
@@ -216,6 +225,9 @@ class MapFunctions {
     DirectionsService.init(googleApiKey);
     final directinosService = DirectionsService();
     DirectionsResult? finalResponse;
+    polylineString = '';
+    polylines = {};
+    markers = {};
 
     // '${pickup.lat},${pickup.lng}'
     final request = await DirectionsRequest(
@@ -224,7 +236,7 @@ class MapFunctions {
     );
 
     await directinosService.route(request,
-        (DirectionsResult response, DirectionsStatus? status) async {
+        (DirectionsResult response, DirectionsStatus? status) {
       if (status == DirectionsStatus.ok) {
         List<LatLng> polylineOne = [];
         polylineString = response.routes!.first.overviewPolyline!.points!;
@@ -237,21 +249,23 @@ class MapFunctions {
         var legs = response.routes!.first.legs!;
         addCircleOnSourceDest(
           name: 'source',
-          lat: legs[0].startLocation!.latitude,
-          lng: legs[0].startLocation!.longitude,
+          lat: legs.first.startLocation!.latitude,
+          lng: legs.first.startLocation!.longitude,
           bytes: bytesBlue,
         );
+        log(legs.first.endLocation.toString());
+        log(legs.first.startLocation.toString());
         addCircleOnSourceDest(
           name: 'destination',
-          lat: legs[legs.length - 1].startLocation!.latitude,
-          lng: legs[legs.length - 1].startLocation!.longitude,
+          lat: legs.first.endLocation!.latitude,
+          lng: legs.first.endLocation!.longitude,
           bytes: bytesBlue,
         );
 
         polylines.add(Polyline(
           polylineId: PolylineId('1'),
           points: polylineOne,
-          color: Colors.grey.withOpacity(1),
+          color: Color(0xff0047c3),
           width: 3,
         ));
         // setMapFitToPolyline(polylines, dirMapController);
