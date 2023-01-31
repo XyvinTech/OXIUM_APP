@@ -30,11 +30,20 @@ class Routes {
   static String bookASlotPageRoute = '/bookaslot';
 //
 //
-//
+//HOMEPAGE
   static String searchPageRoute = '/search';
   static String notificationPageRoute = '/notification';
   static String filterPageRoute = '/filter';
   static String profilePageRoute = '/profile';
   static String editProfilePageRoute = '/editprofile';
   static String calistaCafePageRoute = '/calistacafe';
+
+//TRIPS
+  static String tripsPageRoute = '/trips';
+  //
+  //
+  //
+  // Wallet
+  static String walletPageRoute = '/wallet';
+  static String popupPageRoute = '/popup';
 }

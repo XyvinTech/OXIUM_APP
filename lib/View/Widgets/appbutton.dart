@@ -82,7 +82,7 @@ class StartedButton extends StatelessWidget {
                 ),
               ),
               IconButton(
-                iconSize: 20,
+                iconSize: 24,
                 onPressed: () {},
                 icon: Icon(
                   Icons.arrow_forward,
@@ -167,7 +167,7 @@ class SignUpButton extends StatelessWidget {
   final Color? borderColor;
   final double? borderWidth;
   final String text;
-  final Image logo;
+  final Widget logo;
   final void Function()? onTap;
 
   @override
@@ -188,10 +188,7 @@ class SignUpButton extends StatelessWidget {
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              height: 27,
-              child: Image.asset("assets/images/google1.png"),
-            ),
+            logo,
             SizedBox(
               width: size.width * 0.15,
             ),

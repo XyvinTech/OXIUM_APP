@@ -3,10 +3,12 @@ import 'package:freelancer_app/Bindings/calista_cafePage_bindings.dart';
 import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
+import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
 import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
 import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
+import 'package:freelancer_app/Bindings/wallet_page_bindings.dart';
 
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
@@ -27,20 +29,22 @@ import 'package:freelancer_app/View/Onboarding/rfidnumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/smartchrage_page.dart';
 import 'package:freelancer_app/View/Onboarding/vehiclesearch_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
+import 'package:freelancer_app/View/WalletPage/popup_page.dart';
+import 'package:freelancer_app/View/WalletPage/walletpage.dart';
 import 'package:get/get.dart';
-import '../Bindings/bookaslot_screen_binding.dart';
 import '../Bindings/editprofile_screen_binding.dart';
 import '../Bindings/filter_screen_binding.dart';
 import '../Bindings/loginpage_binding.dart';
 import '../Bindings/notification_screen_binding.dart';
 import '../Bindings/profile_screen_binding.dart';
 import '../Bindings/search_screen_binding.dart';
-import '../View/Charge/bookaslot_page.dart';
+import '../Bindings/tripspage_binding.dart';
 import '../View/Homepage/editprofile_screen.dart';
 import '../View/Homepage/filter_screen.dart';
 import '../View/Homepage/notification_screen.dart';
 import '../View/Homepage/profile_screen.dart';
 import '../View/Homepage/search_screen.dart';
+import '../View/Trips/trips_page.dart';
 
 abstract class AppPages {
   static final List<GetPage> pages = [
@@ -117,11 +121,6 @@ abstract class AppPages {
       binding: ReservationScreenBindigs(),
       page: () => ReservationScreen(),
     ),
-    GetPage(
-      name: Routes.bookASlotPageRoute,
-      binding: BookASlotScreenBinding(),
-      page: () => BookASlotScreen(),
-    ),
 
     ///
     ///
@@ -161,6 +160,40 @@ abstract class AppPages {
       name: Routes.calistaCafePageRoute,
       binding: CalistaCafePageBindings(),
       page: () => CalistaCafeScreen(),
+    ),
+
+    ///
+    ///
+    //Charge PAGE
+    GetPage(
+      name: Routes.chargePageRoute,
+      binding: ChargeScreenBinding(),
+      page: () => ChargeScreen(),
+    ),
+
+    //
+    //
+    //Trips PAGE
+    GetPage(
+      name: Routes.tripsPageRoute,
+      binding: TripsScreenBinding(),
+      page: () =>TripsScreen(),
+    ),
+
+    //
+    ///
+    ///
+    //Wallet PAGE
+
+    GetPage(
+      name: Routes.walletPageRoute,
+      binding: WalletPageBindings(),
+      page: () => WalletScreen(),
+    ),
+    GetPage(
+      name: Routes.popupPageRoute,
+      binding: PopupPageBindigs(),
+      page: () => PopUpPage(),
     ),
   ];
 }

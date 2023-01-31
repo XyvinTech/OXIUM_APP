@@ -1,6 +1,7 @@
 import 'package:country_picker/country_picker.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Onboarding/enterotp_page.dart';
@@ -116,27 +117,30 @@ class EnterNumberPage extends GetView<LoginPageController> {
                         child: Container(
                           height: size.height * 0.065,
                           width: size.width * 0.5,
-                          child: TextFormField(
-                            onChanged: (String value) {
-                              controller.textfield.value = value;
-                            },
-                            keyboardType: TextInputType.number,
-                            maxLines: 1,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(10),
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            decoration: InputDecoration(
-                              hintText: "Phone Number",
-                              hintStyle: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xffBDBDBD),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: size.height * 0.0034),
+                            child: TextFormField(
+                              onChanged: (String value) {
+                                controller.textfield.value = value;
+                              },
+                              keyboardType: TextInputType.number,
+                              maxLines: 1,
+                              inputFormatters: [
+                                // LengthLimitingTextInputFormatter(10),
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              decoration: InputDecoration(
+                                hintText: "Phone Number",
+                                hintStyle: TextStyle(
+                                  fontFamily: "Poppins",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xffBDBDBD),
+                                ),
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
                               ),
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
                             ),
                           ),
                         ),
@@ -196,7 +200,10 @@ class EnterNumberPage extends GetView<LoginPageController> {
                   borderColor: Color(0xffE0E0E0),
                   color: kwhite,
                   text: "Sign up with Google",
-                  logo: Image.asset("assets/images/google1.png"),
+                  logo: Image.asset(
+                    "assets/images/google1.png",
+                    height: size.height * 0.033,
+                  ),
                 ),
                 SizedBox(
                   height: size.height * 0.025,
@@ -205,7 +212,10 @@ class EnterNumberPage extends GetView<LoginPageController> {
                   textColor: Color(0xffF2F2F2),
                   color: kblack,
                   text: "Sign up with Apple",
-                  logo: Image.asset("assets/images/apple.png"),
+                  logo: Image.asset(
+                    "assets/images/apple.png",
+                    height: size.height * 0.033,
+                  ),
                 ),
               ],
             ),

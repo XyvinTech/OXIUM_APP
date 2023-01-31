@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/vehicles_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -72,8 +73,8 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
               onTap: () {
                 controller.enablemailTextfield.value = true;
               },
-              hintText: "Vehicle No",
-              icon: Image.asset("assets/images/face.png"),
+              hintText: "Vehicle no",
+              icon: SvgPicture.asset("assets/svg/directions_car1.svg"),
               keyboardtype: TextInputType.number,
               Controller: controller.numEditingController,
               onChanged: (String val) {},

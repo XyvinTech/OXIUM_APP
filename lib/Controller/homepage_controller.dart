@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
+import 'package:freelancer_app/Controller/trips_screen_controller.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import 'chargePage_controller.dart';
 
 class HomePageController extends GetxController {
   RxDouble height = 80.0.obs;
@@ -15,6 +18,9 @@ class HomePageController extends GetxController {
   final GlobalKey<ScaffoldState> drawerKey = GlobalKey();
   PageController pageController = PageController();
   PanelController panelController = PanelController();
+    final ChargeScreenController chargeScreenController =
+      Get.put(ChargeScreenController());
+  final tripsScreenController = Get.put(TripsScreenController());
 
   @override
   void onInit() async {
