@@ -139,7 +139,6 @@ class MapFunctions {
         if (point.longitude > maxLong) maxLong = point.longitude;
       });
     });
-
     controller.animateCamera(CameraUpdate.newLatLngBounds(
         LatLngBounds(
             southwest: LatLng(minLat, minLong),
@@ -154,7 +153,7 @@ class MapFunctions {
       print(maxScreen);
       print(size);
       controller.animateCamera(CameraUpdate.zoomBy(
-          (minScreen.y - maxScreen.y) > size.height * .50 ? -1.1 : 0));
+          (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
     });
   }
 
