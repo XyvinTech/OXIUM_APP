@@ -273,7 +273,7 @@ class MapFunctions {
     List<PointLatLng> polyList = PolylinePoints().decodePolyline(points);
 
     int i = 0;
-    timer = Timer.periodic(Duration(milliseconds: 25), (_timer) {
+    timer = Timer.periodic(Duration(milliseconds: 20), (_timer) {
       if (i >= polyList.length) {
         i = 0;
         polylinethree.clear();
