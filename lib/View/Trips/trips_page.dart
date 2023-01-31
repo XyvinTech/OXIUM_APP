@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
-import 'package:freelancer_app/View/Widgets/button.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/View/Widgets/rounded_container.dart';
-import 'package:freelancer_app/View/Widgets/textfield_home.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
@@ -238,7 +235,12 @@ class TripsScreen extends GetView<TripsScreenController> {
                                           await controller
                                               .getDirectionsPolyline();
                                           Get.toNamed(
-                                              Routes.directionsPageRoute,arguments: controller.directionsResult);
+                                              Routes.directionsPageRoute,
+                                              arguments: [
+                                                controller.directionsResult,
+                                                controller.source,
+                                                controller.destination
+                                              ]);
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(

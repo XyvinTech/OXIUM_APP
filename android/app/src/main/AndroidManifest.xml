@@ -36,7 +36,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDuIBJ8pL7_iqWjepTybm6teuRxaJdn-N0"/>
+            android:value="AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs"/>
         <!-- ADDED FOR TELEPHONY -->
         <receiver android:name="com.shounakmulay.telephony.sms.IncomingSmsReceiver"
 		    android:permission="android.permission.BROADCAST_SMS" android:exported="true">
