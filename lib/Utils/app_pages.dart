@@ -37,12 +37,16 @@ import '../Bindings/filter_screen_binding.dart';
 import '../Bindings/loginpage_binding.dart';
 import '../Bindings/notification_screen_binding.dart';
 import '../Bindings/profile_screen_binding.dart';
+import '../Bindings/search_places_binding.dart';
 import '../Bindings/search_screen_binding.dart';
+import '../Bindings/tripspage_binding.dart';
 import '../View/Homepage/editprofile_screen.dart';
 import '../View/Homepage/filter_screen.dart';
 import '../View/Homepage/notification_screen.dart';
 import '../View/Homepage/profile_screen.dart';
 import '../View/Homepage/search_screen.dart';
+import '../View/Trips/search_places_page.dart';
+import '../View/Trips/trips_page.dart';
 
 abstract class AppPages {
   static final List<GetPage> pages = [
@@ -167,6 +171,20 @@ abstract class AppPages {
       name: Routes.chargePageRoute,
       binding: ChargeScreenBinding(),
       page: () => ChargeScreen(),
+    ),
+
+    //
+    //
+    //Trips PAGE
+    GetPage(
+      name: Routes.tripsPageRoute,
+      binding: TripsScreenBinding(),
+      page: () =>TripsScreen(),
+    ),
+    GetPage(
+      name: Routes.searchPlacesPageRoute,
+      binding: SearchPlacesScreenBinding(),
+      page: () =>SearchPlacesScreen(),
     ),
 
     //

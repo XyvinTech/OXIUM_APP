@@ -1,30 +1,27 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:freelancer_app/Controller/calista_cafePage_controller.dart';
 import 'package:freelancer_app/Controller/chargePage_controller.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
+import 'package:freelancer_app/Controller/trips_screen_controller.dart';
 import 'package:freelancer_app/Model/chargingCafeModel.dart';
-import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/my_flutter_app_icons.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
-import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
 import 'package:freelancer_app/View/Homepage/drawer.dart';
 import 'package:freelancer_app/View/Homepage/map_screen.dart';
+import 'package:freelancer_app/View/Trips/trips_page.dart';
+import 'package:freelancer_app/View/WalletPage/walletpage.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../Utils/routes.dart';
 
 class HomePageScreen extends GetView<HomePageController> {
   HomePageScreen({Key? key}) : super(key: key);
-  final ChargeScreenController chargeScreenController =
-      Get.put(ChargeScreenController());
+
   @override
   Widget build(BuildContext context) {
     if (size.height == 0) size = MediaQuery.of(context).size;
@@ -38,6 +35,8 @@ class HomePageScreen extends GetView<HomePageController> {
         children: [
           MapScreen(),
           ChargeScreen(),
+          TripsScreen(),
+          WalletScreen(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -74,7 +73,8 @@ class HomePageScreen extends GetView<HomePageController> {
             notchSmoothness: NotchSmoothness.defaultEdge,
             onTap: (index) {
               controller.activeIndex.value = index;
-              controller.pageController.jumpToPage(index);
+              controller.pageController.animateToPage(index,
+                  curve: Curves.ease, duration: Duration(milliseconds: 200));
             }
             //other params
             ),

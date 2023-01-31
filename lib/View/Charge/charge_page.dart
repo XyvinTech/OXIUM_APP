@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Controller/chargePage_controller.dart';
+import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
@@ -35,12 +36,12 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                         bottom: size.height * 0.02,
                       ),
                       child: Container(
-                        height: size.height * 0.377,
+                        height: size.height * 0.4,
                         width: size.width,
                         child: Column(
                           children: [
                             Container(
-                              height: size.height * 0.08,
+                              height: size.height * 0.09,
                               width: size.width,
                               decoration: BoxDecoration(
                                 color: kwhite,
@@ -111,7 +112,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                 top: size.height * 0.07,
                                 bottom: size.height * 0.02,
                               ),
-                              height: size.height * 0.27,
+                              height: size.height * 0.28,
                               width: size.width,
                               decoration: BoxDecoration(
                                 color: kwhite,
@@ -181,6 +182,18 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                     child: AppButton(
                                       text: "Reserve Charger",
                                       sizeheight: size.height * 0.07,
+                                      onTap: () {
+                                        HomePageController homeController =
+                                            Get.find();
+
+                                        homeController.pageController
+                                            .animateToPage(
+                                                0,
+                                                curve: Curves.ease,
+                                                duration: Duration(
+                                                    milliseconds: 200));
+                                        log('change');
+                                      },
                                     ),
                                   ),
                                 ],
@@ -391,7 +404,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
               bottom: size.height * 0.015,
               right: size.width * 0.03,
             ),
-            height: size.height * 0.09,
+            height: size.height * 0.1,
             width: size.width,
             // decoration: BoxDecoration(
             //   color: kwhite,
@@ -874,6 +887,11 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                         child: AppButton(
                           text: "Reserve Charger",
                           sizeheight: size.height * 0.07,
+                          onTap: () {
+                            HomePageController homeController = Get.find();
+                            homeController.pageController.jumpToPage(0);
+                            log('change');
+                          },
                         ),
                       ),
                     ],
