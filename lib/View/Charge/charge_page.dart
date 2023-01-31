@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Controller/chargePage_controller.dart';
+import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
@@ -181,6 +182,18 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                     child: AppButton(
                                       text: "Reserve Charger",
                                       sizeheight: size.height * 0.07,
+                                      onTap: () {
+                                        HomePageController homeController =
+                                            Get.find();
+
+                                        homeController.pageController
+                                            .animateToPage(
+                                                0,
+                                                curve: Curves.ease,
+                                                duration: Duration(
+                                                    milliseconds: 200));
+                                        log('change');
+                                      },
                                     ),
                                   ),
                                 ],
@@ -874,6 +887,11 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                         child: AppButton(
                           text: "Reserve Charger",
                           sizeheight: size.height * 0.07,
+                          onTap: () {
+                            HomePageController homeController = Get.find();
+                            homeController.pageController.jumpToPage(0);
+                            log('change');
+                          },
                         ),
                       ),
                     ],

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Bindings/bookaslot_screen_binding.dart';
 import 'package:freelancer_app/Controller/bookaslot_controller.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -65,6 +67,7 @@ class BookASlotScreen extends GetView<BookASlotScreenController> {
                           ],
                         ),
                       ),
+                      height(size.height * .01),
                       Obx(() {
                         return Row(
                           mainAxisSize: MainAxisSize.min,
@@ -277,22 +280,29 @@ class BookASlotScreen extends GetView<BookASlotScreenController> {
                       ),
                     ),
                   ),
-                  Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      width: double.infinity,
-                      height: 56,
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Color(0xff0047C3)),
-                        child: CustomText(
-                          text: 'Reserve slot',
-                          size: 15,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      )),
+                  InkWell(
+                    onTap: () {
+                      if (controller.id == -1) return;
+                      appData.isReserved.value = true;
+                      Get.back();
+                    },
+                    child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 15),
+                        width: double.infinity,
+                        height: size.height * .07,
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Color(0xff0047C3)),
+                          child: CustomText(
+                            text: 'Reserve slot',
+                            size: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        )),
+                  ),
                   SizedBox(
                     height: 10,
                   ),

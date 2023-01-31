@@ -74,7 +74,8 @@ class HomePageScreen extends GetView<HomePageController> {
             notchSmoothness: NotchSmoothness.defaultEdge,
             onTap: (index) {
               controller.activeIndex.value = index;
-              controller.pageController.jumpToPage(index);
+              controller.pageController.animateToPage(index,
+                  curve: Curves.ease, duration: Duration(milliseconds: 200));
             }
             //other params
             ),

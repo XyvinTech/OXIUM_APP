@@ -4,13 +4,14 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/calista_cafePage_controller.dart';
-import 'package:freelancer_app/View/Widgets/appbar.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../Widgets/customText.dart';
 
@@ -386,19 +387,35 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                         ),
                       ),
                     ),
-                    Container(
-                      height: size.height * 0.07,
-                      width: size.width * 0.4,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(30),
-                          border:
-                              Border.all(width: 2, color: Color(0xff0047C3))),
-                      child: Center(
-                        child: CustomBigText(
-                          text: "Reserve",
-                          size: 15,
-                          color: Color(0xff0047C3),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.bookASlotPageRoute);
+                      },
+                      child: Obx(
+                        () => Container(
+                          height: size.height * 0.07,
+                          width: size.width * 0.4,
+                          decoration: BoxDecoration(
+                              color: appData.isReserved.value
+                                  ? Color(0xffCBFFC7)
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                  width: 2,
+                                  color: appData.isReserved.value
+                                      ? Color(0xff219653)
+                                      : Color(0xff0047C3))),
+                          child: Center(
+                            child: CustomBigText(
+                              text: appData.isReserved.value
+                                  ? "Reserved"
+                                  : "Reserve",
+                              size: 15,
+                              color: appData.isReserved.value
+                                  ? Color(0xff219653)
+                                  : Color(0xff0047C3),
+                            ),
+                          ),
                         ),
                       ),
                     )
