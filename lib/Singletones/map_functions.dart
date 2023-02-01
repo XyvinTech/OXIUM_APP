@@ -263,7 +263,7 @@ class MapFunctions {
             name: 'source',
             lat: legs.first.startLocation!.latitude,
             lng: legs.first.startLocation!.longitude,
-            bytes: bytesBlue,
+            bytes: navigationMarker,
           );
           log(legs.first.endLocation.toString());
           log(legs.first.startLocation.toString());
@@ -271,7 +271,7 @@ class MapFunctions {
             name: 'destination',
             lat: legs.first.endLocation!.latitude,
             lng: legs.first.endLocation!.longitude,
-            bytes: bytesBlue,
+            bytes: navigationMarker,
           );
 
           polylines.add(Polyline(

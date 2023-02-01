@@ -18,7 +18,7 @@ class HomePageController extends GetxController {
   final GlobalKey<ScaffoldState> drawerKey = GlobalKey();
   PageController pageController = PageController();
   PanelController panelController = PanelController();
-    final ChargeScreenController chargeScreenController =
+  final ChargeScreenController chargeScreenController =
       Get.put(ChargeScreenController());
   final tripsScreenController = Get.put(TripsScreenController());
 
@@ -30,6 +30,8 @@ class HomePageController extends GetxController {
         "assets/svg/blue_marker.png", 50);
     MapFunctions().bytesGreen = await ImageByteConverter.getBytesFromAsset(
         "assets/svg/green_marker.png", 50);
+    MapFunctions().navigationMarker = await ImageByteConverter.getBytesFromAsset(
+        "assets/images/pointer.png", 50);
     Future.delayed(Duration(milliseconds: 1000), () {
       MapFunctions().myPositionListener();
     });
