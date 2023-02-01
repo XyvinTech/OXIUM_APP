@@ -1,8 +1,12 @@
 on:
 
-  pull_request:
-    branches:
-      - master
+  # pull_request:
+  #   branches:
+  #     - master
+  pull_request_review:
+    types:
+      - submitted
+  
 
 name: "Build & release"
 jobs:
@@ -27,4 +31,5 @@ jobs:
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
 
+# we are testing again
 
