@@ -528,4 +528,6 @@ class CardTrip extends StatelessWidget {
       ),
     );
   }
+
+
 }

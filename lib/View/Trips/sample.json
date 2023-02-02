@@ -1,0 +1,714 @@
+
+ {
+   "https":"maps.googleapis.com/maps/api/directions/json?origin=24.3661161,88.6260939&destination=place_id:ChIJR5mJ1ALv-zkRqJYHXGcxUGw&waypoints=Rajshahi+Railway+Station%7CRajshahi+University%7CRajshahi+Medical+College+Hospital,Rajshahi&key=AIzaSyC-KnRoUdTT4_xQ_xbyVkvXPoKUNTZptnE",
+  "geocoded_waypoints" : [
+     {
+        "geocoder_status" : "OK",
+        "place_id" : "ChIJrch-UdDv-zkRLhQjy2AdWnA",
+        "types" : [ "establishment", "point_of_interest" ]
+     },
+     {
+        "geocoder_status" : "OK",
+        "place_id" : "ChIJp5k9NLPv-zkRFHxQbzeGxcs",
+        "types" : [
+           "establishment",
+           "point_of_interest",
+           "train_station",
+           "transit_station"
+        ]
+     },
+     {
+        "geocoder_status" : "OK",
+        "place_id" : "ChIJWUvQti3w-zkRXOyjHkHrWKo",
+        "types" : [ "establishment", "park", "point_of_interest", "university" ]
+     },
+     {
+        "geocoder_status" : "OK",
+        "place_id" : "ChIJR5mJ1ALv-zkRqJYHXGcxUGw",
+        "types" : [
+           "establishment",
+           "health",
+           "hospital",
+           "point_of_interest",
+           "university"
+        ]
+     },
+     {
+        "geocoder_status" : "OK",
+        "place_id" : "ChIJR5mJ1ALv-zkRqJYHXGcxUGw",
+        "types" : [
+           "establishment",
+           "health",
+           "hospital",
+           "point_of_interest",
+           "university"
+        ]
+     }
+  ],
+  "routes" : [
+     {
+        "bounds" : {
+           "northeast" : {
+              "lat" : 24.3753599,
+              "lng" : 88.6379716
+           },
+           "southwest" : {
+              "lat" : 24.3597511,
+              "lng" : 88.5864246
+           }
+        },
+        "copyrights" : "Map data ©2022",
+        "legs" : [
+           {
+              "distance" : {
+                 "text" : "2.9 km",
+                 "value" : 2944
+              },
+              "duration" : {
+                 "text" : "8 mins",
+                 "value" : 450
+              },
+              "end_address" : "Rajshahi, Rajshahi, Bangladesh",
+              "end_location" : {
+                 "lat" : 24.3745791,
+                 "lng" : 88.6081722
+              },
+              "start_address" : "9J8G+FC9, Rajshahi, Bangladesh",
+              "start_location" : {
+                 "lat" : 24.3659488,
+                 "lng" : 88.6256154
+              },
+              "steps" : [
+                 {
+                    "distance" : {
+                       "text" : "0.2 km",
+                       "value" : 185
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 19
+                    },
+                    "end_location" : {
+                       "lat" : 24.3643673,
+                       "lng" : 88.6261658
+                    },
+                    "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eBir Sreshtho Shaheed Captain Mohiuddin Jahangir Smarani\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eStation Rd\u003c/b\u003e",
+                    "polyline" : {
+                       "points" : "e~usCcu|{OlA_@vBk@tBa@"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3659488,
+                       "lng" : 88.6256154
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "1.3 km",
+                       "value" : 1252
+                    },
+                    "duration" : {
+                       "text" : "3 mins",
+                       "value" : 159
+                    },
+                    "end_location" : {
+                       "lat" : 24.374768,
+                       "lng" : 88.6218621
+                    },
+                    "html_instructions" : "Sharp \u003cb\u003eright\u003c/b\u003e to stay on \u003cb\u003eBir Sreshtho Shaheed Captain Mohiuddin Jahangir Smarani\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eStation Rd\u003c/b\u003e",
+                    "maneuver" : "turn-sharp-right",
+                    "polyline" : {
+                       "points" : "itusCqx|{O@N{Bb@kAXoDhA?@cBf@kA^gA\\o@Tw@XqDtAg@PmCdAGBa@Pa@N{CnAeAf@iBt@gGbC[LSFUDUBU@W?c@Ag@CY@UDE?I?Q?YB"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3643673,
+                       "lng" : 88.6261658
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "1.5 km",
+                       "value" : 1460
+                    },
+                    "duration" : {
+                       "text" : "3 mins",
+                       "value" : 205
+                    },
+                    "end_location" : {
+                       "lat" : 24.3744636,
+                       "lng" : 88.60780729999999
+                    },
+                    "html_instructions" : "At the roundabout, take the \u003cb\u003e1st\u003c/b\u003e exit and stay on \u003cb\u003eBir Sreshtho Shaheed Captain Mohiuddin Jahangir Smarani\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eStation Rd\u003c/b\u003e",
+                    "maneuver" : "roundabout-left",
+                    "polyline" : {
+                       "points" : "iuwsCs}{{OA@A@A@A?A@A?A@A?A?QNS`@CDK`@Op@Gt@Gt@CnL@tA@fDLdFHxALdAj@xCFX`@hBd@|BLdA@JHlABxAAb@?d@O|CEd@YdCATC`ADxABd@Bf@NxC"
+                    },
+                    "start_location" : {
+                       "lat" : 24.374768,
+                       "lng" : 88.6218621
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "9 m",
+                       "value" : 9
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 44
+                    },
+                    "end_location" : {
+                       "lat" : 24.3745482,
+                       "lng" : 88.60779939999999
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eSagarpara Rd\u003c/b\u003e",
+                    "maneuver" : "turn-right",
+                    "polyline" : {
+                       "points" : "kswsCyey{OQ@"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3744636,
+                       "lng" : 88.60780729999999
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "38 m",
+                       "value" : 38
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 23
+                    },
+                    "end_location" : {
+                       "lat" : 24.3745791,
+                       "lng" : 88.6081722
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at the 1st cross street onto \u003cb\u003eBir Sreshtho Shaheed Captain Mohiuddin Jahangir Smarani\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eStation Rd\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
+                    "maneuver" : "turn-right",
+                    "polyline" : {
+                       "points" : "}swsCwey{OEiA"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3745482,
+                       "lng" : 88.60779939999999
+                    },
+                    "travel_mode" : "DRIVING"
+                 }
+              ],
+              "traffic_speed_entry" : [],
+              "via_waypoint" : []
+           },
+           {
+              "distance" : {
+                 "text" : "4.4 km",
+                 "value" : 4426
+              },
+              "duration" : {
+                 "text" : "11 mins",
+                 "value" : 636
+              },
+              "end_address" : "Rajshahi University, Administration Building 1, Rajshahi, Bangladesh",
+              "end_location" : {
+                 "lat" : 24.368103,
+                 "lng" : 88.6376315
+              },
+              "start_address" : "Rajshahi, Rajshahi, Bangladesh",
+              "start_location" : {
+                 "lat" : 24.3745791,
+                 "lng" : 88.6081722
+              },
+              "steps" : [
+                 {
+                    "distance" : {
+                       "text" : "1.4 km",
+                       "value" : 1413
+                    },
+                    "duration" : {
+                       "text" : "3 mins",
+                       "value" : 185
+                    },
+                    "end_location" : {
+                       "lat" : 24.3749768,
+                       "lng" : 88.6218978
+                    },
+                    "html_instructions" : "Head \u003cb\u003eeast\u003c/b\u003e on \u003cb\u003eBir Sreshtho Shaheed Captain Mohiuddin Jahangir Smarani\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eStation Rd\u003c/b\u003e",
+                    "polyline" : {
+                       "points" : "ctwsCahy{OC}@G{@Cg@?CCgA?u@Bs@Fk@Jy@D[Bc@J}ABy@@w@@c@CqACe@Cm@AGK_A[wAQy@SaAMg@Ki@Ms@O{@Ea@Gc@Eu@Ci@EoACiAAqAC{AAeA?w@@{D@sB?wA@gAF}@Hm@F_@FUJ]Ru@BQ"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3745791,
+                       "lng" : 88.6081722
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "1.6 km",
+                       "value" : 1568
+                    },
+                    "duration" : {
+                       "text" : "3 mins",
+                       "value" : 189
+                    },
+                    "end_location" : {
+                       "lat" : 24.3618742,
+                       "lng" : 88.62694639999999
+                    },
+                    "html_instructions" : "At the roundabout, take the \u003cb\u003e2nd\u003c/b\u003e exit and stay on \u003cb\u003eBir Sreshtho Shaheed Captain Mohiuddin Jahangir Smarani\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eStation Rd\u003c/b\u003e",
+                    "maneuver" : "roundabout-left",
+                    "polyline" : {
+                       "points" : "svwsC{}{{O?A?A?A?A?A?A?A?A?A@??A?A@A?A@?@A@A@?@A@?@?@A@?@?@?@@@?@?@@@??@@?@@?@@?P?jAFx@A^@\\Ab@CTEHCZI@AfAc@r@Yr@WfBq@JGxAo@~@c@xB}@fAc@x@]xBy@LG~Am@xAi@~Ao@fBk@`EqArBo@vBk@tBa@TEr@OxFaA|@Qt@Sz@]"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3749768,
+                       "lng" : 88.6218978
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "1.2 km",
+                       "value" : 1188
+                    },
+                    "duration" : {
+                       "text" : "3 mins",
+                       "value" : 191
+                    },
+                    "end_location" : {
+                       "lat" : 24.3661081,
+                       "lng" : 88.6375374
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eNatore Rd\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eRajshahi - Dhaka Hwy\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eSaheb Bazar Rd\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eN6\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eContinue to follow Rajshahi - Dhaka Hwy/\u003cwbr/\u003eSaheb Bazar Rd/\u003cwbr/\u003eN6\u003c/div\u003e",
+                    "maneuver" : "turn-left",
+                    "polyline" : {
+                       "points" : "udusCm}|{OFUHQF]]cAwA}Da@eAK[_AiCWu@Yq@qBoFqAcDo@eBcA{CiBiF}@mCe@uAGSOc@AEK_@Ia@CUCSAUGq@I_AAS"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3618742,
+                       "lng" : 88.62694639999999
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "0.2 km",
+                       "value" : 150
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 36
+                    },
+                    "end_location" : {
+                       "lat" : 24.3674568,
+                       "lng" : 88.6375183
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eMain Entrance Road\u003c/b\u003e",
+                    "maneuver" : "turn-left",
+                    "polyline" : {
+                       "points" : "e_vsCs__|OgC@eC@"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3661081,
+                       "lng" : 88.6375374
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "0.1 km",
+                       "value" : 107
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 35
+                    },
+                    "end_location" : {
+                       "lat" : 24.368103,
+                       "lng" : 88.6376315
+                    },
+                    "html_instructions" : "Enter \u003cb\u003eDr Zoha Cir\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
+                    "polyline" : {
+                       "points" : "sgvsCo__|OAFCFABGHGFIFKDK@I?KAICEAAAGGGIGICMAK?K"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3674568,
+                       "lng" : 88.6375183
+                    },
+                    "travel_mode" : "DRIVING"
+                 }
+              ],
+              "traffic_speed_entry" : [],
+              "via_waypoint" : []
+           },
+           {
+              "distance" : {
+                 "text" : "6.5 km",
+                 "value" : 6539
+              },
+              "duration" : {
+                 "text" : "21 mins",
+                 "value" : 1239
+              },
+              "end_address" : "medical college road, laxmipur, Rajshahi 6000, Bangladesh",
+              "end_location" : {
+                 "lat" : 24.3720127,
+                 "lng" : 88.5864246
+              },
+              "start_address" : "Rajshahi University, Administration Building 1, Rajshahi, Bangladesh",
+              "start_location" : {
+                 "lat" : 24.368103,
+                 "lng" : 88.6376315
+              },
+              "steps" : [
+                 {
+                    "distance" : {
+                       "text" : "0.1 km",
+                       "value" : 105
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 22
+                    },
+                    "end_location" : {
+                       "lat" : 24.3674568,
+                       "lng" : 88.63769529999999
+                    },
+                    "html_instructions" : "Head \u003cb\u003eeast\u003c/b\u003e on \u003cb\u003eDr Zoha Cir\u003c/b\u003e toward \u003cb\u003eBus Stand Rd\u003c/b\u003e",
+                    "polyline" : {
+                       "points" : "skvsCe`_|O?A?KDMDIDIHG?AHELCNAJ@JBFDFDFFDJBF@H"
+                    },
+                    "start_location" : {
+                       "lat" : 24.368103,
+                       "lng" : 88.6376315
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "0.1 km",
+                       "value" : 149
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 29
+                    },
+                    "end_location" : {
+                       "lat" : 24.3661217,
+                       "lng" : 88.63774699999999
+                    },
+                    "html_instructions" : "Exit the roundabout onto \u003cb\u003eMain Exit Rd\u003c/b\u003e",
+                    "polyline" : {
+                       "points" : "sgvsCs`_|OjGI"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3674568,
+                       "lng" : 88.63769529999999
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "5.3 km",
+                       "value" : 5252
+                    },
+                    "duration" : {
+                       "text" : "16 mins",
+                       "value" : 945
+                    },
+                    "end_location" : {
+                       "lat" : 24.3672329,
+                       "lng" : 88.58936039999999
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRajshahi - Dhaka Hwy\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eSaheb Bazar Rd\u003c/b\u003e/\u003cwbr/\u003e\u003cb\u003eN6\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eContinue to follow Saheb Bazar Rd/\u003cwbr/\u003eN6\u003c/div\u003e",
+                    "maneuver" : "turn-right",
+                    "polyline" : {
+                       "points" : "g_vsC}`_|O@h@@RH~@Fp@@TBRBTH`@J^@DNb@FRd@tA|@lChBhFbAzCn@dBpAbDpBnFXp@Vt@~@hCJZ`@dAvA|D\\bARr@@BL\\Vp@JXXv@DB@BBB@DBFJVVz@N^p@jB`@dAr@pB`@bAXn@P^DRBPB\\?F@j@?JANEXY|BKp@Q~@e@tCe@lCMn@Ib@Ib@?@o@`EYbB[lBSjAc@nCO~@ADOx@SrAAHEX?L?H?f@NpCFfBDv@?@N~B?L@@DdAB`BLrBHjA?TAPAJId@YxACH?@Ef@Il@SnA[xBMx@UhACFMj@YpAKd@GXKVCFWn@O^[h@KR[r@Q\\IPSd@Yh@[t@yAhBoBnCYb@q@tAMj@G`@Ij@CNEd@UrBM|AMlAEd@Gf@O~@OhACJId@Id@g@vBc@nBG^ADCDIVIVYhACp@WdCCb@?D@Hj@lCF`@@L?N@Z?N?BAVATg@tDAFOlAOz@Il@EXW`Bc@nD[hCQjB"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3661217,
+                       "lng" : 88.63774699999999
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "0.3 km",
+                       "value" : 278
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 49
+                    },
+                    "end_location" : {
+                       "lat" : 24.3694579,
+                       "lng" : 88.5899962
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e",
+                    "maneuver" : "turn-right",
+                    "polyline" : {
+                       "points" : "efvsCoru{OFXOAg@K{@M}Ae@_Bm@s@M]IaAQ"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3672329,
+                       "lng" : 88.58936039999999
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "0.3 km",
+                       "value" : 287
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 58
+                    },
+                    "end_location" : {
+                       "lat" : 24.3702458,
+                       "lng" : 88.58730199999999
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eMedical Road\u003c/b\u003e",
+                    "maneuver" : "turn-left",
+                    "polyline" : {
+                       "points" : "ctvsCovu{OS~@m@zCCN_@nBQz@Q`AS`A"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3694579,
+                       "lng" : 88.5899962
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "0.2 km",
+                       "value" : 247
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 75
+                    },
+                    "end_location" : {
+                       "lat" : 24.3723784,
+                       "lng" : 88.58797229999999
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at \u003cb\u003eEmaduddin Rd\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eRestricted usage road\u003c/div\u003e",
+                    "maneuver" : "turn-right",
+                    "polyline" : {
+                       "points" : "ayvsCseu{OOEiBa@aASe@KGAcAU{Be@"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3702458,
+                       "lng" : 88.58730199999999
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "86 m",
+                       "value" : 86
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 20
+                    },
+                    "end_location" : {
+                       "lat" : 24.3725167,
+                       "lng" : 88.58713419999999
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eRestricted usage road\u003c/div\u003e",
+                    "maneuver" : "turn-left",
+                    "polyline" : {
+                       "points" : "kfwsCyiu{O[`D?D"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3723784,
+                       "lng" : 88.58797229999999
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "25 m",
+                       "value" : 25
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 6
+                    },
+                    "end_location" : {
+                       "lat" : 24.3723003,
+                       "lng" : 88.58707919999999
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eRestricted usage road\u003c/div\u003e",
+                    "maneuver" : "turn-left",
+                    "polyline" : {
+                       "points" : "ggwsCqdu{Oj@H"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3725167,
+                       "lng" : 88.58713419999999
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "32 m",
+                       "value" : 32
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 11
+                    },
+                    "end_location" : {
+                       "lat" : 24.3723381,
+                       "lng" : 88.5867634
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eRestricted usage road\u003c/div\u003e",
+                    "maneuver" : "turn-right",
+                    "polyline" : {
+                       "points" : "{ewsCgdu{OG~@"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3723003,
+                       "lng" : 88.58707919999999
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "42 m",
+                       "value" : 42
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 11
+                    },
+                    "end_location" : {
+                       "lat" : 24.3719638,
+                       "lng" : 88.5867703
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eRestricted usage road\u003c/div\u003e",
+                    "maneuver" : "turn-left",
+                    "polyline" : {
+                       "points" : "cfwsCgbu{ON?z@A"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3723381,
+                       "lng" : 88.5867634
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "2 m",
+                       "value" : 2
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 5
+                    },
+                    "end_location" : {
+                       "lat" : 24.3719569,
+                       "lng" : 88.5867497
+                    },
+                    "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eRestricted usage road\u003c/div\u003e",
+                    "maneuver" : "turn-right",
+                    "polyline" : {
+                       "points" : "wcwsCibu{O?B"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3719638,
+                       "lng" : 88.5867703
+                    },
+                    "travel_mode" : "DRIVING"
+                 },
+                 {
+                    "distance" : {
+                       "text" : "34 m",
+                       "value" : 34
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 8
+                    },
+                    "end_location" : {
+                       "lat" : 24.3720127,
+                       "lng" : 88.5864246
+                    },
+                    "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eRestricted usage road\u003c/div\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
+                    "maneuver" : "turn-slight-right",
+                    "polyline" : {
+                       "points" : "wcwsCebu{OI`A"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3719569,
+                       "lng" : 88.5867497
+                    },
+                    "travel_mode" : "DRIVING"
+                 }
+              ],
+              "traffic_speed_entry" : [],
+              "via_waypoint" : []
+           },
+           {
+              "distance" : {
+                 "text" : "1 m",
+                 "value" : 0
+              },
+              "duration" : {
+                 "text" : "1 min",
+                 "value" : 0
+              },
+              "end_address" : "medical college road, laxmipur, Rajshahi 6000, Bangladesh",
+              "end_location" : {
+                 "lat" : 24.3720127,
+                 "lng" : 88.5864246
+              },
+              "start_address" : "medical college road, laxmipur, Rajshahi 6000, Bangladesh",
+              "start_location" : {
+                 "lat" : 24.3720127,
+                 "lng" : 88.5864246
+              },
+              "steps" : [
+                 {
+                    "distance" : {
+                       "text" : "1 m",
+                       "value" : 0
+                    },
+                    "duration" : {
+                       "text" : "1 min",
+                       "value" : 0
+                    },
+                    "end_location" : {
+                       "lat" : 24.3720127,
+                       "lng" : 88.5864246
+                    },
+                    "html_instructions" : "Head\u003cdiv style=\"font-size:0.9em\"\u003eRestricted usage road\u003c/div\u003e",
+                    "polyline" : {
+                       "points" : "adwsCc`u{O"
+                    },
+                    "start_location" : {
+                       "lat" : 24.3720127,
+                       "lng" : 88.5864246
+                    },
+                    "travel_mode" : "DRIVING"
+                 }
+              ],
+              "traffic_speed_entry" : [],
+              "via_waypoint" : []
+           }
+        ],
+        "overview_polyline" : {
+           "points" : "e~usCcu|{OdEkAtBa@@NgE|@oDjAgHzB_LfEgFtBeAf@iBt@cHpCi@Lk@D{@Ag@CY@[D[?[DIDC@SNWf@[rAOjBAdO@fDLdFV~Cr@rDfAfFNpALfDAhAUbE[zCC`ADxAFlANxCQ@IgCOoDBiBReBH_ANwCB{AGwBEu@K_A[wAe@{BYqAk@uDI_BIyCGkHDoMPkBNu@^sABQ?E?C@IDGNEPH|AFxA?`AE^IxCiAzCiAdBw@zHcD`IyCfE{AtHaCvBk@tBa@hAUvHsApBq@Pg@F]]cAyBcGkAeDuF{N{GyR_AsCUaAGi@U{CmGBENILQNWFUAYOOSEY?MDYT]VIZ?RHNLHR@HjGIB|@PpBR`Bd@|ApGhRlGjPdC`HjCxHjA`DLPv@zBfCbHz@rBVr@HbBAZ_@vCiBtKa@xB_EnVU|AEf@?p@NpC\\`HJvDV~DAf@i@tCc@fDi@rDYpA{@|Dw@nBuAnCsAvCyAhBoBnCkAxBUlAMz@w@dIm@vEMp@q@|Cq@zCSn@YhACp@[hD@Nr@nD@\\?fA{@`Hw@dF_AxHQjBFXw@M{@M}Ae@_Bm@s@M_B[aAzEc@~Bc@|BS`AOEkDu@m@M_E{@[fDj@HG~@jAAIdA"
+        },
+        "summary" : "Bir Sreshtho Shaheed Captain Mohiuddin Jahangir Smarani/Station Rd",
+        "warnings" : [],
+        "waypoint_order" : [ 0, 1, 2 ]
+     }
+  ],
+  "status" : "OK"
+}
