@@ -36,6 +36,7 @@ import '../Bindings/directions_screen_binding.dart';
 import '../Bindings/editprofile_screen_binding.dart';
 import '../Bindings/filter_screen_binding.dart';
 import '../Bindings/loginpage_binding.dart';
+import '../Bindings/navigation_screen_binding.dart';
 import '../Bindings/notification_screen_binding.dart';
 import '../Bindings/profile_screen_binding.dart';
 import '../Bindings/search_places_binding.dart';
@@ -47,6 +48,7 @@ import '../View/Homepage/notification_screen.dart';
 import '../View/Homepage/profile_screen.dart';
 import '../View/Homepage/search_screen.dart';
 import '../View/Trips/directions_page.dart';
+import '../View/Trips/navigation_page.dart';
 import '../View/Trips/search_places_page.dart';
 import '../View/Trips/trips_page.dart';
 
@@ -192,6 +194,11 @@ abstract class AppPages {
       name: Routes.directionsPageRoute,
       binding: DirectionsScreenBinding(),
       page: () =>DirectionsScreen(),
+    ),
+    GetPage(
+      name: Routes.navigationPageRoute,
+      binding: NavigationScreenBinding(),
+      page: () =>NavigationScreen(),
     ),
 
     //
