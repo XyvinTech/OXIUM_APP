@@ -145,17 +145,20 @@ class SearchScreen extends GetView<SearchScreenController> {
                       child: Column(
                         children: [
                           Row(children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset('assets/svg/device_reset.svg'),
-                                CustomText(
-                                    text: '650 m',
-                                    size: 10,
-                                    color: Color(0xff828282))
-                              ],
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                      'assets/svg/device_reset.svg'),
+                                  CustomText(
+                                      text: '650 m',
+                                      size: 10,
+                                      color: Color(0xff828282))
+                                ],
+                              ),
                             ),
-                            width(size.width * .06),
+                            width(size.width * .02),
                             Expanded(
                                 child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

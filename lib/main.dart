@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         scaffoldBackgroundColor: kscaffoldBackgroundColor,
       ),
-      initialRoute: Routes.bottomNavPageRoute,
+      initialRoute: Routes.directionsPageRoute,
       getPages: AppPages.pages,
     );
   }

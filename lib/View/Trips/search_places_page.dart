@@ -54,6 +54,7 @@ class SearchPlacesScreen extends GetView<SearchPlacesScreenController> {
                       controller: controller.searchTextController,
                       hintText: 'Search',
                       size: size,
+                      autofocus: true,
                       suffix: controller.isShowCross.value
                           ? InkWell(
                               onTap: () {
@@ -71,9 +72,10 @@ class SearchPlacesScreen extends GetView<SearchPlacesScreenController> {
                               ),
                             ),
                       onChanged: (value) {
+                        if (value.isEmpty) return;
                         controller.debouncer.run(() {
                           log(value);
-                          controller.searchPlaceByName(value);
+                          controller.searchPlace(value);
                         });
                         if (value.isEmpty)
                           controller.isShowCross.value = false;
@@ -136,62 +138,93 @@ class SearchPlacesScreen extends GetView<SearchPlacesScreenController> {
           ),
           height(size.height * .02),
           Expanded(
-            child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: controller.chargingCafeModelList.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {},
-                    child: Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: size.width * .04),
-                      child: Column(
-                        children: [
-                          Row(children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+            child: Obx(
+              () => controller.autoCompletePrediction.isEmpty
+                  ? Align(
+                      alignment: Alignment.center,
+                      child: CustomText(text: 'Search you places!'),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: controller.autoCompletePrediction.length,
+                      itemBuilder: (context, index) {
+                        int distance = controller
+                                .autoCompletePrediction[index].distanceMeters ??
+                            0;
+
+                        String disText = distance > 1000
+                            ? (distance / 1000).ceil().toString() + ' km'
+                            : distance.toString() + ' m';
+                        String name = controller
+                            .autoCompletePrediction[index].description!
+                            .split(', ')
+                            .first;
+                        String subtitle = controller
+                            .autoCompletePrediction[index].description!
+                            .replaceFirst(name + ', ', '');
+
+                        return InkWell(
+                          onTap: () {
+                            Get.back(result: [
+                              controller.autoCompletePrediction[index]
+                            ]);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: size.width * .04),
+                            child: Column(
                               children: [
-                                SvgPicture.asset('assets/svg/device_reset.svg'),
-                                CustomText(
-                                    text: '650 m',
-                                    size: 10,
-                                    color: Color(0xff828282))
+                                Row(children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                            'assets/svg/device_reset.svg'),
+                                        CustomText(
+                                            text: disText,
+                                            size: 10,
+                                            color: Color(0xff828282))
+                                      ],
+                                    ),
+                                  ),
+                                  width(size.width * .02),
+                                  Expanded(
+                                      flex: 6,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          CustomText(
+                                            text: name,
+                                            size: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xff4F4F4F),
+                                          ),
+                                          CustomText(
+                                            text: subtitle,
+                                            size: 12,
+                                            fontWeight: FontWeight.normal,
+                                            color: Color(0xff828282),
+                                          ),
+                                        ],
+                                      )),
+                                  SvgPicture.asset(
+                                      'assets/svg/arrow_forward_ios.svg')
+                                ]),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: size.height * .007),
+                                  child: Divider(),
+                                ),
+                                height(size.height * .0065)
                               ],
                             ),
-                            width(size.width * .06),
-                            Expanded(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomText(
-                                  text: controller
-                                      .chargingCafeModelList[index].name,
-                                  size: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff4F4F4F),
-                                ),
-                                CustomText(
-                                  text: controller
-                                      .chargingCafeModelList[index].location,
-                                  size: 12,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xff828282),
-                                ),
-                              ],
-                            )),
-                            SvgPicture.asset('assets/svg/arrow_forward_ios.svg')
-                          ]),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: size.height * .007),
-                            child: Divider(),
                           ),
-                          height(size.height * .0065)
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                        );
+                      }),
+            ),
           )
         ]),
       ),
