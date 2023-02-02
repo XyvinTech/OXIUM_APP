@@ -11,7 +11,7 @@ class CustomBigText extends StatelessWidget {
   final void Function()? ontap;
   final FontWeight? fontWeight;
   final String? fontFamily;
-  final double? laterspacing;
+  final double? letterspacing;
   const CustomBigText(
       {super.key,
       required this.text,
@@ -20,7 +20,7 @@ class CustomBigText extends StatelessWidget {
       this.fontWeight,
       this.ontap,
       this.fontFamily,
-      this.laterspacing});
+      this.letterspacing});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class CustomBigText extends StatelessWidget {
           text,
           minFontSize: 10,
           style: GoogleFonts.poppins(
-            letterSpacing: laterspacing ?? null,
+            letterSpacing: letterspacing ?? null,
             fontSize: size ?? 20,
             fontWeight: fontWeight ?? FontWeight.w600,
             color: color ?? Color(0xff828282),
@@ -50,7 +50,7 @@ class CustomSmallText extends StatelessWidget {
   final Color? color;
   final void Function()? ontap;
   final FontWeight? fontWeight;
-  final double? laterspacing;
+  final double? letterspacing;
 
   const CustomSmallText(
       {super.key,
@@ -59,7 +59,7 @@ class CustomSmallText extends StatelessWidget {
       this.color,
       this.fontWeight,
       this.ontap,
-      this.laterspacing});
+      this.letterspacing});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class CustomSmallText extends StatelessWidget {
           text,
           minFontSize: 12,
           style: GoogleFonts.poppins(
-            letterSpacing: laterspacing ?? null,
+            letterSpacing: letterspacing ?? null,
             fontSize: size ?? 14,
             fontWeight: fontWeight ?? FontWeight.w400,
             color: color ?? Color(0xff828282),

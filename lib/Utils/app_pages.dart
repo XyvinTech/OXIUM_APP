@@ -106,7 +106,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.bottomNavPageRoute,
-      binding: BottomNavScreenBinding(),
+      binding: CalistaCafePageBindings(),
       page: () => BottomNavScreen(),
     ),
 
@@ -179,12 +179,12 @@ abstract class AppPages {
     GetPage(
       name: Routes.tripsPageRoute,
       binding: TripsScreenBinding(),
-      page: () =>TripsScreen(),
+      page: () => TripsScreen(),
     ),
     GetPage(
       name: Routes.searchPlacesPageRoute,
       binding: SearchPlacesScreenBinding(),
-      page: () =>SearchPlacesScreen(),
+      page: () => SearchPlacesScreen(),
     ),
 
     //

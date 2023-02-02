@@ -151,7 +151,7 @@ class PopUp extends StatelessWidget {
             child: CustomBigText(
               text: title,
               size: 12,
-              laterspacing: -0.0408,
+              letterspacing: -0.0408,
               color: textColor ?? Color(0xffF2F2F2),
             ),
           ),
@@ -167,7 +167,7 @@ class PopUp extends StatelessWidget {
                     CustomBigText(
                       text: "100 Coins",
                       color: Color(0xff0047C3),
-                      laterspacing: -0.408,
+                      letterspacing: -0.408,
                     ),
                     height(size.height * 0.002),
                     CustomSmallText(
@@ -181,7 +181,7 @@ class PopUp extends StatelessWidget {
                   child: CustomSmallText(
                     text: "₹ 2000",
                     size: 20,
-                    laterspacing: -0.408,
+                    letterspacing: -0.408,
                     color: Color(0xff0047C3),
                     fontWeight: FontWeight.w600,
                   ),

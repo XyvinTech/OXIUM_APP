@@ -339,7 +339,7 @@ class WalletScreen extends GetView<WalletPageController> {
                     children: [
                       CustomSmallText(
                         text: title,
-                        laterspacing: -0.408,
+                        letterspacing: -0.408,
                         size: 16,
                       ),
                       Row(
@@ -438,7 +438,7 @@ class WalletScreen extends GetView<WalletPageController> {
                       children: [
                         CustomSmallText(
                           text: title,
-                          laterspacing: -0.408,
+                          letterspacing: -0.408,
                           size: 16,
                         ),
                         Row(
