@@ -42,10 +42,17 @@ class Routes {
   static String tripsPageRoute = '/trips';
   static String searchPlacesPageRoute = '/searchplaces';
   static String directionsPageRoute = '/directions';
+  static String navigationPageRoute = '/navigation';
   //
   //
   //
   // Wallet
   static String walletPageRoute = '/wallet';
   static String popupPageRoute = '/popup';
+
+  //
+  //
+  // drawer
+
+  static String helpPageRoute = '/help';
 }

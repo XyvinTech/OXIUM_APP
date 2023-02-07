@@ -1,86 +1,146 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freelancer_app/Controller/bottom_nav_screen_controller.dart';
 import 'package:freelancer_app/Controller/calista_cafePage_controller.dart';
-import 'package:freelancer_app/View/Charge/charge_page.dart';
 import 'package:freelancer_app/View/Trips/trip_card_page.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../Utils/toastUtils.dart';
 import '../Widgets/apptext.dart';
+import '../Widgets/customText.dart';
 
 class BottomNavScreen extends GetView<CalistaCafePageController> {
   const BottomNavScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> drawerKey = GlobalKey();
     size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+          key: drawerKey,
+          bottomSheet: customDrawer(),
           body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            height(size.height * 0.2),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                  padding: const EdgeInsets.only(left: 50),
-                  child: Container(
-                    height: size.height * 0.5,
-                    child: ListView.builder(
-                        itemCount: 4,
-                        itemBuilder: (_, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: ExpandablePanel(
-                              collapsed: ExpandableButton(
-                                child: Container(
-                                  height: 50,
-                                  width: 300,
-                                  decoration: BoxDecoration(
-                                      color: Colors.amber,
-                                      borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            offset: Offset(1, 4),
-                                            blurRadius: 5,
-                                            color: Colors.grey.withOpacity(0.5))
-                                      ]),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                height(size.height * 0.2),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 50),
+                      child: Container(
+                        height: size.height * 0.5,
+                        child: ListView.builder(
+                            itemCount: 4,
+                            itemBuilder: (_, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                child: ExpandablePanel(
+                                  collapsed: ExpandableButton(
+                                    child: Container(
+                                      height: 50,
+                                      width: 300,
+                                      decoration: BoxDecoration(
+                                          color: Colors.amber,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                offset: Offset(1, 4),
+                                                blurRadius: 5,
+                                                color: Colors.grey
+                                                    .withOpacity(0.5))
+                                          ]),
+                                    ),
+                                  ),
+                                  expanded: ExpandableButton(
+                                    child: Container(
+                                      height: 100,
+                                      width: 300,
+                                      decoration: BoxDecoration(
+                                          color: Colors.amber,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                offset: Offset(1, 4),
+                                                blurRadius: 5,
+                                                color: Colors.grey
+                                                    .withOpacity(0.5))
+                                          ]),
+                                      child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => CardTrip());
+                                          },
+                                          child: Text("Button")),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              expanded: ExpandableButton(
-                                child: Container(
-                                  height: 100,
-                                  width: 300,
-                                  decoration: BoxDecoration(
-                                      color: Colors.amber,
-                                      borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            offset: Offset(1, 4),
-                                            blurRadius: 5,
-                                            color: Colors.grey.withOpacity(0.5))
-                                      ]),
-                                  child: ElevatedButton(
-                                      onPressed: () {
-                                        Get.to(() => CardTrip());
-                                      },
-                                      child: Text("Button")),
-                                ),
-                              ),
-                            ),
-                          );
-                        }),
-                  )),
+                              );
+                            }),
+                      )),
+                ),
+                height(size.height * 0.1),
+                InkWell(
+                  onTap: () {
+                    drawerKey.currentState!.openDrawer();
+                  },
+                  child: LinearPercentIndicator(
+                    width: 200,
+                    progressColor: Color(0xff0047C3),
+                    lineHeight: 6.0,
+                    percent: .7,
+                    barRadius: Radius.circular(15),
+                    padding: EdgeInsets.zero,
+                    animationDuration: 1000,
+                    animation: true,
+                  ),
+                ),
+                height(size.height * 0.05),
+                reviewProgressBar("1", .5),
+                reviewProgressBar("1", .7),
+
+                height(size.height * 0.1),
+
+                //  expandable(),
+              ],
             ),
-            height(size.height * 0.1),
-            expandable(),
-          ],
+          )),
+    );
+  }
+
+  Widget customDrawer() {
+    return Drawer(
+      child: Container(
+        height: size.height,
+        width: size.width * .4,
+        color: Colors.red,
+        child: Column(),
+      ),
+    );
+  }
+
+  Widget reviewProgressBar(String title, double value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        LinearPercentIndicator(
+          width: size.width * .3,
+          animation: true,
+          lineHeight: 6.0,
+          animationDuration: 1000,
+          percent: value,
+          barRadius: Radius.circular(15),
+          progressColor: Color(0xff0047C3),
+          padding: EdgeInsets.zero,
         ),
-      )),
+        Spacer(),
+        CustomText(text: title, color: Colors.grey, size: 12)
+      ],
     );
   }
 

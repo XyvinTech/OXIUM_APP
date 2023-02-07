@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:freelancer_app/Controller/vehicle_search_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:get/get.dart';
-import '../../Utils/routes.dart';
 import '../../constants.dart';
 import '../Widgets/appbar.dart';
 

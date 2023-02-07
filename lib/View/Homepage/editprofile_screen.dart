@@ -1,10 +1,7 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/editprofile_screen_controller.dart';
-import 'package:freelancer_app/View/Widgets/textfield_home.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';

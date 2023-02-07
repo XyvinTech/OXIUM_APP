@@ -1,11 +1,7 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:freelancer_app/Model/chargingCafeModel.dart';
-import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
 
 import '../Utils/debouncer.dart';

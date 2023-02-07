@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -128,22 +129,27 @@ class CustomDrawer extends StatelessWidget {
           height(size.height * .05),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .04),
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/svg/handshake.svg'),
-                width(size.width * .05),
-                CustomText(
-                  text: 'Partner with us',
-                  color: Color(0xff4F4F4F),
-                  size: 14,
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 15,
-                ),
-              ],
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(Routes.helpPageRoute);
+              },
+              child: Row(
+                children: [
+                  SvgPicture.asset('assets/svg/handshake.svg'),
+                  width(size.width * .05),
+                  CustomText(
+                    text: 'Partner with us',
+                    color: Color(0xff4F4F4F),
+                    size: 14,
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 15,
+                  ),
+                ],
+              ),
             ),
           ),
           height(size.height * .05),

@@ -5,7 +5,6 @@ import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class NotificationScreen extends GetView<NotificationScreenController> {
   const NotificationScreen({super.key});

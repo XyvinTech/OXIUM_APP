@@ -1,5 +1,3 @@
-import 'package:expandable/expandable.dart';
-import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:get/get.dart';
 
 class CalistaCafePageController extends GetxController {

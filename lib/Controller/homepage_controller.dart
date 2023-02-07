@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Controller/trips_screen_controller.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';

@@ -292,9 +292,10 @@ class MapFunctions {
       });
       log('direction get complete');
       return finalResponse;
-    } on Exception catch (e) {
+    } on Exception {
       // TODO
     }
+    return null;
   }
 
   animatePolyline(String points, RxInt reload) {

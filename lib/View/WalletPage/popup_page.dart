@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/View/WalletPage/popup.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -8,7 +6,6 @@ import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/toastUtils.dart';
-import '../Widgets/customText.dart';
 
 class PopUpPage extends StatelessWidget {
   const PopUpPage({super.key});

@@ -1,9 +1,7 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_place/google_place.dart';
 

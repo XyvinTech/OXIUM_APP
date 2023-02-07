@@ -1,6 +1,6 @@
-import 'package:freelancer_app/Bindings/bottom_nav_screen_binding.dart';
 import 'package:freelancer_app/Bindings/calista_cafePage_bindings.dart';
 import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
+import 'package:freelancer_app/Bindings/help_page_bindings.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
@@ -13,6 +13,7 @@ import 'package:freelancer_app/Bindings/wallet_page_bindings.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
 import 'package:freelancer_app/View/Charge/reservation_page.dart';
+import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
 
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
@@ -36,6 +37,7 @@ import '../Bindings/directions_screen_binding.dart';
 import '../Bindings/editprofile_screen_binding.dart';
 import '../Bindings/filter_screen_binding.dart';
 import '../Bindings/loginpage_binding.dart';
+import '../Bindings/navigation_screen_binding.dart';
 import '../Bindings/notification_screen_binding.dart';
 import '../Bindings/profile_screen_binding.dart';
 import '../Bindings/search_places_binding.dart';
@@ -47,6 +49,7 @@ import '../View/Homepage/notification_screen.dart';
 import '../View/Homepage/profile_screen.dart';
 import '../View/Homepage/search_screen.dart';
 import '../View/Trips/directions_page.dart';
+import '../View/Trips/navigation_page.dart';
 import '../View/Trips/search_places_page.dart';
 import '../View/Trips/trips_page.dart';
 
@@ -191,7 +194,12 @@ abstract class AppPages {
     GetPage(
       name: Routes.directionsPageRoute,
       binding: DirectionsScreenBinding(),
-      page: () =>DirectionsScreen(),
+      page: () => DirectionsScreen(),
+    ),
+    GetPage(
+      name: Routes.navigationPageRoute,
+      binding: NavigationScreenBinding(),
+      page: () => NavigationScreen(),
     ),
 
     //
@@ -208,6 +216,16 @@ abstract class AppPages {
       name: Routes.popupPageRoute,
       binding: PopupPageBindigs(),
       page: () => PopUpPage(),
+    ),
+
+    ///
+    ///
+    //drewer PAGE
+
+    GetPage(
+      name: Routes.helpPageRoute,
+      binding: HelpPageBindings(),
+      page: () => HelpScreen(),
     ),
   ];
 }
