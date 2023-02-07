@@ -279,7 +279,13 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
             Row(
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(Routes.navigationPageRoute, arguments: [
+                      controller.directionsResult,
+                      controller.source,
+                      controller.destination
+                    ]);
+                  },
                   child: Container(
                     height: size.height * 0.06,
                     width: size.width * .45,

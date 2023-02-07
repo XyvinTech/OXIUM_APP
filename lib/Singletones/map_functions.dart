@@ -13,6 +13,8 @@ import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
 
+import '../Utils/routes.dart';
+
 class MapFunctions {
   //make it singleTone class
   static final MapFunctions _singleton = MapFunctions._internal();
@@ -27,13 +29,14 @@ class MapFunctions {
   late GoogleMapController dirMapController;
   late StreamSubscription mapStream;
   double zoom = 16;
-  Position? curPos;
+  Position? curPos = null;
   Set<Marker> markers_homepage = {};
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
   String polylineString = '';
+  RxInt reload = 0.obs;
   Timer? timer;
-  Uint8List? bytesBlue, bytesGreen, navigationMarker;
+  Uint8List? bytesBlue, bytesGreen, navigationMarker, carMarker, myMarker;
   String googleApiKey = "AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs";
   var googlePlace = GooglePlace('AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs');
 
@@ -114,8 +117,46 @@ class MapFunctions {
     if ((await checkLocationPermission()))
       mapStream = await Geolocator.getPositionStream().listen((event) async {
         // await animateToNewPosition(LatLng(event.latitude, event.longitude));
+        if (curPos == null)
+          ;
+        else if (event.latitude == curPos!.latitude &&
+            event.longitude == curPos!.longitude) return;
+        log(event.toString());
         curPos = event;
+
+        addCarMarker(event);
+        markers_homepage.add(Marker(
+            markerId: MarkerId('myMarker'),
+            // infoWindow: InfoWindow(title: name),
+            icon: BitmapDescriptor.fromBytes(MapFunctions().myMarker!),
+            position: LatLng(event.latitude, event.longitude),
+            rotation: event.heading,
+            anchor: Offset(.5, .5)));
+        reload++;
+        if (Get.currentRoute == Routes.navigationPageRoute) {
+          dirMapController.animateCamera(CameraUpdate.newCameraPosition(
+              CameraPosition(
+                  target: LatLng(event.latitude, event.longitude),
+                  zoom: zoom,
+                  bearing: event.heading)));
+        } else {
+          controller.animateCamera(CameraUpdate.newCameraPosition(
+              CameraPosition(
+                  target: LatLng(event.latitude, event.longitude),
+                  zoom: zoom,
+                  bearing: event.heading)));
+        }
       });
+  }
+
+  addCarMarker(Position event) {
+    markers.add(Marker(
+        markerId: MarkerId('myCar'),
+        // infoWindow: InfoWindow(title: name),
+        icon: BitmapDescriptor.fromBytes(MapFunctions().carMarker!),
+        position: LatLng(event.latitude, event.longitude),
+        rotation: event.heading,
+        anchor: Offset(.5, .5)));
   }
 
   Future<void> animateToNewPosition(LatLng latLng, {double? newZoom}) async {
@@ -124,8 +165,8 @@ class MapFunctions {
     ));
   }
 
-  void setMapFitToPolyline(
-      Set<Polyline> p, GoogleMapController controller) async {
+  void setMapFitToPolyline(Set<Polyline> p, GoogleMapController controller,
+      {bool isNavigation = false}) async {
     double minLat = p.first.points.first.latitude;
     double minLong = p.first.points.first.longitude;
     double maxLat = p.first.points.first.latitude;
@@ -152,8 +193,19 @@ class MapFunctions {
       print(minScreen);
       print(maxScreen);
       print(size);
-      controller.animateCamera(CameraUpdate.zoomBy(
-          (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
+      print(isNavigation);
+      if (isNavigation) {
+        controller.animateCamera(CameraUpdate.zoomBy(-.7));
+        Future.delayed(Duration(milliseconds: 500), () {
+          controller.animateCamera(CameraUpdate.scrollBy(0, -55));
+        });
+      } else {
+        await controller.animateCamera(CameraUpdate.zoomBy(
+            (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
+      }
+      // await controller.animateCamera(CameraUpdate.zoomBy(
+      //     (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
+      // if (isNavigation) controller.animateCamera(CameraUpdate.scrollBy(0, 20));
     });
   }
 
@@ -294,6 +346,7 @@ class MapFunctions {
       return finalResponse;
     } on Exception {
       // TODO
+      return null;
     }
     return null;
   }
