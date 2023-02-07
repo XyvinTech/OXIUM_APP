@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -163,14 +164,24 @@ class HelpScreen extends GetView<HelpPageController> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .062),
             child: _contractCard("Chat on Whatsapp", () {
+              // if (Platform.isAndroid) {
+              //   controller.openWhatsApp();
+              //   log("android whatsapp working");
+              // } else if (Platform.isIOS) {
+              //   controller.openWhatsApp();
+              // }
               controller.openWhatsApp();
-              log("whatsapp working");
             }),
           ),
           height(size.height * 0.02),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .062),
             child: _contractCard("Report an Issue", () {
+              // if (Platform.isAndroid) {
+              //   controller.openMail("mahmudulhasan5008@gmail.com");
+              // } else if (Platform.isIOS) {
+              //   controller.openMail("mahmudulhasan5008@gmail.com");
+              // }
               controller.openMail("mahmudulhasan5008@gmail.com");
             }),
           ),

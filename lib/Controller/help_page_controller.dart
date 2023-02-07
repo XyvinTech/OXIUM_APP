@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,7 +18,11 @@ class HelpPageController extends GetxController {
     var url = "https://wa.me/${phnNumber}";
     if (await launch(url)) {
       print("launching $url");
-      await launch(url);
+      if (Platform.isAndroid) {
+        await launch(url);
+      } else if (Platform.isIOS) {
+        await launch(url);
+      }
     } else {
       throw 'Could not launch $url';
     }
@@ -27,13 +33,21 @@ class HelpPageController extends GetxController {
       scheme: 'tel',
       path: phoneNumber,
     );
-    await launchUrl(launchUri);
+    if (Platform.isAndroid) {
+      await launchUrl(launchUri);
+    } else if (Platform.isIOS) {
+      await launchUrl(launchUri);
+    }
   }
 
   Future<void> openMail(String mail) async {
     var email = 'mailto:${mail}?subject=Subject&body=Body';
-    if (await canLaunch(email)) {
-      await launch(email);
+    if (await launch(email)) {
+      if (Platform.isAndroid) {
+        await launch(email);
+      } else if (Platform.isIOS) {
+        await launch(email);
+      }
     } else {
       throw 'Could not launch $email';
     }
