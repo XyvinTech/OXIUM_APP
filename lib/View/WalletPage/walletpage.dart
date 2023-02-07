@@ -501,7 +501,7 @@ class WalletScreen extends GetView<WalletPageController> {
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
               child: Container(
                 padding: EdgeInsets.symmetric(
-                    vertical: size.height * 0.01,
+                    vertical: size.height * 0.008,
                     horizontal: size.width * 0.04),
                 height: size.height * 0.095,
                 decoration: BoxDecoration(
