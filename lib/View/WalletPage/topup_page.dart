@@ -66,6 +66,9 @@ class PopUpPage extends StatelessWidget {
               ),
               height(size.height * 0.02),
               InkWell(
+                onTap: () {
+                  Get.to(() => PopUp());
+                },
                 child: _topupCard(
                   title: "Golden top-up",
                   color: Color(0xff2F80ED),
@@ -83,8 +86,11 @@ class PopUpPage extends StatelessWidget {
               ),
               height(size.height * 0.02),
               InkWell(
+                onTap: () {
+                  Get.to(() => PopUp());
+                },
                 child: _topupCard(
-                  title: "Golden top-up",
+                  title: "Platinum top-up",
                   color: Color(0xff2F80ED),
                   gradient: LinearGradient(
                     colors: [
