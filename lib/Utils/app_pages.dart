@@ -3,6 +3,7 @@ import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
 import 'package:freelancer_app/Bindings/help_page_bindings.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
+import 'package:freelancer_app/Bindings/partner_page_binding.dart';
 import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
 import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
@@ -14,6 +15,7 @@ import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
 import 'package:freelancer_app/View/Charge/reservation_page.dart';
 import 'package:freelancer_app/View/Drawer/helpPage.dart';
+import 'package:freelancer_app/View/Drawer/partner_page.dart';
 import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
 
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
@@ -30,7 +32,7 @@ import 'package:freelancer_app/View/Onboarding/rfidnumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/smartchrage_page.dart';
 import 'package:freelancer_app/View/Onboarding/vehiclesearch_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
-import 'package:freelancer_app/View/WalletPage/popup_page.dart';
+import 'package:freelancer_app/View/WalletPage/topup_page.dart';
 import 'package:freelancer_app/View/WalletPage/walletpage.dart';
 import 'package:get/get.dart';
 import '../Bindings/directions_screen_binding.dart';
@@ -227,5 +229,11 @@ abstract class AppPages {
       binding: HelpPageBindings(),
       page: () => HelpScreen(),
     ),
+
+    GetPage(
+      name: Routes.partnerPageRoute,
+      binding: PartnerPageBinding(),
+      page: () => PartnerScreen(),
+    )
   ];
 }

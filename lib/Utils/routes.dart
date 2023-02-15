@@ -55,4 +55,5 @@ class Routes {
   // drawer
 
   static String helpPageRoute = '/help';
+  static String partnerPageRoute = '/partner';
 }
