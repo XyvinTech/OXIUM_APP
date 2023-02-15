@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Controller/trips_screen_controller.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';
@@ -30,11 +29,17 @@ class HomePageController extends GetxController {
         "assets/svg/blue_marker.png", 50);
     MapFunctions().bytesGreen = await ImageByteConverter.getBytesFromAsset(
         "assets/svg/green_marker.png", 50);
-    MapFunctions().navigationMarker = await ImageByteConverter.getBytesFromAsset(
-        "assets/images/pointer.png", 50);
+    MapFunctions().navigationMarker =
+        await ImageByteConverter.getBytesFromAsset(
+            "assets/images/pointer.png", 50);
+    MapFunctions().carMarker = await ImageByteConverter.getBytesFromAsset(
+        "assets/images/CSAR.png", 70);
+    MapFunctions().myMarker = await ImageByteConverter.getBytesFromAsset(
+        "assets/images/myMarker.png", 60);
     Future.delayed(Duration(milliseconds: 1000), () {
       MapFunctions().myPositionListener();
     });
+    
     var pos = await MapFunctions().getCurrentPosition();
     MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
   }

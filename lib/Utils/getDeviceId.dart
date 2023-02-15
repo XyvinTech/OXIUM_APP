@@ -12,4 +12,5 @@ Future<String?> getDeviceId() async {
     var androidDeviceInfo = await deviceInfo.androidInfo;
     // return androidDeviceInfo.androidId; // unique ID on Android
   }
+  return null;
 }

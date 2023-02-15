@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freelancer_app/View/WalletPage/popup.dart';
+import 'package:freelancer_app/View/WalletPage/topup.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/toastUtils.dart';
-import '../Widgets/customText.dart';
 
 class PopUpPage extends StatelessWidget {
   const PopUpPage({super.key});
@@ -69,6 +66,9 @@ class PopUpPage extends StatelessWidget {
               ),
               height(size.height * 0.02),
               InkWell(
+                onTap: () {
+                  Get.to(() => PopUp());
+                },
                 child: _topupCard(
                   title: "Golden top-up",
                   color: Color(0xff2F80ED),
@@ -86,8 +86,11 @@ class PopUpPage extends StatelessWidget {
               ),
               height(size.height * 0.02),
               InkWell(
+                onTap: () {
+                  Get.to(() => PopUp());
+                },
                 child: _topupCard(
-                  title: "Golden top-up",
+                  title: "Platinum top-up",
                   color: Color(0xff2F80ED),
                   gradient: LinearGradient(
                     colors: [
@@ -138,7 +141,7 @@ class PopUpPage extends StatelessWidget {
             child: CustomBigText(
               text: title,
               size: 12,
-              laterspacing: -0.0408,
+              letterspacing: -0.0408,
               color: textColor ?? Color(0xffF2F2F2),
             ),
           ),
@@ -154,7 +157,7 @@ class PopUpPage extends StatelessWidget {
                     CustomBigText(
                       text: "100 Coins",
                       color: Color(0xff0047C3),
-                      laterspacing: -0.408,
+                      letterspacing: -0.408,
                     ),
                     height(size.height * 0.002),
                     CustomSmallText(
@@ -168,7 +171,7 @@ class PopUpPage extends StatelessWidget {
                   child: CustomSmallText(
                     text: "₹ 2000",
                     size: 20,
-                    laterspacing: -0.408,
+                    letterspacing: -0.408,
                     color: Color(0xff0047C3),
                   ),
                 )

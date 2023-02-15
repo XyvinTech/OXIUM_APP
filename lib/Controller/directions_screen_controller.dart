@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/state_manager.dart';
 import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_place/google_place.dart';
 
@@ -12,6 +10,11 @@ class DirectionsScreenController extends GetxController {
   Rx<AutocompletePrediction> source = AutocompletePrediction().obs;
   Rx<AutocompletePrediction> destination = AutocompletePrediction().obs;
   Rx<DirectionsResult> directionsResult = DirectionsResult().obs;
+  RxInt saveCount = 0.obs;
+  RxBool isSaved = false.obs;
+  String distance = '';
+  String duration = '';
+  String route_via = '';
   @override
   void onInit() {
     // TODO: implement onInit
@@ -26,6 +29,11 @@ class DirectionsScreenController extends GetxController {
           MapFunctions().polylines, MapFunctions().dirMapController);
       // MapFunctions().animatePolyline(MapFunctions().polylineString, reload);
     });
+    distance = directionsResult.value.routes!.first.legs!.first.distance!.text!
+        .replaceFirst('km', 'KMS');
+    duration = directionsResult.value.routes!.first.legs!.first.duration!.text!;
+    //route_via = directionsResult.value.routes!.first.legs!.first.
+    route_via = 'Adimali';
   }
 
   @override

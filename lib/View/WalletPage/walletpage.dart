@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/View/WalletPage/popup_page.dart';
+import 'package:freelancer_app/View/WalletPage/topup_page.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -339,7 +336,7 @@ class WalletScreen extends GetView<WalletPageController> {
                     children: [
                       CustomSmallText(
                         text: title,
-                        laterspacing: -0.408,
+                        letterspacing: -0.408,
                         size: 16,
                       ),
                       Row(
@@ -438,7 +435,7 @@ class WalletScreen extends GetView<WalletPageController> {
                       children: [
                         CustomSmallText(
                           text: title,
-                          laterspacing: -0.408,
+                          letterspacing: -0.408,
                           size: 16,
                         ),
                         Row(
@@ -504,7 +501,7 @@ class WalletScreen extends GetView<WalletPageController> {
               padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
               child: Container(
                 padding: EdgeInsets.symmetric(
-                    vertical: size.height * 0.01,
+                    vertical: size.height * 0.008,
                     horizontal: size.width * 0.04),
                 height: size.height * 0.095,
                 decoration: BoxDecoration(

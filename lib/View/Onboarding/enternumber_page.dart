@@ -1,10 +1,8 @@
 import 'package:country_picker/country_picker.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
 import 'package:freelancer_app/Utils/routes.dart';
-import 'package:freelancer_app/View/Onboarding/enterotp_page.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';

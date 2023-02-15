@@ -1,7 +1,4 @@
-import 'dart:developer';
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:freelancer_app/Bindings/bookaslot_screen_binding.dart';
 import 'package:freelancer_app/Controller/bookaslot_controller.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
@@ -11,7 +8,6 @@ import 'package:intl/intl.dart';
 import '../../constants.dart';
 import '../Widgets/apptext.dart';
 import '../Widgets/borderButton.dart';
-import '../Widgets/button.dart';
 
 class BookASlotScreen extends GetView<BookASlotScreenController> {
   BookASlotScreen({Key? key}) : super(key: key);

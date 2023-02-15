@@ -24,12 +24,14 @@ class MapScreen extends GetView<HomePageController> {
               Container(
                 child: Obx(
                   () => Container(
-                    padding: EdgeInsets.all(controller.reload.value * 0),
+                    padding: EdgeInsets.all(controller.reload.value * 0 +
+                        MapFunctions().reload.value * 0),
                     child: GoogleMap(
+                      
                       initialCameraPosition:
                           MapFunctions().initialPosition.value,
                       trafficEnabled: false,
-                      myLocationEnabled: true,
+                      myLocationEnabled: false,
                       myLocationButtonEnabled: false,
                       zoomControlsEnabled: false,
                       markers: MapFunctions().markers_homepage,

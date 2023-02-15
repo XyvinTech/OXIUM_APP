@@ -1,8 +1,9 @@
-import 'package:freelancer_app/Bindings/bottom_nav_screen_binding.dart';
 import 'package:freelancer_app/Bindings/calista_cafePage_bindings.dart';
 import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
+import 'package:freelancer_app/Bindings/help_page_bindings.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
+import 'package:freelancer_app/Bindings/partner_page_binding.dart';
 import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
 import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
@@ -13,6 +14,8 @@ import 'package:freelancer_app/Bindings/wallet_page_bindings.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
 import 'package:freelancer_app/View/Charge/reservation_page.dart';
+import 'package:freelancer_app/View/Drawer/helpPage.dart';
+import 'package:freelancer_app/View/Drawer/partner_page.dart';
 import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
 
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
@@ -29,13 +32,14 @@ import 'package:freelancer_app/View/Onboarding/rfidnumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/smartchrage_page.dart';
 import 'package:freelancer_app/View/Onboarding/vehiclesearch_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
-import 'package:freelancer_app/View/WalletPage/popup_page.dart';
+import 'package:freelancer_app/View/WalletPage/topup_page.dart';
 import 'package:freelancer_app/View/WalletPage/walletpage.dart';
 import 'package:get/get.dart';
 import '../Bindings/directions_screen_binding.dart';
 import '../Bindings/editprofile_screen_binding.dart';
 import '../Bindings/filter_screen_binding.dart';
 import '../Bindings/loginpage_binding.dart';
+import '../Bindings/navigation_screen_binding.dart';
 import '../Bindings/notification_screen_binding.dart';
 import '../Bindings/profile_screen_binding.dart';
 import '../Bindings/search_places_binding.dart';
@@ -47,6 +51,7 @@ import '../View/Homepage/notification_screen.dart';
 import '../View/Homepage/profile_screen.dart';
 import '../View/Homepage/search_screen.dart';
 import '../View/Trips/directions_page.dart';
+import '../View/Trips/navigation_page.dart';
 import '../View/Trips/search_places_page.dart';
 import '../View/Trips/trips_page.dart';
 
@@ -108,7 +113,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.bottomNavPageRoute,
-      binding: BottomNavScreenBinding(),
+      binding: CalistaCafePageBindings(),
       page: () => BottomNavScreen(),
     ),
 
@@ -181,17 +186,22 @@ abstract class AppPages {
     GetPage(
       name: Routes.tripsPageRoute,
       binding: TripsScreenBinding(),
-      page: () =>TripsScreen(),
+      page: () => TripsScreen(),
     ),
     GetPage(
       name: Routes.searchPlacesPageRoute,
       binding: SearchPlacesScreenBinding(),
-      page: () =>SearchPlacesScreen(),
+      page: () => SearchPlacesScreen(),
     ),
     GetPage(
       name: Routes.directionsPageRoute,
       binding: DirectionsScreenBinding(),
-      page: () =>DirectionsScreen(),
+      page: () => DirectionsScreen(),
+    ),
+    GetPage(
+      name: Routes.navigationPageRoute,
+      binding: NavigationScreenBinding(),
+      page: () => NavigationScreen(),
     ),
 
     //
@@ -209,5 +219,21 @@ abstract class AppPages {
       binding: PopupPageBindigs(),
       page: () => PopUpPage(),
     ),
+
+    ///
+    ///
+    //drewer PAGE
+
+    GetPage(
+      name: Routes.helpPageRoute,
+      binding: HelpPageBindings(),
+      page: () => HelpScreen(),
+    ),
+
+    GetPage(
+      name: Routes.partnerPageRoute,
+      binding: PartnerPageBinding(),
+      page: () => PartnerScreen(),
+    )
   ];
 }
