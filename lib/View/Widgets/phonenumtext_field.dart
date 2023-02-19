@@ -2,6 +2,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/editprofile_screen_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
@@ -118,11 +119,10 @@ class PhoneNumberTextField2 extends GetView<PartnerPageController> {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * .085,
+      height: 65.h,
       width: size.width,
-      child: Container(
-        width: size.width * 0.6,
-        height: size.height * .085,
+      child: Padding(
+        padding: EdgeInsets.only(top: 0.h),
         child: TextField(
           controller: controller1,
           style: TextStyle(
@@ -135,20 +135,20 @@ class PhoneNumberTextField2 extends GetView<PartnerPageController> {
               ),
               // contentPadding: EdgeInsets.only(left: 20),
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(40.r),
                   borderSide: BorderSide(color: Color(0xffE0E0E5))),
               enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(40.r),
                   borderSide: BorderSide(color: Color(0xffE0E0E5))),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(40.r),
                 borderSide: BorderSide(
                   color: Color(0xff628EDB),
                 ),
               ),
               prefixIcon: Container(
-                padding: EdgeInsets.only(left: size.width * 0.04),
-                width: size.width * 0.23,
+                padding: EdgeInsets.only(left: 8.w),
+                width: 60.w,
                 child: Row(
                   children: [
                     Obx(
@@ -172,14 +172,15 @@ class PhoneNumberTextField2 extends GetView<PartnerPageController> {
                                 child: Text(
                                   "+${controller.country.value}",
                                   style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 15.sp,
                                     color: Color(0xff4F4F4F),
                                   ),
                                 ),
                               ),
+                              width(5.w),
                               Icon(
                                 Icons.unfold_more,
-                                size: 20,
+                                size: 20.w,
                                 color: Color(0xff4F4F4F),
                               )
                             ],
@@ -187,15 +188,7 @@ class PhoneNumberTextField2 extends GetView<PartnerPageController> {
                         );
                       },
                     ),
-                    SizedBox(
-                      width: size.width * 0.014,
-                    ),
-                    Container(
-                      height: size.height * 0.06,
-                      width: size.width * 0.005,
-                      color: Color(0xffE0E0E0),
-                    ),
-                    width(size.width * 0.02),
+                    width(5.w),
                   ],
                 ),
               )),
