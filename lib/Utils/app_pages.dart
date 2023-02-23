@@ -1,3 +1,4 @@
+import 'package:freelancer_app/Bindings/aboutpage_bindings.dart';
 import 'package:freelancer_app/Bindings/calista_cafePage_bindings.dart';
 import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
 import 'package:freelancer_app/Bindings/help_page_bindings.dart';
@@ -10,10 +11,12 @@ import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
 import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
 import 'package:freelancer_app/Bindings/wallet_page_bindings.dart';
+import 'package:freelancer_app/Controller/about_page_controller.dart';
 
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
 import 'package:freelancer_app/View/Charge/reservation_page.dart';
+import 'package:freelancer_app/View/Drawer/about_page.dart';
 import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Drawer/partner_page.dart';
 import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
@@ -234,6 +237,11 @@ abstract class AppPages {
       name: Routes.partnerPageRoute,
       binding: PartnerPageBinding(),
       page: () => PartnerScreen(),
+    ),
+    GetPage(
+      name: Routes.aboutPageRoute,
+      binding: AboutPageBinding(),
+      page: () => AboutScreen(),
     )
   ];
 }

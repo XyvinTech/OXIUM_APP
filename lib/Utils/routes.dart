@@ -56,4 +56,5 @@ class Routes {
 
   static String helpPageRoute = '/help';
   static String partnerPageRoute = '/partner';
+  static String aboutPageRoute = '/about';
 }
