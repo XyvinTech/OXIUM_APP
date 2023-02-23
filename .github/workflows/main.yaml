@@ -32,4 +32,5 @@ jobs:
           token: ${{ secrets.TOKEN }}
 
 # we are testing again
+#testing is mandatory now
 
