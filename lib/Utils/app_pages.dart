@@ -242,11 +242,6 @@ abstract class AppPages {
       name: Routes.aboutPageRoute,
       binding: AboutPageBinding(),
       page: () => AboutScreen(),
-    ),
-    GetPage(
-      name: Routes.aboutPageRoute,
-      binding: AboutPageBinding(),
-      page: () => AboutScreen(),
     )
   ];
 }
