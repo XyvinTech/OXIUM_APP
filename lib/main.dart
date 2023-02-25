@@ -5,6 +5,7 @@ import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'Utils/app_pages.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.grey,
               scaffoldBackgroundColor: kscaffoldBackgroundColor,
             ),
-            initialRoute: Routes.aboutPageRoute,
+            initialRoute: Routes.shareExperiencePageRoute,
             getPages: AppPages.pages,
           );
         }));
