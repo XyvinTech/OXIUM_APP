@@ -1,6 +1,7 @@
 import 'package:freelancer_app/Bindings/aboutpage_bindings.dart';
 import 'package:freelancer_app/Bindings/calista_cafePage_bindings.dart';
 import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
+import 'package:freelancer_app/Bindings/charging_screen_binding.dart';
 import 'package:freelancer_app/Bindings/help_page_bindings.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
@@ -11,7 +12,6 @@ import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
 import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
 import 'package:freelancer_app/Bindings/wallet_page_bindings.dart';
-import 'package:freelancer_app/Controller/about_page_controller.dart';
 
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
@@ -20,6 +20,7 @@ import 'package:freelancer_app/View/Drawer/about_page.dart';
 import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Drawer/partner_page.dart';
 import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
+import 'package:freelancer_app/View/Homepage/charging_screen.dart';
 
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
 
@@ -242,6 +243,11 @@ abstract class AppPages {
       name: Routes.aboutPageRoute,
       binding: AboutPageBinding(),
       page: () => AboutScreen(),
+    ),
+    GetPage(
+      name: Routes.chargingPageRoute,
+      binding: ChargingScreenBinding(),
+      page: () => ChargingScreen(),
     )
   ];
 }
