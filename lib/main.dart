@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(393, 781),
+        designSize: Size(390, 844),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: ((context, child) {
@@ -34,9 +34,13 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.grey,
               scaffoldBackgroundColor: kscaffoldBackgroundColor,
             ),
-            initialRoute: Routes.aboutPageRoute,
+            initialRoute: Routes.chargingPageRoute,
             getPages: AppPages.pages,
           );
         }));
   }
 }
+
+
+
+///added for testing merge

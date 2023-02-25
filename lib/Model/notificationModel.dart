@@ -22,6 +22,7 @@ class NotificationModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
+        "subtitle": subtitle,
         "isDisconnected": isDisconnected,
       };
 }
