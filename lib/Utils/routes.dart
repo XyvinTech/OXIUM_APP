@@ -37,9 +37,11 @@ class Routes {
   static String profilePageRoute = '/profile';
   static String editProfilePageRoute = '/editprofile';
   static String calistaCafePageRoute = '/calistacafe';
+  static String chargingPageRoute = '/charging';
 
   static String shareExperiencePageRoute = '/shareExperience';
   static String paymentfeedbackPageRoute = '/paymentfeedback';
+  static String thankfeedbackPageRoute = '/thankfeedback';
 
 //TRIPS
   static String tripsPageRoute = '/trips';

@@ -21,11 +21,10 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
         backgroundColor: Color(0xffF5F9FF),
         body: Column(
           children: [
-            height(20.h),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20),
               child: Container(
-                height: 370.h,
+                // height: 370.h,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                     color: kwhite,
@@ -41,17 +40,17 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    height(20.h),
+                    height(40.h),
                     SvgPicture.asset("assets/svg/tik1.svg"),
-                    height(20.h),
+                    height(25.h),
                     CustomBigText(
                       text: "Credit coins deducated!",
                       size: 20.sp,
                       color: Color(0xff219653),
                     ),
-                    height(5.h),
+                    height(10.h),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 60.w),
+                      padding: EdgeInsets.symmetric(horizontal: 70.w),
                       child: Row(
                         children: [
                           Expanded(
@@ -66,15 +65,16 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                     ),
                     height(40.h),
                     _card(energy: "356", amount: "-2000"),
+                    height(50.h),
                   ],
                 ),
               ),
             ),
-            height(20.h),
+            // height(20.h),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
               child: Container(
-                height: 270.h,
+                // height: 270.h,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                     color: kwhite,
@@ -118,6 +118,7 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                       text: "Return to maps",
                       size: 14.sp,
                     ),
+                    height(35.h),
                   ],
                 ),
               ),

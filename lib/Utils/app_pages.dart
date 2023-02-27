@@ -1,6 +1,7 @@
 import 'package:freelancer_app/Bindings/aboutpage_bindings.dart';
 import 'package:freelancer_app/Bindings/calista_cafePage_bindings.dart';
 import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
+import 'package:freelancer_app/Bindings/charging_screen_binding.dart';
 import 'package:freelancer_app/Bindings/feedback_Screen_binding.dart';
 import 'package:freelancer_app/Bindings/help_page_bindings.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
@@ -19,8 +20,10 @@ import 'package:freelancer_app/View/Drawer/about_page.dart';
 import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Drawer/partner_page.dart';
 import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
+import 'package:freelancer_app/View/Homepage/charging_screen.dart';
 import 'package:freelancer_app/View/Homepage/feedback/payment_feedback.dart';
 import 'package:freelancer_app/View/Homepage/feedback/share_experience_page.dart';
+import 'package:freelancer_app/View/Homepage/feedback/thanks_for_feedback.dart';
 import 'package:freelancer_app/View/Homepage/homepage.dart';
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
 import 'package:freelancer_app/View/Onboarding/bottom_nav_page.dart';
@@ -183,6 +186,11 @@ abstract class AppPages {
       binding: FeedBackScreenBinding(),
       page: () => PaymentFeedbackScreen(),
     ),
+    GetPage(
+      name: Routes.thankfeedbackPageRoute,
+      binding: FeedBackScreenBinding(),
+      page: () => ThankForFeedbackScreen(),
+    ),
 
     ///
     ///
@@ -252,6 +260,11 @@ abstract class AppPages {
       name: Routes.aboutPageRoute,
       binding: AboutPageBinding(),
       page: () => AboutScreen(),
+    ),
+    GetPage(
+      name: Routes.chargingPageRoute,
+      binding: ChargingScreenBinding(),
+      page: () => ChargingScreen(),
     )
   ];
 }
