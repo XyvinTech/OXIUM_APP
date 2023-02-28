@@ -40,7 +40,7 @@ class PaymentFeedbackScreen extends GetView<FeedBackPageController> {
                       boxShadow: [
                         BoxShadow(
                           offset: Offset(0, 4),
-                          blurRadius: 10,
+                          blurRadius: 32,
                           color: Color(0xff000000).withOpacity(.06),
                         )
                       ]),
