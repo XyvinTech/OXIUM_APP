@@ -26,12 +26,12 @@ class HomePageController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     MapFunctions().bytesBlue = await ImageByteConverter.getBytesFromAsset(
-        "assets/svg/blue_marker.png", 50);
+        "assets/svg/blue_marker.png", 70);
     MapFunctions().bytesGreen = await ImageByteConverter.getBytesFromAsset(
-        "assets/svg/green_marker.png", 50);
+        "assets/svg/green_marker.png", 70);
     MapFunctions().navigationMarker =
         await ImageByteConverter.getBytesFromAsset(
-            "assets/images/pointer.png", 50);
+            "assets/images/pointer.png", 70);
     MapFunctions().carMarker = await ImageByteConverter.getBytesFromAsset(
         "assets/images/CSAR.png", 70);
     MapFunctions().myMarker = await ImageByteConverter.getBytesFromAsset(

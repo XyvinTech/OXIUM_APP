@@ -1,9 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
 import 'package:freelancer_app/Controller/charging_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
-import 'package:get/get.dart';
 
 class ChargingScreen extends GetView<ChargingScreenController> {
   const ChargingScreen({super.key});
@@ -44,39 +46,76 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                   child: Container(
                                 color: Colors.transparent,
                               )),
-                              controller.isConnecting.value
-                                  ? CustomBigText(
-                                      text: "Charging In Progress",
-                                      size: 13.sp,
-                                      color: Color(0xff828282))
-                                  : CustomBigText(
-                                      text: "Connecting ...",
-                                      size: 13.sp,
-                                      color: Color(0xff0047C3)),
+                              if (controller.chargignStatus.value ==
+                                      "connected" ||
+                                  controller.chargignStatus.value == "progress")
+                                CustomBigText(
+                                    text: "Charging In Progress",
+                                    size: 12.sp,
+                                    color: Color(0xff828282))
+                              else if (controller.chargignStatus.value ==
+                                  "finished")
+                                CustomBigText(
+                                    text: "Charging Finished",
+                                    size: 12.sp,
+                                    color: Color(0xff0047C3))
+                              else if (controller.chargignStatus.value ==
+                                  "completed")
+                                CustomBigText(
+                                    text: "Charging Completed",
+                                    size: 12.sp,
+                                    color: Color(0xff219653))
+                              else if (controller.chargignStatus.value ==
+                                  "disconnected")
+                                Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                          width: 13,
+                                          height: 13,
+                                          "assets/images/errer.png"),
+                                      SizedBox(
+                                        width: 4,
+                                      ),
+                                      CustomBigText(
+                                          text: "Charger Disconnected",
+                                          size: 12.sp,
+                                          color: Color(0xffEB5757))
+                                    ],
+                                  ),
+                                )
+                              else
+                                CustomBigText(
+                                    text: "Connecting ...",
+                                    size: 12.sp,
+                                    color: Color(0xff0047C3)),
                               SizedBox(
                                 height: 24.h,
                               ),
                               SizedBox(
-                                width: 162,
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                        width: 76, "assets/images/jeep1.png"),
-                                    SizedBox(width: 13),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        CustomSmallText(text: "Jeep"),
-                                        CustomBigText(
-                                          text: "RUBICON",
-                                          size: 16,
-                                        )
-                                      ],
-                                    )
-                                  ],
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                          width: 76, "assets/images/jeep1.png"),
+                                      SizedBox(width: 13),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          CustomSmallText(text: "Jeep"),
+                                          CustomBigText(
+                                            text: "RUBICON",
+                                            size: 16,
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
@@ -141,7 +180,6 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                 color: Color(0xffBDBDBD),
                                 thickness: .6,
                               ),
-                              // ?Second row
                               Container(
                                 padding:
                                     EdgeInsets.only(bottom: 32.h, top: 17.h),
@@ -175,62 +213,31 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                         ]),
                                   ],
                                 ),
-                              ),
-                              // ? Custom Button
-                              controller.isConnecting.value
-                                  ? InkWell(
-                                      child: Container(
-                                          height: 52.h,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 30),
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                              color: Color(0xffD0FFE4),
-                                              borderRadius:
-                                                  BorderRadius.circular(56.r)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(1),
-                                            child: Center(
-                                              child: CustomBigText(
-                                                text: "Reconnect",
-                                                size: 14.sp,
-                                                color: Color(0xff219653),
-                                              ),
-                                            ),
-                                          )),
-                                      onTap: () {
-                                      
-                                      },
-                                    )
-                                  : InkWell(
-                                      child: Container(
-                                          height: 52.h,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 30),
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1,
-                                                  color: Color(0xff0047C3)),
-                                              borderRadius:
-                                                  BorderRadius.circular(56.r)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(1),
-                                            child: Row(
-                                              children: [
-                                                CustomBigText(
-                                                  text: "Reconnect",
-                                                  size: 14.sp,
-                                                  color: Color(0xff0047C3),
-                                                ),
-                                                Container()
-                                              ],
-                                            ),
-                                          )),
-                                      onTap: () {
-                                      
-                                      },
-                                    )
+                              ),  
+                               //  !buttons
+                              if (controller.chargignStatus.value == "progress")
+                                _withBgBtn(
+                                  text: 'Connected',
+                                  onTap: controller.toReconnect,
+                                  color: Color(0xffEB5757),
+                                  textColor: Color(0xffF2F2F2),
+                                )
+                              else if (controller.chargignStatus.value ==
+                                  "connected")
+                                _withBgBtn(
+                                    text: 'Connected',
+                                    onTap: controller.toProgress)
+                              else if (controller.chargignStatus.value ==
+                                      "finished" ||
+                                  controller.chargignStatus.value ==
+                                      "completed" ||
+                                  controller.chargignStatus.value ==
+                                      "disconnected")
+                                _dualBtn(
+                                    onTap_left: controller.toReconnect,
+                                    onTap_right: controller.toReconnect)
+                              else
+                                _reconnectBtn(onTap: controller.toConnected)
                             ],
                           ),
                         ),
@@ -238,5 +245,131 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                     )),
               ),
             )));
+  }
+}
+
+class _withBgBtn extends StatelessWidget {
+  final Color? color;
+  final Color? textColor;
+  final String text;
+  final VoidCallback? onTap;
+  const _withBgBtn({
+    Key? key,
+    this.color,
+    this.textColor,
+    required this.text,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      child: Container(
+          height: 52.h,
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: color ?? Color(0xffD0FFE4),
+              borderRadius: BorderRadius.circular(56.r)),
+          child: Center(
+            child: CustomBigText(
+              text: text,
+              size: 14.sp,
+              color: textColor ?? Color(0xff219653),
+            ),
+          )),
+      onTap: onTap,
+    );
+  }
+}
+
+class _dualBtn extends StatelessWidget {
+  final VoidCallback? onTap_left;
+  final VoidCallback? onTap_right;
+  const _dualBtn({
+    Key? key,
+    this.onTap_left,
+    this.onTap_right,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 52.h,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: InkWell(
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 25.w),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Color(0xff0047C3)),
+                      borderRadius: BorderRadius.circular(56.r)),
+                  child: Center(
+                    child: CustomBigText(
+                      text: "Reconnect",
+                      size: 14.sp,
+                      color: Color(0xff0047C3),
+                    ),
+                  )),
+              onTap: onTap_left,
+            ),
+          ),
+          SizedBox(
+            width: 26.w,
+          ),
+          Flexible(
+            child: InkWell(
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 25.w),
+                  decoration: BoxDecoration(
+                      color: Color(0xff0047C3),
+                      borderRadius: BorderRadius.circular(56.r)),
+                  child: Center(
+                    child: CustomBigText(
+                      text: "Finish",
+                      size: 14.sp,
+                      color: Color(0xffF2F2F2),
+                    ),
+                  )),
+              onTap: onTap_right,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _reconnectBtn extends StatelessWidget {
+  final VoidCallback? onTap;
+  const _reconnectBtn({
+    Key? key,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        child: Container(
+            height: 52.h,
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Color(0xff0047C3)),
+                borderRadius: BorderRadius.circular(56.r)),
+            child: Row(
+              children: [
+                CustomBigText(
+                  text: "Reconnect",
+                  size: 14.sp,
+                  color: Color(0xff0047C3),
+                ),
+                Container()
+              ],
+            )),
+        onTap: onTap);
   }
 }
