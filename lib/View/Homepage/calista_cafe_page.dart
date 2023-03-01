@@ -1,6 +1,6 @@
-
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/calista_cafePage_controller.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
@@ -20,6 +20,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: kwhite,
       appBar: AppBar(
@@ -236,7 +237,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 height(size.height * 0.04),
                 ListView.builder(
                     shrinkWrap: true,
-                    itemCount: 4,
+                    itemCount: 1,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Container(
@@ -361,39 +362,42 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
           Positioned(
             bottom: 0,
             child: Container(
-              // padding: EdgeInsets.only(bottom: size.height * 0.02),
-              height: size.height * 0.1,
               width: size.width,
               color: kwhite,
+              padding: EdgeInsets.only(
+                  bottom: 32.w, top: 21.w, left: 29.w, right: 29),
               alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: size.height * 0.07,
-                      width: size.width * 0.4,
-                      decoration: BoxDecoration(
-                          color: Color(0xff0047C3),
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Center(
-                        child: CustomBigText(
-                          text: "Start Charging",
-                          size: 15,
-                          color: Color(0xffF2F2F2),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 15.w),
+                        decoration: BoxDecoration(
+                            color: Color(0xff0047C3),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Center(
+                          child: CustomBigText(
+                            text: "Start Charging",
+                            size: 14.sp,
+                            color: Color(0xffF2F2F2),
+                          ),
                         ),
                       ),
                     ),
-                    GestureDetector(
+                  ),
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  Flexible(
+                    child: GestureDetector(
                       onTap: () {
                         Get.toNamed(Routes.bookASlotPageRoute);
                       },
                       child: Obx(
                         () => Container(
-                          height: size.height * 0.07,
-                          width: size.width * 0.4,
+                          padding: EdgeInsets.symmetric(vertical: 11.w),
                           decoration: BoxDecoration(
                               color: appData.isReserved.value
                                   ? Color(0xffCBFFC7)
@@ -409,7 +413,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                               text: appData.isReserved.value
                                   ? "Reserved"
                                   : "Reserve",
-                              size: 15,
+                              size: 14.sp,
                               color: appData.isReserved.value
                                   ? Color(0xff219653)
                                   : Color(0xff0047C3),
@@ -417,9 +421,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                           ),
                         ),
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
@@ -727,18 +731,16 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
               ],
             ),
             Container(
-              padding: EdgeInsets.only(left: size.width * 0.03),
+              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 7.w),
               decoration: BoxDecoration(
                 color: Color(0xff2F80ED),
                 borderRadius: BorderRadius.circular(20),
               ),
-              height: size.height * 0.037,
-              width: size.width * 0.24,
               child: Row(
                 children: [
                   CustomBigText(
                     text: "Navigate",
-                    size: 12,
+                    size: 12.sp,
                     color: kwhite,
                   ),
                   width(size.width * 0.02),
