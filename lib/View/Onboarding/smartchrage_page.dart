@@ -52,7 +52,7 @@ class SmartChargeScreen extends GetView<SmartChargeController> {
                 ),
               ),
               Container(
-                height: size.height * 0.724,
+                height: size.height * 0.7,
                 width: size.width,
                 // color: Color(0xffF3F5F9),
 

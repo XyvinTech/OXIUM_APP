@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/chargePage_controller.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
@@ -21,7 +23,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
           SliverAppBar(
               backgroundColor: Color(0xffF5F9FF),
               automaticallyImplyLeading: false,
-              expandedHeight: size.height * 0.5,
+              expandedHeight: size.height * 0.525,
               // collapsedHeight: size.height * 0.01,
               floating: true,
               pinned: true,
@@ -36,7 +38,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                         bottom: size.height * 0.02,
                       ),
                       child: Container(
-                        height: size.height * 0.4,
+                        height: size.height * 0.43,
                         width: size.width,
                         child: Column(
                           children: [
@@ -81,11 +83,12 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                           children: [
                                             CustomSmallText(
                                               text: "Jeep",
-                                              size: 12,
+                                              size: 12.sp,
                                             ),
                                             CustomBigText(
                                               text: "RUBICON",
-                                              size: 14,
+                                              size: 14.sp,
+                                              color: Color(0xff4F4F4F),
                                             ),
                                           ],
                                         )
@@ -93,7 +96,9 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                     ),
                                     //refresh button
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Get.toNamed(Routes.myvehicleRoute);
+                                      },
                                       child: Image.asset(
                                         "assets/images/refresh.png",
                                         height: size.height * 0.025,
@@ -112,7 +117,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                 top: size.height * 0.07,
                                 bottom: size.height * 0.02,
                               ),
-                              height: size.height * 0.28,
+                              height: size.height * 0.285,
                               width: size.width,
                               decoration: BoxDecoration(
                                 color: kwhite,
@@ -136,15 +141,15 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                         children: [
                                           CustomBigText(
                                             text: "500 kWh",
-                                            size: 16,
-                                            color: kblue,
+                                            size: 16.sp,
+                                            color: Color(0xff0047C3),
                                           ),
                                           SizedBox(
                                             height: size.height * 0.01,
                                           ),
                                           CustomSmallText(
                                             text: "Energy Charged",
-                                            size: 12,
+                                            size: 13.sp,
                                           ),
                                         ],
                                       ),
@@ -157,15 +162,15 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                         children: [
                                           CustomBigText(
                                             text: "2,340",
-                                            size: 16,
-                                            color: kblue,
+                                            size: 16.sp,
+                                            color: Color(0xff0047C3),
                                           ),
                                           SizedBox(
                                             height: size.height * 0.01,
                                           ),
                                           CustomSmallText(
                                             text: "KMS Driven",
-                                            size: 12,
+                                            size: 13.sp,
                                           ),
                                         ],
                                       )
@@ -198,7 +203,8 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                   ),
                                 ],
                               ),
-                            )
+                            ),
+                            height(15.h),
                           ],
                         ),
                       ),
@@ -244,22 +250,22 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                               Tab(
                                 child: CustomSmallText(
                                   text: "Charge",
-                                  size: 14,
-                                  color: kblue,
+                                  size: 15.sp,
+                                  color: Color(0xff0047C3),
                                 ),
                               ),
                               Tab(
                                 child: CustomSmallText(
                                   text: "Reservations",
-                                  size: 14,
-                                  color: kblue,
+                                  size: 15.sp,
+                                  color: Color(0xff0047C3),
                                 ),
                               ),
                               Tab(
                                 child: CustomSmallText(
                                   text: "Trips",
-                                  size: 14,
-                                  color: kblue,
+                                  size: 15.sp,
+                                  color: Color(0xff0047C3),
                                 ),
                               ),
                             ],
@@ -335,7 +341,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                     children: [
                       CustomBigText(
                         text: "Scan and Charge",
-                        size: 16,
+                        size: 16.sp,
                         color: kwhite,
                       ),
                       SizedBox(
@@ -343,12 +349,12 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                       ),
                       CustomSmallText(
                         text: "Scan and charge for awail neew",
-                        size: 10,
+                        size: 10.sp,
                         color: kwhite,
                       ),
                       CustomSmallText(
                         text: "offers and rewards",
-                        size: 10,
+                        size: 10.sp,
                         color: kwhite,
                       )
                     ],
@@ -368,7 +374,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
           CustomBigText(
             text: "Charging History",
             fontWeight: FontWeight.w500,
-            size: 12,
+            size: 12.sp,
             color: Color(0xff4F4F4F),
           ),
           SizedBox(

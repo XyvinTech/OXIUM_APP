@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/reservation_screen_controller.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
@@ -18,14 +21,14 @@ class ReservationScreen extends GetView<ReservationScreenController> {
         height: size.height,
         width: size.width,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: size.height * 0.01,
-            ),
+                // height: size.height * 0.035,
+                ),
             Container(
-              height: size.height * 0.75,
+              height: size.height * 0.82,
               width: size.width * 0.85,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -52,11 +55,11 @@ class ReservationScreen extends GetView<ReservationScreenController> {
                         ),
                         _detailsSection(),
                         SizedBox(
-                          height: size.height * 0.08,
+                          height: size.height * 0.07,
                         ),
                         _reservationTime(),
                         SizedBox(
-                          height: size.height * 0.04,
+                          height: size.height * 0.06,
                         ),
                         _jeepModel(),
                         SizedBox(
@@ -64,7 +67,7 @@ class ReservationScreen extends GetView<ReservationScreenController> {
                         ),
                         _carDCdetails(),
                         SizedBox(
-                          height: size.height * 0.1,
+                          height: size.height * 0.09,
                         ),
                         _reservationButton(),
                         SizedBox(
@@ -226,18 +229,43 @@ class ReservationScreen extends GetView<ReservationScreenController> {
   }
 
   Widget _reservationTime() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        CustomSmallText(
-          text: "Reservation Time :",
-          size: 16,
-          color: kblack,
+        Align(
+          alignment: Alignment.center,
+          child: CustomSmallText(
+            text: "Reservation Time :",
+            size: 14.sp,
+            color: kblack,
+          ),
         ),
-        CustomSmallText(
-          text: "10:00 AM",
-          size: 16,
-          color: kblack,
+        height(10.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              children: [
+                SvgPicture.asset("assets/svg/schedule.svg"),
+                width(5.w),
+                CustomSmallText(
+                  text: "03:30 PM",
+                  size: 16.sp,
+                  color: kblack,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                SvgPicture.asset("assets/svg/cal_month.svg"),
+                width(5.w),
+                CustomSmallText(
+                  text: "12 Jun 2022",
+                  size: 16.sp,
+                  color: kblack,
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     );

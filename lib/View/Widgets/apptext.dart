@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 //CustomBigText Widget
@@ -34,7 +35,7 @@ class CustomBigText extends StatelessWidget {
           minFontSize: 10,
           style: GoogleFonts.poppins(
             letterSpacing: letterspacing ?? null,
-            fontSize: size ?? 20,
+            fontSize: size ?? 20.sp,
             fontWeight: fontWeight ?? FontWeight.w600,
             color: color ?? Color(0xff828282),
             fontStyle: FontStyle.normal,
@@ -76,7 +77,7 @@ class CustomSmallText extends StatelessWidget {
           minFontSize: 12,
           style: GoogleFonts.poppins(
             letterSpacing: letterspacing ?? null,
-            fontSize: size ?? 14,
+            fontSize: size ?? 14.sp,
             fontWeight: fontWeight ?? FontWeight.w400,
             color: color ?? Color(0xff828282),
           ),
