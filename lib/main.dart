@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.grey,
               scaffoldBackgroundColor: kscaffoldBackgroundColor,
             ),
-            initialRoute: Routes.chargingPageRoute,
+            initialRoute: Routes.qrScanPageRoute,
             getPages: AppPages.pages,
           );
         }));

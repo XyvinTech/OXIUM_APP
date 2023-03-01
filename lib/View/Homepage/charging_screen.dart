@@ -213,8 +213,8 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                         ]),
                                   ],
                                 ),
-                              ),  
-                               //  !buttons
+                              ),
+                              //  !buttons
                               if (controller.chargignStatus.value == "progress")
                                 _withBgBtn(
                                   text: 'Connected',
@@ -233,9 +233,14 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       "completed" ||
                                   controller.chargignStatus.value ==
                                       "disconnected")
-                                _dualBtn(
-                                    onTap_left: controller.toReconnect,
-                                    onTap_right: controller.toReconnect)
+                                // _dualBtn(
+                                //     (){controller.toReconnect()},
+                                //    (){controller.toReconnect()})
+                                _dualBtn(() {
+                                  controller.toReconnect();
+                                }, () {
+                                  controller.toReconnect();
+                                })
                               else
                                 _reconnectBtn(onTap: controller.toConnected)
                             ],
@@ -248,128 +253,97 @@ class ChargingScreen extends GetView<ChargingScreenController> {
   }
 }
 
-class _withBgBtn extends StatelessWidget {
-  final Color? color;
-  final Color? textColor;
-  final String text;
-  final VoidCallback? onTap;
-  const _withBgBtn({
-    Key? key,
-    this.color,
-    this.textColor,
-    required this.text,
-    this.onTap,
-  }) : super(key: key);
+Widget _withBgBtn(
+    {required String text,
+    VoidCallback? onTap,
+    Color? color,
+    Color? textColor}) {
+  return InkWell(
+    child: Container(
+        height: 52.h,
+        padding: EdgeInsets.symmetric(horizontal: 30),
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: color ?? Color(0xffD0FFE4),
+            borderRadius: BorderRadius.circular(56.r)),
+        child: Center(
+          child: CustomBigText(
+            text: text,
+            size: 14.sp,
+            color: textColor ?? Color(0xff219653),
+          ),
+        )),
+    onTap: onTap,
+  );
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
+Widget _dualBtn(VoidCallback? onTap_left, VoidCallback? onTap_right) {
+  return SizedBox(
+    width: double.infinity,
+    height: 52.h,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          child: InkWell(
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 25.w),
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Color(0xff0047C3)),
+                    borderRadius: BorderRadius.circular(56.r)),
+                child: Center(
+                  child: CustomBigText(
+                    text: "Reconnect",
+                    size: 14.sp,
+                    color: Color(0xff0047C3),
+                  ),
+                )),
+            onTap: onTap_left,
+          ),
+        ),
+        SizedBox(
+          width: 26.w,
+        ),
+        Flexible(
+          child: InkWell(
+            child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 25.w),
+                decoration: BoxDecoration(
+                    color: Color(0xff0047C3),
+                    borderRadius: BorderRadius.circular(56.r)),
+                child: Center(
+                  child: CustomBigText(
+                    text: "Finish",
+                    size: 14.sp,
+                    color: Color(0xffF2F2F2),
+                  ),
+                )),
+            onTap: onTap_right,
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+Widget _reconnectBtn({VoidCallback? onTap}) {
+  return InkWell(
       child: Container(
           height: 52.h,
           padding: EdgeInsets.symmetric(horizontal: 30),
           width: double.infinity,
           decoration: BoxDecoration(
-              color: color ?? Color(0xffD0FFE4),
+              border: Border.all(width: 1, color: Color(0xff0047C3)),
               borderRadius: BorderRadius.circular(56.r)),
-          child: Center(
-            child: CustomBigText(
-              text: text,
-              size: 14.sp,
-              color: textColor ?? Color(0xff219653),
-            ),
+          child: Row(
+            children: [
+              CustomBigText(
+                text: "Reconnect",
+                size: 14.sp,
+                color: Color(0xff0047C3),
+              ),
+              Container()
+            ],
           )),
-      onTap: onTap,
-    );
-  }
-}
-
-class _dualBtn extends StatelessWidget {
-  final VoidCallback? onTap_left;
-  final VoidCallback? onTap_right;
-  const _dualBtn({
-    Key? key,
-    this.onTap_left,
-    this.onTap_right,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 52.h,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            child: InkWell(
-              child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25.w),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Color(0xff0047C3)),
-                      borderRadius: BorderRadius.circular(56.r)),
-                  child: Center(
-                    child: CustomBigText(
-                      text: "Reconnect",
-                      size: 14.sp,
-                      color: Color(0xff0047C3),
-                    ),
-                  )),
-              onTap: onTap_left,
-            ),
-          ),
-          SizedBox(
-            width: 26.w,
-          ),
-          Flexible(
-            child: InkWell(
-              child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25.w),
-                  decoration: BoxDecoration(
-                      color: Color(0xff0047C3),
-                      borderRadius: BorderRadius.circular(56.r)),
-                  child: Center(
-                    child: CustomBigText(
-                      text: "Finish",
-                      size: 14.sp,
-                      color: Color(0xffF2F2F2),
-                    ),
-                  )),
-              onTap: onTap_right,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _reconnectBtn extends StatelessWidget {
-  final VoidCallback? onTap;
-  const _reconnectBtn({
-    Key? key,
-    this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-        child: Container(
-            height: 52.h,
-            padding: EdgeInsets.symmetric(horizontal: 30),
-            width: double.infinity,
-            decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Color(0xff0047C3)),
-                borderRadius: BorderRadius.circular(56.r)),
-            child: Row(
-              children: [
-                CustomBigText(
-                  text: "Reconnect",
-                  size: 14.sp,
-                  color: Color(0xff0047C3),
-                ),
-                Container()
-              ],
-            )),
-        onTap: onTap);
-  }
+      onTap: onTap);
 }
