@@ -13,52 +13,60 @@ class QrScreen extends GetView<QrController> {
 
   @override
   Widget build(BuildContext context) {
+    var iskeybort = (MediaQuery.of(context).viewInsets.bottom != 0).obs;
     return Scaffold(
-      body: SafeArea(
-        child: Stack(children: [
-          QRView(
-            key: controller.qrKey,
-            onQRViewCreated: onQRViewCreated,
-            overlay: _overlay(),
-          ),
-          Positioned(
-              right: 22.w,
-              left: 22.w,
-              top: 15.h,
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: InkWell(
-                      child: Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 22,
+      backgroundColor: iskeybort.value == true
+          ? Color.fromARGB(255, 110, 110, 110)
+          : Colors.transparent,
+      body: Obx(() {
+        return SafeArea(
+          child: Stack(children: [
+            if (!iskeybort.value)
+              QRView(
+                key: controller.qrKey,
+                onQRViewCreated: onQRViewCreated,
+                overlay: _overlay(),
+              ),
+            Positioned(
+                right: 22.w,
+                left: 22.w,
+                top: 15.h,
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 22,
+                        ),
+                        onTap: () {},
                       ),
-                      onTap: () {},
                     ),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  SizedBox(
-                    width: 203.w,
-                    child: CustomBigText(
-                      text: "Aling the QR Code within theFrame to Scan",
-                      color: Colors.white,
-                      size: 14.sp,
-                      align: TextAlign.center,
+                    SizedBox(
+                      height: 16,
                     ),
-                  ),
-                ],
-              )),
-          Positioned(
-              bottom: 34.h,
-              left: 22.w,
-              right: 22.w,
-              child: _otpContainer(context, controller))
-        ]),
-      ),
+                    if (!iskeybort.value)
+                      SizedBox(
+                        width: 203.w,
+                        child: CustomBigText(
+                          text: "Aling the QR Code within theFrame to Scan",
+                          color: Colors.white,
+                          size: 14.sp,
+                          align: TextAlign.center,
+                        ),
+                      ),
+                  ],
+                )),
+            Positioned(
+                bottom: iskeybort == true ? 60.h : 34.h,
+                left: 22.w,
+                right: 22.w,
+                child: _otpContainer(context, controller))
+          ]),
+        );
+      }),
     );
   }
 
