@@ -86,7 +86,8 @@ class CustomDrawer extends StatelessWidget {
           ),
           height(size.height * .065),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .025),
             child: Row(
               children: [
                 SvgPicture.asset('assets/svg/directions_car.svg'),
@@ -105,9 +106,10 @@ class CustomDrawer extends StatelessWidget {
               ],
             ),
           ),
-          height(size.height * .05),
+          // height(size.height * .05),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .025),
             child: Row(
               children: [
                 SvgPicture.asset('assets/svg/credit_card.svg'),
@@ -126,12 +128,14 @@ class CustomDrawer extends StatelessWidget {
               ],
             ),
           ),
-          height(size.height * .05),
+          // height(size.height * .05),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .025),
             child: InkWell(
               onTap: () {
-                Get.toNamed(Routes.helpPageRoute);
+                Get.back();
+                Get.toNamed(Routes.partnerPageRoute);
               },
               child: Row(
                 children: [
@@ -152,30 +156,38 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
           ),
-          height(size.height * .05),
+          // height(size.height * .05),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/svg/support_agent.svg'),
-                width(size.width * .05),
-                CustomText(
-                  text: 'Help',
-                  color: Color(0xff4F4F4F),
-                  size: 14,
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 15,
-                ),
-              ],
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .025),
+            child: InkWell(
+              onTap: () {
+                Get.back();
+                Get.toNamed(Routes.helpPageRoute);
+              },
+              child: Row(
+                children: [
+                  SvgPicture.asset('assets/svg/support_agent.svg'),
+                  width(size.width * .05),
+                  CustomText(
+                    text: 'Help',
+                    color: Color(0xff4F4F4F),
+                    size: 14,
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 15,
+                  ),
+                ],
+              ),
             ),
           ),
-          height(size.height * .05),
+          // height(size.height * .05),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .025),
             child: Row(
               children: [
                 SvgPicture.asset('assets/svg/info.svg'),

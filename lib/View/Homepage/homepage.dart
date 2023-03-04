@@ -38,16 +38,20 @@ class HomePageScreen extends GetView<HomePageController> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.transparent,
+        splashColor: Colors.transparent,
         child: Container(
           alignment: Alignment.center,
+          height: 120,
+          width: 50,
           decoration: BoxDecoration(
             color: Color(0xff00FFB3),
             borderRadius: BorderRadius.circular(79),
           ),
           child: SvgPicture.asset(
             'assets/svg/qr_scan.svg',
-            width: 20,
-            height: 20,
+            width: 25,
+            height: 25,
           ),
         ),
         onPressed: () {

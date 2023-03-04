@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../../Utils/routes.dart';
 import '../Widgets/button.dart';
 
 class QrScreen extends GetView<QrController> {
@@ -56,6 +57,7 @@ class QrScreen extends GetView<QrController> {
                           color: Colors.white,
                           size: 14.sp,
                           align: TextAlign.center,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                   ],
@@ -74,6 +76,7 @@ class QrScreen extends GetView<QrController> {
   void onQRViewCreated(QRViewController qrViewController) {
     controller.qrViewController = qrViewController;
     controller.qrViewController!.scannedDataStream.listen((event) {
+      controller.onQrCodeReceived(event);
       kLog(event.format.toString());
     });
   }
@@ -136,7 +139,10 @@ class QrScreen extends GetView<QrController> {
         ),
         MainBtn(
           text: "Proceed",
-          onPressed: () {},
+          onPressed: () {
+            //TODO: whatever needed if code is entered.
+            Get.toNamed(Routes.chargingPageRoute);
+          },
         )
       ]),
     );
@@ -145,7 +151,7 @@ class QrScreen extends GetView<QrController> {
   QrScannerOverlayShape? _overlay() {
     return QrScannerOverlayShape(
       borderColor: Colors.white,
-      borderLength: 90,
+      borderLength: 80,
       borderRadius: 20,
       borderWidth: 10,
       cutOutBottomOffset: 127.h,
