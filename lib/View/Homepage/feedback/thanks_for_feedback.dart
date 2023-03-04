@@ -103,7 +103,7 @@ class ThankForFeedbackScreen extends GetView<FeedBackPageController> {
                       child: CustomBigText(
                         text: "Thank you for your feedback",
                         color: Color(0xff333333),
-                        textAlign: TextAlign.center,
+                        align: TextAlign.center,
                         letterspacing: -0.408,
                       ),
                     ),

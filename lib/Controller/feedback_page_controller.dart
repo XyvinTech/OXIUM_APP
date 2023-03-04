@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 class FeedBackPageController extends GetxController {
   RxString selectName = "Payment Process".obs;
-  RxList selected = [
+  RxList<String> selected = [
     "Payment Process",
     "Charging Experience",
     "Finding Your destination",

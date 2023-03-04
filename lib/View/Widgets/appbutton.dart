@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/constants.dart';
 
 //app button
@@ -77,18 +78,15 @@ class StartedButton extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: "Poppins",
                   fontWeight: FontWeight.w600,
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   color: textColor ?? Color(0xFF0047C3),
                 ),
               ),
-              IconButton(
-                iconSize: 24,
-                onPressed: () {},
-                icon: Icon(
-                  Icons.arrow_forward,
-                  color: iconColor ?? Color(0xFF0047C3),
-                ),
-              )
+              Icon(
+                Icons.arrow_forward,
+                color: iconColor ?? Color(0xFF0047C3),
+                size: 20.w,
+              ),
             ],
           ),
         ),
@@ -133,14 +131,11 @@ class LoginButton extends StatelessWidget {
                 color: Color(0xff00FFB3),
               ),
             ),
-            IconButton(
+            Icon(
+              Icons.arrow_forward,
+              size: 20.w,
               color: Color(0xff00FFB3),
-              iconSize: 20,
-              onPressed: () {},
-              icon: Icon(
-                Icons.arrow_forward,
-              ),
-            )
+            ),
           ],
         ),
       ),

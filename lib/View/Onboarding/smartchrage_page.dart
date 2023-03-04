@@ -98,7 +98,10 @@ class SmartChargeScreen extends GetView<SmartChargeController> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      CustomBigText(text: "GO EC RFID"),
+                                      CustomBigText(
+                                        text: "GO EC RFID",
+                                        color: Color(0xff4F4F4F),
+                                      ),
                                       CustomBigText(
                                         text: "₹ 399",
                                         fontWeight: FontWeight.w500,

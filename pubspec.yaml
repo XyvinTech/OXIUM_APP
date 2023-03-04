@@ -65,7 +65,12 @@ dependencies:
   url_launcher: ^6.1.8
   dots_indicator: ^2.1.0
   flutter_screenutil: ^5.6.1
+
   flutter_rating_bar: ^4.0.1
+
+  qr_code_scanner: ^1.0.1
+  pin_code_fields: ^7.4.0
+  linear_progress_bar: ^1.1.0
 
 dev_dependencies:
   flutter_test:

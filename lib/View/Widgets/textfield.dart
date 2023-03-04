@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -45,7 +46,10 @@ class AppTextField extends GetView<LoginPageController> {
             height: size.height * 0.04,
             width: size.width * 0.05,
             // color: Colors.red,
-            child: icon,
+            child: Padding(
+              padding: EdgeInsets.only(top: 4.w),
+              child: icon,
+            ),
           ),
           SizedBox(
             width: size.width * 0.04,

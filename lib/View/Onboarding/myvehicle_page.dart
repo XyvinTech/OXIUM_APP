@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:get/get.dart';
+
 import '../../Utils/routes.dart';
 import '../../constants.dart';
 import '../Widgets/appbar.dart';
@@ -17,6 +20,11 @@ class MyVehiclePage extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(size.height * 0.09),
           child: CustomAppBar(
+            logo: CustomBigText(
+              text: "My Vehicle",
+              size: 15.sp,
+              color: Color(0xffF2F2F2),
+            ),
             icon: Image.asset("assets/images/add.png"),
             icononTap: (() {
               Get.toNamed(Routes.addvehiclesRoute);
@@ -25,8 +33,8 @@ class MyVehiclePage extends StatelessWidget {
         ),
         body: Padding(
           padding: EdgeInsets.only(
-            left: size.width * 0.055,
-            right: size.width * 0.055,
+            left: size.width * 0.045,
+            right: size.width * 0.045,
             top: size.height * 0.020,
             bottom: size.height * 0.045,
           ),
@@ -58,14 +66,12 @@ class MyVehiclePage extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        height: size.height * 0.155,
-        width: size.width * 0.85,
         decoration: BoxDecoration(
-          color: Color(0xffEFFFF6),
+          color: kwhite,
           borderRadius: BorderRadius.circular(30),
           border: Border.all(
-            width: 2,
-            color: Color.fromRGBO(135, 221, 171, 0.6),
+            width: 1.5,
+            color: Color(0xffE0E0E0),
           ),
         ),
         child: Row(
@@ -80,61 +86,83 @@ class MyVehiclePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomSmallText(
-                      text: "Jeep",
-                      color: Color(0xff828282),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0035,
-                    ),
-                    CustomBigText(
-                      text: "RUBICON",
-                      size: 16,
-                      color: Color(0xff4F4F4F),
-                    ),
-                  ],
+                Padding(
+                  padding: EdgeInsets.only(top: 10.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomSmallText(
+                        text: "Jeep",
+                        color: Color(0xff828282),
+                        size: 15.sp,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.0035,
+                      ),
+                      CustomBigText(
+                        text: "RUBICON",
+                        size: 18.sp,
+                        color: Color(0xff4F4F4F),
+                      ),
+                    ],
+                  ),
                 ),
-                Column(
-                  children: [
-                    CustomBigText(
-                      text: "Vehicle No:  KL 07 A 6577",
-                      size: 12,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.008,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 22,
-                          color: Color.fromRGBO(184, 210, 255, 0.6),
-                          child: Center(
-                            child: CustomSmallText(
-                              text: "Type2 CCS",
-                              color: Color(0xff0047C3),
+                height(15.h),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15.h),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 9.w),
+                        child: Row(
+                          children: [
+                            CustomBigText(
+                              text: "Vehicle No: ",
+                              size: 14.sp,
+                            ),
+                            width(5.w),
+                            CustomBigText(
+                              text: "KL 07 A 6577",
+                              size: 14.sp,
+                              color: Color(0xff333333),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.008,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(5.w),
+                            color: Color.fromRGBO(184, 210, 255, 0.6),
+                            child: Center(
+                              child: CustomSmallText(
+                                text: "Type2 CCS",
+                                color: Color(0xff0047C3),
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.02,
-                        ),
-                        Container(
-                          height: 22,
-                          color: Color.fromRGBO(184, 210, 255, 0.6),
-                          child: Center(
-                            child: CustomSmallText(
-                              text: "Type2 CCS",
-                              color: Color(0xff0047C3),
+                          SizedBox(
+                            width: size.width * 0.02,
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(5.w),
+                            color: Color.fromRGBO(184, 210, 255, 0.6),
+                            child: Center(
+                              child: CustomSmallText(
+                                text: "Type2 CCS",
+                                color: Color(0xff0047C3),
+                                size: 15.sp,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),

@@ -12,7 +12,6 @@ class VehiclesScreenController extends GetxController {
   RxInt isIndex = 0.obs;
   RxInt isIndex1 = 0.obs;
   RxInt isSelectedVehicleindex = (-1).obs;
-  
 
   TextEditingController numEditingController = TextEditingController();
 

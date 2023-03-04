@@ -8,6 +8,7 @@ import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/partner_page_binding.dart';
 import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
+import 'package:freelancer_app/Bindings/qr_binding.dart';
 import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
 import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
@@ -25,6 +26,7 @@ import 'package:freelancer_app/View/Homepage/feedback/payment_feedback.dart';
 import 'package:freelancer_app/View/Homepage/feedback/share_experience_page.dart';
 import 'package:freelancer_app/View/Homepage/feedback/thanks_for_feedback.dart';
 import 'package:freelancer_app/View/Homepage/homepage.dart';
+import 'package:freelancer_app/View/Homepage/qr_screen.dart';
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
 import 'package:freelancer_app/View/Onboarding/bottom_nav_page.dart';
 import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
@@ -265,6 +267,11 @@ abstract class AppPages {
       name: Routes.chargingPageRoute,
       binding: ChargingScreenBinding(),
       page: () => ChargingScreen(),
+    ),
+    GetPage(
+      name: Routes.qrScanPageRoute,
+      binding: QrBinding(),
+      page: () => QrScreen(),
     )
   ];
 }

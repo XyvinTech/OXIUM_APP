@@ -208,7 +208,7 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                     size: 24.sp,
                     color: Color(0xffEB5757),
                     letterspacing: -0.408,
-                    textAlign: TextAlign.right,
+                    align: TextAlign.right,
                   )
                 ],
               )

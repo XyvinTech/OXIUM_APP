@@ -19,26 +19,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(390, 844),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: ((context, child) {
-          return GetMaterialApp(
-            title: 'Freelancer App',
-            debugShowCheckedModeBanner: false,
-            builder: EasyLoading.init(),
-            theme: ThemeData(
-              textTheme: GoogleFonts.poppinsTextTheme(
-                Theme.of(context).textTheme.apply(),
-              ),
-              fontFamily: 'Poppins',
-              primarySwatch: Colors.grey,
-              scaffoldBackgroundColor: kscaffoldBackgroundColor,
+      designSize: Size(390, 844),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: ((context, child) {
+        return GetMaterialApp(
+          title: 'Freelancer App',
+          debugShowCheckedModeBanner: false,
+          builder: EasyLoading.init(),
+          theme: ThemeData(
+            textTheme: GoogleFonts.poppinsTextTheme(
+              Theme.of(context).textTheme.apply(),
             ),
-            initialRoute: Routes.paymentfeedbackPageRoute,
-            getPages: AppPages.pages,
-          );
-        }));
+            fontFamily: 'Poppins',
+            primarySwatch: Colors.grey,
+            scaffoldBackgroundColor: kscaffoldBackgroundColor,
+          ),
+          initialRoute: Routes.loginpageRoute,
+          getPages: AppPages.pages,
+        );
+      }),
+    );
   }
 }
 

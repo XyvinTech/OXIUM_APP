@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/vehicles_screen_controller.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
+import 'package:linear_progress_bar/linear_progress_bar.dart';
 
 class AddVehiclesPage extends GetView<VehiclesScreenController> {
   const AddVehiclesPage({super.key});
@@ -35,8 +37,8 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
               SliverAppBar(
                   backgroundColor: kwhite,
                   automaticallyImplyLeading: false,
-                  expandedHeight: size.height * 0.25,
-                  collapsedHeight: size.height * 0.25,
+                  expandedHeight: size.height * 0.265,
+                  collapsedHeight: size.height * 0.265,
                   snap: true,
                   floating: true,
                   // pinned: true,
@@ -50,41 +52,60 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
   }
 
   Widget _allVehicles() {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: size.width * 0.055,
-        top: size.height * 0.020,
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      children: [
+        LinearProgressBar(
+          maxSteps: 5,
+          progressType:
+              LinearProgressBar.progressTypeLinear, // Use Linear progress
+          valueColor: AlwaysStoppedAnimation<Color>(Color(0xff00FFB3)),
+          currentStep: 4,
+          minHeight: 8.h,
+          progressColor: Color(0xff00FFB3),
+          backgroundColor: Colors.transparent,
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+            left: size.width * 0.055,
+            top: size.height * 0.020,
+          ),
+          child: Column(
             children: [
-              CustomBigText(text: "Add Your Vehicles"),
-              Container(
-                margin: EdgeInsets.only(
-                  right: size.width * 0.055,
-                ),
-                child: Image.asset(
-                  "assets/images/search.png",
-                  height: size.height * 0.05,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomBigText(text: "Add Your Vehicles"),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.vehiclesearchPageRoute);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        right: size.width * 0.055,
+                      ),
+                      child: Image.asset(
+                        "assets/images/search.png",
+                        height: size.height * 0.05,
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              SizedBox(
+                height: 10,
+              ),
+              //vehicles section
+              _vehicles(),
+              SizedBox(
+                height: 10,
+              ),
+              Align(
+                  alignment: Alignment.bottomLeft,
+                  child: CustomSmallText(text: "Vehicle Models")),
             ],
           ),
-          SizedBox(
-            height: 10,
-          ),
-          //vehicles section
-          _vehicles(),
-          SizedBox(
-            height: 10,
-          ),
-          Align(
-              alignment: Alignment.bottomLeft,
-              child: CustomSmallText(text: "Vehicle Models")),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -116,22 +137,22 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
           ),
         ),
         Container(
-          height: 95,
-          width: 275,
+          height: 95.h,
+          width: 275.w,
           child: ListView.builder(
             itemCount: controller.vehiclesdata.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (_, index) {
               return Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: 10.w),
                 child: Obx(() => InkWell(
                       onTap: () {
                         controller.isVisible.value = true;
                         controller.isSelectedindex.value = index;
                       },
                       child: Container(
-                        height: 89,
-                        width: 89,
+                        height: 89.h,
+                        width: 89.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(28),
                           color: controller.isSelectedindex == index
@@ -145,10 +166,10 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                         child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 8),
+                              padding: EdgeInsets.only(top: 8.h),
                               child: Container(
-                                height: 48,
-                                width: 48,
+                                height: 48.h,
+                                width: 48.w,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage(
@@ -158,14 +179,14 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                               ),
                             ),
                             SizedBox(
-                              height: 8,
+                              height: 8.h,
                             ),
                             CustomSmallText(
                               text: controller.vehiclesdata[index].vehiclesName,
                               color: controller.isSelectedindex == index
                                   ? Color(0xffF2F2F2)
                                   : Color(0xff828282),
-                              size: 12,
+                              size: 12.sp,
                             ),
                           ],
                         ),

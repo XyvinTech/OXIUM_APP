@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 late Size size = Size(0, 0);
 double zoom = 15;
@@ -40,28 +41,28 @@ final TextStyle kAppSkipButtonTextStyle = TextStyle(
 
 final TextStyle kAppJoinGOECTextStyle = TextStyle(
   fontFamily: "Poppins",
-  fontSize: 20,
+  fontSize: 20.sp,
   fontWeight: FontWeight.w500,
   color: kwhite,
 );
 
 final TextStyle kAppRevolutionsTextStyle = TextStyle(
   fontFamily: "Poppins",
-  fontSize: 59,
+  fontSize: 59.sp,
   fontWeight: FontWeight.w600,
   color: Color(0xff00FFB3),
 );
 
 final TextStyle kAppBottomTextSpanTextStyle1 = TextStyle(
   fontFamily: "Poppins",
-  fontSize: 12,
+  fontSize: 12.sp,
   fontWeight: FontWeight.w400,
   color: Color(0xffffffff),
 );
 
 final TextStyle kAppBottomTextSpanTextStyle2 = TextStyle(
   fontFamily: "Poppins",
-  fontSize: 12,
+  fontSize: 12.sp,
   fontWeight: FontWeight.w400,
   color: Color(0xff00FFB3),
   decoration: TextDecoration.underline,
@@ -69,7 +70,7 @@ final TextStyle kAppBottomTextSpanTextStyle2 = TextStyle(
 
 final TextStyle kAppBigTextStyle = TextStyle(
   fontFamily: "Poppins",
-  fontSize: 20,
+  fontSize: 20.sp,
   fontWeight: FontWeight.w600,
   color: Color(0xff828282),
 );

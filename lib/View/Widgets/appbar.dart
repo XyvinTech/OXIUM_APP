@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:freelancer_app/constants.dart';
 
 class LoginCustomAppBar extends StatelessWidget {
@@ -48,6 +47,7 @@ class CustomAppBar extends StatelessWidget {
   final String? text;
   final Widget? icon;
   final Color? color;
+  final Widget? logo;
   final void Function()? skiponTap;
   final void Function()? icononTap;
   const CustomAppBar(
@@ -56,7 +56,8 @@ class CustomAppBar extends StatelessWidget {
       this.icon,
       this.color,
       this.skiponTap,
-      this.icononTap});
+      this.icononTap,
+      this.logo});
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +76,12 @@ class CustomAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset(
-                  "assets/images/goeclogo.png",
-                  height: size.height * 0.065,
-                  width: size.width * 0.17,
-                ),
+                logo ??
+                    Image.asset(
+                      "assets/images/goeclogo.png",
+                      height: size.height * 0.065,
+                      width: size.width * 0.17,
+                    ),
               ],
             ),
             Row(

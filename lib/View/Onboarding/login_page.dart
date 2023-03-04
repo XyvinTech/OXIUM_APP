@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
@@ -63,41 +62,37 @@ class LoginPage extends GetView<LoginPageController> {
               Spacer(
                 flex: 2,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text:
-                            'By selecting one or the other option you are agreeing ',
-                        style: kAppBottomTextSpanTextStyle1,
-                      ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text:
+                          'By selecting one or the other option you are agreeing ',
+                      style: kAppBottomTextSpanTextStyle1,
                     ),
-                    RichText(
-                      text: TextSpan(
-                        text: 'to the',
-                        style: kAppBottomTextSpanTextStyle1,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: ' Terms & Conditions ',
-                            style: kAppBottomTextSpanTextStyle2,
-                          ),
-                          TextSpan(
-                            text: ' and ',
-                            style: kAppBottomTextSpanTextStyle1,
-                          ),
-                          TextSpan(
-                            text: 'Privacy Policy.',
-                            style: kAppBottomTextSpanTextStyle2,
-                          ),
-                        ],
-                      ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'to the',
+                      style: kAppBottomTextSpanTextStyle1,
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: ' Terms & Conditions ',
+                          style: kAppBottomTextSpanTextStyle2,
+                        ),
+                        TextSpan(
+                          text: ' and ',
+                          style: kAppBottomTextSpanTextStyle1,
+                        ),
+                        TextSpan(
+                          text: 'Privacy Policy.',
+                          style: kAppBottomTextSpanTextStyle2,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
