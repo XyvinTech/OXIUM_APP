@@ -13,7 +13,6 @@ import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
 import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
 import 'package:freelancer_app/Bindings/wallet_page_bindings.dart';
-
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
 import 'package:freelancer_app/View/Charge/reservation_page.dart';
@@ -25,10 +24,7 @@ import 'package:freelancer_app/View/Homepage/charging_screen.dart';
 import 'package:freelancer_app/View/Homepage/qr_screen.dart';
 
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
-
-import 'package:freelancer_app/View/Homepage/homepage.dart';
 import 'package:freelancer_app/View/Onboarding/bottom_nav_page.dart';
-
 import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/enterotp_page.dart';
 import 'package:freelancer_app/View/Onboarding/login_page.dart';
@@ -41,6 +37,7 @@ import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
 import 'package:freelancer_app/View/WalletPage/topup_page.dart';
 import 'package:freelancer_app/View/WalletPage/walletpage.dart';
 import 'package:get/get.dart';
+
 import '../Bindings/directions_screen_binding.dart';
 import '../Bindings/editprofile_screen_binding.dart';
 import '../Bindings/filter_screen_binding.dart';
@@ -51,8 +48,10 @@ import '../Bindings/profile_screen_binding.dart';
 import '../Bindings/search_places_binding.dart';
 import '../Bindings/search_screen_binding.dart';
 import '../Bindings/tripspage_binding.dart';
+import '../View/Homepage/charging_screen.dart';
 import '../View/Homepage/editprofile_screen.dart';
 import '../View/Homepage/filter_screen.dart';
+import '../View/Homepage/homepage.dart';
 import '../View/Homepage/notification_screen.dart';
 import '../View/Homepage/profile_screen.dart';
 import '../View/Homepage/search_screen.dart';
@@ -175,6 +174,11 @@ abstract class AppPages {
       name: Routes.calistaCafePageRoute,
       binding: CalistaCafePageBindings(),
       page: () => CalistaCafeScreen(),
+    ),
+    GetPage(
+      name: Routes.chargingPageRoute,
+      binding: ChargingScreenBinding(),
+      page: () => ChargingScreen(),
     ),
 
     ///

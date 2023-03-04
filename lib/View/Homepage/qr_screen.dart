@@ -51,7 +51,7 @@ class QrScreen extends GetView<QrController> {
                       SizedBox(
                         width: 203.w,
                         child: CustomBigText(
-                          text: "Aling the QR Code within theFrame to Scan",
+                          text: "Align the QR Code within theFrame to Scan",
                           color: Colors.white,
                           size: 14.sp,
                           align: TextAlign.center,
@@ -77,7 +77,7 @@ class QrScreen extends GetView<QrController> {
   Widget _otpContainer(BuildContext context, QrController controller) {
     return Container(
       width: 347.sw,
-      height: 285,
+      height: 285.h,
       padding:
           EdgeInsets.only(top: 16.h, left: 27.w, right: 27.w, bottom: 25.h),
       decoration: BoxDecoration(
@@ -127,7 +127,7 @@ class QrScreen extends GetView<QrController> {
           ],
         ),
         SizedBox(
-          height: 40.h,
+          height: 30.h,
         ),
         MainBtn(
           text: "Proceed",
