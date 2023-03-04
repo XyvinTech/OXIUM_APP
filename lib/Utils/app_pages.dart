@@ -52,8 +52,10 @@ import '../Bindings/profile_screen_binding.dart';
 import '../Bindings/search_places_binding.dart';
 import '../Bindings/search_screen_binding.dart';
 import '../Bindings/tripspage_binding.dart';
+import '../View/Homepage/charging_screen.dart';
 import '../View/Homepage/editprofile_screen.dart';
 import '../View/Homepage/filter_screen.dart';
+import '../View/Homepage/homepage.dart';
 import '../View/Homepage/notification_screen.dart';
 import '../View/Homepage/profile_screen.dart';
 import '../View/Homepage/search_screen.dart';
@@ -176,6 +178,11 @@ abstract class AppPages {
       name: Routes.calistaCafePageRoute,
       binding: CalistaCafePageBindings(),
       page: () => CalistaCafeScreen(),
+    ),
+    GetPage(
+      name: Routes.chargingPageRoute,
+      binding: ChargingScreenBinding(),
+      page: () => ChargingScreen(),
     ),
 
     GetPage(
