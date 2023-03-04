@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return GetMaterialApp(
       title: 'Freelancer App',
       debugShowCheckedModeBanner: false,
@@ -31,5 +32,28 @@ class MyApp extends StatelessWidget {
       initialRoute: Routes.homePageRoute,
       getPages: AppPages.pages,
     );
+=======
+    return ScreenUtilInit(
+        designSize: Size(390, 844),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: ((context, child) {
+          return GetMaterialApp(
+            title: 'Freelancer App',
+            debugShowCheckedModeBanner: false,
+            builder: EasyLoading.init(),
+            theme: ThemeData(
+              textTheme: GoogleFonts.poppinsTextTheme(
+                Theme.of(context).textTheme.apply(),
+              ),
+              fontFamily: 'Poppins',
+              primarySwatch: Colors.grey,
+              scaffoldBackgroundColor: kscaffoldBackgroundColor,
+            ),
+            initialRoute: Routes.homePageRoute,
+            getPages: AppPages.pages,
+          );
+        }));
+>>>>>>> b4c9ac7590080f8d16347107db9daec55e39c60f
   }
 }
