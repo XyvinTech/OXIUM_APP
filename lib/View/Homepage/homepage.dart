@@ -51,7 +51,8 @@ class HomePageScreen extends GetView<HomePageController> {
           ),
         ),
         onPressed: () {
-          showBottomSheetWhenClickedOnMarker(null, controller);
+          // showBottomSheetWhenClickedOnMarker(null, controller);
+          Get.toNamed(Routes.qrScanPageRoute);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
