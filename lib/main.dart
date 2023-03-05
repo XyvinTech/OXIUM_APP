@@ -34,21 +34,9 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.grey,
               scaffoldBackgroundColor: kscaffoldBackgroundColor,
             ),
-<<<<<<< HEAD
-            fontFamily: 'Poppins',
-            primarySwatch: Colors.grey,
-            scaffoldBackgroundColor: kscaffoldBackgroundColor,
-          ),
-          initialRoute: Routes.homePageRoute,
-          getPages: AppPages.pages,
-        );
-      }),
-    );
-=======
             initialRoute: Routes.partnerPageRoute,
             getPages: AppPages.pages,
           );
         }));
->>>>>>> fb0eefc1c7fcd6ad953c9a83c6d79568ee1e4cc3
   }
 }
