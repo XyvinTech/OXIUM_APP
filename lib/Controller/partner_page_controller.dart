@@ -13,11 +13,21 @@ class PartnerPageController extends GetxController {
   final TextEditingController nameController = TextEditingController();
 
   final TextEditingController phnNumberController = TextEditingController();
-  List<dynamic> carouselText = [
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-  ];
+  // List<dynamic> carouselText = [
+  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
+  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
+  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
+  // ];
+  RxList carouselText = [
+    "GOEC super charging station Provides High ROI",
+    "operate your charging station from anywhere in the world without human intervention.",
+    "For a future-focused business, capitalize on the growing EV market."
+  ].obs;
+  RxList carouselImage = [
+    "assets/images/abt.png",
+    "assets/images/abt.png",
+    "assets/images/abt.png",
+  ].obs;
   @override
   void onInit() {
     // TODO: implement onInit
