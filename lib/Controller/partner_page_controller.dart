@@ -11,6 +11,7 @@ class PartnerPageController extends GetxController {
   RxString textfield = "".obs;
   RxInt reload = 0.obs;
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   final TextEditingController phnNumberController = TextEditingController();
   // List<dynamic> carouselText = [

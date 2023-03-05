@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../Utils/routes.dart';
+
 class QrController extends GetxController {
   // RxBool iskeybort =(MediaQuery.of(context).viewInsets.bottom!=0).obs ;
 
@@ -15,5 +17,10 @@ class QrController extends GetxController {
     qrViewController?.dispose();
     pinCodeController.dispose();
     super.dispose();
+  }
+
+  onQrCodeReceived(Barcode format) {
+    //TODO: do whatever needed here
+    Get.toNamed(Routes.chargingPageRoute);
   }
 }

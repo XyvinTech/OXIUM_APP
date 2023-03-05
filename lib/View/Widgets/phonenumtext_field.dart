@@ -121,78 +121,78 @@ class PhoneNumberTextField2 extends GetView<PartnerPageController> {
     return Container(
       height: 65.h,
       width: size.width,
-      child: Padding(
-        padding: EdgeInsets.only(top: 0.h),
-        child: TextField(
-          controller: controller1,
-          style: TextStyle(
-            color: Color(0xff828282),
-          ),
-          decoration: InputDecoration(
-              hintText: hintText,
-              hintStyle: TextStyle(
-                color: Colors.grey,
-              ),
-              // contentPadding: EdgeInsets.only(left: 20),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.r),
-                  borderSide: BorderSide(color: Color(0xffE0E0E5))),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(40.r),
-                  borderSide: BorderSide(color: Color(0xffE0E0E5))),
-              focusedBorder: OutlineInputBorder(
+      child: TextField(
+        controller: controller1,
+        style: TextStyle(
+          color: Color(0xff828282),
+        ),
+        decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: TextStyle(
+              color: Colors.grey,
+            ),
+            isDense: true,
+            contentPadding: EdgeInsets.only(left: 0.w, bottom: 34),
+            border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(40.r),
-                borderSide: BorderSide(
-                  color: Color(0xff628EDB),
-                ),
+                borderSide: BorderSide(color: Color(0xffE0E0E5))),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(40.r),
+                borderSide: BorderSide(color: Color(0xffE0E0E5))),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(40.r),
+              borderSide: BorderSide(
+                color: Color(0xff628EDB),
               ),
-              prefixIcon: Container(
-                padding: EdgeInsets.only(left: 8.w),
-                width: 60.w,
-                child: Row(
-                  children: [
-                    Obx(
-                      () {
-                        return InkWell(
-                          onTap: () {
-                            showCountryPicker(
-                              context: context,
-                              favorite: ['IN', 'BD'],
-                              showPhoneCode: true,
-                              onSelect: (Country country) {
-                                print('Select country: ${country.displayName}');
-                                controller.country.value = country.phoneCode;
-                              },
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                // width: size.width * 0.09,
-                                child: Text(
-                                  "+${controller.country.value}",
-                                  style: TextStyle(
-                                    fontSize: 15.sp,
-                                    color: Color(0xff4F4F4F),
-                                  ),
+            ),
+            // prefixIconConstraints: BoxConstraints.expand(),
+
+            prefixIcon: Container(
+              padding: EdgeInsets.only(left: 20.w),
+              width: 66.w,
+              child: Row(
+                children: [
+                  Obx(
+                    () {
+                      return InkWell(
+                        onTap: () {
+                          showCountryPicker(
+                            context: context,
+                            favorite: ['IN', 'BD'],
+                            showPhoneCode: true,
+                            onSelect: (Country country) {
+                              print('Select country: ${country.displayName}');
+                              controller.country.value = country.phoneCode;
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Container(
+                              // width: size.width * 0.09,
+                              child: Text(
+                                "+${controller.country.value}",
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  color: Color(0xff4F4F4F),
                                 ),
                               ),
-                              width(5.w),
-                              Icon(
-                                Icons.unfold_more,
-                                size: 20.w,
-                                color: Color(0xff4F4F4F),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    width(5.w),
-                  ],
-                ),
-              )),
-        ),
+                            ),
+                            width(5.w),
+                            Icon(
+                              Icons.unfold_more,
+                              size: 20.w,
+                              color: Color(0xff4F4F4F),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  width(5.w),
+                ],
+              ),
+            )),
       ),
     );
   }

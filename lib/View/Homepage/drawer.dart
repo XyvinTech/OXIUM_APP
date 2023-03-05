@@ -139,9 +139,11 @@ class CustomDrawer extends StatelessWidget {
           ),
           height(size.height * .05),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .025),
             child: InkWell(
               onTap: () {
+                Get.back();
                 Get.toNamed(Routes.partnerPageRoute);
               },
               child: Row(
@@ -163,11 +165,13 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
           ),
-          height(size.height * .05),
+          // height(size.height * .05),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .025),
             child: InkWell(
               onTap: () {
+                Get.back();
                 Get.toNamed(Routes.helpPageRoute);
               },
               child: Row(
@@ -189,7 +193,7 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
           ),
-          height(size.height * .05),
+          // height(size.height * .05),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .04),
             child: InkWell(

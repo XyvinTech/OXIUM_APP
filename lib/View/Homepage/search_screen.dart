@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/search_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/textfield_home.dart';
@@ -29,19 +30,22 @@ class SearchScreen extends GetView<SearchScreenController> {
                   Get.back();
                 },
                 child: Container(
-                  padding: EdgeInsets.all(size.height * .024),
+                  width: 48.w,
+                  height: 48.w,
+                  padding: EdgeInsets.all(12.w),
                   decoration: BoxDecoration(boxShadow: [
                     BoxShadow(color: Colors.grey.shade400, blurRadius: 8)
                   ], shape: BoxShape.circle, color: Colors.white),
-                  child: SvgPicture.asset('assets/svg/arrow_back_ios.svg'),
+                  child: SvgPicture.asset('assets/svg/arrow_back_ios.svg',
+                      width: 24.w, height: 24.w),
                 ),
               ),
               width(size.width * .02),
               Container(
-                height: size.height * .057,
+                height: 48.w,
                 width: size.width * .75,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(83),
                     boxShadow: [
                       BoxShadow(color: Colors.grey.shade400, blurRadius: 8)
                     ],

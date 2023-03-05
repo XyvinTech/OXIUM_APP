@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/qr_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
+import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../../Utils/routes.dart';
 import '../Widgets/button.dart';
 
 class QrScreen extends GetView<QrController> {
@@ -51,10 +53,11 @@ class QrScreen extends GetView<QrController> {
                       SizedBox(
                         width: 203.w,
                         child: CustomBigText(
-                          text: "Aling the QR Code within theFrame to Scan",
+                          text: "Align the QR Code within theFrame to Scan",
                           color: Colors.white,
                           size: 14.sp,
                           align: TextAlign.center,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                   ],
@@ -72,24 +75,29 @@ class QrScreen extends GetView<QrController> {
 
   void onQRViewCreated(QRViewController qrViewController) {
     controller.qrViewController = qrViewController;
+    controller.qrViewController!.scannedDataStream.listen((event) {
+      controller.onQrCodeReceived(event);
+      kLog(event.format.toString());
+    });
   }
 
   Widget _otpContainer(BuildContext context, QrController controller) {
     return Container(
       width: 347.sw,
-      height: 285,
+      height: 290.h,
       padding:
           EdgeInsets.only(top: 16.h, left: 27.w, right: 27.w, bottom: 25.h),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(30.r)),
-      child: Column(children: [
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         CustomBigText(
           text: 'Scan Or Enter Code Below',
           color: Color(0xff828282),
           size: 16.sp,
+          fontWeight: FontWeight.bold,
         ),
         SizedBox(
-          height: 23.h,
+          height: 20.h,
         ),
         PinCodeTextField(
             appContext: context,
@@ -107,7 +115,7 @@ class QrScreen extends GetView<QrController> {
               print(valu);
             }),
         SizedBox(
-          height: 18.h,
+          height: 15.h,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,11 +135,14 @@ class QrScreen extends GetView<QrController> {
           ],
         ),
         SizedBox(
-          height: 40.h,
+          height: 28.h,
         ),
         MainBtn(
           text: "Proceed",
-          onPressed: () {},
+          onPressed: () {
+            //TODO: whatever needed if code is entered.
+            Get.toNamed(Routes.chargingPageRoute);
+          },
         )
       ]),
     );
@@ -140,12 +151,12 @@ class QrScreen extends GetView<QrController> {
   QrScannerOverlayShape? _overlay() {
     return QrScannerOverlayShape(
       borderColor: Colors.white,
-      borderLength: 90,
+      borderLength: 80,
       borderRadius: 20,
-      borderWidth: 8,
+      borderWidth: 10,
       cutOutBottomOffset: 127.h,
       cutOutSize: 247.w,
-      overlayColor: Color.fromARGB(133, 0, 0, 0),
+      overlayColor: Color.fromARGB(183, 0, 0, 0),
     );
   }
 }

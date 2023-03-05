@@ -5,7 +5,6 @@ import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'Utils/app_pages.dart';
 
 void main() {
@@ -19,18 +18,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(390, 844),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: ((context, child) {
-        return GetMaterialApp(
-          title: 'Freelancer App',
-          debugShowCheckedModeBanner: false,
-          builder: EasyLoading.init(),
-          theme: ThemeData(
-            textTheme: GoogleFonts.poppinsTextTheme(
-              Theme.of(context).textTheme.apply(),
+        designSize: Size(390, 844),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: ((context, child) {
+          return GetMaterialApp(
+            title: 'Freelancer App',
+            debugShowCheckedModeBanner: false,
+            builder: EasyLoading.init(),
+            theme: ThemeData(
+              textTheme: GoogleFonts.poppinsTextTheme(
+                Theme.of(context).textTheme.apply(),
+              ),
+              fontFamily: 'Poppins',
+              primarySwatch: Colors.grey,
+              scaffoldBackgroundColor: kscaffoldBackgroundColor,
             ),
+<<<<<<< HEAD
             fontFamily: 'Poppins',
             primarySwatch: Colors.grey,
             scaffoldBackgroundColor: kscaffoldBackgroundColor,
@@ -40,10 +44,11 @@ class MyApp extends StatelessWidget {
         );
       }),
     );
+=======
+            initialRoute: Routes.partnerPageRoute,
+            getPages: AppPages.pages,
+          );
+        }));
+>>>>>>> fb0eefc1c7fcd6ad953c9a83c6d79568ee1e4cc3
   }
 }
-
-
-
-
-///added for testing merge
