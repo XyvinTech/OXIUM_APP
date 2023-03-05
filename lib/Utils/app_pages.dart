@@ -10,6 +10,7 @@ import 'package:freelancer_app/Bindings/partner_page_binding.dart';
 import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
 import 'package:freelancer_app/Bindings/qr_binding.dart';
 import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
+import 'package:freelancer_app/Bindings/rfid_page_bindings.dart';
 import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
 import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
@@ -20,6 +21,7 @@ import 'package:freelancer_app/View/Charge/reservation_page.dart';
 import 'package:freelancer_app/View/Drawer/about_page.dart';
 import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Drawer/partner_page.dart';
+import 'package:freelancer_app/View/Drawer/rfid_page.dart';
 import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
 import 'package:freelancer_app/View/Homepage/charging_screen.dart';
 import 'package:freelancer_app/View/Homepage/feedback/payment_feedback.dart';
@@ -112,7 +114,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.rfidNumberRoute,
-      binding: SmartChargeBinding(),
+      binding: RfidPageBindings(),
       page: () => RFIDnumberScreen(),
     ),
     GetPage(
@@ -270,6 +272,13 @@ abstract class AppPages {
       binding: AboutPageBinding(),
       page: () => AboutScreen(),
     ),
+    GetPage(
+      name: Routes.drawerrfidNumberRoute,
+      binding: RfidPageBindings(),
+      page: () => DrawerRFIDnumberScreen(),
+    ),
+
+    /////
     GetPage(
       name: Routes.chargingPageRoute,
       binding: ChargingScreenBinding(),

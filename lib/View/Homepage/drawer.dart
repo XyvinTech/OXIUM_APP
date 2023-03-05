@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -86,49 +85,59 @@ class CustomDrawer extends StatelessWidget {
           ),
           height(size.height * .065),
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: size.width * .04, vertical: size.height * .025),
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/svg/directions_car.svg'),
-                width(size.width * .05),
-                CustomText(
-                  text: 'My Vehicle',
-                  color: Color(0xff4F4F4F),
-                  size: 14,
+            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(Routes.myvehicleRoute);
+              },
+              child: Container(
+                child: Row(
+                  children: [
+                    SvgPicture.asset('assets/svg/directions_car.svg'),
+                    width(size.width * .05),
+                    CustomText(
+                      text: 'My Vehicle',
+                      color: Color(0xff4F4F4F),
+                      size: 14,
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black,
+                      size: 15,
+                    ),
+                  ],
                 ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 15,
-                ),
-              ],
+              ),
             ),
           ),
-          // height(size.height * .05),
+          height(size.height * .05),
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: size.width * .04, vertical: size.height * .025),
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/svg/credit_card.svg'),
-                width(size.width * .05),
-                CustomText(
-                  text: 'RFID',
-                  color: Color(0xff4F4F4F),
-                  size: 14,
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 15,
-                ),
-              ],
+            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(Routes.drawerrfidNumberRoute);
+              },
+              child: Row(
+                children: [
+                  SvgPicture.asset('assets/svg/credit_card.svg'),
+                  width(size.width * .05),
+                  CustomText(
+                    text: 'RFID',
+                    color: Color(0xff4F4F4F),
+                    size: 14,
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 15,
+                  ),
+                ],
+              ),
             ),
           ),
-          // height(size.height * .05),
+          height(size.height * .05),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: size.width * .04, vertical: size.height * .025),
@@ -186,24 +195,28 @@ class CustomDrawer extends StatelessWidget {
           ),
           // height(size.height * .05),
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: size.width * .04, vertical: size.height * .025),
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/svg/info.svg'),
-                width(size.width * .05),
-                CustomText(
-                  text: 'About us',
-                  color: Color(0xff4F4F4F),
-                  size: 14,
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 15,
-                ),
-              ],
+            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(Routes.aboutPageRoute);
+              },
+              child: Row(
+                children: [
+                  SvgPicture.asset('assets/svg/info.svg'),
+                  width(size.width * .05),
+                  CustomText(
+                    text: 'About us',
+                    color: Color(0xff4F4F4F),
+                    size: 14,
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 15,
+                  ),
+                ],
+              ),
             ),
           ),
           Spacer(),

@@ -3,7 +3,6 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/partner_page_controller.dart';
 import 'package:freelancer_app/View/Widgets/countrypick.dart';
@@ -712,6 +711,256 @@ class PartnerScreen extends GetView<PartnerPageController> {
           height(size.height * .02),
         ],
       ),
+    );
+  }
+
+  Widget Partner2() {
+    return CustomScrollView(
+      shrinkWrap: true,
+      slivers: [
+        SliverAppBar(
+          backgroundColor: Color(0xffF5F9FF),
+
+          floating: true,
+          pinned: true,
+          //expandedHeight: size.height * 0.52,
+          expandedHeight: 375.h,
+
+          flexibleSpace: FlexibleSpaceBar(
+            background: Column(
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  child: _appBar(
+                      title: "Partner with us",
+                      ontap: () {
+                        Get.back();
+                      }),
+                ),
+                height(10.h),
+                Obx(
+                  () => Container(
+                    // height: size.height * 0.33,
+                    height: 285.h,
+                    width: double.maxFinite,
+
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CarouselSlider(
+                            // onPageChanged: (index, reason) => _currentIndex = index,
+
+                            items: controller.carouselText
+                                .map(
+                                  (text) => Container(
+                                    // height: size.height * 0.25,
+                                    // height: 300.h,
+                                    // width: size.width * 0.8,
+                                    width: 300.w,
+                                    decoration: BoxDecoration(
+                                      color: kwhite,
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          offset: Offset(0, 4),
+                                          spreadRadius: 0,
+                                          blurRadius: 34.r,
+                                          color: Color(0xff000000)
+                                              .withOpacity(0.06),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(children: [
+                                      Expanded(child: Container()),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: CustomSmallText(
+                                              text: text,
+                                              size: 13.sp,
+                                              color: Color(0xff828282),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 15.h,
+                                      ),
+                                    ]),
+                                  ),
+                                )
+                                .toList(),
+                            options: CarouselOptions(
+                              // height: size.height * 0.25,
+                              height: 220.h,
+                              initialPage: 0,
+                              autoPlay: true,
+                              reverse: false,
+                              enlargeCenterPage: true,
+                              enableInfiniteScroll: true,
+                              scrollDirection: Axis.horizontal,
+                              autoPlayInterval: Duration(seconds: 2),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 2000),
+                              onPageChanged: (index, reason) => controller
+                                  .currentIndex.value = index.toDouble(),
+                            ),
+                          ),
+                        ),
+                        height(15.h),
+                        // new DotsIndicator(
+                        //   decorator: DotsDecorator(
+
+                        //     color: Color(0xffDEEAFF), // Inactive color
+                        //     activeColor: Color(0xff0047C3),
+                        //   ),
+                        //   dotsCount: controller.carouselText.length,
+                        //   position: controller.currentIndex.value,
+                        // ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: controller.carouselText
+                              .asMap()
+                              .entries
+                              .map((entry) {
+                            return GestureDetector(
+                              onTap: () {
+                                controller.carouselController!
+                                    .animateToPage(entry.key);
+                              },
+                              child: Container(
+                                width: 8.w,
+                                height: 8.h,
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 8.h, horizontal: 4.w),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: (controller.currentIndex.value ==
+                                            entry.key
+                                        ? Color(0xff0047C3)
+                                        : Color(0xffDEEAFF))),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                height(10.h),
+              ],
+            ),
+          ),
+          bottom: PreferredSize(
+              child: Container(
+                color: kwhite,
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // height(30.h),
+                    Padding(
+                      padding: EdgeInsets.only(top: 15.h),
+                      child: Container(
+                        height: 5.h,
+                        width: 113.w,
+                        decoration: BoxDecoration(
+                            color: Color(0xffE0E0E0),
+                            borderRadius: BorderRadius.circular(10.r)),
+                      ),
+                    ),
+                    height(10.h),
+                  ],
+                ),
+              ),
+              preferredSize: Size.fromHeight(25.h)),
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+            height: 420.h,
+            color: kwhite,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      height(10.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40.w),
+                        child: EditTextField(
+                          size: size,
+                          controller: controller.nameController,
+                          hintText: 'Full Name',
+                        ),
+                      ),
+                      height(15.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40.w),
+                        child: EditTextField(
+                          size: size,
+                          controller: controller.nameController,
+                          hintText: 'Email',
+                        ),
+                      ),
+                      height(15.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40.w),
+                        child: PhoneNumberTextField2(
+                            hintText: "Phone Number",
+                            controller1: controller.phnNumberController),
+                      ),
+                      height(15.h),
+                      Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 40.h),
+                          child: Obx(
+                            () => CountryPickerField(
+                              text: controller.countryName.value,
+                              onTap: () {
+                                // showCountryPicker(
+                                //   context: context,
+                                //   onSelect: (Country country) {
+                                //     print(
+                                //         'Select country: ${country.displayName}');
+                                //     controller.countryName.value = country.name;
+                                //   },
+                                // );
+                              },
+                            ),
+                          )),
+                      height(15.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40.w),
+                        child: Obx(
+                          () => CountryPickerField(
+                            text: controller.countryName.value,
+                            onTap: () {
+                              // showCountryPicker(
+                              //   context: context,
+                              //   onSelect: (Country country) {
+                              //     print(
+                              //         'Select country: ${country.displayName}');
+                              //     controller.countryName.value = country.name;
+                              //   },
+                              // );
+                            },
+                          ),
+                        ),
+                      ),
+                      height(25.h),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }

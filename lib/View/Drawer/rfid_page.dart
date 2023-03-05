@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -9,8 +10,8 @@ import 'package:get/get.dart';
 import '../../Utils/toastUtils.dart';
 import '../Widgets/customText.dart';
 
-class RFIDnumberScreen extends GetView<RfidPageController> {
-  const RFIDnumberScreen({Key? key}) : super(key: key);
+class DrawerRFIDnumberScreen extends GetView<RfidPageController> {
+  const DrawerRFIDnumberScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -161,8 +162,8 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
               height: size.height * 0.01,
             ),
             Container(
-              height: size.height * 0.055,
-              width: size.width * 0.6,
+              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 25.w),
+              width: 237.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
@@ -170,10 +171,9 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
                     color: Color(0xff0047C3).withOpacity(.25),
                   )),
               child: Center(
-                child: CustomSmallText(
-                  color: Color(0xffEB5757),
-                  text: "No RFID Found",
-                  size: 15,
+                child: CustomBigText(
+                  text: "XXXXXXXXXXXXXX",
+                  size: 20.sp,
                 ),
               ),
             ),
@@ -182,7 +182,7 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
             ),
             Container(
               height: size.height * 0.075,
-              width: size.width * 0.5,
+              width: 218.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(73),
                   color: Color(0xff0047C3),

@@ -57,6 +57,7 @@ class CustomSmallText extends StatelessWidget {
   final FontWeight? fontWeight;
   final double? letterspacing;
   final TextAlign? textAlign;
+  final TextDecoration? decoration;
 
   const CustomSmallText(
       {super.key,
@@ -66,7 +67,8 @@ class CustomSmallText extends StatelessWidget {
       this.fontWeight,
       this.ontap,
       this.letterspacing,
-      this.textAlign});
+      this.textAlign,
+      this.decoration});
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +80,7 @@ class CustomSmallText extends StatelessWidget {
           textAlign: textAlign ?? null,
           minFontSize: 12,
           style: GoogleFonts.poppins(
+            decoration: decoration,
             letterSpacing: letterspacing ?? null,
             fontSize: size ?? 14.sp,
             fontWeight: fontWeight ?? FontWeight.w400,

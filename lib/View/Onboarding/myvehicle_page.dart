@@ -79,92 +79,100 @@ class MyVehiclePage extends StatelessWidget {
           children: [
             Image.asset(
               "assets/images/jeep1.png",
-              height: size.height * 0.12,
-              width: size.width * 0.32,
+              height: size.height * 0.1,
+              width: size.width * 0.3,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 10.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomSmallText(
-                        text: "Jeep",
-                        color: Color(0xff828282),
-                        size: 15.sp,
-                      ),
-                      SizedBox(
-                        height: size.height * 0.0035,
-                      ),
-                      CustomBigText(
-                        text: "RUBICON",
-                        size: 18.sp,
-                        color: Color(0xff4F4F4F),
-                      ),
-                    ],
+            Padding(
+              padding: EdgeInsets.only(right: 15.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomSmallText(
+                          text: "Jeep",
+                          color: Color(0xff828282),
+                          size: 15.sp,
+                        ),
+                        CustomBigText(
+                          text: "RUBICON",
+                          size: 18.sp,
+                          color: Color(0xff4F4F4F),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                height(15.h),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 15.h),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 9.w),
-                        child: Row(
+                  height(15.h),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 15.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 9.w),
+                          child: Row(
+                            children: [
+                              CustomBigText(
+                                text: "Vehicle No: ",
+                                size: 14.sp,
+                              ),
+                              width(5.w),
+                              CustomBigText(
+                                text: "KL 07 A 6577",
+                                size: 14.sp,
+                                color: Color(0xff333333),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.0035,
+                        ),
+                        Row(
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            CustomBigText(
-                              text: "Vehicle No: ",
-                              size: 14.sp,
+                            Container(
+                              padding: EdgeInsets.all(5.w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.r),
+                                color: Color.fromRGBO(184, 210, 255, 0.6),
+                              ),
+                              child: Center(
+                                child: CustomSmallText(
+                                  text: "Type2 CCS",
+                                  color: Color(0xff0047C3),
+                                ),
+                              ),
                             ),
-                            width(5.w),
-                            CustomBigText(
-                              text: "KL 07 A 6577",
-                              size: 14.sp,
-                              color: Color(0xff333333),
+                            SizedBox(
+                              width: size.width * 0.02,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(5.w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.r),
+                                color: Color.fromRGBO(184, 210, 255, 0.6),
+                              ),
+                              child: Center(
+                                child: CustomSmallText(
+                                  text: "Type2",
+                                  color: Color(0xff0047C3),
+                                  size: 15.sp,
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.008,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(5.w),
-                            color: Color.fromRGBO(184, 210, 255, 0.6),
-                            child: Center(
-                              child: CustomSmallText(
-                                text: "Type2 CCS",
-                                color: Color(0xff0047C3),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: size.width * 0.02,
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(5.w),
-                            color: Color.fromRGBO(184, 210, 255, 0.6),
-                            child: Center(
-                              child: CustomSmallText(
-                                text: "Type2 CCS",
-                                color: Color(0xff0047C3),
-                                size: 15.sp,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),
