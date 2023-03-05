@@ -31,7 +31,7 @@ class MapFunctions {
   late StreamSubscription mapStream;
   double zoom = 16;
   Position? curPos = null;
-  String curPosName = '';
+  RxString curPosName = ''.obs;
   Set<Marker> markers_homepage = {};
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
@@ -400,7 +400,6 @@ class MapFunctions {
     var response = await http.get(Uri.parse(endpoint));
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
-      log(json.toString());
       if (json['results'].isNotEmpty) {
         return json['results'][0]['formatted_address'];
       }
@@ -413,7 +412,7 @@ class MapFunctions {
     if (curPos == null) await getCurrentPosition();
     if (curPos == null) return '';
 
-    curPosName = await getLocationName(curPos!.latitude, curPos!.longitude);
-    return curPosName;
+    curPosName.value = await getLocationName(curPos!.latitude, curPos!.longitude);
+    return curPosName.value;
   }
 }

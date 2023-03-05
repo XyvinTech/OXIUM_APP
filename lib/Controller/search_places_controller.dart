@@ -22,8 +22,7 @@ class SearchPlacesScreenController extends GetxController {
   onInit() async {
     super.onInit();
     await MapFunctions().getMyLocationName();
-    log(MapFunctions().curPosName);
-    log('message');
+    log(MapFunctions().curPosName.value);
   }
 
   searchPlace(String text) async {

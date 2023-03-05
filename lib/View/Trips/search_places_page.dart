@@ -1,9 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/View/Widgets/textfield_home.dart';
 import 'package:get/get.dart';
+import 'package:google_place/google_place.dart';
+
 import '../../Controller/search_places_controller.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
@@ -139,91 +143,154 @@ class SearchPlacesScreen extends GetView<SearchPlacesScreenController> {
           height(size.height * .02),
           Expanded(
             child: Obx(
-              () => controller.autoCompletePrediction.isEmpty
-                  ? Align(
-                      alignment: Alignment.center,
-                      child: CustomText(text: 'Search you places!'),
-                    )
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controller.autoCompletePrediction.length,
-                      itemBuilder: (context, index) {
-                        int distance = controller
-                                .autoCompletePrediction[index].distanceMeters ??
-                            0;
-
-                        String disText = distance > 1000
-                            ? (distance / 1000).ceil().toString() + ' km'
-                            : distance.toString() + ' m';
-                        String name = controller
-                            .autoCompletePrediction[index].description!
-                            .split(', ')
-                            .first;
-                        String subtitle = controller
-                            .autoCompletePrediction[index].description!
-                            .replaceFirst(name + ', ', '');
-
-                        return InkWell(
-                          onTap: () {
-                            Get.back(result: [
-                              controller.autoCompletePrediction[index]
-                            ]);
-                          },
-                          child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: size.width * .04),
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                            'assets/svg/device_reset.svg'),
-                                        CustomText(
-                                            text: disText,
-                                            size: 10,
-                                            color: Color(0xff828282))
-                                      ],
-                                    ),
-                                  ),
-                                  width(size.width * .02),
-                                  Expanded(
-                                      flex: 6,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          CustomText(
-                                            text: name,
-                                            size: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xff4F4F4F),
-                                          ),
-                                          CustomText(
-                                            text: subtitle,
-                                            size: 12,
-                                            fontWeight: FontWeight.normal,
-                                            color: Color(0xff828282),
-                                          ),
-                                        ],
-                                      )),
-                                  SvgPicture.asset(
-                                      'assets/svg/arrow_forward_ios.svg')
-                                ]),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: size.height * .007),
-                                  child: Divider(),
-                                ),
-                                height(size.height * .0065)
-                              ],
+              () => Column(
+                children: [
+                  InkWell(
+                    onTap: () async {
+                      if (MapFunctions().curPosName.value.isEmpty)
+                        await MapFunctions().getMyLocationName();
+                      Get.back(result: [
+                        // controller.autoCompletePrediction[index]
+                        AutocompletePrediction(
+                          description: MapFunctions().curPosName.value,
+                        )
+                      ]);
+                    },
+                    child: Container(
+                      margin:
+                          EdgeInsets.symmetric(horizontal: size.width * .04),
+                      child: Column(
+                        children: [
+                          Row(children: [
+                            Expanded(
+                              child: SvgPicture.asset(
+                                'assets/svg/location_searching.svg',
+                                color: Color(0xff0047C3),
+                              ),
                             ),
+                            width(size.width * .02),
+                            Expanded(
+                                flex: 6,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomText(
+                                      text: 'Your Location',
+                                      size: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xff4F4F4F),
+                                    ),
+                                    CustomText(
+                                      text: MapFunctions().curPosName.value,
+                                      size: 12,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xff828282),
+                                    ),
+                                  ],
+                                )),
+                            SvgPicture.asset('assets/svg/arrow_forward_ios.svg')
+                          ]),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: size.height * .007),
+                            child: Divider(),
                           ),
-                        );
-                      }),
+                          height(size.height * .0065)
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: controller.autoCompletePrediction.isEmpty
+                        ? Align(
+                            alignment: Alignment.center,
+                            child: CustomText(text: 'Search you places!'),
+                          )
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: controller.autoCompletePrediction.length,
+                            itemBuilder: (context, index) {
+                              int distance = controller
+                                      .autoCompletePrediction[index]
+                                      .distanceMeters ??
+                                  0;
+
+                              String disText = distance > 1000
+                                  ? (distance / 1000).ceil().toString() + ' km'
+                                  : distance.toString() + ' m';
+                              String name = controller
+                                  .autoCompletePrediction[index].description!
+                                  .split(', ')
+                                  .first;
+                              String subtitle = controller
+                                  .autoCompletePrediction[index].description!
+                                  .replaceFirst(name + ', ', '');
+
+                              return InkWell(
+                                onTap: () {
+                                  Get.back(result: [
+                                    controller.autoCompletePrediction[index]
+                                  ]);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size.width * .04),
+                                  child: Column(
+                                    children: [
+                                      Row(children: [
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                  'assets/svg/device_reset.svg'),
+                                              CustomText(
+                                                  text: disText,
+                                                  size: 10,
+                                                  color: Color(0xff828282))
+                                            ],
+                                          ),
+                                        ),
+                                        width(size.width * .02),
+                                        Expanded(
+                                            flex: 6,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                CustomText(
+                                                  text: name,
+                                                  size: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color(0xff4F4F4F),
+                                                ),
+                                                CustomText(
+                                                  text: subtitle,
+                                                  size: 12,
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Color(0xff828282),
+                                                ),
+                                              ],
+                                            )),
+                                        SvgPicture.asset(
+                                            'assets/svg/arrow_forward_ios.svg')
+                                      ]),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: size.height * .007),
+                                        child: Divider(),
+                                      ),
+                                      height(size.height * .0065)
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                  ),
+                ],
+              ),
             ),
           )
         ]),
