@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
@@ -17,9 +18,16 @@ class SearchPlacesScreenController extends GetxController {
     'Show near by charging station',
     'Cafe with charge point',
   ];
+  @override
+  onInit() async {
+    super.onInit();
+    await MapFunctions().getMyLocationName();
+    log(MapFunctions().curPosName);
+    log('message');
+  }
 
   searchPlace(String text) async {
     autoCompletePrediction.value =
-        (await MapFunctions().searchPlaceByName(text))??[];
+        (await MapFunctions().searchPlaceByName(text)) ?? [];
   }
 }

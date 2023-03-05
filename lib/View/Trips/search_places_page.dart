@@ -41,14 +41,14 @@ class SearchPlacesScreen extends GetView<SearchPlacesScreenController> {
                 height: size.height * .057,
                 width: size.width * .75,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(40),
                     boxShadow: [
                       BoxShadow(color: Colors.grey.shade400, blurRadius: 8)
                     ],
                     color: Colors.white),
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(40),
                   child: Obx(
                     () => textField(
                       controller: controller.searchTextController,

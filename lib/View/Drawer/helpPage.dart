@@ -103,7 +103,7 @@ class HelpScreen extends GetView<HelpPageController> {
                       options: CarouselOptions(
                         height: size.height * 0.25,
                         initialPage: 0,
-                        autoPlay: true,
+                        autoPlay: false,
                         reverse: false,
                         enlargeCenterPage: true,
                         enableInfiniteScroll: true,

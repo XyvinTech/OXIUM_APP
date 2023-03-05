@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
@@ -12,7 +13,7 @@ import 'package:get/get.dart';
 import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
-
+import 'package:http/http.dart' as http;
 import '../Utils/routes.dart';
 
 class MapFunctions {
@@ -30,6 +31,7 @@ class MapFunctions {
   late StreamSubscription mapStream;
   double zoom = 16;
   Position? curPos = null;
+  String curPosName = '';
   Set<Marker> markers_homepage = {};
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
@@ -390,5 +392,28 @@ class MapFunctions {
       ));
       reload++;
     });
+  }
+
+  Future<String> getLocationName(double lat, double lng) async {
+    var endpoint =
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$googleApiKey';
+    var response = await http.get(Uri.parse(endpoint));
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      log(json.toString());
+      if (json['results'].isNotEmpty) {
+        return json['results'][0]['formatted_address'];
+      }
+    } else
+      print(response.body);
+    return '';
+  }
+
+  Future<String> getMyLocationName() async {
+    if (curPos == null) await getCurrentPosition();
+    if (curPos == null) return '';
+
+    curPosName = await getLocationName(curPos!.latitude, curPos!.longitude);
+    return curPosName;
   }
 }
