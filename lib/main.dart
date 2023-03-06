@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.grey,
               scaffoldBackgroundColor: kscaffoldBackgroundColor,
             ),
-            initialRoute: Routes.chargePageRoute,
+            initialRoute: Routes.tripsPageRoute,
             getPages: AppPages.pages,
           );
         }));

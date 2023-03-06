@@ -847,14 +847,16 @@ class ChargeScreen extends GetView<ChargeScreenController> {
         Expanded(
           // height: size.height * 0.32,
           child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 20,
-              itemBuilder: (_, index) {
-                return ExpandablePanel(
-                    collapsed: ExpandableButton(child: _tripsCard()),
-                    expanded: _tripsCardExpanded());
-              }),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: 20,
+            itemBuilder: (_, index) {
+              return ExpandablePanel(
+                collapsed: ExpandableButton(child: _tripsCard()),
+                expanded: _tripsCardExpanded(),
+              );
+            },
+          ),
         )
       ],
     );
@@ -1062,6 +1064,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                   SvgPicture.asset("assets/svg/ev_charger.svg"),
                   width(size.width * 0.015),
                   CustomBigText(
+                    ontap: () {},
                     text: "Reservation",
                     size: 13.sp,
                     color: Color(

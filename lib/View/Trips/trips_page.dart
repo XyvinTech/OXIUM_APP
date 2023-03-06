@@ -1,4 +1,6 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -585,9 +587,9 @@ class TripsScreen extends GetView<TripsScreenController> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: 40,
                 itemBuilder: (_, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: size.height * 0.02),
-                    child: _tripsCard(),
+                  return ExpandablePanel(
+                    collapsed: ExpandableButton(child: _tripsCard()),
+                    expanded: _tripsCardExpanded(),
                   );
                 }),
           )
@@ -597,15 +599,13 @@ class TripsScreen extends GetView<TripsScreenController> {
   }
 
   Widget _tripsCard() {
-    return InkWell(
-      onTap: () {
-        Get.toNamed(Routes.reservationPageRoute);
-      },
+    return Padding(
+      padding: EdgeInsets.all(8.w),
       child: Container(
         padding: EdgeInsets.only(
-          left: size.width * 0.04,
+          left: 20.w,
           top: size.height * 0.013,
-          right: size.width * 0.02,
+          right: 20.w,
         ),
         height: size.height * 0.085,
         width: size.width,
@@ -616,7 +616,7 @@ class TripsScreen extends GetView<TripsScreenController> {
               BoxShadow(
                 offset: Offset(0, 4),
                 spreadRadius: 0,
-                blurRadius: 2,
+                blurRadius: 21,
                 color: Color(0xff000000).withOpacity(0.12),
               )
             ]),
@@ -645,7 +645,7 @@ class TripsScreen extends GetView<TripsScreenController> {
                       width: size.width * 0.18,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Color(0xffFFE9E9),
+                        color: Color(0xff9B51E0).withOpacity(0.10),
                       ),
                       child: Center(
                         child: CustomBigText(
@@ -680,11 +680,242 @@ class TripsScreen extends GetView<TripsScreenController> {
                 )
               ],
             ),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: size.height * 0.032,
-              color: Color(0xffBDBDBD),
+            Padding(
+              padding: EdgeInsets.only(bottom: 5.h),
+              child: SvgPicture.asset("assets/svg/arrow_down_ios.svg"),
             )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _tripsCardExpanded() {
+    return Container(
+      padding: EdgeInsets.only(
+        left: 20.w,
+        top: size.height * 0.013,
+        right: 20.w,
+      ),
+      height: 330.h,
+      width: size.width,
+      decoration: BoxDecoration(
+          color: kwhite,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 4),
+              spreadRadius: 0,
+              blurRadius: 21,
+              color: Color(0xff000000).withOpacity(0.12),
+            )
+          ]),
+      child: Column(
+        children: [
+          ExpandableButton(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              "assets/images/conversion.png",
+                              height: size.height * 0.02,
+                              width: size.width * 0.03,
+                            ),
+                            SizedBox(
+                              width: size.width * 0.015,
+                            ),
+                            CustomSmallText(text: "Trip 01"),
+                            SizedBox(
+                              width: size.width * 0.018,
+                            ),
+                            Container(
+                              height: size.height * 0.025,
+                              width: size.width * 0.18,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xff9B51E0).withOpacity(0.10),
+                              ),
+                              child: Center(
+                                child: CustomBigText(
+                                  text: "Finished",
+                                  size: 12,
+                                  color: Color(0xff9B51E0),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_month,
+                              size: size.height * 0.017,
+                              color: Color(0xff828282),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.015,
+                            ),
+                            //calender
+                            CustomSmallText(
+                              text: "12 Jun 2022",
+                              size: 12,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 5.h),
+                    child: SvgPicture.asset("assets/svg/arrow_up_ios.svg"),
+                  )
+                ],
+              ),
+            ),
+          ),
+          height(size.height * 0.01),
+          Container(
+            height: size.height * 0.002,
+            width: size.width,
+            color: Color(0xffE0E0E0),
+          ),
+          height(size.height * 0.02),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  SvgPicture.asset("assets/svg/ev_charger.svg"),
+                  width(size.width * 0.015),
+                  CustomBigText(
+                    ontap: () {},
+                    text: "Reservation",
+                    size: 13.sp,
+                    color: Color(
+                      0xff0047C3,
+                    ),
+                    letterspacing: -0.408,
+                  )
+                ],
+              ),
+              CustomSmallText(
+                text: "324 KMS",
+                size: 13.sp,
+              )
+            ],
+          ),
+          height(size.height * 0.02),
+          Padding(
+            padding: EdgeInsets.only(left: size.width * 0.008),
+            child: Row(
+              children: [
+                SvgPicture.asset("assets/svg/adjust1.svg"),
+                width(size.width * 0.015),
+                CustomSmallText(
+                  text: "Starting Point",
+                  size: 13.sp,
+                  letterspacing: -0.408,
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: size.width * 0.017),
+            child: Row(
+              children: [
+                SvgPicture.asset("assets/svg/line.svg"),
+                width(size.width * 0.03),
+                Padding(
+                  padding: EdgeInsets.only(bottom: size.height * 0.02),
+                  child: CustomBigText(
+                    text: "S4 Bt , Elam Street , Jarkhand",
+                    size: 14,
+                    color: Color(0xff4F4F4F),
+                    letterspacing: -0.408,
+                  ),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: size.width * 0.008),
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: size.height * 0.001),
+                  child: SvgPicture.asset(
+                    "assets/svg/location_on1.svg",
+                  ),
+                ),
+                width(size.width * 0.015),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 1.h),
+                  child: CustomSmallText(
+                    text: "Ending Point",
+                    size: 13.sp,
+                    letterspacing: -0.408,
+                  ),
+                )
+              ],
+            ),
+          ),
+          height(size.height * 0.004),
+          Padding(
+            padding: EdgeInsets.only(left: size.width * 0.05),
+            child: Row(
+              children: [
+                CustomBigText(
+                  text: "S4 Bt , Elam Street , Jarkhand",
+                  size: 14,
+                  color: Color(0xff4F4F4F),
+                  letterspacing: -0.408,
+                ),
+              ],
+            ),
+          ),
+          height(size.height * 0.04),
+          _exploreTripButton(title: "Explore Trip", onTap: () {})
+        ],
+      ),
+    );
+  }
+
+  Widget _exploreTripButton(
+      {required String title, required void Function()? onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 37.h,
+        width: 183.w,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40.r),
+            color: kwhite,
+            border: Border.all(
+              width: 1.5.w,
+              color: Color(0xff0047C3),
+            )),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomBigText(
+              text: title,
+              size: 15.sp,
+              color: Color(0xff0047C3),
+            ),
+            width(4.w),
+            SvgPicture.asset("assets/svg/arrow_frwrd.svg"),
           ],
         ),
       ),
