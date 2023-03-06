@@ -62,9 +62,11 @@ class PartnerScreen extends GetView<PartnerPageController> {
                             child: CarouselSlider(
                               // onPageChanged: (index, reason) => _currentIndex = index,
 
-                              items: controller.carouselText
+                              items: controller.carouselImage
                                   .map(
-                                    (text) => Container(
+                                    (img) => Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 37.w),
                                       // height: size.height * 0.25,
                                       // height: 300.h,
                                       // width: size.width * 0.8,
@@ -72,6 +74,9 @@ class PartnerScreen extends GetView<PartnerPageController> {
                                       decoration: BoxDecoration(
                                         color: kwhite,
                                         borderRadius: BorderRadius.circular(20),
+                                        image: DecorationImage(
+                                            image: AssetImage(img),
+                                            fit: BoxFit.cover),
                                         boxShadow: [
                                           BoxShadow(
                                             offset: Offset(0, 4),
@@ -89,10 +94,14 @@ class PartnerScreen extends GetView<PartnerPageController> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Expanded(
-                                              child: CustomText(
-                                                  text: text,
-                                                  size: 13.sp,
-                                                  color: Color(0xff828282)),
+                                              child: CustomBigText(
+                                                text: controller.carouselText[
+                                                    controller.currentIndex
+                                                        .toInt()],
+                                                size: 13.sp,
+                                                color: Color(0xffF9F9F9),
+                                                align: TextAlign.center,
+                                              ),
                                             ),
                                           ],
                                         ),

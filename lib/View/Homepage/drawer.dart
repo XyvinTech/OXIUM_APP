@@ -116,7 +116,7 @@ class CustomDrawer extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: size.width * .04),
             child: InkWell(
               onTap: () {
-                Get.toNamed(Routes.drawerrfidNumberRoute);
+                Get.toNamed(Routes.rfidNumberRoute);
               },
               child: Row(
                 children: [
@@ -198,6 +198,7 @@ class CustomDrawer extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: size.width * .04),
             child: InkWell(
               onTap: () {
+                Get.back();
                 Get.toNamed(Routes.aboutPageRoute);
               },
               child: Row(

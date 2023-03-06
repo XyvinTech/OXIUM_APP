@@ -21,7 +21,6 @@ import 'package:freelancer_app/View/Charge/reservation_page.dart';
 import 'package:freelancer_app/View/Drawer/about_page.dart';
 import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Drawer/partner_page.dart';
-import 'package:freelancer_app/View/Drawer/rfid_page.dart';
 import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
 import 'package:freelancer_app/View/Homepage/charging_screen.dart';
 import 'package:freelancer_app/View/Homepage/feedback/payment_feedback.dart';
@@ -54,10 +53,8 @@ import '../Bindings/profile_screen_binding.dart';
 import '../Bindings/search_places_binding.dart';
 import '../Bindings/search_screen_binding.dart';
 import '../Bindings/tripspage_binding.dart';
-import '../View/Homepage/charging_screen.dart';
 import '../View/Homepage/editprofile_screen.dart';
 import '../View/Homepage/filter_screen.dart';
-import '../View/Homepage/homepage.dart';
 import '../View/Homepage/notification_screen.dart';
 import '../View/Homepage/profile_screen.dart';
 import '../View/Homepage/search_screen.dart';
@@ -271,11 +268,6 @@ abstract class AppPages {
       name: Routes.aboutPageRoute,
       binding: AboutPageBinding(),
       page: () => AboutScreen(),
-    ),
-    GetPage(
-      name: Routes.drawerrfidNumberRoute,
-      binding: RfidPageBindings(),
-      page: () => DrawerRFIDnumberScreen(),
     ),
 
     /////

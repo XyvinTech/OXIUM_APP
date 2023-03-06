@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/help_page_controller.dart';
@@ -53,107 +54,127 @@ class HelpScreen extends GetView<HelpPageController> {
             ),
           ),
           height(size.height * 0.04),
-          Obx(
-            () => Container(
-              height: size.height * 0.33,
-              width: size.width,
-              color: Color(0xffF5F9FF),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CarouselSlider(
-                      // onPageChanged: (index, reason) => _currentIndex = index,
+                           Obx(
+                    () => Container(
+                      // height: size.height * 0.33,
+                      height: 285.h,
+                      width: double.maxFinite,
 
-                      items: controller.carouselText
-                          .map(
-                            (text) => Container(
-                              height: size.height * 0.25,
-                              width: size.width * 0.8,
-                              decoration: BoxDecoration(
-                                color: kwhite,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: Offset(0, 4),
-                                    spreadRadius: 0,
-                                    blurRadius: 34,
-                                    color: Color(0xff000000).withOpacity(0.06),
-                                  ),
-                                ],
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CarouselSlider(
+                              // onPageChanged: (index, reason) => _currentIndex = index,
+
+                              items: controller.carouselImage
+                                  .map(
+                                    (img) => Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 37.w),
+                                      // height: size.height * 0.25,
+                                      // height: 300.h,
+                                      // width: size.width * 0.8,
+                                      width: 300.w,
+                                      decoration: BoxDecoration(
+                                        color: kwhite,
+                                        borderRadius: BorderRadius.circular(20),
+                                        image: DecorationImage(
+                                            image: AssetImage(img),
+                                            fit: BoxFit.cover),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(0, 4),
+                                            spreadRadius: 0,
+                                            blurRadius: 34.r,
+                                            color: Color(0xff000000)
+                                                .withOpacity(0.06),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(children: [
+                                        Expanded(child: Container()),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: CustomBigText(
+                                                text: controller.carouselText[
+                                                    controller.currentIndex
+                                                        .toInt()],
+                                                size: 13.sp,
+                                                color: Color(0xffF9F9F9),
+                                                align: TextAlign.center,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 15.h,
+                                        ),
+                                      ]),
+                                    ),
+                                  )
+                                  .toList(),
+                              options: CarouselOptions(
+                                // height: size.height * 0.25,
+                                height: 220.h,
+                                initialPage: 0,
+                                autoPlay: false,
+                                reverse: false,
+                                enlargeCenterPage: true,
+                                enableInfiniteScroll: true,
+                                scrollDirection: Axis.horizontal,
+                                autoPlayInterval: Duration(seconds: 2),
+                                autoPlayAnimationDuration:
+                                    Duration(milliseconds: 2000),
+                                onPageChanged: (index, reason) => controller
+                                    .currentIndex.value = index.toDouble(),
                               ),
-                              child: Column(children: [
-                                Expanded(child: Container()),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: size.width * 0.05,
-                                      right: size.width * 0.01),
-                                  child: CustomText(
-                                      text: text,
-                                      size: 13,
-                                      color: Color(0xff828282)),
-                                ),
-                                SizedBox(
-                                  height: size.height * .03,
-                                ),
-                              ]),
                             ),
-                          )
-                          .toList(),
-                      options: CarouselOptions(
-                        height: size.height * 0.25,
-                        initialPage: 0,
-                        autoPlay: false,
-                        reverse: false,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: true,
-                        scrollDirection: Axis.horizontal,
-                        autoPlayInterval: Duration(seconds: 2),
-                        autoPlayAnimationDuration: Duration(milliseconds: 2000),
-                        onPageChanged: (index, reason) =>
-                            controller.currentIndex.value = index.toDouble(),
+                          ),
+                          height(15.h),
+                          // new DotsIndicator(
+                          //   decorator: DotsDecorator(
+
+                          //     color: Color(0xffDEEAFF), // Inactive color
+                          //     activeColor: Color(0xff0047C3),
+                          //   ),
+                          //   dotsCount: controller.carouselText.length,
+                          //   position: controller.currentIndex.value,
+                          // ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: controller.carouselText
+                                .asMap()
+                                .entries
+                                .map((entry) {
+                              return GestureDetector(
+                                onTap: () {
+                                  controller.carouselController!
+                                      .animateToPage(entry.key);
+                                },
+                                child: Container(
+                                  width: 8.w,
+                                  height: 8.h,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 8.h, horizontal: 4.w),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: (controller.currentIndex.value ==
+                                              entry.key
+                                          ? Color(0xff0047C3)
+                                          : Color(0xffDEEAFF))),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  height(size.height * 0.02),
-                  // new DotsIndicator(
-                  //   decorator: DotsDecorator(
-
-                  //     color: Color(0xffDEEAFF), // Inactive color
-                  //     activeColor: Color(0xff0047C3),
-                  //   ),
-                  //   dotsCount: controller.carouselText.length,
-                  //   position: controller.currentIndex.value,
-                  // ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children:
-                        controller.carouselText.asMap().entries.map((entry) {
-                      return GestureDetector(
-                        onTap: () {
-                          controller.carouselController!
-                              .animateToPage(entry.key);
-                        },
-                        child: Container(
-                          width: 8.0,
-                          height: 8.0,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 4.0),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: (controller.currentIndex.value == entry.key
-                                  ? Color(0xff0047C3)
-                                  : Color(0xffDEEAFF))),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          height(size.height * 0.02),
+                  ),height(size.height * 0.02),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .062),
             child: _contractCard("Talk to Customer care", () {

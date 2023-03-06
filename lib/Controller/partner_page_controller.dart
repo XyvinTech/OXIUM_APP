@@ -25,9 +25,9 @@ class PartnerPageController extends GetxController {
     "For a future-focused business, capitalize on the growing EV market."
   ].obs;
   RxList carouselImage = [
-    "assets/images/abt.png",
-    "assets/images/abt.png",
-    "assets/images/abt.png",
+    "assets/images/carousel1.png",
+    "assets/images/carousel2.png",
+    "assets/images/carousel3.png",
   ].obs;
   @override
   void onInit() {

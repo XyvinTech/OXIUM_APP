@@ -293,15 +293,13 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                      child: Container(
-                        child: TabBarView(
-                          controller: controller.tabController,
-                          children: [
-                            _chargeTab(),
-                            _reservationsTab(),
-                            _tripsTab(),
-                          ],
-                        ),
+                      child: TabBarView(
+                        controller: controller.tabController,
+                        children: [
+                          _chargeTab(),
+                          _reservationsTab(),
+                          _tripsTab(),
+                        ],
                       ),
                     ),
                   )
@@ -345,7 +343,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                     children: [
                       CustomBigText(
                         text: "Scan and Charge",
-                        size: 16.sp,
+                        size: 17.sp,
                         color: kwhite,
                       ),
                       SizedBox(
@@ -353,21 +351,20 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                       ),
                       CustomSmallText(
                         text: "Scan and charge for awail neew",
-                        size: 10.sp,
+                        size: 11.sp,
                         color: kwhite,
                       ),
                       CustomSmallText(
                         text: "offers and rewards",
-                        size: 10.sp,
+                        size: 11.sp,
                         color: kwhite,
                       )
                     ],
                   ),
                 ),
-                Image.asset(
-                  "assets/images/G.png",
-                  // height: size.height * 0.05,
-                  // width: size.width * 0.15,
+                Padding(
+                  padding: EdgeInsets.only(top: 11.h),
+                  child: SvgPicture.asset("assets/svg/G2.svg"),
                 )
               ],
             ),
@@ -385,34 +382,32 @@ class ChargeScreen extends GetView<ChargeScreenController> {
             height: size.height * 0.025,
           ),
           Expanded(
-            child: Container(
-              child: ListView.builder(
-                  itemCount: 40,
-                  // shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (_, index) {
-                    return InkWell(
-                        onTap: () {
-                          // Get.dialog(
-                          //   _dialougebox(
-                          //     title: "Calista Cafe",
-                          //     amount: "-500",
-                          //     amountColor: Color(0xffEB5757),
-                          //   ),
-                          // wallet credit dialogue
+            child: ListView.builder(
+                itemCount: 40,
+                // shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (_, index) {
+                  return InkWell(
+                      onTap: () {
+                        // Get.dialog(
+                        //   _dialougebox(
+                        //     title: "Calista Cafe",
+                        //     amount: "-500",
+                        //     amountColor: Color(0xffEB5757),
+                        //   ),
+                        // wallet credit dialogue
 
-                          //            Get.dialog(
-                          //   _dialougebox(
-                          //     title: "Wallet Credit",
-                          //     amount: "+500 Cr",
-                          //     amountColor: Color(0xff27AE60),
-                          //   ),
-                          // );
-                          // );
-                        },
-                        child: _chargeHistoryCard());
-                  }),
-            ),
+                        //            Get.dialog(
+                        //   _dialougebox(
+                        //     title: "Wallet Credit",
+                        //     amount: "+500 Cr",
+                        //     amountColor: Color(0xff27AE60),
+                        //   ),
+                        // );
+                        // );
+                      },
+                      child: _chargeHistoryCard());
+                }),
           )
         ],
       ),
@@ -420,105 +415,103 @@ class ChargeScreen extends GetView<ChargeScreenController> {
   }
 
   Widget _chargeHistoryCard() {
-    return Column(
-      children: [
-        InkWell(
-          onTap: () {
-            Get.dialog(
-              _dialougebox(
-                title: "Calista Cafe",
-                amount: "-500",
-                amountColor: Color(0xffEB5757),
-              ),
-            );
-          },
-          child: Container(
-            padding: EdgeInsets.only(
-              left: size.width * 0.03,
-              top: size.height * 0.015,
-              bottom: size.height * 0.015,
-              right: size.width * 0.03,
-            ),
-            height: size.height * 0.1,
-            width: size.width,
-            // decoration: BoxDecoration(
-            //   color: kwhite,
-            //   border: Border.all(
-            //     color: Color(0xffBDBDBD),
-            //     width: 0.4,
-            //   ),
-            // ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    //TODO: use cached network image here
-                    Image.asset(
-                      "assets/images/coffee.png",
-                      height: size.height * 0.055,
-                      width: size.width * 0.13,
-                    ),
-                    SizedBox(
-                      width: size.width * 0.03,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: size.height * 0.012),
-                      child: Column(
-                        children: [
-                          CustomSmallText(
-                            text: "Calista cafe",
-                            size: 10,
-                          ),
-                          SizedBox(
-                            height: size.height * 0.007,
-                          ),
-                          CustomSmallText(
-                            text: "DC 45 kWh",
-                            size: 12,
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: size.height * 0.004),
-                      child: Column(
-                        children: [
-                          CustomSmallText(
-                            text: "1 H 23 MIN",
-                            size: 12,
-                          ),
-                          SizedBox(
-                            height: size.height * 0.007,
-                          ),
-                          CustomBigText(
-                            text: "Cr. 523 ",
-                            size: 16,
-                            color: Color(0xff4F4F4F),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: size.width * 0.05,
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: size.height * 0.03,
-                      color: Color(0xffBDBDBD),
-                    )
-                  ],
-                )
-              ],
+    return InkWell(
+      onTap: () {
+        Get.dialog(
+          _dialougebox(
+            title: "Calista Cafe",
+            amount: "-500",
+            amountColor: Color(0xffEB5757),
+          ),
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 10.h),
+        child: Container(
+          padding: EdgeInsets.only(
+            left: size.width * 0.03,
+            top: size.height * 0.015,
+            bottom: size.height * 0.015,
+            right: size.width * 0.03,
+          ),
+          height: size.height * 0.1,
+          width: size.width,
+          decoration: BoxDecoration(
+            color: kwhite,
+            border: Border.all(
+              color: Color(0xffBDBDBD),
+              width: 0.4,
             ),
           ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  //TODO: use cached network image here
+                  Image.asset(
+                    "assets/images/coffee.png",
+                    height: size.height * 0.055,
+                    width: size.width * 0.13,
+                  ),
+                  SizedBox(
+                    width: size.width * 0.03,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: size.height * 0.012),
+                    child: Column(
+                      children: [
+                        CustomSmallText(
+                          text: "Calista cafe",
+                          size: 10,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.007,
+                        ),
+                        CustomSmallText(
+                          text: "DC 45 kWh",
+                          size: 12,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: size.height * 0.004),
+                    child: Column(
+                      children: [
+                        CustomSmallText(
+                          text: "1 H 23 MIN",
+                          size: 12,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.007,
+                        ),
+                        CustomBigText(
+                          text: "Cr. 523 ",
+                          size: 16,
+                          color: Color(0xff4F4F4F),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: size.width * 0.05,
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: size.height * 0.03,
+                    color: Color(0xffBDBDBD),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
-        Divider(),
-      ],
+      ),
     );
   }
 
@@ -851,111 +844,109 @@ class ChargeScreen extends GetView<ChargeScreenController> {
   }
 
   Widget _tripsTab() {
-    return Container(
-      child: Column(
-        children: [
-          Expanded(
-            // height: size.height * 0.32,
-            child: ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 20,
-                itemBuilder: (_, index) {
-                  return Padding(
-                    padding: EdgeInsets.all(15.w),
-                    child: ExpandablePanel(
-                        collapsed: ExpandableButton(child: _tripsCard()),
-                        expanded: _tripsCardExpanded()),
-                  );
-                }),
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        Expanded(
+          // height: size.height * 0.32,
+          child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 20,
+              itemBuilder: (_, index) {
+                return ExpandablePanel(
+                    collapsed: ExpandableButton(child: _tripsCard()),
+                    expanded: _tripsCardExpanded());
+              }),
+        )
+      ],
     );
   }
 
   Widget _tripsCard() {
-    return Container(
-      padding: EdgeInsets.only(
-        left: size.width * 0.04,
-        top: size.height * 0.013,
-        right: size.width * 0.02,
-      ),
-      height: size.height * 0.085,
-      width: size.width,
-      decoration: BoxDecoration(
-          color: kwhite,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 4),
-              spreadRadius: 0,
-              blurRadius: 2,
-              color: Color(0xff000000).withOpacity(0.12),
-            )
-          ]),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Image.asset(
-                    "assets/images/conversion.png",
-                    height: size.height * 0.02,
-                    width: size.width * 0.03,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.015,
-                  ),
-                  CustomSmallText(text: "Trip 01"),
-                  SizedBox(
-                    width: size.width * 0.018,
-                  ),
-                  Container(
-                    height: size.height * 0.025,
-                    width: size.width * 0.18,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color(0xffFFE9E9),
+    return Padding(
+      padding: EdgeInsets.all(8.w),
+      child: Container(
+        padding: EdgeInsets.only(
+          left: size.width * 0.04,
+          top: size.height * 0.013,
+          right: size.width * 0.02,
+        ),
+        height: size.height * 0.085,
+        width: size.width,
+        decoration: BoxDecoration(
+            color: kwhite,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 4),
+                spreadRadius: 0,
+                blurRadius: 21,
+                color: Color(0xff000000).withOpacity(0.12),
+              )
+            ]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Image.asset(
+                      "assets/images/conversion.png",
+                      height: size.height * 0.02,
+                      width: size.width * 0.03,
                     ),
-                    child: Center(
-                      child: CustomBigText(
-                        text: "Finished",
-                        size: 12,
-                        color: Color(0xff9B51E0),
-                        fontWeight: FontWeight.w500,
+                    SizedBox(
+                      width: size.width * 0.015,
+                    ),
+                    CustomSmallText(text: "Trip 01"),
+                    SizedBox(
+                      width: size.width * 0.018,
+                    ),
+                    Container(
+                      height: size.height * 0.025,
+                      width: size.width * 0.18,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xffFFE9E9),
+                      ),
+                      child: Center(
+                        child: CustomBigText(
+                          text: "Finished",
+                          size: 12,
+                          color: Color(0xff9B51E0),
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.calendar_month,
-                    size: size.height * 0.017,
-                    color: Color(0xff828282),
-                  ),
-                  SizedBox(
-                    width: size.width * 0.015,
-                  ),
-                  //calender
-                  CustomSmallText(
-                    text: "12 Jun 2022",
-                    size: 12,
-                  ),
-                ],
-              )
-            ],
-          ),
-          SvgPicture.asset("assets/svg/arrow_down_ios.svg")
-        ],
+                  ],
+                ),
+                SizedBox(
+                  height: size.height * 0.01,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_month,
+                      size: size.height * 0.017,
+                      color: Color(0xff828282),
+                    ),
+                    SizedBox(
+                      width: size.width * 0.015,
+                    ),
+                    //calender
+                    CustomSmallText(
+                      text: "12 Jun 2022",
+                      size: 12,
+                    ),
+                  ],
+                )
+              ],
+            ),
+            SvgPicture.asset("assets/svg/arrow_down_ios.svg")
+          ],
+        ),
       ),
     );
   }
