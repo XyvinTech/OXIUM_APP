@@ -32,10 +32,10 @@ class NavigationScreenController extends GetxController {
     destination = Get.arguments[2];
     MapFunctions().directionsResult = directionsResult;
     MapFunctions().steps.value = 0;
+    MapFunctions().maneuverText.value = 'Go Straight';
   }
 
   initMap() {
-    MapFunctions().steps.value = 0;
     MapFunctions().addCarMarker(MapFunctions().curPos!);
     Future.delayed(Duration(milliseconds: 1000), () {
       log('delayed');

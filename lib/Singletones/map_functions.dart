@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/Homepage/homepage.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
@@ -172,13 +171,13 @@ class MapFunctions {
               CameraPosition(
                   target: LatLng(event.latitude, event.longitude),
                   zoom: zoom,
-                  bearing: event.heading)));
+                  bearing: heading)));
         } else {
           controller.animateCamera(CameraUpdate.newCameraPosition(
               CameraPosition(
                   target: LatLng(event.latitude, event.longitude),
                   zoom: zoom,
-                  bearing: event.heading)));
+                  bearing: heading)));
         }
       });
   }
@@ -211,8 +210,11 @@ class MapFunctions {
     ));
   }
 
-  void setMapFitToPolyline(Set<Polyline> p, GoogleMapController controller,
-      {bool isNavigation = false}) async {
+  void setMapFitToPolyline(
+    Set<Polyline> p,
+    GoogleMapController controller, {
+    bool isNavigation = false,
+  }) async {
     double minLat = p.first.points.first.latitude;
     double minLong = p.first.points.first.longitude;
     double maxLat = p.first.points.first.latitude;
@@ -226,29 +228,40 @@ class MapFunctions {
         if (point.longitude > maxLong) maxLong = point.longitude;
       });
     });
-    controller.animateCamera(CameraUpdate.newLatLngBounds(
+    controller.moveCamera(CameraUpdate.newLatLngBounds(
         LatLngBounds(
             southwest: LatLng(minLat, minLong),
             northeast: LatLng(maxLat, maxLong)),
         30));
+    zoom = await dirMapController.getZoomLevel();
+    var leg = directionsResult.value.routes!.first.legs!.first;
+    controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng((minLat + maxLat) / 2, (minLong + maxLong) / 2),
+        zoom: zoom - .11,
+        bearing: bearingBetween(
+                leg.startLocation!.latitude,
+                leg.startLocation!.longitude,
+                leg.endLocation!.latitude,
+                leg.endLocation!.longitude) -
+            90)));
     Future.delayed(Duration(milliseconds: 4000), () async {
-      ScreenCoordinate minScreen =
-          await controller.getScreenCoordinate(LatLng(minLat, minLong));
-      ScreenCoordinate maxScreen =
-          await controller.getScreenCoordinate(LatLng(maxLat, maxLong));
-      print(minScreen);
-      print(maxScreen);
-      print(size);
-      print(isNavigation);
-      if (isNavigation) {
-        controller.animateCamera(CameraUpdate.zoomBy(-.7));
-        Future.delayed(Duration(milliseconds: 500), () {
-          controller.animateCamera(CameraUpdate.scrollBy(0, -55));
-        });
-      } else {
-        await controller.animateCamera(CameraUpdate.zoomBy(
-            (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
-      }
+      // ScreenCoordinate minScreen =
+      //     await controller.getScreenCoordinate(LatLng(minLat, minLong));
+      // ScreenCoordinate maxScreen =
+      //     await controller.getScreenCoordinate(LatLng(maxLat, maxLong));
+      // print(minScreen);
+      // print(maxScreen);
+      // print(size);
+      // print(isNavigation);
+      // if (isNavigation) {
+      //   controller.animateCamera(CameraUpdate.zoomBy(-.7));
+      //   Future.delayed(Duration(milliseconds: 500), () {
+      //     controller.animateCamera(CameraUpdate.scrollBy(0, -55));
+      //   });
+      // } else {
+      //   await controller.animateCamera(CameraUpdate.zoomBy(
+      //       (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
+      // }
       // await controller.animateCamera(CameraUpdate.zoomBy(
       //     (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
       // if (isNavigation) controller.animateCamera(CameraUpdate.scrollBy(0, 20));
@@ -468,7 +481,7 @@ class MapFunctions {
   static bool areCoordinatesEqual(
       double lat1, double lon1, double lat2, double lon2) {
     double distance = distanceBetweenCoordinates(lat1, lon1, lat2, lon2);
-    double threshold = 50; // in meters, adjust as necessary
+    double threshold = 200; // in meters, adjust as necessary
     return distance < threshold;
   }
 
@@ -476,8 +489,7 @@ class MapFunctions {
   void checkForUpdateSteps() {
     if (directionsResult.value.routes == null) return;
     stepList = directionsResult.value.routes?.first.legs?.first.steps ?? [];
-    directionsResult
-        .value.routes?.first.legs?.first.steps!.first.distance!.value;
+    directionsResult.value.routes?.first.legs?.first.steps!.first.instructions;
     kLog(stepList!.length.toString());
     if (stepList != null && stepList!.isNotEmpty) {
       if (areCoordinatesEqual(
@@ -487,18 +499,19 @@ class MapFunctions {
           stepList![steps.value].startLocation!.longitude)) {
         //If it's the steps end then update the step card and push to next step
         stepDistance.value = stepList![steps.value].distance.value;
-        String manuever = stepList![steps.value]
-            .maneuver
-            .toString()
-            .replaceAll('-', ' ')
-            .toTitleCase();
-        if (manuever.isEmpty) manuever = 'Go Straight';
         steps++;
+        String text = stepList![steps.value].instructions;
+        text = text.replaceAll('<b>', '').replaceAll('</b>', '');
+        if (text.isEmpty)
+          maneuverText.value = 'Go Straight';
+        else
+          maneuverText.value = text;
+
         int sum = 0;
         int? val;
         for (int i = steps.value - 1; i < stepList!.length; i++) {
           kLog('step: $i');
-          kLog(stepList![i].distance.value.toString());
+          kLog(stepList![i].instructions.toString());
           val = stepList![i].distance.value;
           sum += val == null ? 0 : val;
         }
