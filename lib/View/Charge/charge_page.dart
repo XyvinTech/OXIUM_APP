@@ -60,7 +60,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                               ),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.05,
+                                    horizontal: size.width * 0.055,
                                     vertical: size.height * 0.02),
                                 child: Row(
                                   mainAxisAlignment:
@@ -233,12 +233,13 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                       SizedBox(
                         height: size.height * 0.005,
                       ),
-                      Container(
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.055),
                         child: Container(
                           height: size.height * .06,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * .03,
-                              vertical: size.height * .01),
+                          padding:
+                              EdgeInsets.symmetric(vertical: size.height * .01),
                           child: TabBar(
                             labelColor: kblue,
                             controller: controller.tabController,
@@ -322,7 +323,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
         children: [
           Container(
             height: size.height * 0.12,
-            width: size.width * 0.85,
+            width: size.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Color(0xff333333),
@@ -420,7 +421,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
         Get.dialog(
           _dialougebox(
             title: "Calista Cafe",
-            amount: "-500",
+            amount: "-500 Cr",
             amountColor: Color(0xffEB5757),
           ),
         );
@@ -688,17 +689,19 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                       ],
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         CustomSmallText(
                           text: "Amount(in coins)",
-                          size: 12,
+                          size: 13.sp,
                         ),
                         height(size.height * 0.004),
                         CustomBigText(
                           text: amount,
                           color: amountColor,
-                          size: 24,
+                          size: 24.sp,
                           fontWeight: FontWeight.w500,
+                          align: TextAlign.end,
                         )
                       ],
                     )
@@ -719,10 +722,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
           child: ListView.builder(
               itemCount: 40,
               itemBuilder: (_, index) {
-                return Padding(
-                  padding: EdgeInsets.only(bottom: size.height * 0.01),
-                  child: _reverstaionsCard(),
-                );
+                return _reverstaionsCard();
               }),
         )
       ],
@@ -734,111 +734,109 @@ class ChargeScreen extends GetView<ChargeScreenController> {
       onTap: () {
         Get.toNamed(Routes.reservationPageRoute);
       },
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(
+      child: Padding(
+        padding: EdgeInsets.only(top: 10.h),
+        child: Container(
+          padding: EdgeInsets.only(
               left: size.width * 0.04,
-              top: size.height * 0.01,
+              top: 10.h,
               right: size.width * 0.02,
-            ),
-            height: size.height * 0.106,
-            width: size.width,
-            // decoration: BoxDecoration(
-            //   color: kwhite,
-            //   border: Border.all(
-            //     color: Color(0xffBDBDBD),
-            //     width: 0.4,
-            //   ),
-            // ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        CustomBigText(
-                          text: "Reservation 3245",
-                          size: 14,
-                          color: Color(0xff4F4F4F),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.02,
-                        ),
-                        Container(
-                          height: size.height * 0.025,
-                          width: size.width * 0.15,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color(0xffFFE9E9),
-                          ),
-                          child: Center(
-                            child: CustomSmallText(
-                              text: "Normal",
-                              size: 10,
-                              color: Color(0xffEB5757),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: size.height * 0.01,
-                    ),
-                    CustomSmallText(
-                      text: "Vaitilla , Ernakulam , Kerala",
-                      size: 12,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.01,
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.schedule_outlined,
-                          size: size.height * 0.017,
-                          color: Color(0xff828282),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.01,
-                        ),
-                        //time
-                        CustomSmallText(
-                          text: "03:30 PM",
-                          size: 12,
-                        ),
-                        SizedBox(
-                          width: size.width * 0.05,
-                        ),
-                        Icon(
-                          Icons.calendar_month,
-                          size: size.height * 0.017,
-                          color: Color(0xff828282),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.01,
-                        ),
-                        //calender
-                        CustomSmallText(
-                          text: "12 Jun 2022",
-                          size: 12,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: size.height * 0.032,
-                  color: Color(0xffBDBDBD),
-                )
-              ],
+              bottom: 10.h),
+          height: size.height * 0.114,
+          width: size.width,
+          decoration: BoxDecoration(
+            color: kwhite,
+            border: Border.all(
+              color: Color(0xffE0E0E0),
+              width: 1,
             ),
           ),
-          Divider()
-        ],
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      CustomBigText(
+                        text: "Reservation 3245",
+                        size: 14,
+                        color: Color(0xff4F4F4F),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.02,
+                      ),
+                      Container(
+                        height: size.height * 0.025,
+                        width: size.width * 0.15,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xffFFE9E9),
+                        ),
+                        child: Center(
+                          child: CustomSmallText(
+                            text: "Normal",
+                            size: 10,
+                            color: Color(0xffEB5757),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  CustomSmallText(
+                    text: "Vaitilla , Ernakulam , Kerala",
+                    size: 12,
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.schedule_outlined,
+                        size: size.height * 0.017,
+                        color: Color(0xff828282),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.01,
+                      ),
+                      //time
+                      CustomSmallText(
+                        text: "03:30 PM",
+                        size: 12,
+                      ),
+                      SizedBox(
+                        width: size.width * 0.05,
+                      ),
+                      Icon(
+                        Icons.calendar_month,
+                        size: size.height * 0.017,
+                        color: Color(0xff828282),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.01,
+                      ),
+                      //calender
+                      CustomSmallText(
+                        text: "12 Jun 2022",
+                        size: 12,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: size.height * 0.032,
+                color: Color(0xffBDBDBD),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -867,9 +865,9 @@ class ChargeScreen extends GetView<ChargeScreenController> {
       padding: EdgeInsets.all(8.w),
       child: Container(
         padding: EdgeInsets.only(
-          left: size.width * 0.04,
+          left: 20.w,
           top: size.height * 0.013,
-          right: size.width * 0.02,
+          right: 20.w,
         ),
         height: size.height * 0.085,
         width: size.width,
@@ -909,7 +907,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                       width: size.width * 0.18,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Color(0xffFFE9E9),
+                        color: Color(0xff9B51E0).withOpacity(0.10),
                       ),
                       child: Center(
                         child: CustomBigText(
@@ -944,7 +942,10 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                 )
               ],
             ),
-            SvgPicture.asset("assets/svg/arrow_down_ios.svg")
+            Padding(
+              padding: EdgeInsets.only(bottom: 5.h),
+              child: SvgPicture.asset("assets/svg/arrow_down_ios.svg"),
+            )
           ],
         ),
       ),
@@ -954,9 +955,9 @@ class ChargeScreen extends GetView<ChargeScreenController> {
   Widget _tripsCardExpanded() {
     return Container(
       padding: EdgeInsets.only(
-        left: size.width * 0.04,
+        left: 20.w,
         top: size.height * 0.013,
-        right: size.width * 0.05,
+        right: 20.w,
       ),
       height: 330.h,
       width: size.width,
@@ -1002,7 +1003,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                               width: size.width * 0.18,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Color(0xffFFE9E9),
+                                color: Color(0xff9B51E0).withOpacity(0.10),
                               ),
                               child: Center(
                                 child: CustomBigText(
@@ -1038,7 +1039,10 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                       ],
                     ),
                   ),
-                  SvgPicture.asset("assets/svg/arrow_up_ios.svg")
+                  Padding(
+                    padding: EdgeInsets.only(top: 5.h),
+                    child: SvgPicture.asset("assets/svg/arrow_up_ios.svg"),
+                  )
                 ],
               ),
             ),
