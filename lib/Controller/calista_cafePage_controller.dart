@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 class CalistaCafePageController extends GetxController {
   RxInt selectedCharger = (-1).obs;
   RxInt selectedType = (-1).obs;
+  RxInt itemCountPerConnector = 3.obs;
   @override
   void onInit() {
     // TODO: implement onInit

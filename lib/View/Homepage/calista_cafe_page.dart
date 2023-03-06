@@ -373,10 +373,10 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                     child: InkWell(
                       onTap: () {},
                       child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 15.w),
+                        padding: EdgeInsets.symmetric(vertical: 12.w),
                         decoration: BoxDecoration(
                             color: Color(0xff0047C3),
-                            borderRadius: BorderRadius.circular(30)),
+                            borderRadius: BorderRadius.circular(35)),
                         child: Center(
                           child: CustomBigText(
                             text: "Start Charging",
@@ -397,12 +397,12 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       },
                       child: Obx(
                         () => Container(
-                          padding: EdgeInsets.symmetric(vertical: 11.w),
+                          padding: EdgeInsets.symmetric(vertical: 10.w),
                           decoration: BoxDecoration(
                               color: appData.isReserved.value
                                   ? Color(0xffCBFFC7)
                                   : Colors.transparent,
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(35),
                               border: Border.all(
                                   width: 2,
                                   color: appData.isReserved.value
@@ -432,7 +432,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     );
   }
 
-  Widget type2(
+  Widget connectors(
       {
       // required Color containerColor,
       // required Color color,
@@ -440,54 +440,55 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       required bool isSelected,
       required String title,
       required}) {
-    return Container(
-      height: size.height * 0.06,
-      width: size.width * 0.4,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: isSelected
-              ? Color(0xff6FCF97).withOpacity(.28)
-              : Colors.transparent,
-          border: Border.all(
-            width: 1.3,
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        height: 44.h,
+        width: size.width * 0.4,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
             color: isSelected
                 ? Color(0xff6FCF97).withOpacity(.28)
-                : Color(0xff0047C3).withOpacity(.6),
-          )),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
-        child: Row(
-          children: [
-            Container(
-              height: size.height * 0.016,
-              width: size.width * 0.016,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: Color(0xff219653)),
-            ),
-            width(size.width * 0.02),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: size.height * 0.008),
-              child: Column(
+                : Colors.transparent,
+            border: Border.all(
+              width: 1.3,
+              color: isSelected
+                  ? Color(0xff6FCF97)
+                  : Color(0xff0047C3).withOpacity(.6),
+            )),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Row(
+            children: [
+              Container(
+                height: 10.h,
+                width: 10.h,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: Color(0xff219653)),
+              ),
+              width(7.w),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
                     "assets/svg/type 2 icon1.svg",
                     color: isSelected ? Color(0xff4f4f4f) : Color(0xff0047C3),
                   ),
-                  height(size.height * 0.005),
+                  height(1.h),
                   SvgPicture.asset(
                     "assets/svg/type 2 icon2.svg",
                     color: isSelected ? Color(0xff333333) : Color(0xff0047C3),
                   ),
                 ],
               ),
-            ),
-            width(size.width * 0.07),
-            CustomBigText(
-              text: "Type 2",
-              size: 14,
-              color: isSelected ? Color(0xff333333) : Color(0xff0047C3),
-            ),
-          ],
+              width(12.5.w),
+              CustomBigText(
+                text: "Type 2",
+                size: 14.sp,
+                color: isSelected ? Color(0xff333333) : Color(0xff0047C3),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -504,7 +505,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
         alignment: Alignment.center,
-        height: size.height * 0.27,
+        //TODO: here for each charger type give the list length of connectors as itemCountPerConnector and multiply to fit the charg connector types
+        height: 100.h +
+            52.h * (controller.itemCountPerConnector.value / 2.0).ceil(),
         decoration: BoxDecoration(
           color: kwhite,
           borderRadius: BorderRadius.circular(15),
@@ -586,7 +589,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
                 child: GridView.builder(
-                    itemCount: 4,
+                    itemCount: controller.itemCountPerConnector.value,
                     scrollDirection: Axis.vertical,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 3.2,
@@ -600,7 +603,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                           controller.changeCharger(index, index_grid);
                         },
                         child: Obx(
-                          () => type2(
+                          () => connectors(
                               isSelected: index ==
                                       controller.selectedCharger.value &&
                                   controller.selectedType.value == index_grid,
