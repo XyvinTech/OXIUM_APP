@@ -151,8 +151,10 @@ class SearchPlacesScreen extends GetView<SearchPlacesScreenController> {
                         await MapFunctions().getMyLocationName();
                       Get.back(result: [
                         // controller.autoCompletePrediction[index]
+
                         AutocompletePrediction(
                           description: MapFunctions().curPosName.value,
+                          placeId: MapFunctions().curPosPlaceId.value,
                         )
                       ]);
                     },

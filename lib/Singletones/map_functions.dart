@@ -14,6 +14,7 @@ import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
 import 'package:http/http.dart' as http;
+
 import '../Utils/routes.dart';
 
 class MapFunctions {
@@ -32,6 +33,7 @@ class MapFunctions {
   double zoom = 16;
   Position? curPos = null;
   RxString curPosName = ''.obs;
+  RxString curPosPlaceId = ''.obs;
   Set<Marker> markers_homepage = {};
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
@@ -312,6 +314,7 @@ class MapFunctions {
     polylineString = '';
     polylines = {};
     markers = {};
+    //TODO: get the place id of source and destination if it is not available (if user choose my location)
 
     // '${pickup.lat},${pickup.lng}'
     final request = await DirectionsRequest(
@@ -394,25 +397,30 @@ class MapFunctions {
     });
   }
 
-  Future<String> getLocationName(double lat, double lng) async {
+  Future<List> getLocationName(double lat, double lng) async {
     var endpoint =
         'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$googleApiKey';
     var response = await http.get(Uri.parse(endpoint));
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       if (json['results'].isNotEmpty) {
-        return json['results'][0]['formatted_address'];
+        log(json['results'][0]['place_id'].toString());
+        return [
+          json['results'][0]['formatted_address'],
+          json['results'][0]['place_id'],
+        ];
       }
-    } else
-      print(response.body);
-    return '';
+    }
+    return [null, null];
   }
 
   Future<String> getMyLocationName() async {
     if (curPos == null) await getCurrentPosition();
     if (curPos == null) return '';
 
-    curPosName.value = await getLocationName(curPos!.latitude, curPos!.longitude);
+    var res = await getLocationName(curPos!.latitude, curPos!.longitude);
+    curPosName.value = res[0] ?? '';
+    curPosPlaceId.value = res[1] ?? '';
     return curPosName.value;
   }
 }
