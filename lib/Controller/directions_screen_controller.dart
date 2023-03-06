@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:get/get.dart';
 import 'package:google_directions_api/google_directions_api.dart';
@@ -10,6 +11,7 @@ class DirectionsScreenController extends GetxController {
   Rx<AutocompletePrediction> source = AutocompletePrediction().obs;
   Rx<AutocompletePrediction> destination = AutocompletePrediction().obs;
   Rx<DirectionsResult> directionsResult = DirectionsResult().obs;
+  final TextEditingController tripsNameController = TextEditingController();
   RxInt saveCount = 0.obs;
   RxBool isSaved = false.obs;
   String distance = '';

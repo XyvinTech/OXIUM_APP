@@ -15,23 +15,23 @@ class MyVehiclePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(size.height * 0.09),
-          child: CustomAppBar(
-            logo: CustomBigText(
-              text: "My Vehicle",
-              size: 15.sp,
-              color: Color(0xffF2F2F2),
-            ),
-            icon: Image.asset("assets/images/add.png"),
-            icononTap: (() {
-              Get.toNamed(Routes.addvehiclesRoute);
-            }),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(size.height * 0.09),
+        child: CustomAppBar(
+          logo: CustomBigText(
+            text: "My Vehicle",
+            size: 15.sp,
+            color: Color(0xffF2F2F2),
           ),
+          icon: Image.asset("assets/images/add.png"),
+          icononTap: (() {
+            Get.toNamed(Routes.addvehiclesRoute);
+          }),
         ),
-        body: Padding(
+      ),
+      body: SafeArea(
+        child: Padding(
           padding: EdgeInsets.only(
             left: size.width * 0.045,
             right: size.width * 0.045,

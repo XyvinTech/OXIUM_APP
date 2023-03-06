@@ -9,7 +9,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Controller/navigation_screen_controller.dart';
 import '../../Singletones/map_functions.dart';
-import '../../Utils/routes.dart';
 import '../../constants.dart';
 
 class NavigationScreen extends GetView<NavigationScreenController> {
@@ -45,15 +44,15 @@ class NavigationScreen extends GetView<NavigationScreenController> {
                     },
                     onTap: (value) {
                       print(value);
-                      MapFunctions().setMapFitToPolyline(
-                          MapFunctions().polylines,
-                          MapFunctions().dirMapController);
+                      // MapFunctions().setMapFitToPolyline(
+                      //     MapFunctions().polylines,
+                      //     MapFunctions().dirMapController);
                       // MapFunctions().addMarkerHomePage(
                       //     name: value.latitude.toString(),
                       //     latLng: value,
                       //     isGreen: false,
                       //     controller: controller);
-                      controller.reload++;
+                      MapFunctions().checkForUpdateSteps();
                     },
                   ),
                 ),
@@ -205,20 +204,24 @@ class NavigationScreen extends GetView<NavigationScreenController> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'After 300 m',
-              style: GoogleFonts.inter(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Colors.white.withOpacity(.6),
+            Obx(
+              () => Text(
+                'After ${MapFunctions().stepDistance.value} m',
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white.withOpacity(.6),
+                ),
               ),
             ),
-            Text(
-              'Take Right',
-              style: GoogleFonts.inter(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
+            Obx(
+              () => Text(
+                MapFunctions().maneuverText.value,
+                style: GoogleFonts.inter(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
               ),
             )
           ],
@@ -251,7 +254,7 @@ class NavigationScreen extends GetView<NavigationScreenController> {
               ),
             ),
             Text(
-              '12 km Away',
+              '${MapFunctions().awayDistance.value / 1000.0} km Away',
               style: GoogleFonts.inter(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,

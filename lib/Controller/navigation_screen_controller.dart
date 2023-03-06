@@ -35,6 +35,7 @@ class NavigationScreenController extends GetxController {
   }
 
   initMap() {
+    MapFunctions().steps.value = 0;
     MapFunctions().addCarMarker(MapFunctions().curPos!);
     Future.delayed(Duration(milliseconds: 1000), () {
       log('delayed');

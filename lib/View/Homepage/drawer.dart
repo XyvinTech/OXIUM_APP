@@ -5,6 +5,7 @@ import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -29,7 +30,7 @@ class CustomDrawer extends StatelessWidget {
                     },
                     child: Icon(
                       Icons.close,
-                      size: 30,
+                      size: 32.sp,
                       color: Colors.white,
                     ),
                   )
@@ -64,12 +65,13 @@ class CustomDrawer extends StatelessWidget {
                     CustomText(
                         text: 'Jane Doe',
                         fontWeight: FontWeight.bold,
+                        minFontSize: 18.sp,
                         color: Colors.white),
                     height(size.height * .002),
                     CustomText(
                         text: '+91 9567892341',
                         fontWeight: FontWeight.normal,
-                        size: 13,
+                        size: 14.sp,
                         isAutoSize: true,
                         color: Colors.white),
                   ],
@@ -83,9 +85,10 @@ class CustomDrawer extends StatelessWidget {
               ]),
             ),
           ),
-          height(size.height * .065),
+          height(size.height * .03),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .02),
             child: InkWell(
               onTap: () {
                 Get.toNamed(Routes.myvehicleRoute);
@@ -98,7 +101,7 @@ class CustomDrawer extends StatelessWidget {
                     CustomText(
                       text: 'My Vehicle',
                       color: Color(0xff4F4F4F),
-                      size: 14,
+                      size: 15.sp,
                     ),
                     Spacer(),
                     Icon(
@@ -111,9 +114,10 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
           ),
-          height(size.height * .05),
+          // height(size.height * .05),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .02),
             child: InkWell(
               onTap: () {
                 Get.toNamed(Routes.rfidNumberRoute);
@@ -125,35 +129,7 @@ class CustomDrawer extends StatelessWidget {
                   CustomText(
                     text: 'RFID',
                     color: Color(0xff4F4F4F),
-                    size: 14,
-                  ),
-                  Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.black,
-                    size: 15,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          height(size.height * .05),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: size.width * .04, vertical: size.height * .025),
-            child: InkWell(
-              onTap: () {
-                Get.back();
-                Get.toNamed(Routes.partnerPageRoute);
-              },
-              child: Row(
-                children: [
-                  SvgPicture.asset('assets/svg/handshake.svg'),
-                  width(size.width * .05),
-                  CustomText(
-                    text: 'Partner with us',
-                    color: Color(0xff4F4F4F),
-                    size: 14,
+                    size: 15.sp,
                   ),
                   Spacer(),
                   Icon(
@@ -168,7 +144,35 @@ class CustomDrawer extends StatelessWidget {
           // height(size.height * .05),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: size.width * .04, vertical: size.height * .025),
+                horizontal: size.width * .04, vertical: size.height * .02),
+            child: InkWell(
+              onTap: () {
+                Get.back();
+                Get.toNamed(Routes.partnerPageRoute);
+              },
+              child: Row(
+                children: [
+                  SvgPicture.asset('assets/svg/handshake.svg'),
+                  width(size.width * .04),
+                  CustomText(
+                    text: 'Partner with us',
+                    color: Color(0xff4F4F4F),
+                    size: 15.sp,
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 15,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // height(size.height * .05),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .02),
             child: InkWell(
               onTap: () {
                 Get.back();
@@ -181,7 +185,7 @@ class CustomDrawer extends StatelessWidget {
                   CustomText(
                     text: 'Help',
                     color: Color(0xff4F4F4F),
-                    size: 14,
+                    size: 15.sp,
                   ),
                   Spacer(),
                   Icon(
@@ -195,7 +199,8 @@ class CustomDrawer extends StatelessWidget {
           ),
           // height(size.height * .05),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .02),
             child: InkWell(
               onTap: () {
                 Get.back();
@@ -208,7 +213,7 @@ class CustomDrawer extends StatelessWidget {
                   CustomText(
                     text: 'About us',
                     color: Color(0xff4F4F4F),
-                    size: 14,
+                    size: 15.sp,
                   ),
                   Spacer(),
                   Icon(

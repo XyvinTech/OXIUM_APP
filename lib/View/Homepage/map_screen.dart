@@ -35,17 +35,21 @@ class MapScreen extends GetView<HomePageController> {
                       MapFunctions().controller = controller;
                       MapFunctions().setMapStyle(controller);
                       kLog('loading map');
+
                       MapFunctions().getCurrentPosition();
                     },
                     onTap: (value) {
                       print(value);
+                      MapFunctions().addMyPositionMarker(MapFunctions().curPos!,
+                          MapFunctions().markers_homepage);
                       MapFunctions().addMarkerHomePage(
                           name: value.latitude.toString(),
                           latLng: value,
                           isGreen: false,
                           controller: controller);
                       controller.reload++;
-                      print(MapFunctions().markers_homepage);
+                      print(MapFunctions().markers_homepage.where((element) =>
+                          element.markerId == MarkerId('myMarker')));
                     },
                   ),
                 ),

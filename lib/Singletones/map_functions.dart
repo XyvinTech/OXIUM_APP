@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/Homepage/homepage.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
@@ -41,6 +43,10 @@ class MapFunctions {
   RxInt reload = 0.obs;
   Rx<DirectionsResult> directionsResult = DirectionsResult().obs;
   RxInt steps = 0.obs;
+  double heading = 0;
+  RxInt stepDistance = 0.obs;
+  RxInt awayDistance = 0.obs;
+  RxString maneuverText = ''.obs;
   Timer? timer;
   Uint8List? bytesBlue, bytesGreen, navigationMarker, carMarker, myMarker;
   String googleApiKey = "AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs";
@@ -139,6 +145,7 @@ class MapFunctions {
   }
 
   Future<void> myPositionListener() async {
+    kLog('listener');
     if ((await checkLocationPermission()))
       mapStream = await Geolocator.getPositionStream().listen((event) async {
         // await animateToNewPosition(LatLng(event.latitude, event.longitude));
@@ -146,7 +153,12 @@ class MapFunctions {
           ;
         else if (event.latitude == curPos!.latitude &&
             event.longitude == curPos!.longitude) return;
-        kLog(event.toString());
+        // kLog(event.heading.toString());
+
+        if (curPos != null)
+          heading = bearingBetween(curPos!.latitude, curPos!.longitude,
+              event.latitude, event.longitude);
+        kLog(heading.toString());
         curPos = event;
 
         if (Get.currentRoute == Routes.navigationPageRoute) {
@@ -172,22 +184,24 @@ class MapFunctions {
   }
 
   addCarMarker(Position event) {
+    markers.removeWhere((element) => element.markerId == 'myCar');
     markers.add(Marker(
         markerId: MarkerId('myCar'),
         // infoWindow: InfoWindow(title: name),
         icon: BitmapDescriptor.fromBytes(MapFunctions().carMarker!),
         position: LatLng(event.latitude, event.longitude),
-        rotation: event.heading,
+        rotation: heading,
         anchor: Offset(.5, .5)));
   }
 
-  addMyPositionMarker(Position event, Set set) {
+  addMyPositionMarker(Position event, Set<Marker> set) {
+    set.removeWhere((element) => element.markerId == MarkerId('myMarker'));
     set.add(Marker(
         markerId: MarkerId('myMarker'),
         // infoWindow: InfoWindow(title: name),
         icon: BitmapDescriptor.fromBytes(MapFunctions().myMarker!),
         position: LatLng(event.latitude, event.longitude),
-        rotation: event.heading,
+        rotation: heading,
         anchor: Offset(.5, .5)));
   }
 
@@ -433,7 +447,7 @@ class MapFunctions {
     return curPosName.value;
   }
 
-  double distanceBetweenCoordinates(
+  static double distanceBetweenCoordinates(
       double lat1, double lon1, double lat2, double lon2) {
     const double earthRadius = 6371000; // in meters
 
@@ -451,14 +465,59 @@ class MapFunctions {
     return d;
   }
 
-  bool areCoordinatesEqual(double lat1, double lon1, double lat2, double lon2) {
+  static bool areCoordinatesEqual(
+      double lat1, double lon1, double lat2, double lon2) {
     double distance = distanceBetweenCoordinates(lat1, lon1, lat2, lon2);
     double threshold = 50; // in meters, adjust as necessary
     return distance < threshold;
   }
 
-  checkForUpdateSteps() {
+  List? stepList;
+  void checkForUpdateSteps() {
     if (directionsResult.value.routes == null) return;
-    directionsResult.value.routes?.first.legs?.first.steps;
+    stepList = directionsResult.value.routes?.first.legs?.first.steps ?? [];
+    directionsResult
+        .value.routes?.first.legs?.first.steps!.first.distance!.value;
+    kLog(stepList!.length.toString());
+    if (stepList != null && stepList!.isNotEmpty) {
+      if (areCoordinatesEqual(
+          curPos!.latitude,
+          curPos!.longitude,
+          stepList![steps.value].startLocation!.latitude,
+          stepList![steps.value].startLocation!.longitude)) {
+        //If it's the steps end then update the step card and push to next step
+        stepDistance.value = stepList![steps.value].distance.value;
+        String manuever = stepList![steps.value]
+            .maneuver
+            .toString()
+            .replaceAll('-', ' ')
+            .toTitleCase();
+        if (manuever.isEmpty) manuever = 'Go Straight';
+        steps++;
+        int sum = 0;
+        int? val;
+        for (int i = steps.value - 1; i < stepList!.length; i++) {
+          kLog('step: $i');
+          kLog(stepList![i].distance.value.toString());
+          val = stepList![i].distance.value;
+          sum += val == null ? 0 : val;
+        }
+        awayDistance.value = sum;
+      }
+    }
+    kLog(stepDistance.value.toString());
+    kLog(awayDistance.value.toString());
+    showSuccess('${stepDistance.value}  ${awayDistance.value}');
+  }
+
+  static double bearingBetween(
+      double lat1, double lon1, double lat2, double lon2) {
+    var degToRad = pi / 180.0;
+    var phi1 = lat1 * degToRad;
+    var phi2 = lat2 * degToRad;
+    var deltaTheta = (lon2 - lon1) * degToRad;
+    var theta = atan2(sin(deltaTheta) * cos(phi2),
+        cos(phi1) * sin(phi2) - sin(phi1) * cos(phi2) * cos(deltaTheta));
+    return (theta * 180.0 / pi);
   }
 }

@@ -12,6 +12,7 @@ class CustomBigText extends StatelessWidget {
   final FontWeight? fontWeight;
   final String? fontFamily;
   final double? letterspacing;
+  final TextOverflow? textOverflow;
 
   final TextAlign? align;
 
@@ -24,6 +25,7 @@ class CustomBigText extends StatelessWidget {
       this.ontap,
       this.fontFamily,
       this.letterspacing,
+      this.textOverflow,
       this.align});
 
   @override
@@ -35,6 +37,7 @@ class CustomBigText extends StatelessWidget {
           text,
           textAlign: align ?? TextAlign.left,
           minFontSize: 10,
+          overflow: textOverflow,
           style: GoogleFonts.poppins(
             letterSpacing: letterspacing ?? null,
             fontSize: size ?? 20.sp,

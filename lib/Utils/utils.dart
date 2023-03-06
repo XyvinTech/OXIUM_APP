@@ -31,15 +31,21 @@ String? validateNumber(String value) {
   return null;
 }
 
-
-
-Future<String> getToken()async{
+Future<String> getToken() async {
   return appData.token = await getString('token') ?? '';
 }
 
+extension TitleCase on String {
+  String toTitleCase() {
+    if (this == '') {
+      return '';
+    }
 
+    final List<String> words = this.trim().split(' ');
+    final List<String> capitalizedWords = words
+        .map((word) => '${word[0].toUpperCase()}${word.substring(1)}')
+        .toList();
 
-
-
-
-
+    return capitalizedWords.join(' ');
+  }
+}
