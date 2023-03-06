@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +39,8 @@ class MapFunctions {
   Set<Polyline> polylines = {};
   String polylineString = '';
   RxInt reload = 0.obs;
+  Rx<DirectionsResult> directionsResult = DirectionsResult().obs;
+  RxInt steps = 0.obs;
   Timer? timer;
   Uint8List? bytesBlue, bytesGreen, navigationMarker, carMarker, myMarker;
   String googleApiKey = "AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs";
@@ -119,7 +121,7 @@ class MapFunctions {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        log('Location permissions are denied');
+        kLog('Location permissions are denied');
         return false;
       }
     }
@@ -144,17 +146,14 @@ class MapFunctions {
           ;
         else if (event.latitude == curPos!.latitude &&
             event.longitude == curPos!.longitude) return;
-        log(event.toString());
+        kLog(event.toString());
         curPos = event;
 
-        addCarMarker(event);
-        markers_homepage.add(Marker(
-            markerId: MarkerId('myMarker'),
-            // infoWindow: InfoWindow(title: name),
-            icon: BitmapDescriptor.fromBytes(MapFunctions().myMarker!),
-            position: LatLng(event.latitude, event.longitude),
-            rotation: event.heading,
-            anchor: Offset(.5, .5)));
+        if (Get.currentRoute == Routes.navigationPageRoute) {
+          addCarMarker(event);
+          checkForUpdateSteps();
+        }
+        addMyPositionMarker(event, markers_homepage);
         reload++;
         if (Get.currentRoute == Routes.navigationPageRoute) {
           dirMapController.animateCamera(CameraUpdate.newCameraPosition(
@@ -177,6 +176,16 @@ class MapFunctions {
         markerId: MarkerId('myCar'),
         // infoWindow: InfoWindow(title: name),
         icon: BitmapDescriptor.fromBytes(MapFunctions().carMarker!),
+        position: LatLng(event.latitude, event.longitude),
+        rotation: event.heading,
+        anchor: Offset(.5, .5)));
+  }
+
+  addMyPositionMarker(Position event, Set set) {
+    set.add(Marker(
+        markerId: MarkerId('myMarker'),
+        // infoWindow: InfoWindow(title: name),
+        icon: BitmapDescriptor.fromBytes(MapFunctions().myMarker!),
         position: LatLng(event.latitude, event.longitude),
         rotation: event.heading,
         anchor: Offset(.5, .5)));
@@ -255,7 +264,7 @@ class MapFunctions {
   }
 
   Future<List<AutocompletePrediction>?> searchPlaceByName(String place) async {
-    log('search by $place');
+    kLog('search by $place');
 
     try {
       var result = await googlePlace.autocomplete.get(
@@ -267,15 +276,15 @@ class MapFunctions {
       );
       if (result != null && result.predictions != null) {
         result.predictions!.forEach((element) {
-          log(element.placeId.toString());
-          log(element.description.toString());
+          kLog(element.placeId.toString());
+          kLog(element.description.toString());
         });
       }
 
       return result?.predictions ?? [];
     } on Exception catch (e) {
       // TODO
-      log(e.toString());
+      kLog(e.toString());
     }
 
     return [];
@@ -306,7 +315,7 @@ class MapFunctions {
 
   Future<DirectionsResult?> getDirections(
       AutocompletePrediction source, AutocompletePrediction destination) async {
-    log('get directions');
+    kLog('get directions');
     PolylinePoints polylinePoints = PolylinePoints();
     DirectionsService.init(googleApiKey);
     final directinosService = DirectionsService();
@@ -328,7 +337,7 @@ class MapFunctions {
         if (status == DirectionsStatus.ok) {
           List<LatLng> polylineOne = [];
           polylineString = response.routes!.first.overviewPolyline!.points!;
-          log(polylineString);
+          kLog(polylineString);
           //DECODE POLYLINE
           polylineOne = polylinePoints
               .decodePolyline(polylineString)
@@ -341,8 +350,8 @@ class MapFunctions {
             lng: legs.first.startLocation!.longitude,
             bytes: navigationMarker,
           );
-          log(legs.first.endLocation.toString());
-          log(legs.first.startLocation.toString());
+          kLog(legs.first.endLocation.toString());
+          kLog(legs.first.startLocation.toString());
           addCircleOnSourceDest(
             name: 'destination',
             lat: legs.first.endLocation!.latitude,
@@ -363,10 +372,10 @@ class MapFunctions {
           // animatePolyline(response.routes!.first.overviewPolyline!.points!);
         } else {
           // do something with error response
-          log('failed to get directions');
+          kLog('failed to get directions');
         }
       });
-      log('direction get complete');
+      kLog('direction get complete');
       return finalResponse;
     } on Exception {
       // TODO
@@ -404,7 +413,7 @@ class MapFunctions {
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       if (json['results'].isNotEmpty) {
-        log(json['results'][0]['place_id'].toString());
+        kLog(json['results'][0]['place_id'].toString());
         return [
           json['results'][0]['formatted_address'],
           json['results'][0]['place_id'],
@@ -422,5 +431,34 @@ class MapFunctions {
     curPosName.value = res[0] ?? '';
     curPosPlaceId.value = res[1] ?? '';
     return curPosName.value;
+  }
+
+  double distanceBetweenCoordinates(
+      double lat1, double lon1, double lat2, double lon2) {
+    const double earthRadius = 6371000; // in meters
+
+    double dLat = (lat2 - lat1) * pi / 180;
+    double dLon = (lon2 - lon1) * pi / 180;
+
+    double a = sin(dLat / 2) * sin(dLat / 2) +
+        cos(lat1 * pi / 180) *
+            cos(lat2 * pi / 180) *
+            sin(dLon / 2) *
+            sin(dLon / 2);
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+    double d = earthRadius * c;
+
+    return d;
+  }
+
+  bool areCoordinatesEqual(double lat1, double lon1, double lat2, double lon2) {
+    double distance = distanceBetweenCoordinates(lat1, lon1, lat2, lon2);
+    double threshold = 50; // in meters, adjust as necessary
+    return distance < threshold;
+  }
+
+  checkForUpdateSteps() {
+    if (directionsResult.value.routes == null) return;
+    directionsResult.value.routes?.first.legs?.first.steps;
   }
 }

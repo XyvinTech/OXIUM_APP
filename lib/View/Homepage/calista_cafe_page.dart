@@ -237,7 +237,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 height(size.height * 0.04),
                 ListView.builder(
                     shrinkWrap: true,
-                    itemCount: 1,
+                    itemCount: 3,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Container(
@@ -247,12 +247,12 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                         child: ExpandablePanel(
                             collapsed: ExpandableButton(
                                 child: _chargerCard(
-                                    title: 'Charge 1 ',
+                                    title: 'Charge ${(index + 1)} ',
                                     subTitle: 'DC 45 kWh',
                                     trailing: 'Available 2/3',
                                     index: index)),
                             expanded: _chargerCardExpanded(
-                                title: 'Charge 1',
+                                title: 'Charge ${(index + 1)}',
                                 subTitle: 'DC 45 kWh',
                                 trailing: 'Available 2/3',
                                 index: index)),

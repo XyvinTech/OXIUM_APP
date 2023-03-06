@@ -19,10 +19,22 @@ class NavigationScreenController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    MapFunctions()
+        .markers
+        .removeWhere((element) => element.markerId == MarkerId('myMarker'));
+    getArguments();
+    initMap();
+  }
 
+  getArguments() {
     directionsResult = Get.arguments[0];
     source = Get.arguments[1];
     destination = Get.arguments[2];
+    MapFunctions().directionsResult = directionsResult;
+    MapFunctions().steps.value = 0;
+  }
+
+  initMap() {
     MapFunctions().addCarMarker(MapFunctions().curPos!);
     Future.delayed(Duration(milliseconds: 1000), () {
       log('delayed');

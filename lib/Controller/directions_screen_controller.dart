@@ -19,20 +19,28 @@ class DirectionsScreenController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    getArguments();
+    initMap();
+  }
+
+  void getArguments() {
     directionsResult = Get.arguments[0];
     source = Get.arguments[1];
     destination = Get.arguments[2];
+  }
+
+  void initMap() {
+    MapFunctions()
+        .addMyPositionMarker(MapFunctions().curPos!, MapFunctions().markers);
     Future.delayed(Duration(milliseconds: 1000), () {
       log('delayed');
       log(MapFunctions().polylineString);
       MapFunctions().setMapFitToPolyline(
           MapFunctions().polylines, MapFunctions().dirMapController);
-      // MapFunctions().animatePolyline(MapFunctions().polylineString, reload);
     });
     distance = directionsResult.value.routes!.first.legs!.first.distance!.text!
         .replaceFirst('km', 'KMS');
     duration = directionsResult.value.routes!.first.legs!.first.duration!.text!;
-    //route_via = directionsResult.value.routes!.first.legs!.first.
     route_via = 'Adimali';
   }
 
@@ -40,6 +48,7 @@ class DirectionsScreenController extends GetxController {
   void onClose() {
     // TODO: implement onClose
     super.onClose();
+    MapFunctions().dirMapController.dispose();
     MapFunctions().timer?.cancel();
   }
 }

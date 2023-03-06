@@ -43,7 +43,9 @@ class QrScreen extends GetView<QrController> {
                           color: Colors.white,
                           size: 22,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Get.back();
+                        },
                       ),
                     ),
                     SizedBox(

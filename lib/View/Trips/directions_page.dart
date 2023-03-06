@@ -280,7 +280,7 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.toNamed(Routes.navigationPageRoute, arguments: [
+                    Get.offNamed(Routes.navigationPageRoute, arguments: [
                       controller.directionsResult,
                       controller.source,
                       controller.destination

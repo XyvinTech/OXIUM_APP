@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
@@ -8,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Controller/navigation_screen_controller.dart';
 import '../../Singletones/map_functions.dart';
+import '../../Utils/routes.dart';
 import '../../constants.dart';
 
 class NavigationScreen extends GetView<NavigationScreenController> {
@@ -122,14 +124,9 @@ class NavigationScreen extends GetView<NavigationScreenController> {
                       ),
                     ],
                   ),
-                  // (controller.chargingCardExpanded.value)
-                  //     ? height(size.height * .03)
-                  //     : Spacer(
-                  //         flex: 1,
-                  //       ),
                   Expanded(
-                    flex: 1,
                     child: ListView.builder(
+                        padding: EdgeInsets.only(top: 20.h),
                         itemCount:
                             !controller.chargingCardExpanded.value ? 1 : 20,
                         shrinkWrap: true,

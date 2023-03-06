@@ -315,13 +315,14 @@ class ChargeScreen extends GetView<ChargeScreenController> {
 
   // ignore: unused_element
   Widget _chargeTab() {
-    return Container(
-      // margin: EdgeInsets.symmetric(
-      //     horizontal: size.width * 0.05),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: () {
+            Get.toNamed(Routes.qrScanPageRoute);
+          },
+          child: Container(
             height: size.height * 0.12,
             width: size.width,
             decoration: BoxDecoration(
@@ -346,13 +347,14 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                         text: "Scan and Charge",
                         size: 17.sp,
                         color: kwhite,
+                        fontWeight: FontWeight.bold,
                       ),
                       SizedBox(
                         height: size.height * 0.017,
                       ),
                       CustomSmallText(
-                        text: "Scan and charge for awail neew",
-                        size: 11.sp,
+                        text: "Scan and charge to avail new",
+                        size: 10.sp,
                         color: kwhite,
                       ),
                       CustomSmallText(
@@ -370,19 +372,21 @@ class ChargeScreen extends GetView<ChargeScreenController> {
               ],
             ),
           ),
-          SizedBox(
-            height: size.height * 0.02,
-          ),
-          CustomBigText(
-            text: "Charging History",
-            fontWeight: FontWeight.w500,
-            size: 12.sp,
-            color: Color(0xff4F4F4F),
-          ),
-          SizedBox(
-            height: size.height * 0.025,
-          ),
-          Expanded(
+        ),
+        SizedBox(
+          height: size.height * 0.02,
+        ),
+        CustomBigText(
+          text: "Charging History",
+          fontWeight: FontWeight.w500,
+          size: 12.sp,
+          color: Color(0xff4F4F4F),
+        ),
+        SizedBox(
+          height: size.height * 0.025,
+        ),
+        Expanded(
+          child: Container(
             child: ListView.builder(
                 itemCount: 40,
                 // shrinkWrap: true,
@@ -409,9 +413,9 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                       },
                       child: _chargeHistoryCard());
                 }),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 
@@ -1399,6 +1403,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                   child: CustomSmallText(
                                 text: "Charge",
                                 size: 14,
+                                fontWeight: FontWeight.bold,
                                 color: kblue,
                               )),
                             ),
@@ -1416,6 +1421,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                               child: Center(
                                   child: CustomSmallText(
                                 text: "Reservations",
+                                fontWeight: FontWeight.bold,
                                 size: 14,
                                 color: kblue,
                               )),
@@ -1435,6 +1441,7 @@ class ChargeScreen extends GetView<ChargeScreenController> {
                                   child: CustomSmallText(
                                 text: "Trips",
                                 size: 14,
+                                fontWeight: FontWeight.bold,
                                 color: kblue,
                               )),
                             ),
