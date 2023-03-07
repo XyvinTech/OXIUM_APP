@@ -222,8 +222,8 @@ class WalletScreen extends GetView<WalletPageController> {
                                             Get.dialog(
                                               _dialougebox(
                                                 title: "Calista Cafe",
-                                                amount: "-500",
-                                                amountColor: Color(0xffEB5757),
+                                                amount: "+500 Cr",
+                                                amountColor: Color(0xff27AE60),
                                               ),
                                               // wallet credit dialogue
 
