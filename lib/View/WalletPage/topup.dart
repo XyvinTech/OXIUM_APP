@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:get/get.dart';
@@ -46,8 +47,10 @@ class PopUp extends StatelessWidget {
               height: size.height * 0.11,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  gradient: LinearGradient(
-                      colors: [Color(0xff414141), Color(0xff303030)])),
+                  gradient: LinearGradient(colors: [
+                    Color(0xff303030),
+                    Color(0xff414141),
+                  ])),
               child: Padding(
                 padding: EdgeInsets.only(
                   left: size.width * 0.04,
@@ -62,7 +65,7 @@ class PopUp extends StatelessWidget {
                       children: [
                         CustomSmallText(
                           text: "Blance Credits",
-                          size: 13,
+                          size: 13.sp,
                           color: Color(0xffBDBDBD),
                         ),
 
@@ -74,10 +77,23 @@ class PopUp extends StatelessWidget {
                         //     color: Color(0xff00FF83),
                         //   ),
                         // ),
-                        CustomBigText(
-                          text: "₹ 12556",
-                          size: 24,
-                          color: Color(0xff00FFB3),
+                        Row(
+                          children: [
+                            Text(
+                              "₹",
+                              style: TextStyle(
+                                  fontFamily: "Arial",
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xff00FFB3)),
+                            ),
+                            width(6.w),
+                            CustomBigText(
+                              text: "12556",
+                              size: 24,
+                              color: Color(0xff00FFB3),
+                            ),
+                          ],
                         )
                       ],
                     ),
@@ -175,12 +191,25 @@ class PopUp extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: size.height * 0.023),
-                  child: CustomSmallText(
-                    text: "₹ 2000",
-                    size: 20,
-                    letterspacing: -0.408,
-                    color: Color(0xff0047C3),
-                    fontWeight: FontWeight.w600,
+                  child: Row(
+                    children: [
+                      Text(
+                        "₹",
+                        style: TextStyle(
+                            fontFamily: "Arial",
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff0047C3)),
+                      ),
+                      width(4.w),
+                      CustomSmallText(
+                        text: "2000",
+                        size: 20,
+                        letterspacing: -0.408,
+                        color: Color(0xff0047C3),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
                   ),
                 )
               ],

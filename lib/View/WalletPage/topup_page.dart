@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/View/WalletPage/topup.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -56,9 +57,7 @@ class PopUpPage extends StatelessWidget {
               ),
               height(size.height * 0.02),
               InkWell(
-                onTap: () {
-                  Get.to(() => PopUp());
-                },
+                onTap: () {},
                 child: _topupCard(
                   title: "Normal top-up",
                   color: Color(0xffF2994A),
@@ -66,19 +65,17 @@ class PopUpPage extends StatelessWidget {
               ),
               height(size.height * 0.02),
               InkWell(
-                onTap: () {
-                  Get.to(() => PopUp());
-                },
+                onTap: () {},
                 child: _topupCard(
                   title: "Golden top-up",
                   color: Color(0xff2F80ED),
                   gradient: LinearGradient(
                     colors: [
-                      Color(0xffCEAE65),
-                      Color(0xffEEBC3D),
                       Color(0xffFAEDB6),
                       Color(0xffD2B269),
                       Color(0xffF0E6A8),
+                      Color(0xffCEAE65),
+                      Color(0xffEEBC3D),
                     ],
                   ),
                   textColor: Color(0xff4F4F4F),
@@ -86,9 +83,7 @@ class PopUpPage extends StatelessWidget {
               ),
               height(size.height * 0.02),
               InkWell(
-                onTap: () {
-                  Get.to(() => PopUp());
-                },
+                onTap: () {},
                 child: _topupCard(
                   title: "Platinum top-up",
                   color: Color(0xff2F80ED),
@@ -168,11 +163,24 @@ class PopUpPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: size.height * 0.023),
-                  child: CustomSmallText(
-                    text: "₹ 2000",
-                    size: 20,
-                    letterspacing: -0.408,
-                    color: Color(0xff0047C3),
+                  child: Row(
+                    children: [
+                      Text(
+                        "₹",
+                        style: TextStyle(
+                            fontFamily: "Arial",
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff0047C3)),
+                      ),
+                      width(4.w),
+                      CustomSmallText(
+                        text: "2000",
+                        size: 20,
+                        color: Color(0xff0047C3),
+                        fontWeight: FontWeight.w600,
+                      )
+                    ],
                   ),
                 )
               ],

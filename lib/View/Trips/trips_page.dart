@@ -43,7 +43,7 @@ class TripsScreen extends GetView<TripsScreenController> {
                         child: Column(
                           children: [
                             Container(
-                              height: size.height * 0.09,
+                              padding: EdgeInsets.symmetric(horizontal: 5.w),
                               width: size.width,
                               decoration: BoxDecoration(
                                 color: kwhite,
@@ -297,7 +297,7 @@ class TripsScreen extends GetView<TripsScreenController> {
                 ),
               ),
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(size.height * .11),
+                preferredSize: Size.fromHeight(size.height * .15),
                 child: Container(
                   color: kwhite,
                   child: Column(
@@ -357,6 +357,7 @@ class TripsScreen extends GetView<TripsScreenController> {
                           ],
                         ),
                       ),
+                      height(10.h)
                     ],
                   ),
                 ),
@@ -692,12 +693,10 @@ class TripsScreen extends GetView<TripsScreenController> {
 
   Widget _tripsCardExpanded() {
     return Container(
-      padding: EdgeInsets.only(
-        left: 20.w,
-        top: size.height * 0.013,
-        right: 20.w,
+      padding: EdgeInsets.symmetric(
+        horizontal: 20.w,
+        vertical: 15.h,
       ),
-      height: 330.h,
       width: size.width,
       decoration: BoxDecoration(
           color: kwhite,
@@ -886,7 +885,8 @@ class TripsScreen extends GetView<TripsScreenController> {
             ),
           ),
           height(size.height * 0.04),
-          _exploreTripButton(title: "Explore Trip", onTap: () {})
+          _exploreTripButton(title: "Explore Trip", onTap: () {}),
+          height(10.h),
         ],
       ),
     );

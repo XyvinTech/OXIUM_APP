@@ -83,6 +83,7 @@ class CustomSmallText extends StatelessWidget {
           textAlign: textAlign ?? null,
           minFontSize: 12,
           style: GoogleFonts.poppins(
+            
             decoration: decoration,
             letterSpacing: letterspacing ?? null,
             fontSize: size ?? 14.sp,
