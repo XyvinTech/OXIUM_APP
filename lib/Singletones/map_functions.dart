@@ -492,11 +492,12 @@ class MapFunctions {
     directionsResult.value.routes?.first.legs?.first.steps!.first.instructions;
     kLog(stepList!.length.toString());
     if (stepList != null && stepList!.isNotEmpty) {
-      if (areCoordinatesEqual(
-          curPos!.latitude,
-          curPos!.longitude,
-          stepList![steps.value].startLocation!.latitude,
-          stepList![steps.value].startLocation!.longitude)) {
+      if (steps.value == 0 ||
+          areCoordinatesEqual(
+              curPos!.latitude,
+              curPos!.longitude,
+              stepList![steps.value].startLocation!.latitude,
+              stepList![steps.value].startLocation!.longitude)) {
         //If it's the steps end then update the step card and push to next step
         stepDistance.value = stepList![steps.value].distance.value;
         steps++;
