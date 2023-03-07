@@ -18,9 +18,11 @@ class VehiclesScreenController extends GetxController {
   List vehiclesdata = [
     VehiclesModel(image: "assets/images/jeep.png", vehiclesName: "Jeep"),
     VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
-    VehiclesModel(image: "assets/images/jeep.png", vehiclesName: "Jeep"),
     VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
-    VehiclesModel(image: "assets/images/jeep.png", vehiclesName: "Jeep"),
+  ];
+  List vehiclesdata2 = [
+    VehiclesModel(image: "assets/images/jeeptext.png", vehiclesName: "Jeep"),
+    VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
     VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
   ];
 

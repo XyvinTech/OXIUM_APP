@@ -120,8 +120,8 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
               controller.isSelectedindex.value = -1;
             },
             child: Container(
-              height: 89,
-              width: 89,
+              height: 89.h,
+              width: 89.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(28),
                 color: kwhite,
@@ -138,7 +138,7 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
         ),
         Container(
           height: 95.h,
-          width: 275.w,
+          width: 272.w,
           child: ListView.builder(
             itemCount: controller.vehiclesdata.length,
             scrollDirection: Axis.horizontal,
@@ -172,8 +172,12 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                                 width: 48.w,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: AssetImage(
-                                        controller.vehiclesdata[index].image),
+                                    image: (controller.isSelectedindex == 0 &&
+                                            controller.isVisible.value == true)
+                                        ? AssetImage(controller
+                                            .vehiclesdata2[index].image)
+                                        : AssetImage(controller
+                                            .vehiclesdata[index].image),
                                   ),
                                 ),
                               ),
