@@ -18,6 +18,7 @@ class WelcomeToEvPage extends GetView<LoginPageController> {
     size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: kwhite,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(size.height * 0.09),
           child: CustomAppBar(),

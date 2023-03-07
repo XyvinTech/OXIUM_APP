@@ -20,6 +20,7 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
     size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: kwhite,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(size.height * 0.9),
           child: CustomAppBar(),
@@ -39,14 +40,11 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  left: size.width * 0.055,
-                  right: size.width * 0.055,
                   top: size.height * 0.020,
                 ),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
                         height: size.height * 0.06,
@@ -58,36 +56,38 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
                       SizedBox(
                         height: size.height * 0.02,
                       ),
-                      CustomSmallText(
-                        text: "Enter the OTP we just send to",
-                        size: 16,
-                      ),
                       SizedBox(
-                        height: size.height * 0.006,
+                        width: 250.w,
+                        child: CustomSmallText(
+                          text:
+                              "Enter the OTP we just send to verify your Number xxxxxxx701",
+                          size: 16,
+                        ),
                       ),
-                      CustomSmallText(
-                        text: "verify your Number xxxxxxx701",
-                        size: 16,
-                      ),
+
                       SizedBox(
                         height: size.height * 0.04,
                       ),
-                      PinCodeTextField(
-                          appContext: context,
-                          length: 5,
-                          pinTheme: PinTheme(
-                            fieldHeight: 80.h,
-                            fieldWidth: 59.w,
-                            shape: PinCodeFieldShape.box,
-                            borderRadius: BorderRadius.circular(38.r),
-                            borderWidth: 1.5,
-                            selectedFillColor: Color.fromARGB(255, 65, 65, 65),
-                            inactiveColor: Color(0xffE0E0E0),
-                            activeColor: Color(0xff0047C3).withOpacity(0.6),
-                          ),
-                          onChanged: (valu) {
-                            print(valu);
-                          }),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: PinCodeTextField(
+                            appContext: context,
+                            length: 5,
+                            pinTheme: PinTheme(
+                              fieldHeight: 80.h,
+                              fieldWidth: 59.w,
+                              shape: PinCodeFieldShape.box,
+                              borderRadius: BorderRadius.circular(38.r),
+                              borderWidth: 1.5,
+                              selectedFillColor:
+                                  Color.fromARGB(255, 65, 65, 65),
+                              inactiveColor: Color(0xffE0E0E0),
+                              activeColor: Color(0xff0047C3).withOpacity(0.6),
+                            ),
+                            onChanged: (valu) {
+                              print(valu);
+                            }),
+                      ),
                       // Wrap(
                       //   children: List.generate(
                       //     5,
@@ -136,10 +136,10 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
                       //   ),
                       // ),
                       SizedBox(
-                        height: 30,
+                        height: 20.h,
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -158,11 +158,14 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
                         ),
                       ),
                       height(size.height * 0.3),
-                      AppButton(
-                        text: "Verify Number",
-                        onTap: () {
-                          Get.toNamed(Routes.welcometoevRoute);
-                        },
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: AppButton(
+                          text: "Verify Number",
+                          onTap: () {
+                            Get.toNamed(Routes.welcometoevRoute);
+                          },
+                        ),
                       ),
                     ],
                   ),
