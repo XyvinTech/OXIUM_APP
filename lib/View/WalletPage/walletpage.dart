@@ -225,16 +225,18 @@ class WalletScreen extends GetView<WalletPageController> {
                                                 amount: "+500 Cr",
                                                 amountColor: Color(0xff27AE60),
                                               ),
-                                              // wallet credit dialogue
+                                      
+                                            );
+
+                                             // wallet loss credit dialogue
 
                                               //            Get.dialog(
                                               //   _dialougebox(
                                               //     title: "Wallet Credit",
-                                              //     amount: "+500 Cr",
-                                              //     amountColor: Color(0xff27AE60),
+                                              //     amount: "-500 Cr",
+                                              //     amountColor: Color(0xffEB5757),
                                               //   ),
                                               // );
-                                            );
                                           },
                                           child: _creditCard(
                                               title: "Calista Cafe",

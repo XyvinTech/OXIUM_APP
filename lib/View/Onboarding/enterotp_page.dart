@@ -10,6 +10,7 @@ import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:linear_progress_bar/linear_progress_bar.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class EnterOtpPage extends GetView<OtpNumberPageController> {
   const EnterOtpPage({Key? key}) : super(key: key);
@@ -71,53 +72,69 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
                       SizedBox(
                         height: size.height * 0.04,
                       ),
-                      Wrap(
-                        children: List.generate(
-                          5,
-                          (index) => InkWell(
-                            onTap: () {},
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                  left: size.width * 0.0125,
-                                  right: size.width * 0.0125),
-                              height: size.height * 0.1,
-                              // width: size.width / 6.53,
-                              width: size.width * .15,
-
-                              decoration: BoxDecoration(
-                                color: kwhite,
-                                borderRadius: BorderRadius.circular(48),
-                                border: Border.all(
-                                  width: 2,
-                                  color: Color(0xffE0E0E0),
-                                ),
-                              ),
-                              child: Center(
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    LengthLimitingTextInputFormatter(1),
-                                    FilteringTextInputFormatter.digitsOnly,
-                                  ],
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                    // contentPadding:
-                                    //     EdgeInsets.only(left: size.width * 0.0175),
-                                    border: InputBorder.none,
-                                  ),
-                                  onChanged: (Value) {
-                                    if (Value.length == 1) {
-                                      FocusScope.of(context).nextFocus();
-                                    } else {
-                                      FocusScope.of(context).previousFocus();
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
+                      PinCodeTextField(
+                          appContext: context,
+                          length: 5,
+                          pinTheme: PinTheme(
+                            fieldHeight: 80.h,
+                            fieldWidth: 59.w,
+                            shape: PinCodeFieldShape.box,
+                            borderRadius: BorderRadius.circular(38.r),
+                            borderWidth: 1.5,
+                            selectedFillColor: Color.fromARGB(255, 65, 65, 65),
+                            inactiveColor: Color(0xffE0E0E0),
+                            activeColor: Color(0xff0047C3).withOpacity(0.6),
                           ),
-                        ),
-                      ),
+                          onChanged: (valu) {
+                            print(valu);
+                          }),
+                      // Wrap(
+                      //   children: List.generate(
+                      //     5,
+                      //     (index) => InkWell(
+                      //       onTap: () {},
+                      //       child: Container(
+                      //         margin: EdgeInsets.only(
+                      //             left: size.width * 0.0125,
+                      //             right: size.width * 0.0125),
+                      //         height: size.height * 0.1,
+                      //         // width: size.width / 6.53,
+                      //         width: size.width * .15,
+
+                      //         decoration: BoxDecoration(
+                      //           color: kwhite,
+                      //           borderRadius: BorderRadius.circular(48),
+                      //           border: Border.all(
+                      //             width: 2,
+                      //             color: Color(0xffE0E0E0),
+                      //           ),
+                      //         ),
+                      //         child: Center(
+                      //           child: TextFormField(
+                      //             keyboardType: TextInputType.number,
+                      //             inputFormatters: [
+                      //               LengthLimitingTextInputFormatter(1),
+                      //               FilteringTextInputFormatter.digitsOnly,
+                      //             ],
+                      //             textAlign: TextAlign.center,
+                      //             decoration: InputDecoration(
+                      //               // contentPadding:
+                      //               //     EdgeInsets.only(left: size.width * 0.0175),
+                      //               border: InputBorder.none,
+                      //             ),
+                      //             onChanged: (Value) {
+                      //               if (Value.length == 1) {
+                      //                 FocusScope.of(context).nextFocus();
+                      //               } else {
+                      //                 FocusScope.of(context).previousFocus();
+                      //               }
+                      //             },
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 30,
                       ),
