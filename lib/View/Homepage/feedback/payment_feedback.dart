@@ -96,21 +96,45 @@ class PaymentFeedbackScreen extends GetView<FeedBackPageController> {
                     children: [
                       height(20.h),
                       Obx(
-                        () => DropdownButton<String>(
-                          value: controller.selectName.value,
-                          items: controller.selected
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              child: Text(value),
-                              value: value,
-                            );
-                          }).toList(),
-                          icon: SvgPicture.asset(
-                              "assets/svg/arrow_downward_ios.svg"),
-                          onChanged: (String? val) {
-                            controller.selectName.value = val.toString();
-                          },
-                          borderRadius: BorderRadius.circular(20.r),
+                        () => Container(
+                          width: 293.w,
+                          height: 54.h,
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //       offset: Offset(0, 4),
+                              //       color: Color(0xff000000).withOpacity(0.12),
+                              //       blurRadius: 21)
+                              // ],
+                              border: Border.all(
+                                  width: 1.w, color: Color(0xffBDBDBD))),
+                          child: DropdownButton<String>(
+                            value: controller.selectName.value,
+                            style: GoogleFonts.poppins(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xff4F4F4F),
+                            ),
+                            dropdownColor: kwhite,
+                            isExpanded: true,
+                            elevation: 0,
+                            underline: SizedBox(),
+                            items: controller.selected
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                child: Text(value),
+                                value: value,
+                              );
+                            }).toList(),
+                            icon: SvgPicture.asset(
+                                "assets/svg/arrow_downward_ios.svg"),
+                            onChanged: (String? val) {
+                              controller.selectName.value = val.toString();
+                            },
+                            borderRadius: BorderRadius.circular(20.r),
+                          ),
                         ),
                       ),
                       height(20.h),

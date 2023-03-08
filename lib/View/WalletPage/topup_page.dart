@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freelancer_app/View/WalletPage/topup.dart';
+import 'package:freelancer_app/View/WalletPage/golden_top_up.dart';
+import 'package:freelancer_app/View/WalletPage/mini_top_up.dart';
+import 'package:freelancer_app/View/WalletPage/normal_top_up.dart';
+import 'package:freelancer_app/View/WalletPage/platinum_top_up.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -57,7 +60,9 @@ class PopUpPage extends StatelessWidget {
               ),
               height(size.height * 0.02),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(NormalTopUp());
+                },
                 child: _topupCard(
                   title: "Normal top-up",
                   color: Color(0xffF2994A),
@@ -65,7 +70,9 @@ class PopUpPage extends StatelessWidget {
               ),
               height(size.height * 0.02),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(GoldenTopUP());
+                },
                 child: _topupCard(
                   title: "Golden top-up",
                   color: Color(0xff2F80ED),
@@ -83,7 +90,9 @@ class PopUpPage extends StatelessWidget {
               ),
               height(size.height * 0.02),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(PlatinumTopUp());
+                },
                 child: _topupCard(
                   title: "Platinum top-up",
                   color: Color(0xff2F80ED),

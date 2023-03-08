@@ -66,7 +66,6 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
                         items: controller.carouselImage
                             .map(
                               (img) => Container(
-                                padding: EdgeInsets.symmetric(horizontal: 37.w),
                                 // height: size.height * 0.25,
                                 // height: 300.h,
                                 // width: size.width * 0.8,
@@ -87,13 +86,13 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
                                     ),
                                   ],
                                 ),
-                                child: Column(children: [
-                                  Expanded(child: Container()),
-                                  Row(
+                                child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Expanded(
+                                      Expanded(child: Container()),
+                                      SizedBox(
+                                        width: 230.w,
                                         child: CustomBigText(
                                           text: controller.carouselText[
                                               controller.currentIndex.toInt()],
@@ -102,12 +101,10 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
                                           align: TextAlign.center,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 15.h,
-                                  ),
-                                ]),
+                                      SizedBox(
+                                        height: 15.h,
+                                      ),
+                                    ]),
                               ),
                             )
                             .toList(),
