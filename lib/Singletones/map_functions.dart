@@ -148,15 +148,11 @@ class MapFunctions {
     if ((await checkLocationPermission()))
       mapStream = await Geolocator.getPositionStream().listen((event) async {
         // await animateToNewPosition(LatLng(event.latitude, event.longitude));
-        if (curPos == null)
-          ;
-        else if (event.latitude == curPos!.latitude &&
-            event.longitude == curPos!.longitude) return;
-        // kLog(event.heading.toString());
-
-        if (curPos != null)
-          heading = bearingBetween(curPos!.latitude, curPos!.longitude,
-              event.latitude, event.longitude);
+        if (curPos == null ||
+            event.latitude == curPos!.latitude &&
+                event.longitude == curPos!.longitude) return;
+        heading = bearingBetween(curPos!.latitude, curPos!.longitude,
+            event.latitude, event.longitude);
         kLog(heading.toString());
         curPos = event;
 
@@ -167,11 +163,7 @@ class MapFunctions {
         addMyPositionMarker(event, markers_homepage);
         reload++;
         if (Get.currentRoute == Routes.navigationPageRoute) {
-          dirMapController.animateCamera(CameraUpdate.newCameraPosition(
-              CameraPosition(
-                  target: LatLng(event.latitude, event.longitude),
-                  zoom: zoom,
-                  bearing: heading)));
+          animateForNavigation(event);
         } else {
           controller.animateCamera(CameraUpdate.newCameraPosition(
               CameraPosition(
@@ -204,9 +196,10 @@ class MapFunctions {
         anchor: Offset(.5, .5)));
   }
 
-  Future<void> animateToNewPosition(LatLng latLng, {double? newZoom}) async {
+  Future<void> animateToNewPosition(LatLng latLng,
+      {double? newZoom, double bearing = 0}) async {
     await controller.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(target: latLng, zoom: newZoom ?? zoom),
+      CameraPosition(target: latLng, zoom: newZoom ?? zoom, bearing: bearing),
     ));
   }
 
@@ -228,7 +221,7 @@ class MapFunctions {
         if (point.longitude > maxLong) maxLong = point.longitude;
       });
     });
-    controller.moveCamera(CameraUpdate.newLatLngBounds(
+    await controller.moveCamera(CameraUpdate.newLatLngBounds(
         LatLngBounds(
             southwest: LatLng(minLat, minLong),
             northeast: LatLng(maxLat, maxLong)),
@@ -237,7 +230,7 @@ class MapFunctions {
     var leg = directionsResult.value.routes!.first.legs!.first;
     controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng((minLat + maxLat) / 2, (minLong + maxLong) / 2),
-        zoom: zoom - .11,
+        zoom: zoom - .5,
         bearing: bearingBetween(
                 leg.startLocation!.latitude,
                 leg.startLocation!.longitude,
@@ -396,6 +389,7 @@ class MapFunctions {
 
           polylineString = response.routes!.first.overviewPolyline!.points!;
           finalResponse = response;
+          MapFunctions().directionsResult.value = response;
           // animatePolyline(response.routes!.first.overviewPolyline!.points!);
         } else {
           // do something with error response
@@ -481,7 +475,7 @@ class MapFunctions {
   static bool areCoordinatesEqual(
       double lat1, double lon1, double lat2, double lon2) {
     double distance = distanceBetweenCoordinates(lat1, lon1, lat2, lon2);
-    double threshold = 200; // in meters, adjust as necessary
+    double threshold = 150; // in meters, adjust as necessary
     return distance < threshold;
   }
 
@@ -510,7 +504,7 @@ class MapFunctions {
 
         int sum = 0;
         int? val;
-        kLog('length of  steps');
+        kLog('length of  steps ${stepList!.length}');
         for (int i = steps.value; i < stepList!.length; i++) {
           kLog('step: $i');
           kLog(stepList![i].instructions.toString());
@@ -534,5 +528,14 @@ class MapFunctions {
     var theta = atan2(sin(deltaTheta) * cos(phi2),
         cos(phi1) * sin(phi2) - sin(phi1) * cos(phi2) * cos(deltaTheta));
     return (theta * 180.0 / pi);
+  }
+
+  animateForNavigation(Position event) {
+    dirMapController.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+          target: LatLng(event.latitude, event.longitude),
+          zoom: 16,
+          bearing: heading),
+    ));
   }
 }
