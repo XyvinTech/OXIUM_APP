@@ -161,6 +161,10 @@ class MapScreen extends GetView<HomePageController> {
                         ]),
                     child: InkWell(
                       onTap: () async {
+                        if (MapFunctions().curPos == null) {
+                          var res = await MapFunctions().getCurrentPosition();
+                          if (res != null) MapFunctions().curPos = res;
+                        }
                         MapFunctions().animateToNewPosition(LatLng(
                             MapFunctions().curPos!.latitude,
                             MapFunctions().curPos!.longitude));

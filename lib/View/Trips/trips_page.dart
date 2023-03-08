@@ -692,202 +692,205 @@ class TripsScreen extends GetView<TripsScreenController> {
   }
 
   Widget _tripsCardExpanded() {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 20.w,
-        vertical: 15.h,
-      ),
-      width: size.width,
-      decoration: BoxDecoration(
-          color: kwhite,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 4),
-              spreadRadius: 0,
-              blurRadius: 21,
-              color: Color(0xff000000).withOpacity(0.12),
-            )
-          ]),
-      child: Column(
-        children: [
-          ExpandableButton(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              "assets/images/conversion.png",
-                              height: size.height * 0.02,
-                              width: size.width * 0.03,
-                            ),
-                            SizedBox(
-                              width: size.width * 0.015,
-                            ),
-                            CustomSmallText(text: "Trip 01"),
-                            SizedBox(
-                              width: size.width * 0.018,
-                            ),
-                            Container(
-                              height: size.height * 0.025,
-                              width: size.width * 0.18,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xff9B51E0).withOpacity(0.10),
+    return Padding(
+      padding: EdgeInsets.all(8.w),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 20.w,
+          vertical: 15.h,
+        ),
+        width: size.width,
+        decoration: BoxDecoration(
+            color: kwhite,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 4),
+                spreadRadius: 0,
+                blurRadius: 21,
+                color: Color(0xff000000).withOpacity(0.12),
+              )
+            ]),
+        child: Column(
+          children: [
+            ExpandableButton(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                "assets/images/conversion.png",
+                                height: size.height * 0.02,
+                                width: size.width * 0.03,
                               ),
-                              child: Center(
-                                child: CustomBigText(
-                                  text: "Finished",
-                                  size: 12,
-                                  color: Color(0xff9B51E0),
-                                  fontWeight: FontWeight.w500,
+                              SizedBox(
+                                width: size.width * 0.015,
+                              ),
+                              CustomSmallText(text: "Trip 01"),
+                              SizedBox(
+                                width: size.width * 0.018,
+                              ),
+                              Container(
+                                height: size.height * 0.025,
+                                width: size.width * 0.18,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color(0xff9B51E0).withOpacity(0.10),
+                                ),
+                                child: Center(
+                                  child: CustomBigText(
+                                    text: "Finished",
+                                    size: 12,
+                                    color: Color(0xff9B51E0),
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: size.height * 0.01,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.calendar_month,
-                              size: size.height * 0.017,
-                              color: Color(0xff828282),
-                            ),
-                            SizedBox(
-                              width: size.width * 0.015,
-                            ),
-                            //calender
-                            CustomSmallText(
-                              text: "12 Jun 2022",
-                              size: 12,
-                            ),
-                          ],
-                        )
-                      ],
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.calendar_month,
+                                size: size.height * 0.017,
+                                color: Color(0xff828282),
+                              ),
+                              SizedBox(
+                                width: size.width * 0.015,
+                              ),
+                              //calender
+                              CustomSmallText(
+                                text: "12 Jun 2022",
+                                size: 12,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 5.h),
-                    child: SvgPicture.asset("assets/svg/arrow_up_ios.svg"),
-                  )
-                ],
+                    Padding(
+                      padding: EdgeInsets.only(top: 5.h),
+                      child: SvgPicture.asset("assets/svg/arrow_up_ios.svg"),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          height(size.height * 0.01),
-          Container(
-            height: size.height * 0.002,
-            width: size.width,
-            color: Color(0xffE0E0E0),
-          ),
-          height(size.height * 0.02),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
+            height(size.height * 0.01),
+            Container(
+              height: size.height * 0.002,
+              width: size.width,
+              color: Color(0xffE0E0E0),
+            ),
+            height(size.height * 0.02),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    SvgPicture.asset("assets/svg/ev_charger.svg"),
+                    width(size.width * 0.015),
+                    CustomBigText(
+                      ontap: () {},
+                      text: "Reservation",
+                      size: 13.sp,
+                      color: Color(
+                        0xff0047C3,
+                      ),
+                      letterspacing: -0.408,
+                    )
+                  ],
+                ),
+                CustomSmallText(
+                  text: "324 KMS",
+                  size: 13.sp,
+                )
+              ],
+            ),
+            height(size.height * 0.02),
+            Padding(
+              padding: EdgeInsets.only(left: size.width * 0.008),
+              child: Row(
                 children: [
-                  SvgPicture.asset("assets/svg/ev_charger.svg"),
+                  SvgPicture.asset("assets/svg/adjust1.svg"),
                   width(size.width * 0.015),
-                  CustomBigText(
-                    ontap: () {},
-                    text: "Reservation",
+                  CustomSmallText(
+                    text: "Starting Point",
                     size: 13.sp,
-                    color: Color(
-                      0xff0047C3,
-                    ),
                     letterspacing: -0.408,
                   )
                 ],
               ),
-              CustomSmallText(
-                text: "324 KMS",
-                size: 13.sp,
-              )
-            ],
-          ),
-          height(size.height * 0.02),
-          Padding(
-            padding: EdgeInsets.only(left: size.width * 0.008),
-            child: Row(
-              children: [
-                SvgPicture.asset("assets/svg/adjust1.svg"),
-                width(size.width * 0.015),
-                CustomSmallText(
-                  text: "Starting Point",
-                  size: 13.sp,
-                  letterspacing: -0.408,
-                )
-              ],
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: size.width * 0.017),
-            child: Row(
-              children: [
-                SvgPicture.asset("assets/svg/line.svg"),
-                width(size.width * 0.03),
-                Padding(
-                  padding: EdgeInsets.only(bottom: size.height * 0.02),
-                  child: CustomBigText(
+            Padding(
+              padding: EdgeInsets.only(left: size.width * 0.017),
+              child: Row(
+                children: [
+                  SvgPicture.asset("assets/svg/line.svg"),
+                  width(size.width * 0.03),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: size.height * 0.02),
+                    child: CustomBigText(
+                      text: "S4 Bt , Elam Street , Jarkhand",
+                      size: 14,
+                      color: Color(0xff4F4F4F),
+                      letterspacing: -0.408,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: size.width * 0.008),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: size.height * 0.001),
+                    child: SvgPicture.asset(
+                      "assets/svg/location_on1.svg",
+                    ),
+                  ),
+                  width(size.width * 0.015),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 1.h),
+                    child: CustomSmallText(
+                      text: "Ending Point",
+                      size: 13.sp,
+                      letterspacing: -0.408,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            height(size.height * 0.004),
+            Padding(
+              padding: EdgeInsets.only(left: size.width * 0.05),
+              child: Row(
+                children: [
+                  CustomBigText(
                     text: "S4 Bt , Elam Street , Jarkhand",
                     size: 14,
                     color: Color(0xff4F4F4F),
                     letterspacing: -0.408,
                   ),
-                )
-              ],
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: size.width * 0.008),
-            child: Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.001),
-                  child: SvgPicture.asset(
-                    "assets/svg/location_on1.svg",
-                  ),
-                ),
-                width(size.width * 0.015),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 1.h),
-                  child: CustomSmallText(
-                    text: "Ending Point",
-                    size: 13.sp,
-                    letterspacing: -0.408,
-                  ),
-                )
-              ],
-            ),
-          ),
-          height(size.height * 0.004),
-          Padding(
-            padding: EdgeInsets.only(left: size.width * 0.05),
-            child: Row(
-              children: [
-                CustomBigText(
-                  text: "S4 Bt , Elam Street , Jarkhand",
-                  size: 14,
-                  color: Color(0xff4F4F4F),
-                  letterspacing: -0.408,
-                ),
-              ],
-            ),
-          ),
-          height(size.height * 0.04),
-          _exploreTripButton(title: "Explore Trip", onTap: () {}),
-          height(10.h),
-        ],
+            height(size.height * 0.04),
+            _exploreTripButton(title: "Explore Trip", onTap: () {}),
+            height(10.h),
+          ],
+        ),
       ),
     );
   }

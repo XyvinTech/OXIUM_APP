@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -47,6 +49,9 @@ class NavigationScreen extends GetView<NavigationScreenController> {
                       // MapFunctions().setMapFitToPolyline(
                       //     MapFunctions().polylines,
                       //     MapFunctions().dirMapController);
+                      MapFunctions()
+                          .animateForNavigation(MapFunctions().curPos!);
+                      log(MapFunctions().curPos.toString());
                       // MapFunctions().addMarkerHomePage(
                       //     name: value.latitude.toString(),
                       //     latLng: value,
@@ -208,17 +213,18 @@ class NavigationScreen extends GetView<NavigationScreenController> {
               () => Text(
                 'After ${MapFunctions().stepDistance.value} m',
                 style: GoogleFonts.inter(
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: FontWeight.w500,
                   color: Colors.white.withOpacity(.6),
                 ),
               ),
             ),
+            height(3.h),
             Obx(
               () => Text(
                 MapFunctions().maneuverText.value,
                 style: GoogleFonts.inter(
-                  fontSize: 16,
+                  fontSize: 17,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
                 ),
@@ -253,12 +259,14 @@ class NavigationScreen extends GetView<NavigationScreenController> {
                 color: Color(0xffAAAAAA),
               ),
             ),
-            Text(
-              '${MapFunctions().awayDistance.value / 1000.0} km Away',
-              style: GoogleFonts.inter(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff5c5c5c),
+            Obx(
+              () => Text(
+                '${MapFunctions().awayDistance.value / 1000.0} km Away',
+                style: GoogleFonts.inter(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff5c5c5c),
+                ),
               ),
             )
           ],
