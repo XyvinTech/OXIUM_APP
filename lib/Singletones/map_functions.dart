@@ -510,7 +510,8 @@ class MapFunctions {
 
         int sum = 0;
         int? val;
-        for (int i = steps.value - 1; i < stepList!.length; i++) {
+        kLog('length of  steps');
+        for (int i = steps.value; i < stepList!.length; i++) {
           kLog('step: $i');
           kLog(stepList![i].instructions.toString());
           val = stepList![i].distance.value;
