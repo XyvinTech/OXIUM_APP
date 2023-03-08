@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:get/get.dart';
 
 class PartnerPageController extends GetxController {
@@ -10,6 +11,7 @@ class PartnerPageController extends GetxController {
   RxString countryName = "Country".obs;
   RxString textfield = "".obs;
   RxInt reload = 0.obs;
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
@@ -29,9 +31,11 @@ class PartnerPageController extends GetxController {
     "assets/images/carousel2.png",
     "assets/images/carousel3.png",
   ].obs;
+
+  var data = loadJsonFromAsset("assets/city_state.json");
+
   @override
-  void onInit() {
-    // TODO: implement onInit
+  void onInit() async {
     super.onInit();
   }
 }

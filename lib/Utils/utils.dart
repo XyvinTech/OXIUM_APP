@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:validators/validators.dart';
 
 import '../Singletones/app_data.dart';
@@ -49,3 +52,10 @@ extension TitleCase on String {
     return capitalizedWords.join(' ');
   }
 }
+
+
+  Future<Map<String, dynamic>> loadJsonFromAsset(String path) async {   
+     String jsonString = await rootBundle.loadString(path);
+    return json.decode(jsonString); 
+    
+     }
