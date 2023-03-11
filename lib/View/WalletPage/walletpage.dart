@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
@@ -28,6 +29,7 @@ class WalletScreen extends GetView<WalletPageController> {
                   background: Column(
                     children: [
                       Stack(
+                        alignment: Alignment.center,
                         children: [
                           Container(
                             height: size.height * 0.58,
@@ -129,8 +131,9 @@ class WalletScreen extends GetView<WalletPageController> {
                             ),
                           ),
                           Positioned(
-                            bottom: size.height * 0.025,
-                            left: size.width * 0.04,
+                            bottom: size.height * 0.083,
+                            left: size.width * .02,
+                            right: size.width * .02,
                             child: InkWell(
                               onTap: () {
                                 Get.to(() => PopUpPage());
@@ -144,16 +147,16 @@ class WalletScreen extends GetView<WalletPageController> {
                                   textColor: Color(0xff00FFB3)),
                             ),
                           ),
-                          Positioned(
-                            bottom: size.height * 0.025,
-                            right: size.width * 0.04,
-                            child: _walletCard(
-                                title: "Scan Code",
-                                assets: "assets/svg/qr_code.svg",
-                                color: kwhite,
-                                shadowColor: Color(0xff000000).withOpacity(.06),
-                                textColor: Color(0xff0047C3)),
-                          ),
+                          // Positioned(
+                          //   bottom: size.height * 0.025,
+                          //   right: size.width * 0.04,
+                          //   child: _walletCard(
+                          //       title: "Scan Code",
+                          //       assets: "assets/svg/qr_code.svg",
+                          //       color: kwhite,
+                          //       shadowColor: Color(0xff000000).withOpacity(.06),
+                          //       textColor: Color(0xff0047C3)),
+                          // ),
                         ],
                       ),
                     ],
@@ -225,18 +228,17 @@ class WalletScreen extends GetView<WalletPageController> {
                                                 amount: "+500 Cr",
                                                 amountColor: Color(0xff27AE60),
                                               ),
-                                      
                                             );
 
-                                             // wallet loss credit dialogue
+                                            // wallet loss credit dialogue
 
-                                              //            Get.dialog(
-                                              //   _dialougebox(
-                                              //     title: "Wallet Credit",
-                                              //     amount: "-500 Cr",
-                                              //     amountColor: Color(0xffEB5757),
-                                              //   ),
-                                              // );
+                                            //            Get.dialog(
+                                            //   _dialougebox(
+                                            //     title: "Wallet Credit",
+                                            //     amount: "-500 Cr",
+                                            //     amountColor: Color(0xffEB5757),
+                                            //   ),
+                                            // );
                                           },
                                           child: _creditCard(
                                               title: "Calista Cafe",
@@ -267,11 +269,11 @@ class WalletScreen extends GetView<WalletPageController> {
       required Color shadowColor,
       required Color textColor}) {
     return Container(
-      height: size.height * 0.2,
+      height: size.height * 0.08,
       width: size.width * 0.4,
       decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(19),
+          borderRadius: BorderRadius.circular(40),
           boxShadow: [
             BoxShadow(
               offset: Offset(0, 4),
@@ -280,12 +282,15 @@ class WalletScreen extends GetView<WalletPageController> {
               color: shadowColor,
             ),
           ]),
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(assets),
-          height(size.height * 0.01),
+          SvgPicture.asset(
+            assets,
+            width: 30.h,
+          ),
+          width(size.width * 0.025),
           CustomBigText(
             text: title,
             size: 14,
