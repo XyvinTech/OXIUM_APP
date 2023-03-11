@@ -169,6 +169,37 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: size.width * .04, vertical: size.height * .02),
+            child: InkWell(
+              onTap: () {
+                Get.back();
+                Get.toNamed(Routes.partnerPageRoute);
+              },
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/svg/favorite.svg',
+                    width: 24.sp,
+                    color: Color(0xff4f4f4f),
+                  ),
+                  width(size.width * .04),
+                  CustomText(
+                    text: 'Favourites',
+                    color: Color(0xff4F4F4F),
+                    size: 15.sp,
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 15,
+                  ),
+                ],
+              ),
+            ),
+          ),
           // height(size.height * .05),
           Padding(
             padding: EdgeInsets.symmetric(

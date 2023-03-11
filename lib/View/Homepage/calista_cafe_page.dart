@@ -173,17 +173,17 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                           Container(
                             height: size.height * .04,
                             padding: EdgeInsets.symmetric(
-                                horizontal: size.width * .035),
+                                horizontal: size.width * .075),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Color(0xff219653)),
+                                color: Color(0xff2F80ED)),
                             child: Row(
                               children: [
-                                SvgPicture.asset('assets/svg/tick.svg'),
+                                SvgPicture.asset('assets/svg/direction.svg'),
                                 width(size.width * .01),
                                 CustomText(
-                                    text: 'Charges Available',
+                                    text: 'Directions',
                                     size: 14,
                                     fontWeight: FontWeight.bold,
                                     color: Color(0xffF2F2F2)),
@@ -203,18 +203,18 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                         Border.all(color: Color(0xffBDBDBD))),
                                 child: SvgPicture.asset('assets/svg/share.svg'),
                               ),
-                              Container(
-                                alignment: Alignment.center,
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: size.width * .01),
-                                padding: EdgeInsets.all(size.width * .02),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Color(0xffBDBDBD))),
-                                child:
-                                    SvgPicture.asset('assets/svg/telegram.svg'),
-                              ),
+                              // Container(
+                              //   alignment: Alignment.center,
+                              //   margin: EdgeInsets.symmetric(
+                              //       horizontal: size.width * .01),
+                              //   padding: EdgeInsets.all(size.width * .02),
+                              //   decoration: BoxDecoration(
+                              //       shape: BoxShape.circle,
+                              //       border:
+                              //           Border.all(color: Color(0xffBDBDBD))),
+                              //   child:
+                              //       SvgPicture.asset('assets/svg/telegram.svg'),
+                              // ),
                               Container(
                                 alignment: Alignment.center,
                                 margin: EdgeInsets.symmetric(
@@ -346,7 +346,19 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                     ],
                   ),
                 ),
-                height(size.height * .03),
+                height(size.height * .04),
+                InkWell(
+                  onTap: () {
+                    //TODO: open review write dialog
+                  },
+                  child: Text('Write Review',
+                      style: GoogleFonts.poppins(
+                          color: Color(0xff0047C3),
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.underline)),
+                ),
+                height(size.height * .02),
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: 4,
