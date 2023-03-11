@@ -58,7 +58,6 @@ class PartnerPageController extends GetxController {
     data[selectedState].forEach((element) {
       if (element == null || element.isEmpty) return;
       list.add(element.toString());
-      print(element);
     });
     selectedCity = null;
     stateCitys.value = list.toSet().toList();

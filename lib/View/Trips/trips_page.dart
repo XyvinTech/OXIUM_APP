@@ -888,7 +888,11 @@ class TripsScreen extends GetView<TripsScreenController> {
               ),
             ),
             height(size.height * 0.04),
-            _exploreTripButton(title: "Explore Trip", onTap: () {}),
+            _exploreTripButton(
+                title: "Explore Trip",
+                onTap: () {
+                  Get.toNamed(Routes.exploreTripPageRoute);
+                }),
             height(10.h),
           ],
         ),

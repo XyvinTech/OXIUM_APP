@@ -49,6 +49,7 @@ class Routes {
   static String searchPlacesPageRoute = '/searchplaces';
   static String directionsPageRoute = '/directions';
   static String navigationPageRoute = '/navigation';
+  static String exploreTripPageRoute = '/exploretrip';
   //
   //
   //

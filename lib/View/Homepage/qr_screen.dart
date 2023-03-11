@@ -116,26 +116,26 @@ class QrScreen extends GetView<QrController> {
             onChanged: (valu) {
               print(valu);
             }),
-        SizedBox(
-          height: 15.h,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomSmallText(
-              text: "Time remining is ${controller.otpTimer.toString()}s",
-              size: 12.sp,
-              color: Color(0xff828282),
-              ontap: () {},
-            ),
-            CustomSmallText(
-              text: "Resend OTP",
-              size: 14.sp,
-              color: Color(0xff0047C3),
-              ontap: () {},
-            )
-          ],
-        ),
+        // SizedBox(
+        //   height: 15.h,
+        // ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     CustomSmallText(
+        //       text: "Time remining is ${controller.otpTimer.toString()}s",
+        //       size: 12.sp,
+        //       color: Color(0xff828282),
+        //       ontap: () {},
+        //     ),
+        //     CustomSmallText(
+        //       text: "Resend OTP",
+        //       size: 14.sp,
+        //       color: Color(0xff0047C3),
+        //       ontap: () {},
+        //     )
+        //   ],
+        // ),
         SizedBox(
           height: 28.h,
         ),
