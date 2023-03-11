@@ -7,6 +7,7 @@ import 'package:freelancer_app/Controller/editprofile_screen_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../Controller/partner_page_controller.dart';
 
@@ -128,8 +129,10 @@ class PhoneNumberTextField2 extends GetView<PartnerPageController> {
         ),
         decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: TextStyle(
-              color: Colors.grey,
+            hintStyle: GoogleFonts.poppins(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.normal,
+              color: Color.fromARGB(255, 155, 154, 154),
             ),
             isDense: true,
             contentPadding: EdgeInsets.only(left: 0.w, bottom: 34),

@@ -334,37 +334,102 @@ class PartnerScreen extends GetView<PartnerPageController> {
                         Padding(
                             padding: EdgeInsets.symmetric(horizontal: 40.h),
                             child: Obx(
-                              () => CountryPickerField(
-                                text: controller.countryName.value,
-                                onTap: () {
-                                  showCountryPicker(
-                                    context: context,
-                                    onSelect: (Country country) {
-                                      print(
-                                          'Select country: ${country.displayName}');
-                                      controller.countryName.value =
-                                          country.name;
-                                    },
-                                  );
-                                },
+                              () => Container(
+                                width: 310.w + 0 * controller.reload.value,
+                                height: 65.h,
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40.r),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Color(0xffE0E0E0),
+                                    )),
+                                child: DropdownButton<String>(
+                                  value: controller.selectedState,
+                                  hint: Text(
+                                    'State',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color.fromARGB(255, 155, 154, 154),
+                                    ),
+                                  ),
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xff4F4F4F),
+                                  ),
+                                  dropdownColor: kwhite,
+                                  isExpanded: true,
+                                  elevation: 0,
+                                  underline: SizedBox(),
+                                  items: controller.states
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      child: Text(value),
+                                      value: value,
+                                    );
+                                  }).toList(),
+                                  icon: SvgPicture.asset(
+                                      "assets/svg/arrow_downward_ios.svg"),
+                                  onChanged: (String? value) {
+                                    controller.onChangeStateGetCityList(value);
+                                  },
+                                  borderRadius: BorderRadius.circular(20.r),
+                                ),
                               ),
                             )),
                         height(15.h),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 40.w),
                           child: Obx(
-                            () => CountryPickerField(
-                              text: controller.countryName.value,
-                              onTap: () {
-                                showCountryPicker(
-                                  context: context,
-                                  onSelect: (Country country) {
-                                    print(
-                                        'Select country: ${country.displayName}');
-                                    controller.countryName.value = country.name;
-                                  },
-                                );
-                              },
+                            () => Container(
+                              width: 310.w + 0 * controller.reload.value,
+                              height: 65.h,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(horizontal: 20.w),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40.r),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Color(0xffE0E0E0),
+                                  )),
+                              child: DropdownButton<String>(
+                                value: controller.selectedCity,
+                                hint: Text(
+                                  'City',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.normal,
+                                    color: Color.fromARGB(255, 155, 154, 154),
+                                  ),
+                                ),
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xff4F4F4F),
+                                ),
+                                dropdownColor: kwhite,
+                                isExpanded: true,
+                                elevation: 0,
+                                underline: SizedBox(),
+                                items: controller.stateCitys
+                                    .map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                  return DropdownMenuItem<String>(
+                                    child: Text(value),
+                                    value: value,
+                                  );
+                                }).toList(),
+                                icon: SvgPicture.asset(
+                                    "assets/svg/arrow_downward_ios.svg"),
+                                onChanged: (String? val) {
+                               controller.   onChangeCity(val);
+                                },
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
                             ),
                           ),
                         ),
@@ -473,8 +538,10 @@ class PartnerScreen extends GetView<PartnerPageController> {
         ),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(
-            color: Colors.grey,
+          hintStyle: GoogleFonts.poppins(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.normal,
+            color: Color.fromARGB(255, 155, 154, 154),
           ),
           isDense: true,
           contentPadding: EdgeInsets.only(left: 25.h, bottom: 34.h),
@@ -682,41 +749,6 @@ class PartnerScreen extends GetView<PartnerPageController> {
               text: controller.countryName.value,
             ),
           ),
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: size.width * .1),
-          //   child: _countryPickerField(
-          //     // icon: SvgPicture.asset("assets/svg/sms.svg"),
-          //     size: size,
-          //     controller: controller.nameController,
-          //     hintText: 'Country',
-          //     icon: SvgPicture.asset("assets/svg/down_arrow.svg"),
-          //   ),
-          // ),
-          // height(size.height * .02),
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: size.width * .1),
-          //   child: _countryPickerField(
-          //       // icon: SvgPicture.asset("assets/svg/sms.svg"),
-          //       size: size,
-          //       controller: controller.nameController,
-          //       hintText: '+${controller.countryName.value}',
-          //       icon: SvgPicture.asset(
-          //         "assets/svg/route.svg",
-          //         height: 10,
-          //         width: 10,
-          //       ),
-          //       ontap: () {
-          //         showCountryPicker(
-          //           context: context,
-          //           favorite: ['IN', 'BD'],
-          //           showPhoneCode: true,
-          //           onSelect: (Country country) {
-          //             print('Select country: ${country.displayName}');
-          //             controller.countryName.value = country.displayName;
-          //           },
-          //         );
-          //       }),
-          // ),
           height(size.height * .02),
         ],
       ),
@@ -729,12 +761,9 @@ class PartnerScreen extends GetView<PartnerPageController> {
       slivers: [
         SliverAppBar(
           backgroundColor: Color(0xffF5F9FF),
-
           floating: true,
           pinned: true,
-          //expandedHeight: size.height * 0.52,
           expandedHeight: 375.h,
-
           flexibleSpace: FlexibleSpaceBar(
             background: Column(
               children: [
@@ -750,23 +779,16 @@ class PartnerScreen extends GetView<PartnerPageController> {
                 height(10.h),
                 Obx(
                   () => Container(
-                    // height: size.height * 0.33,
                     height: 285.h,
                     width: double.maxFinite,
-
                     child: Column(
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CarouselSlider(
-                            // onPageChanged: (index, reason) => _currentIndex = index,
-
                             items: controller.carouselText
                                 .map(
                                   (text) => Container(
-                                    // height: size.height * 0.25,
-                                    // height: 300.h,
-                                    // width: size.width * 0.8,
                                     width: 300.w,
                                     decoration: BoxDecoration(
                                       color: kwhite,

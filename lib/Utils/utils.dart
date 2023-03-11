@@ -53,9 +53,7 @@ extension TitleCase on String {
   }
 }
 
-
-  Future<Map<String, dynamic>> loadJsonFromAsset(String path) async {   
-     String jsonString = await rootBundle.loadString(path);
-    return json.decode(jsonString); 
-    
-     }
+Future<Map<String, dynamic>> loadJsonFromAsset(String path) async {
+  String jsonString = await rootBundle.loadString(path);
+  return json.decode(jsonString);
+}

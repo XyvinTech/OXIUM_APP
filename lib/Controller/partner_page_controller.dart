@@ -11,6 +11,11 @@ class PartnerPageController extends GetxController {
   RxString countryName = "Country".obs;
   RxString textfield = "".obs;
   RxInt reload = 0.obs;
+  List<String> states = [];
+  RxList<String> stateCitys = RxList();
+  String? selectedState = null;
+  String? selectedCity = null;
+  Map<String, dynamic> data = {};
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -32,10 +37,36 @@ class PartnerPageController extends GetxController {
     "assets/images/carousel3.png",
   ].obs;
 
-  var data = loadJsonFromAsset("assets/city_state.json");
-
   @override
   void onInit() async {
     super.onInit();
+    initStatesFromJson();
+  }
+
+  initStatesFromJson() async {
+    data = await loadJsonFromAsset("assets/Indian_Cities_In_States_JSON.json");
+    data.forEach((key, value) {
+      states.add(key);
+    });
+    reload++;
+  }
+
+  onChangeStateGetCityList(String? value) {
+    if (value == null || value.isEmpty) return;
+    selectedState = value;
+    List<String> list = [];
+    data[selectedState].forEach((element) {
+      if (element == null || element.isEmpty) return;
+      list.add(element.toString());
+      print(element);
+    });
+    selectedCity = null;
+    stateCitys.value = list.toSet().toList();
+    reload++;
+  }
+
+  onChangeCity(String? value) {
+    selectedCity = value;
+    reload++;
   }
 }
