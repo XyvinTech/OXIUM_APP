@@ -92,12 +92,13 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
                                     children: [
                                       Expanded(child: Container()),
                                       SizedBox(
-                                        width: 230.w,
+                                        width: 220.w,
                                         child: CustomBigText(
                                           text: controller.carouselText[
                                               controller.currentIndex.toInt()],
                                           size: 13.sp,
-                                          color: Color(0xffF9F9F9),
+                                          color: Color(0xff000000),
+                                          fontWeight: FontWeight.w500,
                                           align: TextAlign.center,
                                         ),
                                       ),

@@ -99,7 +99,8 @@ class PartnerScreen extends GetView<PartnerPageController> {
                                                     controller.currentIndex
                                                         .toInt()],
                                                 size: 13.sp,
-                                                color: Color(0xffF9F9F9),
+                                                 color: Color(0xff000000),
+                                          fontWeight: FontWeight.w500,
                                                 align: TextAlign.center,
                                               ),
                                             ),
