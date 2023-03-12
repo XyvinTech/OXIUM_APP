@@ -40,6 +40,7 @@ import 'package:freelancer_app/View/Onboarding/myvehicle_page.dart';
 import 'package:freelancer_app/View/Onboarding/personal_vehicle_details_page.dart';
 import 'package:freelancer_app/View/Onboarding/rfidnumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/smartchrage_page.dart';
+import 'package:freelancer_app/View/Onboarding/splash_screen.dart';
 import 'package:freelancer_app/View/Onboarding/vehiclesearch_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
 import 'package:freelancer_app/View/WalletPage/topup_page.dart';
@@ -74,6 +75,12 @@ abstract class AppPages {
     ///
     ///
     //ON BOARDING
+
+     GetPage(
+      name: Routes.splashpageRoute,
+      binding: LoginPageBinding(),
+      page: () => SplashScreen(),
+    ),
     GetPage(
       name: Routes.loginpageRoute,
       binding: LoginPageBinding(),

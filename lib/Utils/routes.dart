@@ -10,7 +10,8 @@ class Routes {
     return _singleton;
   }
   Routes._internal();
-  static String loginpageRoute = '/';
+  static String splashpageRoute = '/';
+  static String loginpageRoute = '/login';
   static String enternumberpageRoute = '/enternumber';
   static String enterotppageRoute = '/enterotp';
   static String welcometoevRoute = '/welcometoev';
