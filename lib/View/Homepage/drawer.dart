@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -175,7 +175,7 @@ class CustomDrawer extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 Get.back();
-                Get.toNamed(Routes.partnerPageRoute);
+                Get.toNamed(Routes.favouritePageRoute);
               },
               child: Row(
                 children: [

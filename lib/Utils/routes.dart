@@ -65,4 +65,5 @@ class Routes {
   static String partnerPageRoute = '/partner';
   static String aboutPageRoute = '/about';
   static String drawerrfidNumberRoute = '/drawerrfidNumber';
+  static String favouritePageRoute = '/favourite';
 }

@@ -3,6 +3,7 @@ import 'package:freelancer_app/Bindings/bookaslot_screen_binding.dart';
 import 'package:freelancer_app/Bindings/calista_cafePage_bindings.dart';
 import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
 import 'package:freelancer_app/Bindings/charging_screen_binding.dart';
+import 'package:freelancer_app/Bindings/favourite_page_bindings.dart';
 import 'package:freelancer_app/Bindings/feedback_Screen_binding.dart';
 import 'package:freelancer_app/Bindings/help_page_bindings.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
@@ -20,6 +21,7 @@ import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
 import 'package:freelancer_app/View/Charge/reservation_page.dart';
 import 'package:freelancer_app/View/Drawer/about_page.dart';
+import 'package:freelancer_app/View/Drawer/favourite_page.dart';
 import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Drawer/partner_page.dart';
 import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
@@ -282,6 +284,11 @@ abstract class AppPages {
       name: Routes.aboutPageRoute,
       binding: AboutPageBinding(),
       page: () => AboutScreen(),
+    ),
+    GetPage(
+      name: Routes.favouritePageRoute,
+      binding: FavouritePageBingdings(),
+      page: () => FavouriteScreen(),
     ),
 
     /////

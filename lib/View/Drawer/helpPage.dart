@@ -44,7 +44,7 @@ class HelpScreen extends GetView<HelpPageController> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                width(24)
+                width(24.w)
               ],
             ),
           ),
