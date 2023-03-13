@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/search_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/textfield_home.dart';
 import 'package:get/get.dart';
+
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/customText.dart';
@@ -58,24 +57,31 @@ class SearchScreen extends GetView<SearchScreenController> {
                       controller: controller.searchTextController,
                       hintText: 'Search',
                       size: size,
-                      suffix: controller.isShowCross.value
-                          ? InkWell(
-                              onTap: () {
-                                controller.searchTextController.text = '';
-                                controller.isShowCross.value = false;
-                              },
-                              child: SvgPicture.asset(
-                                'assets/svg/close.svg',
-                              ),
-                            )
-                          : InkWell(
-                              onTap: () {},
-                              child: SvgPicture.asset(
-                                'assets/svg/search-zoom-in.svg',
-                              ),
-                            ),
+                      autofocus: true,
+                      suffix:
+                          // controller.isShowCross.value
+                          //     ? InkWell(
+                          //         onTap: () {
+                          //           controller.searchTextController.text = '';
+                          //           controller.isShowCross.value = false;
+                          //         },
+                          //         child: SvgPicture.asset(
+                          //           'assets/svg/close.svg',
+                          //         ),
+                          //       )
+                          //     :
+                          InkWell(
+                        onTap: () {},
+                        child: SvgPicture.asset(
+                          'assets/svg/search-zoom-in.svg',
+                        ),
+                      ),
                       onChanged: (value) {
-                        log(value);
+                        if (value.isEmpty) return;
+                        controller.debouncer.run(() {
+                          // log(value);
+                          // controller.searchPlace(value);
+                        });
                         if (value.isEmpty)
                           controller.isShowCross.value = false;
                         else if (!controller.isShowCross.value)
@@ -164,25 +170,27 @@ class SearchScreen extends GetView<SearchScreenController> {
                             ),
                             width(size.width * .02),
                             Expanded(
+                                flex: 6,
                                 child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomText(
-                                  text: controller
-                                      .chargingCafeModelList[index].name,
-                                  size: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xff4F4F4F),
-                                ),
-                                CustomText(
-                                  text: controller
-                                      .chargingCafeModelList[index].location,
-                                  size: 12,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xff828282),
-                                ),
-                              ],
-                            )),
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomText(
+                                      text: controller
+                                          .chargingCafeModelList[index].name,
+                                      size: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xff4F4F4F),
+                                    ),
+                                    CustomText(
+                                      text: controller
+                                          .chargingCafeModelList[index]
+                                          .location,
+                                      size: 12,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xff828282),
+                                    ),
+                                  ],
+                                )),
                             SvgPicture.asset('assets/svg/arrow_forward_ios.svg')
                           ]),
                           Padding(

@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Utils/debouncer.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class textField extends StatelessWidget {
   textField({
@@ -39,6 +39,8 @@ class textField extends StatelessWidget {
             suffixIconConstraints: BoxConstraints.loose(size),
             hintStyle: TextStyle(fontSize: 16.sp, color: Color(0xffBDBDBD)),
             filled: true,
+            isDense: true,
+            contentPadding: EdgeInsets.only(bottom: 12.h, top: 14.h, left: 4.w),
             fillColor: Color.fromARGB(255, 255, 255, 255),
             border: OutlineInputBorder(),
             enabledBorder: InputBorder.none,

@@ -9,7 +9,7 @@ import '../Utils/debouncer.dart';
 
 class SearchPlacesScreenController extends GetxController {
   final TextEditingController searchTextController = TextEditingController();
-  final Debouncer debouncer = Debouncer(milliseconds: 500);
+  final Debouncer debouncer = Debouncer(milliseconds: 1000);
   RxBool isShowCross = false.obs;
   RxList<AutocompletePrediction> autoCompletePrediction = RxList();
   List<String> suggestions = [
