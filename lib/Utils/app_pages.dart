@@ -14,6 +14,7 @@ import 'package:freelancer_app/Bindings/qr_binding.dart';
 import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/rfid_page_bindings.dart';
 import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
+import 'package:freelancer_app/Bindings/splash_screen_binding.dart';
 import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
 import 'package:freelancer_app/Bindings/wallet_page_bindings.dart';
@@ -76,9 +77,9 @@ abstract class AppPages {
     ///
     //ON BOARDING
 
-     GetPage(
+    GetPage(
       name: Routes.splashpageRoute,
-      binding: LoginPageBinding(),
+      binding: SplashScreenBinding(),
       page: () => SplashScreen(),
     ),
     GetPage(

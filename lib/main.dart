@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:freelancer_app/Bindings/splash_screen_binding.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'Utils/app_pages.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SplashScreenBinding().dependencies();
   runApp(const MyApp());
 }
 
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.grey,
               scaffoldBackgroundColor: kscaffoldBackgroundColor,
             ),
-            initialRoute: Routes.splashpageRoute,
+            initialRoute: Routes.homePageRoute,
             getPages: AppPages.pages,
           );
         }));
