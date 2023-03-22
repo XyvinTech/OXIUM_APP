@@ -40,8 +40,8 @@ class _PercentageIndicatorState extends State<PercentageIndicator>
             progress: widget.progress,
             radius: 100,
             gradientColors: [
-              Color(0xff45FFBC),
               Color(0xff3C67FF),
+              Color(0xff45FFBC),
             ],
             strokeWidth: 20.0,
           ),

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/charging_screen_controller.dart';
 import 'package:freelancer_app/View/Homepage/ChargningAnimations/gradiant_circular_progressbar.dart';
+import 'package:freelancer_app/View/Homepage/ChargningAnimations/lottie_loading_animation.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 import 'ChargningAnimations/percentage_circular_progress_indicator.dart';
 
@@ -51,30 +51,30 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       color: Colors.white,
                                       child: Obx(
                                         () => controller
-                                                .chargignStatus.value.isEmpty
+                                                .chargingStatus.value.isEmpty
                                             ? GradientIndicator()
                                             : PercentageIndicator(progress: .7),
                                       ))),
-                              if (controller.chargignStatus.value ==
+                              if (controller.chargingStatus.value ==
                                       "connected" ||
-                                  controller.chargignStatus.value == "progress")
+                                  controller.chargingStatus.value == "progress")
                                 CustomBigText(
                                     text: "Charging In Progress",
                                     size: 12.sp,
                                     color: Color(0xff828282))
-                              else if (controller.chargignStatus.value ==
+                              else if (controller.chargingStatus.value ==
                                   "finished")
                                 CustomBigText(
                                     text: "Charging Finished",
                                     size: 12.sp,
                                     color: Color(0xff0047C3))
-                              else if (controller.chargignStatus.value ==
+                              else if (controller.chargingStatus.value ==
                                   "completed")
                                 CustomBigText(
                                     text: "Charging Completed",
                                     size: 12.sp,
                                     color: Color(0xff219653))
-                              else if (controller.chargignStatus.value ==
+                              else if (controller.chargingStatus.value ==
                                   "disconnected")
                                 Center(
                                   child: Row(
@@ -224,23 +224,23 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                 ),
                               ),
                               //  !buttons
-                              if (controller.chargignStatus.value == "progress")
+                              if (controller.chargingStatus.value == "progress")
                                 _withBgBtn(
-                                  text: 'Connected',
-                                  onTap: controller.toReconnect,
+                                  text: 'Stop Charging',
+                                  onTap: controller.toDisconnected,
                                   color: Color(0xffEB5757),
                                   textColor: Color(0xffF2F2F2),
                                 )
-                              else if (controller.chargignStatus.value ==
+                              else if (controller.chargingStatus.value ==
                                   "connected")
                                 _withBgBtn(
                                     text: 'Connected',
                                     onTap: controller.toProgress)
-                              else if (controller.chargignStatus.value ==
+                              else if (controller.chargingStatus.value ==
                                       "finished" ||
-                                  controller.chargignStatus.value ==
+                                  controller.chargingStatus.value ==
                                       "completed" ||
-                                  controller.chargignStatus.value ==
+                                  controller.chargingStatus.value ==
                                       "disconnected")
                                 // _dualBtn(
                                 //     (){controller.toReconnect()},
@@ -248,10 +248,12 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                 _dualBtn(() {
                                   controller.toReconnect();
                                 }, () {
-                                  controller.toReconnect();
+                                  controller.toFinished();
                                 })
                               else
-                                _reconnectBtn(onTap: controller.toConnected)
+                                _reconnectBtn(onTap: () {
+                                  controller.toConnected();
+                                })
                             ],
                           ),
                         ),
@@ -260,83 +262,83 @@ class ChargingScreen extends GetView<ChargingScreenController> {
               ),
             )));
   }
-}
 
-Widget _withBgBtn(
-    {required String text,
-    VoidCallback? onTap,
-    Color? color,
-    Color? textColor}) {
-  return InkWell(
-    child: Container(
-        height: 52.h,
-        padding: EdgeInsets.symmetric(horizontal: 30),
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: color ?? Color(0xffD0FFE4),
-            borderRadius: BorderRadius.circular(56.r)),
-        child: Center(
-          child: CustomBigText(
-            text: text,
-            size: 14.sp,
-            color: textColor ?? Color(0xff219653),
-          ),
-        )),
-    onTap: onTap,
-  );
-}
+  Widget _withBgBtn(
+      {required String text,
+      VoidCallback? onTap,
+      Color? color,
+      Color? textColor}) {
+    return InkWell(
+      child: Container(
+          height: 52.h,
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: color ?? Color(0xffD0FFE4),
+              borderRadius: BorderRadius.circular(56.r)),
+          child: Center(
+            child: CustomBigText(
+              text: text,
+              size: 14.sp,
+              color: textColor ?? Color(0xff219653),
+            ),
+          )),
+      onTap: onTap,
+    );
+  }
 
-Widget _dualBtn(VoidCallback? onTap_left, VoidCallback? onTap_right) {
-  return SizedBox(
-    width: double.infinity,
-    height: 52.h,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: InkWell(
-            child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 25.w),
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Color(0xff0047C3)),
-                    borderRadius: BorderRadius.circular(56.r)),
-                child: Center(
-                  child: CustomBigText(
-                    text: "Reconnect",
-                    size: 14.sp,
-                    color: Color(0xff0047C3),
-                  ),
-                )),
-            onTap: onTap_left,
+  Widget _dualBtn(VoidCallback? onTap_left, VoidCallback? onTap_right) {
+    return SizedBox(
+      width: double.infinity,
+      height: 52.h,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: InkWell(
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 25.w),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Color(0xff0047C3)),
+                      borderRadius: BorderRadius.circular(56.r)),
+                  child: Center(
+                    child: CustomBigText(
+                      text: "Reconnect",
+                      size: 14.sp,
+                      color: Color(0xff0047C3),
+                    ),
+                  )),
+              onTap: onTap_left,
+            ),
           ),
-        ),
-        SizedBox(
-          width: 26.w,
-        ),
-        Flexible(
-          child: InkWell(
-            child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 25.w),
-                decoration: BoxDecoration(
-                    color: Color(0xff0047C3),
-                    borderRadius: BorderRadius.circular(56.r)),
-                child: Center(
-                  child: CustomBigText(
-                    text: "Finish",
-                    size: 14.sp,
-                    color: Color(0xffF2F2F2),
-                  ),
-                )),
-            onTap: onTap_right,
+          SizedBox(
+            width: 26.w,
           ),
-        )
-      ],
-    ),
-  );
-}
+          Flexible(
+            child: InkWell(
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 25.w),
+                  decoration: BoxDecoration(
+                      color: Color(0xff0047C3),
+                      borderRadius: BorderRadius.circular(56.r)),
+                  child: Center(
+                    child: CustomBigText(
+                      text: "Finish",
+                      size: 14.sp,
+                      color: Color(0xffF2F2F2),
+                    ),
+                  )),
+              onTap: onTap_right,
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
-Widget _reconnectBtn({VoidCallback? onTap}) {
-  return InkWell(
+  Widget _reconnectBtn({VoidCallback? onTap}) {
+    return InkWell(
+      onTap: onTap,
       child: Container(
           height: 52.h,
           padding: EdgeInsets.symmetric(horizontal: 30),
@@ -352,13 +354,10 @@ Widget _reconnectBtn({VoidCallback? onTap}) {
                 color: Color(0xff0047C3),
               ),
               Expanded(
-                child: Container(
-                  child: Lottie.asset(
-                    'assets/lotty/loading.json',
-                  ),
-                ),
+                child: Container(child: LottieLoadingWidget()),
               )
             ],
           )),
-      onTap: onTap);
+    );
+  }
 }

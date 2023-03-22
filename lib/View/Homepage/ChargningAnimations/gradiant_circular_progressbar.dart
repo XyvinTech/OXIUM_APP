@@ -86,6 +86,13 @@ class _GradientIndicatorState extends State<GradientIndicator>
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    _animationController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,

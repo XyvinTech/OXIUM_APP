@@ -2,24 +2,37 @@ import 'package:get/get.dart';
 
 class ChargingScreenController extends GetxController {
   // connected finished completed disconnected progress
-  RxString chargignStatus = "".obs;
+  RxString chargingStatus = "".obs;
+
+  onInit() {
+    super.onInit();
+  }
+
+  onClose() {
+    super.onClose();
+  }
 
   toConnected() {
-    chargignStatus.value = "connected";
+    chargingStatus.value = "connected";
   }
+
   toFinished() {
-   chargignStatus.value = "finished";
+    chargingStatus.value = "finished";
   }
+
   toCompleted() {
-    chargignStatus.value = "completed";
+    chargingStatus.value = "completed";
   }
+
   toDisconnected() {
-    chargignStatus.value = "disconnected";
+    chargingStatus.value = "disconnected";
   }
+
   toProgress() {
-    chargignStatus.value = "progress";
+    chargingStatus.value = "progress";
   }
-  toReconnect(){
-    chargignStatus.value = "";
+
+  toReconnect() {
+    chargingStatus.value = "";
   }
 }
