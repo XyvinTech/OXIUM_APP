@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:http/http.dart' as http;
 
 import '../Model/apiResponseModel.dart';
 import '../Singletones/app_data.dart';
-import '../utils/toastUtils.dart';
 
 class CallAPI {
   //make it singleTone class
@@ -15,6 +15,8 @@ class CallAPI {
     return _singleton;
   }
   CallAPI._internal();
+
+  int timeOutSec = 10;
   String _url = 'https://app.bigboystoy.in/Chargetron/api/app/';
 
 /////////POST DATA/////////////////
@@ -29,26 +31,28 @@ class CallAPI {
           'Content-type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'JWT-${appData.token}',
-
         },
-      );
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
       log('post request end');
       var body;
       // if (res.statusCode == 200) {
 
       // }
+      
       body = json.decode(res.body);
       return ResponseModel(statusCode: res.statusCode, body: body);
-    } on SocketException catch (e) {
+    } on HttpException catch (e) {
       log(e.message);
+      hideLoading();
       // TODO
     }
     return ResponseModel(statusCode: 404, body: null);
   }
 
 ////////GET DATA/////////////////
-  Future<ResponseModel> getData(
-      String endPoint, Map<String, dynamic>? params,
+  Future<ResponseModel> getData(String endPoint, Map<String, dynamic>? params,
       {String? url}) async {
     var body;
     log('GET + $endPoint');
@@ -57,21 +61,24 @@ class CallAPI {
         Uri.https(
             // '35.154.49.246',
             url != null ? url.split('/')[2] : 'app.bigboystoy.in',
-            url != null ? url.split('/')[3] : '/api/v1/' + endPoint,
+            url != null ? url.split('/')[3] : '/Chargetron/api/app/' + endPoint,
             params),
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'JWT-${appData.token}',
         },
-      );
-      // if (res.statusCode == 200) {
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+      }
 
-      // } else {}
-      body = json.decode(res.body);
       return ResponseModel(statusCode: res.statusCode, body: body);
-    } on SocketException catch (e) {
+    } on HttpException catch (e) {
       log(e.message);
+      hideLoading();
       // TODO
     }
 
@@ -82,16 +89,18 @@ class CallAPI {
   Future<ResponseModel> deleteData(
       Map<String, String> data, String endPoint) async {
     try {
-      log('POST $endPoint');
+      log('DELETE $endPoint');
       http.Response res = await http.delete(
         Uri.parse(_url + endPoint),
         body: jsonEncode(data),
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
-           'Authorization': 'JWT-${appData.token}',
+          'Authorization': 'JWT-${appData.token}',
         },
-      );
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
       log('post request end');
       var body;
       // if (res.statusCode == 200) {
@@ -99,8 +108,10 @@ class CallAPI {
       // }
       body = json.decode(res.body);
       return ResponseModel(statusCode: res.statusCode, body: body);
-    } on SocketException catch (e) {
+    } on HttpException catch (e) {
       log(e.message);
+      hideLoading();
+
       // TODO
     }
     return ResponseModel(statusCode: 404, body: null);
@@ -120,7 +131,9 @@ class CallAPI {
         'Accept': 'application/json',
         'Authorization': 'JWT-${appData.token}',
       },
-    );
+    ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+      return http.Response('Error', 408);
+    });
     var body;
     // if (res.statusCode == 200) {
 

@@ -20,6 +20,7 @@ final Color kDefaultHomePageBackgroundColor = Color(0xffF0F1F6);
 
 //appStrings
 final String kAppName = 'Freelancer app';
+final String kLoading = 'Loading...';
 //login-screen
 final String kLoginSkipButton = 'skip';
 final String kLoginJoinGoec = 'Join GO EC and make';

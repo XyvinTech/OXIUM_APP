@@ -1,11 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
 import 'package:freelancer_app/Controller/charging_screen_controller.dart';
+import 'package:freelancer_app/View/Homepage/ChargningAnimations/gradiant_circular_progressbar.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
+import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+
+import 'ChargningAnimations/percentage_circular_progress_indicator.dart';
 
 class ChargingScreen extends GetView<ChargingScreenController> {
   const ChargingScreen({super.key});
@@ -44,8 +47,14 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                             children: [
                               Flexible(
                                   child: Container(
-                                color: Colors.transparent,
-                              )),
+                                      width: double.infinity,
+                                      color: Colors.white,
+                                      child: Obx(
+                                        () => controller
+                                                .chargignStatus.value.isEmpty
+                                            ? GradientIndicator()
+                                            : PercentageIndicator(progress: .7),
+                                      ))),
                               if (controller.chargignStatus.value ==
                                       "connected" ||
                                   controller.chargignStatus.value == "progress")
@@ -342,7 +351,13 @@ Widget _reconnectBtn({VoidCallback? onTap}) {
                 size: 14.sp,
                 color: Color(0xff0047C3),
               ),
-              Container()
+              Expanded(
+                child: Container(
+                  child: Lottie.asset(
+                    'assets/lotty/loading.json',
+                  ),
+                ),
+              )
             ],
           )),
       onTap: onTap);

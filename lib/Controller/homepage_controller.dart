@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Controller/trips_screen_controller.dart';
+import 'package:freelancer_app/Model/apiResponseModel.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
+import 'package:freelancer_app/Utils/api.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/constants.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -39,8 +44,22 @@ class HomePageController extends GetxController {
     Future.delayed(Duration(milliseconds: 1000), () {
       MapFunctions().myPositionListener();
     });
-    
-    var pos = await MapFunctions().getCurrentPosition();
-    MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
+
+    Position? pos = await MapFunctions().getCurrentPosition();
+    // MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
+    MapFunctions().animateToNewPosition(LatLng(28.670988, 77.2794488));
+    getChargeStationsNearMeOnHomepage(pos);
+  }
+
+  Future<void> getChargeStationsNearMeOnHomepage(Position? pos) async {
+    if (pos == null) return;
+    showLoading(kLoading);
+    ResponseModel res = await CallAPI().getData('stationsnearlocation', {
+      "lattitude": "${pos.longitude}",
+      "longitude": "${pos.longitude}",
+    });
+    hideLoading();
+    print(res.statusCode.toString());
+    print(res.body.toString());
   }
 }

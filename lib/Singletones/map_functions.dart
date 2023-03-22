@@ -149,12 +149,13 @@ class MapFunctions {
       mapStream = await Geolocator.getPositionStream().listen((event) async {
         // await animateToNewPosition(LatLng(event.latitude, event.longitude));
         kLog(event.toString());
-        if (curPos == null ||
-            event.latitude == curPos!.latitude &&
-                event.longitude == curPos!.longitude) return;
-        heading = bearingBetween(curPos!.latitude, curPos!.longitude,
-            event.latitude, event.longitude);
-        kLog(heading.toString());
+        if (curPos != null &&
+            (event.latitude != curPos!.latitude ||
+                event.longitude != curPos!.longitude)) {
+          heading = bearingBetween(curPos!.latitude, curPos!.longitude,
+              event.latitude, event.longitude);
+          kLog(heading.toString());
+        }
         curPos = event;
 
         if (Get.currentRoute == Routes.navigationPageRoute) {

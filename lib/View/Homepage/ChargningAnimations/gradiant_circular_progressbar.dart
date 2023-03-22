@@ -87,28 +87,25 @@ class _GradientIndicatorState extends State<GradientIndicator>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        child: Stack(
-          children: [
-            RoundedPlaceHolder(
-                radius: 100, strokeWidth: 20, gradientColors: []),
-            RotationTransition(
-              turns: Tween(begin: 0.0, end: 1.0).animate(_animationController!),
-              child: GradientCircularProgressIndicator(
-                radius: 100,
-                gradientColors: [
-                  Color(0xff45FFBC),
-                  // Color(0xff3BC2D5),
-                  Color(0xff3C67FF),
-                ],
-                strokeWidth: 20.0,
-              ),
+    return Container(
+      alignment: Alignment.center,
+      child: Stack(
+        children: [
+          RoundedPlaceHolder(radius: 100, strokeWidth: 20, gradientColors: []),
+          RotationTransition(
+            turns: Tween(begin: 0.0, end: 1.0).animate(_animationController!),
+            child: GradientCircularProgressIndicator(
+              radius: 100,
+              gradientColors: [
+                Color(0xff45FFBC),
+                // Color(0xff3BC2D5),
+                Color(0xff3C67FF),
+              ],
+              strokeWidth: 20.0,
             ),
-            CoveringArc(radius: 100, strokeWidth: 20, gradientColors: []),
-          ],
-        ),
+          ),
+          CoveringArc(radius: 100, strokeWidth: 20, gradientColors: []),
+        ],
       ),
     );
   }
@@ -239,3 +236,51 @@ class CoveringArc extends StatelessWidget {
     );
   }
 }
+
+////////////PERCENTAGE INDICATOR/////////////
+///
+// class PercentageIndicator extends StatefulWidget {
+//   const PercentageIndicator({super.key});
+
+//   @override
+//   State<PercentageIndicator> createState() => _PercentageIndicatorState();
+// }
+
+// class _PercentageIndicatorState extends State<PercentageIndicator>
+//     with SingleTickerProviderStateMixin {
+//   AnimationController? _animationController;
+
+//   @override
+//   void initState() {
+//     _animationController = new AnimationController(
+//         vsync: this, duration: Duration(milliseconds: 1500));
+//     _animationController?.addListener(() => setState(() {}));
+//     _animationController?.repeat();
+//     super.initState();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       alignment: Alignment.center,
+//       child: Stack(
+//         children: [
+//           RoundedPlaceHolder(radius: 100, strokeWidth: 20, gradientColors: []),
+//           RotationTransition(
+//             turns: Tween(begin: 0.0, end: 1.0).animate(_animationController!),
+//             child: GradientCircularProgressIndicator(
+//               radius: 100,
+//               gradientColors: [
+//                 Color(0xff45FFBC),
+//                 // Color(0xff3BC2D5),
+//                 Color(0xff3C67FF),
+//               ],
+//               strokeWidth: 20.0,
+//             ),
+//           ),
+//           CoveringArc(radius: 100, strokeWidth: 20, gradientColors: []),
+//         ],
+//       ),
+//     );
+//   }
+// }

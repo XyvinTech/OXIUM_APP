@@ -71,6 +71,7 @@ dependencies:
   qr_code_scanner: ^1.0.1
   pin_code_fields: ^7.4.0
   linear_progress_bar: ^1.1.0
+  lottie: ^1.4.2
 
 dev_dependencies:
   flutter_test:
@@ -97,7 +98,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
-    - assets/
+    - assets/lotty/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
