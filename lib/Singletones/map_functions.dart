@@ -148,6 +148,7 @@ class MapFunctions {
     if ((await checkLocationPermission()))
       mapStream = await Geolocator.getPositionStream().listen((event) async {
         // await animateToNewPosition(LatLng(event.latitude, event.longitude));
+        kLog(event.toString());
         if (curPos == null ||
             event.latitude == curPos!.latitude &&
                 event.longitude == curPos!.longitude) return;

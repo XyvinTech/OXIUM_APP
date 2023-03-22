@@ -19,7 +19,6 @@ class VehiclesScreenController extends GetxController {
     VehiclesModel(image: "assets/images/jeep.png", vehiclesName: "Jeep"),
     VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
     VehiclesModel(image: "assets/images/misth.png", vehiclesName: "Misth"),
-
   ];
   List vehiclesdata2 = [
     VehiclesModel(image: "assets/images/jeeptext.png", vehiclesName: "Jeep"),
@@ -39,3 +38,4 @@ class VehiclesScreenController extends GetxController {
     super.onInit();
   }
 }
+
