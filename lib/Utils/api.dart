@@ -21,7 +21,7 @@ class CallAPI {
 
 /////////POST DATA/////////////////
   Future<ResponseModel> postData(
-      Map<String, String> data, String endPoint) async {
+      Map<String, dynamic> data, String endPoint) async {
     try {
       log('POST $endPoint');
       http.Response res = await http.post(
@@ -37,11 +37,7 @@ class CallAPI {
       });
       log('post request end');
       var body;
-      // if (res.statusCode == 200) {
-
-      // }
-      
-      body = json.decode(res.body);
+      if (res.statusCode == 200) body = json.decode(res.body);
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on HttpException catch (e) {
       log(e.message);

@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:get/get.dart';
 
+import '../Singletones/common_functions.dart';
+
 class RfidPageController extends GetxController {
   RxList carouselText = [
     "GOEC super charging station Provides High ROI",
@@ -8,7 +10,7 @@ class RfidPageController extends GetxController {
     "For a future-focused business, capitalize on the growing EV market."
   ].obs;
   RxList carouselImage = [
-   "assets/images/carouselOne.png",
+    "assets/images/carouselOne.png",
     "assets/images/carouselTwo.png",
     "assets/images/carouselThree.png",
   ].obs;
@@ -18,5 +20,18 @@ class RfidPageController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+  }
+
+  orderRFID() async {
+    String order_id = await CommonFunctions().getOrderIdRazorpay(399);
+    CommonFunctions().openRazorPay(
+        amount: 399, order_id: order_id, descirption: 'RFID payment');
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    CommonFunctions().closeRazorPay();
+    super.onClose();
   }
 }

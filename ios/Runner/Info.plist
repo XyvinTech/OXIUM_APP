@@ -56,6 +56,12 @@
 	<string>This app needs access to location when in the background.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tez</string>
+    	<string>phonepe</string>
+    	<string>paytmmp</string>
+	</array>
 	
 </dict>
 </plist>

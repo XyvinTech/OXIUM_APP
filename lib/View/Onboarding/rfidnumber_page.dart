@@ -193,42 +193,47 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
             SizedBox(
               height: size.height * 0.07,
             ),
-            Container(
-              height: 56.h,
-              width: 218.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(73),
-                  color: Color(0xff0047C3),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 6),
-                      blurRadius: 26,
-                      spreadRadius: 0,
-                      color: Color(0xff000000).withOpacity(.25),
+            InkWell(
+              onTap: () {
+                controller.orderRFID();
+              },
+              child: Container(
+                height: 56.h,
+                width: 218.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(73),
+                    color: Color(0xff0047C3),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 6),
+                        blurRadius: 26,
+                        spreadRadius: 0,
+                        color: Color(0xff000000).withOpacity(.25),
+                      ),
+                    ]),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: size.width * 0.09,
                     ),
-                  ]),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: size.width * 0.09,
-                  ),
-                  Icon(
-                    Icons.add,
-                    size: size.width * 0.06,
-                    color: Color(0xffD9D9D9),
-                  ),
-                  SizedBox(
-                    width: size.width * 0.03,
-                  ),
-                  CustomBigText(
-                    text: "Order RFID",
-                    size: 16.sp,
-                    color: kwhite,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.06,
-                  ),
-                ],
+                    Icon(
+                      Icons.add,
+                      size: size.width * 0.06,
+                      color: Color(0xffD9D9D9),
+                    ),
+                    SizedBox(
+                      width: size.width * 0.03,
+                    ),
+                    CustomBigText(
+                      text: "Order RFID",
+                      size: 16.sp,
+                      color: kwhite,
+                    ),
+                    SizedBox(
+                      width: size.width * 0.06,
+                    ),
+                  ],
+                ),
               ),
             )
           ],
