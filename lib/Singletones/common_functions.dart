@@ -1,4 +1,8 @@
+import 'package:freelancer_app/Model/apiResponseModel.dart';
+import 'package:freelancer_app/Model/myVehicleModel.dart';
+import 'package:freelancer_app/Model/vehicleModel.dart';
 import 'package:freelancer_app/Utils/api.dart';
+import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -21,11 +25,11 @@ class CommonFunctions {
   Future<void> handlePaymentSuccess(PaymentSuccessResponse response) async {
     //TODO: call api here when it is success payment
     print("////////////////////");
-    print(response);
-    print(response.paymentId);
-    print(response.orderId);
-    print(response.signature);
-    savePaymentRazorpay(response);
+    kLog(response.paymentId.toString());
+    kLog(response.orderId.toString());
+    kLog(response.signature.toString());
+    if (Get.currentRoute == Routes.rfidNumberRoute)
+      savePaymentRazorpay(response);
     closeRazorPay();
   }
 
@@ -99,6 +103,72 @@ class CommonFunctions {
       showSuccess('Purchased successfully!');
     } else {
       showError('Purchase Failed error code ${res.statusCode}!');
+    }
+  }
+
+  //////ADD VEHICLE APIS/////////////////////////////////////////////////////////////////
+  ///
+  Future<Map<String, dynamic>> getEvTemplates() async {
+    ResponseModel res = await CallAPI().getData('evtemplates', {});
+    if (res.statusCode == 200 && res.body['success']) {
+      print(res.body);
+      Map list = res.body['result'] ?? {};
+      Map<String, dynamic> response = {};
+      List<VehicleModel> brandVehicles = [];
+      List<String> brands = [kAll];
+      VehicleModel ev;
+      list.forEach((key, val) {
+        brandVehicles = [];
+        brands.add(key);
+        val.forEach((element) {
+          ev = VehicleModel.fromjson(element);
+          ev.vehicleDetails = key;
+          brandVehicles.add(ev);
+        });
+        response[key] = brandVehicles;
+      });
+      response['brands'] = brands;
+      return response;
+    } else {
+      return {
+        'brands': [kAll],
+      };
+    }
+  }
+
+  Future<bool> addEvToUser(
+      {required String userName,
+      required VehicleModel ev,
+      required String regNumber}) async {
+    ResponseModel res = await CallAPI().postData({
+      "username": userName,
+      "make": ev.vehicleDetails,
+      "model": ev.modelName,
+      "evRegNumber": regNumber,
+    }, 'ev');
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    return (res.statusCode == 200 && res.body['success']);
+  }
+
+  Future<bool> deleteEvOfUser() async {
+    ResponseModel res = await CallAPI().deleteData({"userEVId": 60}, 'ev');
+    return (res.statusCode == 200 && res.body['success']);
+  }
+
+  Future<List<MyVehicleModel>> getUserEvs() async {
+    var res = await CallAPI().getData('userevs', {
+      "username": "9782199455",
+    });
+
+    if (res.statusCode == 200 && res.body['success']) {
+      List<MyVehicleModel> list = [];
+      res.body['result'].forEach((element) {
+        list.add(MyVehicleModel.fromjson(element));
+      });
+      return list;
+    } else {
+      return [];
     }
   }
 }

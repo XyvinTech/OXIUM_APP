@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/vehicles_screen_controller.dart';
@@ -91,7 +92,7 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
                 },
                 hintText: "Vehicle no",
                 icon: SvgPicture.asset("assets/svg/directions_car1.svg"),
-                keyboardtype: TextInputType.number,
+                keyboardtype: TextInputType.name,
                 Controller: controller.numEditingController,
                 onChanged: (String val) {},
                 color: controller.enablemailTextfield == true
@@ -103,9 +104,13 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: AppButton(
-                text: "submit",
+                text: "Submit",
                 onTap: () {
-                  Get.toNamed(Routes.myvehicleRoute);
+                  if (controller.numEditingController.text.isEmpty) {
+                    EasyLoading.showInfo('Vehicle no is required');
+                    return;
+                  }
+                  controller.onVehicleSubmit();
                 },
               ),
             ),
@@ -120,6 +125,7 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
     return Align(
       alignment: Alignment.center,
       child: Container(
+        height: size.height * .16,
         decoration: BoxDecoration(
           color: Color(0xffEFFFF6),
           borderRadius: BorderRadius.circular(30),
@@ -131,65 +137,55 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Image.asset(
-              "assets/images/jeep1.png",
-              height: size.height * 0.12,
-              width: size.width * 0.32,
+            Expanded(
+              child: Image.asset(
+                "assets/images/jeep1.png",
+                height: size.height * 0.12,
+                width: size.width * 0.32,
+              ),
             ),
-            Padding(
-              padding: EdgeInsets.only(right: 5.w),
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 10.w),
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomSmallText(
-                          text: "Jeep",
+                          text: controller.selectedVehicle.value.vehicleDetails,
                           color: Color(0xff828282),
-                          size: 15.sp,
                         ),
                         CustomBigText(
-                          text: "RUBICON",
-                          size: 18.sp,
+                          text: controller.selectedVehicle.value.modelName,
+                          size: 16,
                           color: Color(0xff4F4F4F),
                         ),
                       ],
                     ),
                   ),
-                  height(25.h),
-                  Padding(
-                    padding: EdgeInsets.only(right: 5.w, bottom: 15.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 22,
-                          color: Color.fromRGBO(184, 210, 255, 0.6),
-                          child: Center(
-                            child: CustomSmallText(
-                              text: "Type2 CCS",
-                              color: Color(0xff0047C3),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.selectedVehicle.value.evPort.length,
+                      itemBuilder: ((context, index1) => Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              height: 22,
+                              margin: EdgeInsets.only(right: 5.w),
+                              color: Color.fromRGBO(184, 210, 255, 0.6),
+                              child: Center(
+                                child: CustomSmallText(
+                                  text: controller.selectedVehicle.value
+                                      .evPort[index1]['connectorType'],
+                                  color: Color(0xff0047C3),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.02,
-                        ),
-                        Container(
-                          height: 22,
-                          color: Color.fromRGBO(184, 210, 255, 0.6),
-                          child: Center(
-                            child: CustomSmallText(
-                              text: "Type2 CCS",
-                              color: Color(0xff0047C3),
-                            ),
-                          ),
-                        ),
-                      ],
+                          )),
                     ),
                   )
                 ],

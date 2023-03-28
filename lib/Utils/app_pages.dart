@@ -7,6 +7,7 @@ import 'package:freelancer_app/Bindings/favourite_page_bindings.dart';
 import 'package:freelancer_app/Bindings/feedback_Screen_binding.dart';
 import 'package:freelancer_app/Bindings/help_page_bindings.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
+import 'package:freelancer_app/Bindings/my_vehicles_screen_binding.dart';
 import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/partner_page_binding.dart';
 import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
@@ -115,7 +116,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.myvehicleRoute,
-      binding: VehicleScreenBinding(),
+      binding: MyVehiclesBinding(),
       page: () => MyVehiclePage(),
     ),
     GetPage(

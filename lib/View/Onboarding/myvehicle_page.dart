@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/Controller/my_vehicles_screen_controller.dart';
+import 'package:freelancer_app/Model/myVehicleModel.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/routes.dart';
+import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/appbar.dart';
 import '../Widgets/apptext.dart';
 
-class MyVehiclePage extends StatelessWidget {
+class MyVehiclePage extends GetView<MyVehiclesScreenController> {
   const MyVehiclePage({super.key});
 
   @override
@@ -43,7 +45,15 @@ class MyVehiclePage extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
-              _myVehicle(),
+              Obx(
+                () => ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: controller.myVehicleList.length,
+                  itemBuilder: ((context, index) =>
+                      _myVehicle(controller.myVehicleList[index])),
+                ),
+              ),
+
               Expanded(child: Container()),
               StartedButton(
                 onTap: () {
@@ -62,113 +72,91 @@ class MyVehiclePage extends StatelessWidget {
     );
   }
 
-  Widget _myVehicle() {
+  Widget _myVehicle(MyVehicleModel model) {
     return Align(
       alignment: Alignment.center,
       child: Container(
+        height: size.height * .16,
+        padding: EdgeInsets.all(5.w),
         decoration: BoxDecoration(
-          color: kwhite,
+          color: Color(0xffEFFFF6),
           borderRadius: BorderRadius.circular(30),
           border: Border.all(
-            width: 1.5,
-            color: Color(0xffE0E0E0),
+            width: 2,
+            color: Color.fromRGBO(135, 221, 171, 0.6),
           ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Image.asset(
-              "assets/images/jeep1.png",
-              height: size.height * 0.1,
-              width: size.width * 0.3,
+            Expanded(
+              flex: 2,
+              child: Image.asset(
+                "assets/images/jeep1.png",
+                height: size.height * 0.12,
+                width: size.width * 0.32,
+              ),
             ),
-            Padding(
-              padding: EdgeInsets.only(right: 15.w),
+            width(5.w),
+            Expanded(
+              flex: 3,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 10.h),
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomSmallText(
-                          text: "Jeep",
+                          text: model.make,
                           color: Color(0xff828282),
-                          size: 15.sp,
                         ),
                         CustomBigText(
-                          text: "RUBICON",
-                          size: 18.sp,
+                          text: model.model,
+                          size: 16,
                           color: Color(0xff4F4F4F),
                         ),
                       ],
                     ),
                   ),
-                  height(15.h),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 15.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 9.w),
-                          child: Row(
-                            children: [
-                              CustomBigText(
-                                text: "Vehicle No: ",
-                                size: 14.sp,
-                              ),
-                              width(5.w),
-                              CustomBigText(
-                                text: "KL 07 A 6577",
-                                size: 14.sp,
-                                color: Color(0xff333333),
-                              ),
-                            ],
-                          ),
+                  Row(
+                    children: [
+                      CustomBigText(
+                        text: "Vehicle No: ",
+                        size: 14.sp,
+                      ),
+                      width(5.w),
+                      Expanded(
+                        child: CustomBigText(
+                          text: model.evRegNumber,
+                          size: 14.sp,
+                          color: Color(0xff333333),
                         ),
-                        SizedBox(
-                          height: size.height * 0.0035,
-                        ),
-                        Row(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(5.w),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5.r),
-                                color: Color.fromRGBO(184, 210, 255, 0.6),
-                              ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 0,
+                      itemBuilder: ((context, index1) => Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              height: 22,
+                              margin: EdgeInsets.only(right: 5.w),
+                              color: Color.fromRGBO(184, 210, 255, 0.6),
                               child: Center(
                                 child: CustomSmallText(
-                                  text: "Type2 CCS",
+                                  text: 'CSS TYPE2',
+                                  // .evPort[index1]['connectorType'],
                                   color: Color(0xff0047C3),
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              width: size.width * 0.02,
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(5.w),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5.r),
-                                color: Color.fromRGBO(184, 210, 255, 0.6),
-                              ),
-                              child: Center(
-                                child: CustomSmallText(
-                                  text: "Type2",
-                                  color: Color(0xff0047C3),
-                                  size: 15.sp,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                          )),
                     ),
                   )
                 ],

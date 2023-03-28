@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:freelancer_app/Model/vehicleModel.dart';
+import 'package:google_directions_api/google_directions_api.dart';
 
 late Size size = Size(0, 0);
 double zoom = 15;
@@ -30,6 +32,19 @@ final String kLoginButtonGoogle = 'Google';
 final String kLoginButtonFacebook = 'Facebook';
 final String kLoginButtonPhone = 'Login with Phone';
 final String kLoginTermsAndPrivay = 'Login with Phone';
+final String kAll = 'All';
+
+final VehicleModel kVehicleModel = VehicleModel(
+    id: -111,
+    icon: '',
+    vehicleDetails: '',
+    modelName: '',
+    outputType: '',
+    typeOfPorts: '',
+    ratedVoltages: 0,
+    capacity: 0,
+    numberOfPorts: 0,
+    evPort: []);
 
 //app-Textstyles
 

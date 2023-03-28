@@ -83,7 +83,7 @@ class CallAPI {
 
 ///////DELETE API///////////////
   Future<ResponseModel> deleteData(
-      Map<String, String> data, String endPoint) async {
+      Map<String, dynamic> data, String endPoint) async {
     try {
       log('DELETE $endPoint');
       http.Response res = await http.delete(
