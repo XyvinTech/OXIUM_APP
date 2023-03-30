@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.grey,
               scaffoldBackgroundColor: kscaffoldBackgroundColor,
             ),
-            initialRoute: Routes.calistaCafePageRoute,
+            initialRoute: Routes.addvehiclesRoute,
             getPages: AppPages.pages,
           );
         }));

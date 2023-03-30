@@ -1,10 +1,15 @@
-
 import 'package:flutter/cupertino.dart';
-import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/constants.dart';
+import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 
+import '../Utils/routes.dart';
+
 class LoginPageController extends GetxController {
-  TextEditingController textEditingController = TextEditingController();
+  // TextEditingController textEditingController = TextEditingController();
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController mailEditingController = TextEditingController();
   RxBool enablenameTextfield = false.obs;
@@ -34,6 +39,18 @@ class LoginPageController extends GetxController {
     //   enablenameTextfield.value = nameEditingController.text.isNotEmpty;
     // });
     super.onInit();
-    String token = AppData().token;
+  }
+
+  saveUserNameEmail() async {
+    if (nameEditingController.text.isEmpty ||
+        mailEditingController.text.isEmpty) {
+      EasyLoading.showInfo('Please fill up all the fields!');
+      return;
+    }
+    showLoading(kLoading);
+    bool res = await CommonFunctions().putUserNameEmail(
+        nameEditingController.text, mailEditingController.text);
+    if (res) Get.toNamed(Routes.addvehiclesRoute);
+    hideLoading();
   }
 }

@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import '../../Utils/routes.dart';
 import '../../constants.dart';
 import '../Widgets/appbar.dart';
+import '../Widgets/cached_network_image.dart';
 
 class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
   const PersonalVechileDetailsPage({super.key});
@@ -137,13 +138,17 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(
-              child: Image.asset(
-                "assets/images/jeep1.png",
-                height: size.height * 0.12,
-                width: size.width * 0.32,
-              ),
-            ),
+            controller.selectedVehicle.value.icon.isEmpty
+                ? Image.asset(
+                    "assets/images/jeep1.png",
+                    height: size.height * 0.12,
+                    width: size.width * 0.32,
+                  )
+                : cachedNetworkImage(
+                    controller.selectedVehicle.value.icon,
+                    width: 140.w,
+                  ),
+            width(20.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

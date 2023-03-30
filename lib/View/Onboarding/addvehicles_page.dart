@@ -6,6 +6,7 @@ import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
+import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -308,12 +309,19 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Image.asset(
-                                    "assets/images/jeep1.png",
-                                    height: size.height * 0.12,
-                                    width: size.width * 0.32,
-                                  ),
-                                  width(10.w),
+                                  controller.selectedVehicleList[index].icon
+                                          .isEmpty
+                                      ? Image.asset(
+                                          "assets/images/jeep1.png",
+                                          height: size.height * 0.12,
+                                          width: size.width * 0.32,
+                                        )
+                                      : cachedNetworkImage(
+                                          controller
+                                              .selectedVehicleList[index].icon,
+                                          width: 120.w,
+                                        ),
+                                  width(20.w),
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
@@ -379,8 +387,6 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                                       ],
                                     ),
                                   ),
-                               
-                               
                                 ],
                               ),
                             ),

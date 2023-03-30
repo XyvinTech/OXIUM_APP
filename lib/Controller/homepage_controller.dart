@@ -48,18 +48,7 @@ class HomePageController extends GetxController {
     Position? pos = await MapFunctions().getCurrentPosition();
     // MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
     MapFunctions().animateToNewPosition(LatLng(28.670988, 77.2794488));
-    getChargeStationsNearMeOnHomepage(pos);
   }
+  
 
-  Future<void> getChargeStationsNearMeOnHomepage(Position? pos) async {
-    if (pos == null) return;
-    showLoading(kLoading);
-    ResponseModel res = await CallAPI().getData('stationsnearlocation', {
-      "lattitude": "${pos.longitude}",
-      "longitude": "${pos.longitude}",
-    });
-    hideLoading();
-    print(res.statusCode.toString());
-    print(res.body.toString());
-  }
 }

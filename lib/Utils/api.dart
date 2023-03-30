@@ -81,6 +81,34 @@ class CallAPI {
     return ResponseModel(statusCode: 404, body: null);
   }
 
+////////////////PUT//////////////////////
+  Future<ResponseModel> putData(
+      Map<String, dynamic> data, String endPoint) async {
+    try {
+      log('PUT $endPoint');
+      http.Response res = await http.put(
+        Uri.parse(_url + endPoint),
+        body: jsonEncode(data),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'JWT-${appData.token}',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      log('PUT request end');
+      var body;
+      if (res.statusCode == 200) body = json.decode(res.body);
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on HttpException catch (e) {
+      log(e.message);
+      hideLoading();
+      // TODO
+    }
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
 ///////DELETE API///////////////
   Future<ResponseModel> deleteData(
       Map<String, dynamic> data, String endPoint) async {

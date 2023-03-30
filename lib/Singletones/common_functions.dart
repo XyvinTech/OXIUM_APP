@@ -1,5 +1,6 @@
 import 'package:freelancer_app/Model/apiResponseModel.dart';
 import 'package:freelancer_app/Model/myVehicleModel.dart';
+import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
 import 'package:freelancer_app/Utils/api.dart';
 import 'package:freelancer_app/Utils/routes.dart';
@@ -169,6 +170,31 @@ class CommonFunctions {
       return list;
     } else {
       return [];
+    }
+  }
+
+  Future<UserModel> getUserProfile() async {
+    var res = await CallAPI().getData('appuser', {
+      "username": "9782199455",
+    });
+    if (res.statusCode == 200 && res.body['success']) {
+      return UserModel.fromJson(res.body['result']);
+    } else {
+      return kUserModel;
+    }
+  }
+
+  Future<bool> putUserNameEmail(String name, String email) async {
+    var res = await CallAPI().putData({
+      "username": "9782199455",
+      "name": name,
+      "email": email,
+    }, 'appuser');
+    if (res.statusCode == 200 && res.body['success']) {
+      return true;
+    } else {
+      showError('Failed to save name and email.');
+      return false;
     }
   }
 }

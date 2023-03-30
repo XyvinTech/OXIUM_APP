@@ -65,12 +65,22 @@ class AppTextField extends GetView<LoginPageController> {
                   onChanged: onChanged,
                   onTap: onTap,
                   keyboardType: keyboardtype,
-                  maxLines: 1,
+                  // maxLines: 1,
+                  style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+
                   decoration: InputDecoration(
                     hintText: hintText,
+                    isDense: true,
+                    isCollapsed: false,
+                    contentPadding: EdgeInsets.only(top: 18.5.h, bottom: 0.h),
                     hintStyle: TextStyle(
                       fontFamily: "Poppins",
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: Color(0xff828282),
                     ),

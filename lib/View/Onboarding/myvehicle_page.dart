@@ -78,6 +78,7 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
       child: Container(
         height: size.height * .16,
         padding: EdgeInsets.all(5.w),
+        margin: EdgeInsets.only(bottom: 10.h),
         decoration: BoxDecoration(
           color: Color(0xffEFFFF6),
           borderRadius: BorderRadius.circular(30),

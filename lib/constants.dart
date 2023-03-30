@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
 import 'package:google_directions_api/google_directions_api.dart';
 
@@ -45,6 +46,16 @@ final VehicleModel kVehicleModel = VehicleModel(
     capacity: 0,
     numberOfPorts: 0,
     evPort: []);
+final UserModel kUserModel = UserModel(
+    username: '',
+    phone: '',
+    email: '',
+    image: '',
+    status: '',
+    name: '',
+    total_sessions: 0,
+    total_units: 0,
+    rfid_no: '');
 
 //app-Textstyles
 
