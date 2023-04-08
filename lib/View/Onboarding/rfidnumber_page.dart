@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
+import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
@@ -169,30 +170,61 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
             SizedBox(
               height: size.height * 0.06,
             ),
-            CustomSmallText(text: "RFID Number"),
+            CustomSmallText(text: "RFID Numbers"),
             SizedBox(
               height: size.height * 0.01,
             ),
-            Container(
-              height: size.height * 0.055,
-              width: size.width * 0.6,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    width: 1,
-                    color: Color(0xff0047C3).withOpacity(.25),
-                  )),
-              child: Center(
-                child: CustomSmallText(
-                  color: Color(0xffEB5757),
-                  text: "No RFID Found",
-                  size: 15,
-                ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width * .15),
+              child: Obx(
+                () => controller.rfid_list.length == 0
+                    ? Container(
+                        height: size.height * 0.055,
+                        width: size.width * 0.6,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              width: 1,
+                              color: Color(0xff0047C3).withOpacity(.25),
+                            )),
+                        child: Center(
+                          child: CustomSmallText(
+                            color: Color(0xffEB5757),
+                            text: "No RFID Found",
+                            size: 15,
+                          ),
+                        ),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.rfid_list.length,
+                        itemBuilder: ((context, index) {
+                          return Container(
+                            height: size.height * 0.055,
+                            width: size.width * 0.6,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  width: 1,
+                                  color: Color(0xff0047C3).withOpacity(.25),
+                                )),
+                            child: Center(
+                              child: CustomText(
+                                color: Color(0xff4f4f4f),
+                                letterSpacing: 1,
+                                fontWeight: FontWeight.w600,
+                                text: controller.rfid_list[index].serialNumber,
+                                size: 16,
+                              ),
+                            ),
+                          );
+                        })),
               ),
             ),
             SizedBox(
               height: size.height * 0.07,
             ),
+            Spacer(),
             InkWell(
               onTap: () {
                 controller.orderRFID();
@@ -235,7 +267,8 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
                   ],
                 ),
               ),
-            )
+            ),
+            height(size.height * .05)
           ],
         ),
       ),

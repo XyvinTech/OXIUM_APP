@@ -38,6 +38,7 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                                 padding: EdgeInsets.all(5),
                                 child: SvgPicture.asset(
                                     'assets/svg/arrow_back_ios.svg'))),
+                        width(24),
                         Expanded(
                             child: Container(
                                 alignment: Alignment.center,
@@ -46,7 +47,34 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                                     size: 14,
                                     color: Color(0xff828282),
                                     fontWeight: FontWeight.bold))),
-                        width(24)
+                        PopupMenuButton<int>(
+                          icon: SvgPicture.asset('assets/svg/more_vert.svg'),
+                          position: PopupMenuPosition.under,
+                          tooltip: "Delete Profile",
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              onTap: () {},
+                              value: 2,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                      'assets/svg/delete_small.svg'),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  CustomText(
+                                      text: 'Delete Profile',
+                                      color: Color(0xffD60000))
+                                ],
+                              ),
+                            ),
+                          ],
+                          // offset: Offset(0, 35.h),
+                          color: Colors.white,
+                          elevation: 2,
+                        ),
                       ],
                     )),
                 height(size.width * .07),
@@ -137,9 +165,9 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Color(0xffB8CCF0))),
                   child: CustomText(
-                      text: appData.userModel.value.rfid_no.isEmpty
+                      text: appData.userModel.value.rfid.isEmpty
                           ? 'XXXXXXXXXXXXXX'
-                          : appData.userModel.value.rfid_no,
+                          : appData.userModel.value.rfid,
                       size: 17,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff828282)),

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/my_vehicles_screen_controller.dart';
-import 'package:freelancer_app/Model/myVehicleModel.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:get/get.dart';
 
+import '../../Model/vehicleModel.dart';
 import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/appbar.dart';
 import '../Widgets/apptext.dart';
+import '../Widgets/cached_network_image.dart';
 
 class MyVehiclePage extends GetView<MyVehiclesScreenController> {
   const MyVehiclePage({super.key});
@@ -45,19 +46,19 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
               SizedBox(
                 height: size.height * 0.02,
               ),
-              Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: controller.myVehicleList.length,
-                  itemBuilder: ((context, index) =>
-                      _myVehicle(controller.myVehicleList[index])),
+              Expanded(
+                child: Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller.myVehicleList.length,
+                    itemBuilder: ((context, index) =>
+                        _myVehicle(controller.myVehicleList[index])),
+                  ),
                 ),
               ),
-
-              Expanded(child: Container()),
               StartedButton(
                 onTap: () {
-                  Get.toNamed(Routes.smartchargeRoute);
+                  Get.toNamed(Routes.orderRfidPageRoute);
                 },
                 color: Color(0xff0047C3),
                 text: "Get Charged",
@@ -72,7 +73,7 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
     );
   }
 
-  Widget _myVehicle(MyVehicleModel model) {
+  Widget _myVehicle(VehicleModel model) {
     return Align(
       alignment: Alignment.center,
       child: Container(
@@ -90,13 +91,9 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(
-              flex: 2,
-              child: Image.asset(
-                "assets/images/jeep1.png",
-                height: size.height * 0.12,
-                width: size.width * 0.32,
-              ),
+            cachedNetworkImage(
+              model.icon,
+              width: 120.w,
             ),
             width(5.w),
             Expanded(
@@ -111,11 +108,11 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomSmallText(
-                          text: model.make,
+                          text: model.vehicleDetails,
                           color: Color(0xff828282),
                         ),
                         CustomBigText(
-                          text: model.model,
+                          text: model.modelName,
                           size: 16,
                           color: Color(0xff4F4F4F),
                         ),
@@ -142,7 +139,7 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount: 0,
+                      itemCount: model.evPort.length,
                       itemBuilder: ((context, index1) => Align(
                             alignment: Alignment.center,
                             child: Container(
@@ -151,8 +148,7 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
                               color: Color.fromRGBO(184, 210, 255, 0.6),
                               child: Center(
                                 child: CustomSmallText(
-                                  text: 'CSS TYPE2',
-                                  // .evPort[index1]['connectorType'],
+                                  text: model.evPort[index1]['connectorType'],
                                   color: Color(0xff0047C3),
                                 ),
                               ),

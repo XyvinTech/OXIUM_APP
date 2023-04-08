@@ -11,12 +11,12 @@ import '../Utils/routes.dart';
 class VehiclesScreenController extends GetxController {
   RxInt reload = 0.obs;
   RxBool enablemailTextfield = false.obs;
-  RxBool isSelectColor = false.obs;
-  RxBool isVehicleColor = false.obs;
+  // RxBool isSelectColor = false.obs;
+  // RxBool isVehicleColor = false.obs;
   RxBool isVisible = false.obs;
-  RxInt isSelectedindex = (-1).obs;
-  RxInt isIndex = 0.obs;
-  RxInt isIndex1 = 0.obs;
+  // RxInt isSelectedindex = (-1).obs;
+  // RxInt isIndex = 0.obs;
+  // RxInt isIndex1 = 0.obs;
   RxInt isSelectedVehicleindex = (-1).obs;
   RxList<VehicleModel> selectedVehicleList = RxList();
   Rx<VehicleModel> selectedVehicle = kVehicleModel.obs;
@@ -26,17 +26,15 @@ class VehiclesScreenController extends GetxController {
 
   TextEditingController numEditingController = TextEditingController();
 
-  @override
-  void onReady() {
-    // TODO: implement onReady
-    super.onReady();
-  }
+  RxList<VehicleModel> vehicle_list = RxList();
+  TextEditingController searchTextFieldcontroller = TextEditingController();
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     getAllVehicles();
+    CommonFunctions().getUserProfile();
   }
 
   getAllVehicles() async {
@@ -83,5 +81,11 @@ class VehiclesScreenController extends GetxController {
     } else {
       showError('Failed to add vehicle. Try again!');
     }
+  }
+
+  ///SEARCH VEHICLES///
+  getSearchedVehicles() async {
+    vehicle_list.value = await CommonFunctions()
+        .getSearchedVehicles(searchTextFieldcontroller.text);
   }
 }

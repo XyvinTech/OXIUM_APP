@@ -1,7 +1,9 @@
+import 'package:freelancer_app/Controller/rfid_page_controller.dart';
+import 'package:freelancer_app/Model/RfidModel.dart';
 import 'package:freelancer_app/Model/apiResponseModel.dart';
-import 'package:freelancer_app/Model/myVehicleModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Utils/api.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
@@ -29,13 +31,16 @@ class CommonFunctions {
     kLog(response.paymentId.toString());
     kLog(response.orderId.toString());
     kLog(response.signature.toString());
-    if (Get.currentRoute == Routes.rfidNumberRoute)
-      savePaymentRazorpay(response);
+    if (Get.currentRoute == Routes.rfidNumberRoute) {
+      await savePaymentRazorpay(response);
+      RfidPageController controller = Get.find();
+      controller.getUserRFIDs();
+    }
+
     closeRazorPay();
   }
 
   void handlePaymentError(PaymentFailureResponse response) {
-    Get.back();
     // Do something when payment fails
     print("////////////////////");
     showError(response.message!);
@@ -51,7 +56,7 @@ class CommonFunctions {
   }
 
   void openRazorPay(
-      {required double amount,
+      {required int amount,
       required String order_id,
       required String descirption}) {
     if (order_id.isEmpty) return;
@@ -113,7 +118,7 @@ class CommonFunctions {
     ResponseModel res = await CallAPI().getData('evtemplates', {});
     if (res.statusCode == 200 && res.body['success']) {
       print(res.body);
-      Map list = res.body['result'] ?? {};
+      Map list = res.body['result']['vehicleDetails'] ?? {};
       Map<String, dynamic> response = {};
       List<VehicleModel> brandVehicles = [];
       List<String> brands = [kAll];
@@ -157,15 +162,15 @@ class CommonFunctions {
     return (res.statusCode == 200 && res.body['success']);
   }
 
-  Future<List<MyVehicleModel>> getUserEvs() async {
+  Future<List<VehicleModel>> getUserEvs() async {
     var res = await CallAPI().getData('userevs', {
       "username": "9782199455",
     });
 
     if (res.statusCode == 200 && res.body['success']) {
-      List<MyVehicleModel> list = [];
+      List<VehicleModel> list = [];
       res.body['result'].forEach((element) {
-        list.add(MyVehicleModel.fromjson(element));
+        list.add(VehicleModel.fromjson(element));
       });
       return list;
     } else {
@@ -177,8 +182,8 @@ class CommonFunctions {
     var res = await CallAPI().getData('appuser', {
       "username": "9782199455",
     });
-    if (res.statusCode == 200 && res.body['success']) {
-      return UserModel.fromJson(res.body['result']);
+    if (res.statusCode == 200) {
+      return appData.userModel.value = UserModel.fromJson(res.body['result']);
     } else {
       return kUserModel;
     }
@@ -195,6 +200,65 @@ class CommonFunctions {
     } else {
       showError('Failed to save name and email.');
       return false;
+    }
+  }
+
+  Future<bool> putUserProfile(String name, String email, String phone) async {
+    var res = await CallAPI().putData({
+      "username": "9782199455",
+      "name": name,
+      "email": email,
+      "phone": phone,
+    }, 'appuser');
+    if (res.statusCode == 200 && res.body['success']) {
+      return true;
+    } else {
+      showError('Failed to save name and email.');
+      return false;
+    }
+  }
+
+  Future<int> getRFIDPrice() async {
+    var res = await CallAPI().getData('rfidprice', {
+      "username": "9782199455",
+    });
+
+    if (res.statusCode == 200) {
+      return res.body['result']['rfid_price'].toInt();
+    } else {
+      return 0;
+    }
+  }
+
+  Future<List<RFIDModel>> getUserRFIDs() async {
+    var res = await CallAPI().getData('rfidbyusername', {
+      "user": "9782199455",
+    });
+
+    if (res.statusCode == 200 && res.body['success']) {
+      List<RFIDModel> list = [];
+      res.body['result'].forEach((element) {
+        list.add(RFIDModel.fromJson(element));
+      });
+      return list;
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<VehicleModel>> getSearchedVehicles(String make) async {
+    var res = await CallAPI().getData('evtemplate', {
+      "vehiclemake": make,
+    });
+
+    if (res.statusCode == 200 && res.body['success']) {
+      List<VehicleModel> list = [];
+      res.body['result'].forEach((element) {
+        list.add(VehicleModel.fromjson(element));
+      });
+      return list;
+    } else {
+      return [];
     }
   }
 }

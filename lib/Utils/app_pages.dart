@@ -14,7 +14,7 @@ import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
 import 'package:freelancer_app/Bindings/qr_binding.dart';
 import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/rfid_page_bindings.dart';
-import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
+import 'package:freelancer_app/Bindings/order_rfid_page_binding.dart';
 import 'package:freelancer_app/Bindings/splash_screen_binding.dart';
 import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
@@ -41,7 +41,7 @@ import 'package:freelancer_app/View/Onboarding/login_page.dart';
 import 'package:freelancer_app/View/Onboarding/myvehicle_page.dart';
 import 'package:freelancer_app/View/Onboarding/personal_vehicle_details_page.dart';
 import 'package:freelancer_app/View/Onboarding/rfidnumber_page.dart';
-import 'package:freelancer_app/View/Onboarding/smartchrage_page.dart';
+import 'package:freelancer_app/View/Onboarding/order_rfid_page.dart';
 import 'package:freelancer_app/View/Onboarding/splash_screen.dart';
 import 'package:freelancer_app/View/Onboarding/vehiclesearch_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
@@ -99,7 +99,7 @@ abstract class AppPages {
       page: () => EnterOtpPage(),
     ),
     GetPage(
-      name: Routes.welcometoevRoute,
+      name: Routes.addNameEmailPageRoute,
       binding: LoginPageBinding(),
       page: () => WelcomeToEvPage(),
     ),
@@ -120,9 +120,9 @@ abstract class AppPages {
       page: () => MyVehiclePage(),
     ),
     GetPage(
-      name: Routes.smartchargeRoute,
-      binding: SmartChargeBinding(),
-      page: () => SmartChargeScreen(),
+      name: Routes.orderRfidPageRoute,
+      binding: RfidPageBindings(),
+      page: () => OrderRFIDScreen(),
     ),
     GetPage(
       name: Routes.rfidNumberRoute,
@@ -131,7 +131,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.vehiclesearchPageRoute,
-      binding: VehicleSearchBinding(),
+      binding: VehicleScreenBinding(),
       page: () => VehicleSearchScreen(),
     ),
     GetPage(

@@ -163,7 +163,7 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
                         child: AppButton(
                           text: "Verify Number",
                           onTap: () {
-                            Get.toNamed(Routes.welcometoevRoute);
+                            Get.toNamed(Routes.addNameEmailPageRoute);
                           },
                         ),
                       ),

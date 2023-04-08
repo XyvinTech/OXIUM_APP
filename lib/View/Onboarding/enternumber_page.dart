@@ -190,10 +190,12 @@ class EnterNumberPage extends GetView<LoginPageController> {
                     ),
                     Row(
                       children: [
-                        Container(
-                          height: size.height * 0.003,
-                          width: size.width * 0.4,
-                          color: Color(0xffE0E0E0),
+                        Expanded(
+                          child: Container(
+                            height: size.height * 0.003,
+                            // width: size.width * 0.4,
+                            color: Color(0xffE0E0E0),
+                          ),
                         ),
                         SizedBox(
                           width: size.width * 0.02,
@@ -202,10 +204,12 @@ class EnterNumberPage extends GetView<LoginPageController> {
                         SizedBox(
                           width: size.width * 0.02,
                         ),
-                        Container(
-                          height: size.height * 0.003,
-                          width: size.width * 0.4,
-                          color: Color(0xffE0E0E0),
+                        Expanded(
+                          child: Container(
+                            height: size.height * 0.003,
+                            // width: size.width * 0.4,
+                            color: Color(0xffE0E0E0),
+                          ),
                         ),
                       ],
                     ),

@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/vehicles_screen_controller.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -48,10 +49,12 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
-              child: CustomBigText(
-                text: "Jane Doe",
-                color: Color(0xff4F4F4F),
-                size: 21.sp,
+              child: Obx(
+                () => CustomBigText(
+                  text: appData.userModel.value.name,
+                  color: Color(0xff4F4F4F),
+                  size: 21.sp,
+                ),
               ),
             ),
             SizedBox(
@@ -59,10 +62,12 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
-              child: CustomSmallText(
-                text: "janedoe@example.com",
-                color: Color(0xff4F4F4F),
-                size: 15.sp,
+              child: Obx(
+                () => CustomSmallText(
+                  text: appData.userModel.value.email,
+                  color: Color(0xff4F4F4F),
+                  size: 15.sp,
+                ),
               ),
             ),
             SizedBox(

@@ -81,8 +81,14 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                 children: [
                   CustomBigText(text: "Add Your Vehicles"),
                   InkWell(
-                    onTap: () {
-                      Get.toNamed(Routes.vehiclesearchPageRoute);
+                    onTap: () async {
+                      controller.isVisible.value = false;
+                      controller.isSelectedVehicleindex.value = -1;
+                      controller.searchTextFieldcontroller.text = '';
+                      controller.vehicle_list.value = [];
+                      await Get.toNamed(Routes.vehiclesearchPageRoute);
+                      controller.isVisible.value = false;
+                      controller.isSelectedVehicleindex.value = -1;
                     },
                     child: Image.asset(
                       "assets/images/search.png",
@@ -309,18 +315,10 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  controller.selectedVehicleList[index].icon
-                                          .isEmpty
-                                      ? Image.asset(
-                                          "assets/images/jeep1.png",
-                                          height: size.height * 0.12,
-                                          width: size.width * 0.32,
-                                        )
-                                      : cachedNetworkImage(
-                                          controller
-                                              .selectedVehicleList[index].icon,
-                                          width: 120.w,
-                                        ),
+                                  cachedNetworkImage(
+                                    controller.selectedVehicleList[index].icon,
+                                    width: 120.w,
+                                  ),
                                   width(20.w),
                                   Expanded(
                                     child: Column(

@@ -5,6 +5,7 @@ class VehicleModel {
   String modelName;
   String outputType;
   String typeOfPorts;
+  String evRegNumber;
   int ratedVoltages;
   int capacity;
   int numberOfPorts;
@@ -14,6 +15,7 @@ class VehicleModel {
     required this.icon,
     required this.vehicleDetails,
     required this.modelName,
+    required this.evRegNumber,
     required this.outputType,
     required this.typeOfPorts,
     required this.ratedVoltages,
@@ -25,21 +27,23 @@ class VehicleModel {
     return VehicleModel(
         id: json['id'],
         icon: json['icon'] ?? '',
-        vehicleDetails: json['vechileDetails'] ?? '',
-        modelName: json['modelName'],
-        outputType: json['outputType'],
-        typeOfPorts: json['typeOfPorts'],
-        ratedVoltages: json['ratedVoltages'],
-        capacity: json['capacity'],
-        numberOfPorts: json['numberOfPorts'],
-        evPort: json['evPort']);
+        vehicleDetails: json['vehicleDetails'] ?? '',
+        evRegNumber: json['evRegNumber'] ?? '',
+        modelName: json['modelName'] ?? '',
+        outputType: json['outputType'] ?? '',
+        typeOfPorts: json['typeOfPorts'] ?? '',
+        ratedVoltages: json['ratedVoltages'] ?? 0,
+        capacity: json['capacity'] ?? 0,
+        numberOfPorts: json['numberOfPorts'] ?? 0,
+        evPort: json['evPort'] ?? []);
   }
 
   Map<String, dynamic> toJson() => {
         "id": id,
         'icon': icon.isEmpty ? null : icon,
-        "vechileDetails": vehicleDetails,
+        "vehicleDetails": vehicleDetails,
         "modelName": modelName,
+        "evRegNumber": evRegNumber,
         "outputType": outputType,
         "typeOfPorts": typeOfPorts,
         "ratedVoltages": ratedVoltages,

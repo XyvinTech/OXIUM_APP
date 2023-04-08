@@ -72,9 +72,10 @@ class CallAPI {
       }
 
       return ResponseModel(statusCode: res.statusCode, body: body);
-    } on HttpException catch (e) {
-      log(e.message);
+    } on Exception catch (e) {
+      log(e.toString());
       hideLoading();
+      showError('Failed to get data');
       // TODO
     }
 
@@ -101,9 +102,10 @@ class CallAPI {
       var body;
       if (res.statusCode == 200) body = json.decode(res.body);
       return ResponseModel(statusCode: res.statusCode, body: body);
-    } on HttpException catch (e) {
-      log(e.message);
+    } on Exception catch (e) {
+      log(e.toString());
       hideLoading();
+      showError('Failed to put data');
       // TODO
     }
     return ResponseModel(statusCode: 404, body: null);
@@ -132,9 +134,10 @@ class CallAPI {
       // }
       body = json.decode(res.body);
       return ResponseModel(statusCode: res.statusCode, body: body);
-    } on HttpException catch (e) {
-      log(e.message);
+    } on Exception catch (e) {
+      log(e.toString());
       hideLoading();
+      showError('Failed to get data');
 
       // TODO
     }

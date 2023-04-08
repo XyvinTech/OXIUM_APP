@@ -1,7 +1,11 @@
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:freelancer_app/Model/RfidModel.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 import '../Singletones/common_functions.dart';
+import '../Utils/toastUtils.dart';
+import '../constants.dart';
 
 class RfidPageController extends GetxController {
   RxList carouselText = [
@@ -16,16 +20,31 @@ class RfidPageController extends GetxController {
   ].obs;
   CarouselController? carouselController;
   RxDouble currentIndex = 0.0.obs;
+  RxInt rfid_price = 0.obs;
+  RxList<RFIDModel> rfid_list = RxList();
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    getRFIDPriceAndUserRFID();
+  }
+
+  getRFIDPriceAndUserRFID() async {
+    showLoading(kLoading);
+    rfid_price.value = await CommonFunctions().getRFIDPrice();
+    await getUserRFIDs();
+    hideLoading();
+  }
+
+  getUserRFIDs() async {
+    rfid_list.value = await CommonFunctions().getUserRFIDs();
   }
 
   orderRFID() async {
-    String order_id = await CommonFunctions().getOrderIdRazorpay(399);
+
+    String order_id = await CommonFunctions().getOrderIdRazorpay( rfid_price.value);
     CommonFunctions().openRazorPay(
-        amount: 399, order_id: order_id, descirption: 'RFID payment');
+        amount: rfid_price.value, order_id: order_id, descirption: 'RFID payment');
   }
 
   @override

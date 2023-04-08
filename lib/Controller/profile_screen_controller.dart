@@ -16,7 +16,7 @@ class ProfileScreenController extends GetxController {
 
   getProfileDetails() async {
     showLoading(kLoading);
-    appData.userModel.value = await CommonFunctions().getUserProfile();
+    await CommonFunctions().getUserProfile();
     hideLoading();
   }
 }

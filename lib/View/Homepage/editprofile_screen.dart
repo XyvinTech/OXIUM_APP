@@ -1,4 +1,3 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -109,101 +108,6 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     ),
                   ),
                   height(size.height * .02),
-                  // Padding(
-                  //   padding: EdgeInsets.symmetric(horizontal: size.width * .1),
-                  //   child: Container(
-                  //     padding: EdgeInsets.only(
-                  //       left: size.width * 0.05,
-                  //     ),
-                  //     height: size.height * .085,
-                  //     decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(60),
-                  //         border: Border.all(
-                  //           width: 2,
-                  //           color: Color(0xffE0E0E0),
-                  //         )),
-                  //     child: Row(
-                  //       children: [
-                  //         Obx(
-                  //           () {
-                  //             return InkWell(
-                  //               onTap: () {
-                  //                 showCountryPicker(
-                  //                   context: context,
-                  //                   favorite: ['IN', 'BD'],
-                  //                   showPhoneCode: true,
-                  //                   onSelect: (Country country) {
-                  //                     print(
-                  //                         'Select country: ${country.displayName}');
-                  //                     controller.country.value =
-                  //                         country.phoneCode;
-                  //                   },
-                  //                 );
-                  //               },
-                  //               child: Row(
-                  //                 children: [
-                  //                   Text(
-                  //                     "+${controller.country.value}",
-                  //                     style: TextStyle(
-                  //                       fontSize: 15,
-                  //                       color: Color(0xff4F4F4F),
-                  //                     ),
-                  //                   ),
-                  //                   Icon(
-                  //                     Icons.expand_more,
-                  //                     size: 20,
-                  //                     color: Color(0xff4F4F4F),
-                  //                   )
-                  //                 ],
-                  //               ),
-                  //             );
-                  //           },
-                  //         ),
-                  //         SizedBox(
-                  //           width: size.width * 0.014,
-                  //         ),
-                  //         Container(
-                  //           height: size.height * 0.06,
-                  //           width: size.width * 0.005,
-                  //           color: Color(0xffE0E0E0),
-                  //         ),
-                  //         SizedBox(
-                  //           width: size.width * 0.035,
-                  //         ),
-                  //         Form(
-                  //           child: Container(
-                  //             height: size.height * 0.065,
-                  //             width: size.width * 0.5,
-                  //             child: Padding(
-                  //               padding:
-                  //                   EdgeInsets.only(top: size.height * 0.0017),
-                  //               child: TextFormField(
-                  //                 onChanged: (String value) {
-                  //                   controller.textfield.value = value;
-                  //                 },
-                  //                 keyboardType: TextInputType.number,
-                  //                 maxLines: 1,
-                  //                 inputFormatters: [
-                  //                   // LengthLimitingTextInputFormatter(10),
-                  //                   FilteringTextInputFormatter.digitsOnly,
-                  //                 ],
-                  //                 decoration: InputDecoration(
-                  //                   hintText: "Phone Number",
-                  //                   hintStyle: TextStyle(
-                  //                     color: Colors.grey,
-                  //                   ),
-                  //                   border: InputBorder.none,
-                  //                   focusedBorder: InputBorder.none,
-                  //                   enabledBorder: InputBorder.none,
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         )
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width * .1),
                     child: PhoneNumberTextField(
@@ -214,6 +118,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: size.width * .1),
                     child: EditTextField(
+                      enabled: true,
                       icon: Image.asset(
                         "assets/images/sms.png",
                         width: size.width * 0.06,
@@ -221,29 +126,35 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                       ),
                       // icon: SvgPicture.asset("assets/svg/sms.svg"),
                       size: size,
-                      controller: controller.nameController,
+
+                      controller: controller.emailController,
                       hintText: 'janedoe@example.com',
                     ),
                   ),
                   // Spacer(),
-                  Container(
-                    height: size.height * .067,
-                    width: size.width * .65,
-                    margin: EdgeInsets.only(top: size.height * .16),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: Color(0xff2F80ED).withOpacity(1)),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.save_outlined, color: Color(0xffFFFFFF)),
-                          width(size.width * .02),
-                          CustomText(
-                              text: 'Save',
-                              color: Color(0xffFFFFFF),
-                              size: 14,
-                              fontWeight: FontWeight.bold)
-                        ]),
+                  InkWell(
+                    onTap: () {
+                      controller.updateUserProfile();
+                    },
+                    child: Container(
+                      height: size.height * .067,
+                      width: size.width * .65,
+                      margin: EdgeInsets.only(top: size.height * .16),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          color: Color(0xff2F80ED).withOpacity(1)),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.save_outlined, color: Color(0xffFFFFFF)),
+                            width(size.width * .02),
+                            CustomText(
+                                text: 'Save',
+                                color: Color(0xffFFFFFF),
+                                size: 14,
+                                fontWeight: FontWeight.bold)
+                          ]),
+                    ),
                   ),
                   height(size.height * .04)
                 ],
@@ -258,12 +169,14 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
     required String hintText,
     required Size size,
     required Widget icon,
+    bool enabled = true,
   }) {
     return Container(
-      height: size.height * .085,
+      // height: size.height * .085,
       width: size.width,
       child: TextField(
         controller: controller,
+        enabled: enabled,
         style: TextStyle(
           color: Color(0xff828282),
         ),
@@ -272,7 +185,9 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
           hintStyle: TextStyle(
             color: Colors.grey,
           ),
-          // contentPadding: EdgeInsets.only(left: 20),
+          contentPadding: EdgeInsets.only(left: 20, bottom: 20, top: 20),
+          // isDense: true,
+          // isCollapsed: true,
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(40),
               borderSide: BorderSide(color: Color(0xffE0E0E5))),
@@ -284,6 +199,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
               borderSide: BorderSide(color: Color(0xff628EDB))),
           prefixIcon: Container(
             width: 20,
+            margin: EdgeInsets.only(left: 20, right: 20),
             alignment: Alignment.center,
             child: icon,
           ),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
-import 'package:google_directions_api/google_directions_api.dart';
 
 late Size size = Size(0, 0);
 double zoom = 15;
@@ -39,6 +38,7 @@ final VehicleModel kVehicleModel = VehicleModel(
     id: -111,
     icon: '',
     vehicleDetails: '',
+    evRegNumber: '',
     modelName: '',
     outputType: '',
     typeOfPorts: '',
@@ -55,7 +55,7 @@ final UserModel kUserModel = UserModel(
     name: '',
     total_sessions: 0,
     total_units: 0,
-    rfid_no: '');
+    rfid: '');
 
 //app-Textstyles
 

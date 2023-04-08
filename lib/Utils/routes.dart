@@ -14,12 +14,12 @@ class Routes {
   static String loginpageRoute = '/login';
   static String enternumberpageRoute = '/enternumber';
   static String enterotppageRoute = '/enterotp';
-  static String welcometoevRoute = '/welcometoev';
+  static String addNameEmailPageRoute = '/addnameemail';
   static String homePageRoute = '/homepage';
   static String addvehiclesRoute = '/addvehicles';
   static String vehicledetailspageRoute = '/personalvehicledetails';
-  static String myvehicleRoute = '/myvehicleRoute';
-  static String smartchargeRoute = '/smartcharge';
+  static String myvehicleRoute = '/myvehicles';
+  static String orderRfidPageRoute = '/orderrfid';
   static String rfidNumberRoute = '/rfidNumber';
   static String vehiclesearchPageRoute = '/vehiclesearch';
   static String bottomNavPageRoute = '/bottomNav';
