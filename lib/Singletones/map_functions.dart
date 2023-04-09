@@ -264,9 +264,9 @@ class MapFunctions {
   }
 
   addMarkerHomePage({
-    required String name,
+    required String id,
     required LatLng latLng,
-    required bool isGreen,
+    required bool isBusy,
     required HomePageController controller,
   }) {
     markers_homepage.add(Marker(
@@ -275,12 +275,12 @@ class MapFunctions {
           await MapFunctions().animateToNewPosition(latLng);
           //TODO: you should pass the model here to show on bottom sheet when clicked
           Future.delayed(Duration(milliseconds: 500), () {
-            showBottomSheetWhenClickedOnMarker(null, controller);
+            controller.getChargeStationDetails(id);
           });
         },
-        markerId: MarkerId(name),
+        markerId: MarkerId(id),
         // infoWindow: InfoWindow(title: name),
-        icon: BitmapDescriptor.fromBytes(isGreen ? bytesGreen! : bytesBlue!),
+        icon: BitmapDescriptor.fromBytes(isBusy ? bytesGreen! : bytesBlue!),
         position: latLng,
         anchor: Offset(.5, .5)));
   }

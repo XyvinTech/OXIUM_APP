@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Controller/trips_screen_controller.dart';
-import 'package:freelancer_app/Model/apiResponseModel.dart';
+import 'package:freelancer_app/Model/stationMarkerModel.dart';
+import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
-import 'package:freelancer_app/Utils/api.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../View/Homepage/homepage.dart';
 import 'chargePage_controller.dart';
 
 class HomePageController extends GetxController {
@@ -41,14 +42,40 @@ class HomePageController extends GetxController {
         "assets/images/CSAR.png", 70);
     MapFunctions().myMarker = await ImageByteConverter.getBytesFromAsset(
         "assets/images/myMarker.png", 60);
-    Future.delayed(Duration(milliseconds: 1000), () {
-      MapFunctions().myPositionListener();
-    });
 
     Position? pos = await MapFunctions().getCurrentPosition();
     // MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
     MapFunctions().animateToNewPosition(LatLng(28.670988, 77.2794488));
+    if (pos != null) {
+      await getNearestChargestations(pos);
+      MapFunctions().addMyPositionMarker(pos, MapFunctions().markers_homepage);
+    }
+    Future.delayed(Duration(milliseconds: 1000), () {
+      MapFunctions().myPositionListener();
+    });
   }
-  
 
+  getNearestChargestations(Position pos) async {
+    showLoading(kLoading);
+    List<StationMarkerModel> res =
+        await CommonFunctions().getNearestChargstations(pos);
+    hideLoading();
+    
+    res.forEach((element) {
+      kLog(element.stationId.toString());
+      MapFunctions().addMarkerHomePage(
+          id: element.stationId.toString(),
+          latLng: LatLng(element.lattitude , pos.longitude),
+          isBusy: element.isBusy,
+          controller: this);
+    });
+  }
+
+  getChargeStationDetails(String stationId) async {
+    showLoading(kLoading);
+    var res = await CommonFunctions().getChargeStationDetails(stationId);
+    hideLoading();
+
+    showBottomSheetWhenClickedOnMarker(res, this);
+  }
 }

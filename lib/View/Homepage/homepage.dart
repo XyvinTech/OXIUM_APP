@@ -1,15 +1,19 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
-import 'package:freelancer_app/Model/chargingCafeModel.dart';
+import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/my_flutter_app_icons.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
 import 'package:freelancer_app/View/Homepage/drawer.dart';
 import 'package:freelancer_app/View/Homepage/map_screen.dart';
 import 'package:freelancer_app/View/Trips/trips_page.dart';
 import 'package:freelancer_app/View/WalletPage/walletpage.dart';
+import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -87,9 +91,20 @@ class HomePageScreen extends GetView<HomePageController> {
 }
 
 showBottomSheetWhenClickedOnMarker(
-    ChargingCafeModel? model, HomePageController controller) {
+    ChargeStationDetailsModel model, HomePageController controller) {
   // CalistaCafePageController calcontroller =
   //     Get.put(CalistaCafePageController());
+  double distance = 0;
+  if (MapFunctions().curPos != null) {
+    distance = MapFunctions.distanceBetweenCoordinates(
+            MapFunctions().curPos!.latitude,
+            MapFunctions().curPos!.longitude,
+            model.lattitude,
+            model.longitude)
+        .toPrecision(2);
+  }
+  List<String> amenities = model.amenities.split(',');
+
   Get.bottomSheet(WillPopScope(
     onWillPop: () async {
       // calcontroller.dispose();
@@ -103,7 +118,7 @@ showBottomSheetWhenClickedOnMarker(
       onPanelSlide: (value) {},
       onPanelClosed: () {},
       onPanelOpened: () {
-        Get.offNamed(Routes.calistaCafePageRoute);
+        Get.offNamed(Routes.calistaCafePageRoute, arguments: model);
       },
       // panel: CalistaCafeScreen(),
       panel: Container(
@@ -132,7 +147,12 @@ showBottomSheetWhenClickedOnMarker(
                 //TODO: Replace the CachedNetworkImage with Image.asset() below
                 // CachedNetworkImage(imageUrl: imageUrl)
                 Expanded(
-                    flex: 3, child: Image.asset('assets/svg/cafe_image.png')),
+                  flex: 3,
+                  // child: Image.asset('assets/svg/cafe_image.png'),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: cachedNetworkImage(model.image)),
+                ),
 
                 width(size.width * .035),
                 Expanded(
@@ -156,7 +176,7 @@ showBottomSheetWhenClickedOnMarker(
                                 size: 15,
                               ),
                               CustomText(
-                                  text: '5.6',
+                                  text: model.rating,
                                   size: 12,
                                   color: Color(0xffF2994A)),
                             ]),
@@ -165,58 +185,44 @@ showBottomSheetWhenClickedOnMarker(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           CustomText(
-                              text: 'Calista Cafe',
+                              text: model.name,
                               color: Color(0xff4F4F4F),
                               fontWeight: FontWeight.bold),
                           width(size.width * .017),
-                          CustomText(
-                              text: '13 km Away',
-                              color: Color(0xff828282),
-                              fontWeight: FontWeight.normal,
-                              size: 12),
+                          if (distance != 0)
+                            CustomText(
+                                text: '${distance} km Away',
+                                color: Color(0xff828282),
+                                fontWeight: FontWeight.normal,
+                                size: 12),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
+                      height(8.h),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, childAspectRatio: 4.7),
+                        itemCount: amenities.length,
+                        itemBuilder: (context, index) {
+                          return Row(
                             children: [
-                              SvgPicture.asset('assets/svg/wc.svg'),
+                              SvgPicture.asset(
+                                  'assets/svg/${amenities[index]}.svg'),
                               width(size.width * .01),
-                              CustomText(
-                                  text: 'Rest Room',
-                                  color: Color(0xff828282),
-                                  fontWeight: FontWeight.normal,
-                                  size: 12),
+                              Expanded(
+                                child: CustomText(
+                                    text: amenities[index].toTitleCase(),
+                                    color: Color(0xff828282),
+                                    fontWeight: FontWeight.normal,
+                                    size: 12),
+                              ),
                             ],
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset('assets/svg/hotel.svg'),
-                              width(size.width * .01),
-                              CustomText(
-                                  text: 'Hotel',
-                                  color: Color(0xff828282),
-                                  fontWeight: FontWeight.normal,
-                                  size: 12),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset('assets/svg/local_cafe.svg'),
-                              width(size.width * .01),
-                              CustomText(
-                                  text: 'Cafe',
-                                  color: Color(0xff828282),
-                                  fontWeight: FontWeight.normal,
-                                  size: 12),
-                            ],
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                      height(size.height * .01),
+                      height(8.h),
                       CustomText(
-                          text: 'Mannampatta . Near Govt. College , Kearal ',
+                          text: model.location_name,
                           size: 12,
                           color: Color(0xff4F4F4F))
                     ],

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
 
@@ -56,6 +57,18 @@ final UserModel kUserModel = UserModel(
     total_sessions: 0,
     total_units: 0,
     rfid: '');
+ChargeStationDetailsModel kChargeStationDetailsModel =
+    ChargeStationDetailsModel(
+        id: -1,
+        name: '',
+        location_name: '',
+        rating: '',
+        image: '',
+        lattitude: -1,
+        longitude: -1,
+        amenities: '',
+        isFavorite: false,
+        Chargers: []);
 
 //app-Textstyles
 

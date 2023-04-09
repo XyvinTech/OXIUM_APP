@@ -1,3 +1,4 @@
+import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/state_manager.dart';

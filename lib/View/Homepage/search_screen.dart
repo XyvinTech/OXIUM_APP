@@ -184,7 +184,7 @@ class SearchScreen extends GetView<SearchScreenController> {
                                     CustomText(
                                       text: controller
                                           .chargingCafeModelList[index]
-                                          .location,
+                                          .location_name,
                                       size: 12,
                                       fontWeight: FontWeight.normal,
                                       color: Color(0xff828282),

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/calista_cafePage_controller.dart';
-import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Model/evPortsModel.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
+import '../Widgets/cached_network_image.dart';
 import '../Widgets/customText.dart';
 
 class CalistaCafeScreen extends GetView<CalistaCafePageController> {
@@ -40,7 +42,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
             child: Column(
               children: [
                 Container(
-                  // height: size.height * .32,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -48,25 +49,19 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                           topRight: Radius.circular(20))),
                   child: Column(children: [
                     height(size.height * .01),
-                    // Container(
-                    //   height: size.height * .006,
-                    //   width: size.width * .25,
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       color: Color(0xffD9D9D9)),
-                    // ),
                     height(size.height * .015),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: size.width * .06),
                       child: Row(
                         children: [
-                          //TODO: Replace the CachedNetworkImage with Image.asset() below
-                          // CachedNetworkImage(imageUrl: imageUrl)
                           Expanded(
-                              flex: 3,
-                              child: Image.asset('assets/svg/cafe_image.png')),
-
+                            flex: 3,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: cachedNetworkImage(
+                                    controller.model.value.image)),
+                          ),
                           width(size.width * .035),
                           Expanded(
                             flex: 7,
@@ -90,7 +85,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                           size: 15,
                                         ),
                                         CustomText(
-                                            text: '5.6',
+                                            text: controller.model.value.rating,
                                             size: 12,
                                             color: Color(0xffF2994A)),
                                       ]),
@@ -99,62 +94,48 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     CustomText(
-                                        text: 'Calista Cafe',
+                                        text: controller.model.value.name,
                                         color: Color(0xff4F4F4F),
                                         fontWeight: FontWeight.bold),
                                     width(size.width * .017),
                                     CustomText(
-                                        text: '13 km Away',
+                                        text:
+                                            '${controller.distance.value} km away',
                                         color: Color(0xff828282),
                                         fontWeight: FontWeight.normal,
                                         size: 12),
                                   ],
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        SvgPicture.asset('assets/svg/wc.svg'),
-                                        width(size.width * .01),
-                                        CustomText(
-                                            text: 'Rest Room',
-                                            color: Color(0xff828282),
-                                            fontWeight: FontWeight.normal,
-                                            size: 12),
-                                      ],
-                                    ),
-                                    Row(
+                                height(8.h),
+                                GridView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                          childAspectRatio: 4.7),
+                                  itemCount: controller.amenities.length,
+                                  itemBuilder: (context, index) {
+                                    return Row(
                                       children: [
                                         SvgPicture.asset(
-                                            'assets/svg/hotel.svg'),
+                                            'assets/svg/${controller.amenities[index]}.svg'),
                                         width(size.width * .01),
-                                        CustomText(
-                                            text: 'Hotel',
-                                            color: Color(0xff828282),
-                                            fontWeight: FontWeight.normal,
-                                            size: 12),
+                                        Expanded(
+                                          child: CustomText(
+                                              text: controller.amenities[index]
+                                                  .toTitleCase(),
+                                              color: Color(0xff828282),
+                                              fontWeight: FontWeight.normal,
+                                              size: 12),
+                                        ),
                                       ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                            'assets/svg/local_cafe.svg'),
-                                        width(size.width * .01),
-                                        CustomText(
-                                            text: 'Cafe',
-                                            color: Color(0xff828282),
-                                            fontWeight: FontWeight.normal,
-                                            size: 12),
-                                      ],
-                                    ),
-                                  ],
+                                    );
+                                  },
                                 ),
-                                height(size.height * .01),
+                                height(8.h),
                                 CustomText(
-                                    text:
-                                        'Mannampatta . Near Govt. College , Kearal ',
+                                    text: controller.model.value.location_name,
                                     size: 12,
                                     color: Color(0xff4F4F4F))
                               ],
@@ -192,40 +173,36 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                           ),
                           Row(
                             children: [
-                              Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.all(size.width * .02),
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: size.width * .01),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Color(0xffBDBDBD))),
-                                child: SvgPicture.asset('assets/svg/share.svg'),
-                              ),
                               // Container(
                               //   alignment: Alignment.center,
+                              //   padding: EdgeInsets.all(size.width * .02),
                               //   margin: EdgeInsets.symmetric(
                               //       horizontal: size.width * .01),
-                              //   padding: EdgeInsets.all(size.width * .02),
                               //   decoration: BoxDecoration(
                               //       shape: BoxShape.circle,
                               //       border:
                               //           Border.all(color: Color(0xffBDBDBD))),
-                              //   child:
-                              //       SvgPicture.asset('assets/svg/telegram.svg'),
+                              //   child: SvgPicture.asset('assets/svg/share.svg'),
                               // ),
-                              Container(
-                                alignment: Alignment.center,
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: size.width * .01),
-                                padding: EdgeInsets.all(size.width * .02),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Color(0xffBDBDBD))),
-                                child:
-                                    SvgPicture.asset('assets/svg/favorite.svg'),
+                              InkWell(
+                                onTap: () {
+                                  //TODO: call api for adding as favorite or removing from favorite
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: size.width * .01),
+                                  padding: EdgeInsets.all(size.width * .02),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border:
+                                          Border.all(color: Color(0xffBDBDBD))),
+                                  child: SvgPicture.asset(
+                                    controller.model.value.isFavorite
+                                        ? 'assets/svg/favorite1.svg'
+                                        : 'assets/svg/favorite.svg',
+                                  ),
+                                ),
                               ),
                             ],
                           )
@@ -237,7 +214,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 height(size.height * 0.04),
                 ListView.builder(
                     shrinkWrap: true,
-                    itemCount: 3,
+                    itemCount: controller.model.value.Chargers.length,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Container(
@@ -249,12 +226,14 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                 child: _chargerCard(
                                     title: 'Charge ${(index + 1)} ',
                                     subTitle: 'DC 45 kWh',
-                                    trailing: 'Available 2/3',
+                                    trailing:
+                                        'Available 2/${controller.model.value.Chargers[index].evports.length}',
                                     index: index)),
                             expanded: _chargerCardExpanded(
                                 title: 'Charge ${(index + 1)}',
                                 subTitle: 'DC 45 kWh',
-                                trailing: 'Available 2/3',
+                                trailing:
+                                    'Available 2/${controller.model.value.Chargers[index].evports.length}',
                                 index: index)),
                       );
                     }),
@@ -400,42 +379,42 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 20.w,
-                  ),
-                  Flexible(
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.bookASlotPageRoute);
-                      },
-                      child: Obx(
-                        () => Container(
-                          padding: EdgeInsets.symmetric(vertical: 10.w),
-                          decoration: BoxDecoration(
-                              color: appData.isReserved.value
-                                  ? Color(0xffCBFFC7)
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(35),
-                              border: Border.all(
-                                  width: 2,
-                                  color: appData.isReserved.value
-                                      ? Color(0xff219653)
-                                      : Color(0xff0047C3))),
-                          child: Center(
-                            child: CustomBigText(
-                              text: appData.isReserved.value
-                                  ? "Reserved"
-                                  : "Reserve",
-                              size: 14.sp,
-                              color: appData.isReserved.value
-                                  ? Color(0xff219653)
-                                  : Color(0xff0047C3),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+                  // SizedBox(
+                  //   width: 20.w,
+                  // ),
+                  // Flexible(
+                  //   child: GestureDetector(
+                  //     onTap: () {
+                  //       Get.toNamed(Routes.bookASlotPageRoute);
+                  //     },
+                  //     child: Obx(
+                  //       () => Container(
+                  //         padding: EdgeInsets.symmetric(vertical: 10.w),
+                  //         decoration: BoxDecoration(
+                  //             color: appData.isReserved.value
+                  //                 ? Color(0xffCBFFC7)
+                  //                 : Colors.transparent,
+                  //             borderRadius: BorderRadius.circular(35),
+                  //             border: Border.all(
+                  //                 width: 2,
+                  //                 color: appData.isReserved.value
+                  //                     ? Color(0xff219653)
+                  //                     : Color(0xff0047C3))),
+                  //         child: Center(
+                  //           child: CustomBigText(
+                  //             text: appData.isReserved.value
+                  //                 ? "Reserved"
+                  //                 : "Reserve",
+                  //             size: 14.sp,
+                  //             color: appData.isReserved.value
+                  //                 ? Color(0xff219653)
+                  //                 : Color(0xff0047C3),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),
@@ -445,18 +424,19 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     );
   }
 
-  Widget connectors(
-      {
-      // required Color containerColor,
-      // required Color color,
-      // required Color borderColor,
-      required bool isSelected,
-      required String title,
-      required}) {
+  Widget connectors({
+    // required Color containerColor,
+    // required Color color,
+    // required Color borderColor,
+    required bool isSelected,
+    required EvPortModel evport,
+    required int index,
+    required int index1,
+  }) {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        height: 44.h,
+        height: 50.h,
         width: size.width * 0.4,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -496,7 +476,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
               ),
               width(12.5.w),
               CustomBigText(
-                text: "Type 2",
+                text: evport.connectorType.isEmpty
+                    ? 'Null'
+                    : evport.connectorType,
                 size: 14.sp,
                 color: isSelected ? Color(0xff333333) : Color(0xff0047C3),
               ),
@@ -518,9 +500,10 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
         alignment: Alignment.center,
-        //TODO: here for each charger type give the list length of connectors as itemCountPerConnector and multiply to fit the charg connector types
         height: 100.h +
-            52.h * (controller.itemCountPerConnector.value / 2.0).ceil(),
+            65.h *
+                (controller.model.value.Chargers[index].evports.length / 2.0)
+                    .ceil(),
         decoration: BoxDecoration(
           color: kwhite,
           borderRadius: BorderRadius.circular(15),
@@ -602,7 +585,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
                 child: GridView.builder(
-                    itemCount: controller.itemCountPerConnector.value,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount:
+                        controller.model.value.Chargers[index].evports.length,
                     scrollDirection: Axis.vertical,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 3.2,
@@ -620,7 +605,10 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                               isSelected: index ==
                                       controller.selectedCharger.value &&
                                   controller.selectedType.value == index_grid,
-                              title: 'Type 2'),
+                              index: index,
+                              index1: index_grid,
+                              evport: controller.model.value.Chargers[index]
+                                  .evports[index_grid]),
                         ),
                       );
                     }),
@@ -931,7 +919,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   ],
                 ),
                 Text(
-                  "Vaitilla , Ernakulam , Kerala",
+                  controller.model.value.location_name,
                   style: GoogleFonts.inter(
                       textStyle: TextStyle(
                     fontSize: 14,

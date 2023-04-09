@@ -1,12 +1,16 @@
+import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/Model/RfidModel.dart';
 import 'package:freelancer_app/Model/apiResponseModel.dart';
+import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Utils/api.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:uuid/uuid.dart';
@@ -261,4 +265,37 @@ class CommonFunctions {
       return [];
     }
   }
+
+  Future<List<StationMarkerModel>> getNearestChargstations(Position pos) async {
+    var res = await CallAPI().getData('stationsnearlocation', {
+      "lattitude": "${pos.latitude}",
+      "longitude": "${pos.longitude}",
+    });
+    kLog(res.statusCode.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      List<StationMarkerModel> list = [];
+      res.body['result'].forEach((element) {
+        list.add(StationMarkerModel.fromJson(element));
+      });
+      return list;
+    } else {
+      return [];
+    }
+  }
+
+  Future<ChargeStationDetailsModel> getChargeStationDetails(String id) async {
+    kLog(id);
+    var res = await CallAPI().getData('chargersbystation', {
+      "stationId": "$id",
+    });
+    kLog(res.statusCode.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return ChargeStationDetailsModel.fromJson(res.body['result']);
+    } else {
+      return kChargeStationDetailsModel;
+    }
+  }
+
+  showBottomSheetWhenClickedOnMarker(
+      param0, HomePageController homePageController) {}
 }
