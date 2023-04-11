@@ -12,7 +12,6 @@ import '../Widgets/customText.dart';
 
 class MapScreen extends GetView<HomePageController> {
   const MapScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,10 +27,14 @@ class MapScreen extends GetView<HomePageController> {
                     onCameraMoveStarted: () {
                       if (MapFunctions().isIdle)
                         MapFunctions().isFocused = false;
-                      kLog('camera move started');
                     },
                     onCameraIdle: () {
-                      MapFunctions().isIdle = true;
+                      if (!MapFunctions().isIdle) {
+                        controller.debouncer.run(() {
+                          kLog('camera idle');
+                          MapFunctions().isIdle = true;
+                        });
+                      }
                     },
                     initialCameraPosition: MapFunctions().initialPosition.value,
                     trafficEnabled: false,
@@ -43,7 +46,6 @@ class MapScreen extends GetView<HomePageController> {
                       MapFunctions().controller = controller;
                       MapFunctions().setMapStyle(controller);
                       kLog('loading map');
-
                       MapFunctions().getCurrentPosition();
                     },
                     onTap: (value) {

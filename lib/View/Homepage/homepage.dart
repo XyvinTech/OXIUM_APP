@@ -259,35 +259,37 @@ showBottomSheetWhenClickedOnMarker(
                 ),
                 Row(
                   children: [
+                    // Container(
+                    //   alignment: Alignment.center,
+                    //   padding: EdgeInsets.all(size.width * .02),
+                    //   margin:
+                    //       EdgeInsets.symmetric(horizontal: size.width * .01),
+                    //   decoration: BoxDecoration(
+                    //       shape: BoxShape.circle,
+                    //       border: Border.all(color: Color(0xffBDBDBD))),
+                    //   child: SvgPicture.asset('assets/svg/share.svg'),
+                    // ),
+                    // Container(
+                    //   alignment: Alignment.center,
+                    //   margin:
+                    //       EdgeInsets.symmetric(horizontal: size.width * .01),
+                    //   padding: EdgeInsets.all(size.width * .02),
+                    //   decoration: BoxDecoration(
+                    //       shape: BoxShape.circle,
+                    //       border: Border.all(color: Color(0xffBDBDBD))),
+                    //   child: SvgPicture.asset('assets/svg/telegram.svg'),
+                    // ),
                     Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.all(size.width * .02),
                       margin:
                           EdgeInsets.symmetric(horizontal: size.width * .01),
+                      padding: EdgeInsets.all(size.width * .02),
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: Color(0xffBDBDBD))),
-                      child: SvgPicture.asset('assets/svg/share.svg'),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin:
-                          EdgeInsets.symmetric(horizontal: size.width * .01),
-                      padding: EdgeInsets.all(size.width * .02),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Color(0xffBDBDBD))),
-                      child: SvgPicture.asset('assets/svg/telegram.svg'),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin:
-                          EdgeInsets.symmetric(horizontal: size.width * .01),
-                      padding: EdgeInsets.all(size.width * .02),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Color(0xffBDBDBD))),
-                      child: SvgPicture.asset('assets/svg/favorite.svg'),
+                      child: SvgPicture.asset(model.isFavorite
+                          ? 'assets/svg/favorite1.svg'
+                          : 'assets/svg/favorite.svg'),
                     ),
                   ],
                 )

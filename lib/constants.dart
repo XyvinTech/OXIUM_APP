@@ -21,6 +21,9 @@ final Color kOnboardingBackgroundColors = Color(0xff0047C3);
 final Color ktextFieldColor = Color(0xffEEEEEE);
 final Color kscaffoldBackgroundColor = Color(0xFFF5F5F5);
 final Color kDefaultHomePageBackgroundColor = Color(0xffF0F1F6);
+final Color kBusyColor = Color(0xffF9E4D5);
+final Color kBusyBorderColor = Color(0xffE37A2D);
+
 
 //appStrings
 final String kAppName = 'Freelancer app';
@@ -35,6 +38,9 @@ final String kLoginButtonFacebook = 'Facebook';
 final String kLoginButtonPhone = 'Login with Phone';
 final String kLoginTermsAndPrivay = 'Login with Phone';
 final String kAll = 'All';
+final String kAvailable = 'Available';
+final String kUnavailable = 'Unavailable';
+final String kBusy = 'Busy';
 
 final VehicleModel kVehicleModel = VehicleModel(
     id: -111,

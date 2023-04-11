@@ -1,8 +1,8 @@
-import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/Model/RfidModel.dart';
 import 'package:freelancer_app/Model/apiResponseModel.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Model/searchStationModel.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
@@ -296,6 +296,21 @@ class CommonFunctions {
     }
   }
 
-  showBottomSheetWhenClickedOnMarker(
-      param0, HomePageController homePageController) {}
+  Future<List<SearchStationrModel>> getSearchedChargeStations(
+      String name) async {
+    var res = await CallAPI().getData('stationsbyname', {
+      'name': name,
+    });
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      List<SearchStationrModel> list = [];
+      res.body['result'].forEach((element) {
+        list.add(SearchStationrModel.fromJson(element));
+      });
+      return list;
+    } else {
+      return [];
+    }
+  }
 }

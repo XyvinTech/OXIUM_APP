@@ -59,8 +59,10 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                             flex: 3,
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
-                                child: cachedNetworkImage(
-                                    controller.model.value.image)),
+                                child: Obx(
+                                  () => cachedNetworkImage(
+                                      controller.model.value.image),
+                                )),
                           ),
                           width(size.width * .035),
                           Expanded(
@@ -84,60 +86,73 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                           color: Color(0xffF2994A),
                                           size: 15,
                                         ),
-                                        CustomText(
-                                            text: controller.model.value.rating,
-                                            size: 12,
-                                            color: Color(0xffF2994A)),
+                                        Obx(
+                                          () => CustomText(
+                                              text:
+                                                  controller.model.value.rating,
+                                              size: 12,
+                                              color: Color(0xffF2994A)),
+                                        ),
                                       ]),
                                 ),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    CustomText(
-                                        text: controller.model.value.name,
-                                        color: Color(0xff4F4F4F),
-                                        fontWeight: FontWeight.bold),
+                                    Obx(
+                                      () => CustomText(
+                                          text: controller.model.value.name,
+                                          color: Color(0xff4F4F4F),
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                     width(size.width * .017),
-                                    CustomText(
-                                        text:
-                                            '${controller.distance.value} km away',
-                                        color: Color(0xff828282),
-                                        fontWeight: FontWeight.normal,
-                                        size: 12),
+                                    Obx(
+                                      () => CustomText(
+                                          text:
+                                              '${controller.distance.value} km away',
+                                          color: Color(0xff828282),
+                                          fontWeight: FontWeight.normal,
+                                          size: 12),
+                                    ),
                                   ],
                                 ),
                                 height(8.h),
-                                GridView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
-                                          childAspectRatio: 4.7),
-                                  itemCount: controller.amenities.length,
-                                  itemBuilder: (context, index) {
-                                    return Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                            'assets/svg/${controller.amenities[index]}.svg'),
-                                        width(size.width * .01),
-                                        Expanded(
-                                          child: CustomText(
-                                              text: controller.amenities[index]
-                                                  .toTitleCase(),
-                                              color: Color(0xff828282),
-                                              fontWeight: FontWeight.normal,
-                                              size: 12),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                Obx(
+                                  () => GridView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            childAspectRatio: 4.7),
+                                    itemCount: controller.amenities.length,
+                                    itemBuilder: (context, index) {
+                                      return Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                              'assets/svg/${controller.amenities[index]}.svg'),
+                                          width(size.width * .01),
+                                          Expanded(
+                                            child: CustomText(
+                                                text: controller
+                                                    .amenities[index]
+                                                    .toTitleCase(),
+                                                color: Color(0xff828282),
+                                                fontWeight: FontWeight.normal,
+                                                size: 12),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
                                 ),
                                 height(8.h),
-                                CustomText(
-                                    text: controller.model.value.location_name,
-                                    size: 12,
-                                    color: Color(0xff4F4F4F))
+                                Obx(
+                                  () => CustomText(
+                                      text:
+                                          controller.model.value.location_name,
+                                      size: 12,
+                                      color: Color(0xff4F4F4F)),
+                                )
                               ],
                             ),
                           )
@@ -173,17 +188,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                           ),
                           Row(
                             children: [
-                              // Container(
-                              //   alignment: Alignment.center,
-                              //   padding: EdgeInsets.all(size.width * .02),
-                              //   margin: EdgeInsets.symmetric(
-                              //       horizontal: size.width * .01),
-                              //   decoration: BoxDecoration(
-                              //       shape: BoxShape.circle,
-                              //       border:
-                              //           Border.all(color: Color(0xffBDBDBD))),
-                              //   child: SvgPicture.asset('assets/svg/share.svg'),
-                              // ),
                               InkWell(
                                 onTap: () {
                                   //TODO: call api for adding as favorite or removing from favorite
@@ -197,10 +201,12 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                       shape: BoxShape.circle,
                                       border:
                                           Border.all(color: Color(0xffBDBDBD))),
-                                  child: SvgPicture.asset(
-                                    controller.model.value.isFavorite
-                                        ? 'assets/svg/favorite1.svg'
-                                        : 'assets/svg/favorite.svg',
+                                  child: Obx(
+                                    () => SvgPicture.asset(
+                                      controller.model.value.isFavorite
+                                          ? 'assets/svg/favorite1.svg'
+                                          : 'assets/svg/favorite.svg',
+                                    ),
                                   ),
                                 ),
                               ),
@@ -212,31 +218,45 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   ]),
                 ),
                 height(size.height * 0.04),
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: controller.model.value.Chargers.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: size.width * .04,
-                            vertical: size.height * .01),
-                        child: ExpandablePanel(
-                            collapsed: ExpandableButton(
-                                child: _chargerCard(
-                                    title: 'Charge ${(index + 1)} ',
-                                    subTitle: 'DC 45 kWh',
-                                    trailing:
-                                        'Available 2/${controller.model.value.Chargers[index].evports.length}',
-                                    index: index)),
-                            expanded: _chargerCardExpanded(
-                                title: 'Charge ${(index + 1)}',
-                                subTitle: 'DC 45 kWh',
-                                trailing:
-                                    'Available 2/${controller.model.value.Chargers[index].evports.length}',
-                                index: index)),
-                      );
-                    }),
+                Obx(
+                  () => ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: controller.model.value.Chargers.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        //SELECT THE DC AND CAPACITY FOR CHARGER
+                        String ac_dc =
+                            controller.model.value.Chargers[index].outputType;
+                        String capacity = controller
+                                .model.value.Chargers[index].evports.isEmpty
+                            ? '0 KwH'
+                            : controller.model.value.Chargers[index].evports[0]
+                                    .energyKWh
+                                    .toString() +
+                                ' KwH';
+                        return Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: size.width * .04,
+                              vertical: size.height * .01),
+                          child: ExpandablePanel(
+                              collapsed: ExpandableButton(
+                                  child: _chargerCard(
+                                      title: 'Charge ${(index + 1)} ',
+                                      subTitle: ac_dc + ' ' + capacity,
+                                      // trailing: 'Available $available/$total',
+                                      evPorts: controller
+                                          .model.value.Chargers[index].evports,
+                                      index: index)),
+                              expanded: _chargerCardExpanded(
+                                  title: 'Charge ${(index + 1)}',
+                                  subTitle: ac_dc + ' ' + capacity,
+                                  // trailing: 'Available $available/$total',
+                                  evPorts: controller
+                                      .model.value.Chargers[index].evports,
+                                  index: index)),
+                        );
+                      }),
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: size.height * .04),
                   child: navigationCard(),
@@ -433,56 +453,82 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required int index,
     required int index1,
   }) {
+    String status;
+    if (evport.ocppStatus == kAvailable)
+      status = kAvailable;
+    else if (evport.ocppStatus == kUnavailable || evport.ocppStatus.isEmpty)
+      status = kUnavailable;
+    else
+      status = kBusy;
     return Align(
       alignment: Alignment.center,
-      child: Container(
-        height: 50.h,
-        width: size.width * 0.4,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: isSelected
-                ? Color(0xff6FCF97).withOpacity(.28)
-                : Colors.transparent,
-            border: Border.all(
-              width: 1.3,
+      child: InkWell(
+        onTap: () {
+          if (status == kAvailable) controller.changeCharger(index, index1);
+        },
+        child: Container(
+          height: 50.h,
+          width: size.width * 0.4,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
               color: isSelected
-                  ? Color(0xff6FCF97)
-                  : Color(0xff0047C3).withOpacity(.6),
-            )),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.w),
-          child: Row(
-            children: [
-              Container(
-                height: 10.h,
-                width: 10.h,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: Color(0xff219653)),
-              ),
-              width(7.w),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    "assets/svg/type 2 icon1.svg",
-                    color: isSelected ? Color(0xff4f4f4f) : Color(0xff0047C3),
-                  ),
-                  height(1.h),
-                  SvgPicture.asset(
-                    "assets/svg/type 2 icon2.svg",
-                    color: isSelected ? Color(0xff333333) : Color(0xff0047C3),
-                  ),
-                ],
-              ),
-              width(12.5.w),
-              CustomBigText(
-                text: evport.connectorType.isEmpty
-                    ? 'Null'
-                    : evport.connectorType,
-                size: 14.sp,
-                color: isSelected ? Color(0xff333333) : Color(0xff0047C3),
-              ),
-            ],
+                  ? Color(0xff6FCF97).withOpacity(.28)
+                  : Colors.transparent,
+              border: Border.all(
+                width: 1.3,
+                color: isSelected
+                    ? Color(0xff6FCF97)
+                    : status == kBusy
+                        ? Color(0xffE37A2D33)
+                        : status == kUnavailable
+                            ? Color(0xff959595)
+                            : Color(0xff0047C3).withOpacity(.6),
+              )),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Row(
+              children: [
+                Container(
+                  height: 10.h,
+                  width: 10.h,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: status == kBusy
+                          ? Color(0xffE37A2D33)
+                          : status == kUnavailable
+                              ? Color(0xff959595)
+                              : Color(0xff219653)),
+                ),
+                width(7.w),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/svg/${evport.connectorType.toLowerCase().trim()}.svg",
+                      color: isSelected
+                          ? Color(0xff4f4f4f)
+                          : status == kBusy
+                              ? Color(0xffE333333)
+                              : status == kUnavailable
+                                  ? Color(0xff959595)
+                                  : Color(0xff0047C3),
+                    ),
+                  ],
+                ),
+                width(12.5.w),
+                CustomBigText(
+                  text: evport.connectorType.isEmpty
+                      ? 'Null'
+                      : evport.connectorType,
+                  size: 14.sp,
+                  color: isSelected
+                      ? Color(0xff333333)
+                      : status == kUnavailable
+                          ? Color(0xff959595)
+                          : Color(0xff0047C3),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -492,9 +538,29 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   Widget _chargerCardExpanded({
     required String title,
     required String subTitle,
-    required String trailing,
+    // required String trailing,
+    required List<EvPortModel> evPorts,
     required int index,
   }) {
+    //////////LOGIC CODES////////
+    int available = 0, busy = 0, unAailable = 0, total = evPorts.length;
+    String trailing = '';
+    evPorts.forEach((element) {
+      if (element.ocppStatus == kAvailable)
+        available++;
+      else if (element.ocppStatus == kUnavailable || element.ocppStatus.isEmpty)
+        unAailable++;
+      else
+        busy++;
+    });
+    if (available > 0)
+      trailing = '$kAvailable $available/$total';
+    else if (busy > 0)
+      trailing = kBusy;
+    else
+      trailing = kUnavailable;
+    ///////END LOGIC CODES///////
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
       child: Container(
@@ -550,16 +616,22 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            height: size.height * 0.025,
+                            height: size.height * 0.03,
                             width: size.width * 0.25,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Color(0xff219653).withOpacity(0.24),
+                              color: trailing == kBusy
+                                  ? kBusyColor
+                                  : available > 0
+                                      ? Color(0xff219653).withOpacity(0.24)
+                                      : Color(0xffEAEAEA),
                             ),
                             child: CustomBigText(
                               text: trailing,
                               size: 12,
-                              color: Color(0xff219653),
+                              color: available > 0
+                                  ? Color(0xff219653)
+                                  : Color(0xff333333),
                             ),
                           ),
                           width(size.width * 0.06),
@@ -596,20 +668,15 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       crossAxisSpacing: size.height * .01,
                     ),
                     itemBuilder: (context, index_grid) {
-                      return InkWell(
-                        onTap: () {
-                          controller.changeCharger(index, index_grid);
-                        },
-                        child: Obx(
-                          () => connectors(
-                              isSelected: index ==
-                                      controller.selectedCharger.value &&
-                                  controller.selectedType.value == index_grid,
-                              index: index,
-                              index1: index_grid,
-                              evport: controller.model.value.Chargers[index]
-                                  .evports[index_grid]),
-                        ),
+                      return Obx(
+                        () => connectors(
+                            isSelected:
+                                index == controller.selectedCharger.value &&
+                                    controller.selectedType.value == index_grid,
+                            index: index,
+                            index1: index_grid,
+                            evport: controller.model.value.Chargers[index]
+                                .evports[index_grid]),
                       );
                     }),
               ),
@@ -623,9 +690,28 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   Widget _chargerCard({
     required String title,
     required String subTitle,
-    required String trailing,
+    // required String trailing,
+    required List<EvPortModel> evPorts,
     required int index,
   }) {
+    //////////LOGIC CODES////////
+    int available = 0, busy = 0, unAailable = 0, total = evPorts.length;
+    String trailing = '';
+    evPorts.forEach((element) {
+      if (element.ocppStatus == kAvailable)
+        available++;
+      else if (element.ocppStatus == kUnavailable || element.ocppStatus.isEmpty)
+        unAailable++;
+      else
+        busy++;
+    });
+    if (available > 0)
+      trailing = '$kAvailable $available/$total';
+    else if (busy > 0)
+      trailing = kBusy;
+    else
+      trailing = kUnavailable;
+    ///////END LOGIC CODES///////
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
       child: Container(
@@ -670,16 +756,21 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    height: size.height * 0.025,
+                    height: size.height * 0.03,
                     width: size.width * 0.25,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Color(0xff219653).withOpacity(0.24),
+                      color: trailing == kBusy
+                          ? kBusyColor
+                          : available > 0
+                              ? Color(0xff219653).withOpacity(0.24)
+                              : Color(0xffEAEAEA),
                     ),
                     child: CustomBigText(
                       text: trailing,
                       size: 12,
-                      color: Color(0xff219653),
+                      color:
+                          available > 0 ? Color(0xff219653) : Color(0xff333333),
                     ),
                   ),
                   width(size.width * 0.06),
@@ -918,15 +1009,17 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                     ),
                   ],
                 ),
-                Text(
-                  controller.model.value.location_name,
-                  style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff4F4F4F),
-                    fontStyle: FontStyle.normal,
-                  )),
+                Obx(
+                  () => Text(
+                    controller.model.value.location_name,
+                    style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff4F4F4F),
+                      fontStyle: FontStyle.normal,
+                    )),
+                  ),
                 ),
               ],
             ),

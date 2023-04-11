@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Model/searchStationModel.dart';
+import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:get/get.dart';
 
 import '../Utils/debouncer.dart';
@@ -15,5 +17,11 @@ class SearchScreenController extends GetxController {
     'Show near by charging station',
     'Cafe with charge point',
   ];
-  RxList<ChargeStationDetailsModel> chargingCafeModelList = RxList();
+  // RxList<ChargeStationDetailsModel> chargingCafeModelList = RxList();
+  RxList<SearchStationrModel> search_list = RxList();
+
+  getSearchedChargeStationList(String name) async {
+    if (name.isEmpty) return;
+    search_list.value = await CommonFunctions().getSearchedChargeStations(name);
+  }
 }
