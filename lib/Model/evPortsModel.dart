@@ -3,7 +3,7 @@ class EvPortModel {
   final String identificationNumber;
   final String ocppStatus;
   final String connectorType;
-  final String energyKWh;
+  final double energyKWh;
   EvPortModel({
     required this.seqNumber,
     required this.identificationNumber,

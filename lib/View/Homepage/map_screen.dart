@@ -25,6 +25,14 @@ class MapScreen extends GetView<HomePageController> {
                   padding: EdgeInsets.all(controller.reload.value * 0 +
                       MapFunctions().reload.value * 0),
                   child: GoogleMap(
+                    onCameraMoveStarted: () {
+                      if (MapFunctions().isIdle)
+                        MapFunctions().isFocused = false;
+                      kLog('camera move started');
+                    },
+                    onCameraIdle: () {
+                      MapFunctions().isIdle = true;
+                    },
                     initialCameraPosition: MapFunctions().initialPosition.value,
                     trafficEnabled: false,
                     myLocationEnabled: false,
@@ -135,7 +143,8 @@ class MapScreen extends GetView<HomePageController> {
                 right: size.width * .03,
                 child: InkWell(
                   onTap: () {
-                    Get.toNamed(Routes.filterPageRoute);
+                    Get.toNamed(Routes.filterPageRoute,
+                        arguments: controller.station_marker_list);
                   },
                   child: Container(
                       padding: EdgeInsets.all(size.width * .037),

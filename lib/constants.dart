@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
 
@@ -69,6 +70,16 @@ ChargeStationDetailsModel kChargeStationDetailsModel =
         amenities: '',
         isFavorite: false,
         Chargers: []);
+StationMarkerModel kStationMarkerModel = StationMarkerModel(
+    id: -1,
+    lattitude: 0,
+    longitude: 0,
+    isBusy: false,
+    amenities: '',
+    charger_status: '',
+    ac_dc: '',
+    charger_type: '',
+    charger_capacity: '');
 
 //app-Textstyles
 

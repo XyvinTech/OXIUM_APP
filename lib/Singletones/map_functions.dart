@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/View/Homepage/homepage.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -26,8 +25,8 @@ class MapFunctions {
   }
   MapFunctions._internal();
   //code starts from here
-
-  String token = '';
+  bool isFocused = true;
+  bool isIdle = false;
   late GoogleMapController controller;
   late GoogleMapController dirMapController;
   late StreamSubscription mapStream;
@@ -138,6 +137,7 @@ class MapFunctions {
   }
 
   Future<Position?> getCurrentPosition() async {
+    isFocused = true;
     if (await checkLocationPermission())
       return await Geolocator.getCurrentPosition();
     return null;
@@ -148,13 +148,13 @@ class MapFunctions {
     if ((await checkLocationPermission()))
       mapStream = await Geolocator.getPositionStream().listen((event) async {
         // await animateToNewPosition(LatLng(event.latitude, event.longitude));
-        kLog(event.toString());
+        // kLog(event.toString());
         if (curPos != null &&
             (event.latitude != curPos!.latitude ||
                 event.longitude != curPos!.longitude)) {
           heading = bearingBetween(curPos!.latitude, curPos!.longitude,
               event.latitude, event.longitude);
-          kLog(heading.toString());
+          // kLog(heading.toString());
         }
         curPos = event;
 
@@ -166,7 +166,7 @@ class MapFunctions {
         reload++;
         if (Get.currentRoute == Routes.navigationPageRoute) {
           animateForNavigation(event);
-        } else {
+        } else if (isFocused) {
           controller.animateCamera(CameraUpdate.newCameraPosition(
               CameraPosition(
                   target: LatLng(event.latitude, event.longitude),
@@ -239,28 +239,28 @@ class MapFunctions {
                 leg.endLocation!.latitude,
                 leg.endLocation!.longitude) -
             90)));
-    Future.delayed(Duration(milliseconds: 4000), () async {
-      // ScreenCoordinate minScreen =
-      //     await controller.getScreenCoordinate(LatLng(minLat, minLong));
-      // ScreenCoordinate maxScreen =
-      //     await controller.getScreenCoordinate(LatLng(maxLat, maxLong));
-      // print(minScreen);
-      // print(maxScreen);
-      // print(size);
-      // print(isNavigation);
-      // if (isNavigation) {
-      //   controller.animateCamera(CameraUpdate.zoomBy(-.7));
-      //   Future.delayed(Duration(milliseconds: 500), () {
-      //     controller.animateCamera(CameraUpdate.scrollBy(0, -55));
-      //   });
-      // } else {
-      //   await controller.animateCamera(CameraUpdate.zoomBy(
-      //       (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
-      // }
-      // await controller.animateCamera(CameraUpdate.zoomBy(
-      //     (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
-      // if (isNavigation) controller.animateCamera(CameraUpdate.scrollBy(0, 20));
-    });
+    // Future.delayed(Duration(milliseconds: 4000), () async {
+    //   // ScreenCoordinate minScreen =
+    //   //     await controller.getScreenCoordinate(LatLng(minLat, minLong));
+    //   // ScreenCoordinate maxScreen =
+    //   //     await controller.getScreenCoordinate(LatLng(maxLat, maxLong));
+    //   // print(minScreen);
+    //   // print(maxScreen);
+    //   // print(size);
+    //   // print(isNavigation);
+    //   // if (isNavigation) {
+    //   //   controller.animateCamera(CameraUpdate.zoomBy(-.7));
+    //   //   Future.delayed(Duration(milliseconds: 500), () {
+    //   //     controller.animateCamera(CameraUpdate.scrollBy(0, -55));
+    //   //   });
+    //   // } else {
+    //   //   await controller.animateCamera(CameraUpdate.zoomBy(
+    //   //       (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
+    //   // }
+    //   // await controller.animateCamera(CameraUpdate.zoomBy(
+    //   //     (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
+    //   // if (isNavigation) controller.animateCamera(CameraUpdate.scrollBy(0, 20));
+    // });
   }
 
   addMarkerHomePage({
@@ -271,15 +271,13 @@ class MapFunctions {
   }) {
     markers_homepage.add(Marker(
         onTap: () async {
-          //TODO: show bottom sheet when clicked on marker
+          MapFunctions().isFocused = false;
           await MapFunctions().animateToNewPosition(latLng);
-          //TODO: you should pass the model here to show on bottom sheet when clicked
           Future.delayed(Duration(milliseconds: 500), () {
             controller.getChargeStationDetails(id);
           });
         },
         markerId: MarkerId(id),
-        // infoWindow: InfoWindow(title: name),
         icon: BitmapDescriptor.fromBytes(isBusy ? bytesGreen! : bytesBlue!),
         position: latLng,
         anchor: Offset(.5, .5)));

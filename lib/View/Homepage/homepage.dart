@@ -91,7 +91,7 @@ class HomePageScreen extends GetView<HomePageController> {
 }
 
 showBottomSheetWhenClickedOnMarker(
-    ChargeStationDetailsModel model, HomePageController controller) {
+    ChargeStationDetailsModel model, HomePageController controller) async {
   // CalistaCafePageController calcontroller =
   //     Get.put(CalistaCafePageController());
   double distance = 0;
@@ -105,7 +105,7 @@ showBottomSheetWhenClickedOnMarker(
   }
   List<String> amenities = model.amenities.split(',');
 
-  Get.bottomSheet(WillPopScope(
+  await Get.bottomSheet(WillPopScope(
     onWillPop: () async {
       // calcontroller.dispose();
       return true;
@@ -117,6 +117,7 @@ showBottomSheetWhenClickedOnMarker(
       maxHeight: size.height * .80,
       onPanelSlide: (value) {},
       onPanelClosed: () {},
+
       onPanelOpened: () {
         Get.offNamed(Routes.calistaCafePageRoute, arguments: model);
       },

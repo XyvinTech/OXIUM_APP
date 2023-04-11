@@ -267,7 +267,7 @@ class CommonFunctions {
   }
 
   Future<List<StationMarkerModel>> getNearestChargstations(Position pos) async {
-    var res = await CallAPI().getData('stationsnearlocation', {
+    var res = await CallAPI().getData('nearbystations', {
       "lattitude": "${pos.latitude}",
       "longitude": "${pos.longitude}",
     });

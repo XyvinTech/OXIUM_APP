@@ -26,6 +26,7 @@ class HomePageController extends GetxController {
   final ChargeScreenController chargeScreenController =
       Get.put(ChargeScreenController());
   final tripsScreenController = Get.put(TripsScreenController());
+  List<StationMarkerModel> station_marker_list = [];
 
   @override
   void onInit() async {
@@ -57,15 +58,14 @@ class HomePageController extends GetxController {
 
   getNearestChargestations(Position pos) async {
     showLoading(kLoading);
-    List<StationMarkerModel> res =
-        await CommonFunctions().getNearestChargstations(pos);
+    station_marker_list = await CommonFunctions().getNearestChargstations(pos);
     hideLoading();
-    
-    res.forEach((element) {
-      kLog(element.stationId.toString());
+
+    station_marker_list.forEach((element) {
+      kLog(element.id.toString());
       MapFunctions().addMarkerHomePage(
-          id: element.stationId.toString(),
-          latLng: LatLng(element.lattitude , pos.longitude),
+          id: element.id.toString(),
+          latLng: LatLng(element.lattitude, element.longitude),
           isBusy: element.isBusy,
           controller: this);
     });
