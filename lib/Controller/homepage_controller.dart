@@ -45,7 +45,7 @@ class HomePageController extends GetxController {
         "assets/images/CSAR.png", 70);
     MapFunctions().myMarker = await ImageByteConverter.getBytesFromAsset(
         "assets/images/myMarker.png", 60);
-
+    
     Position? pos = await MapFunctions().getCurrentPosition();
     // MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
     MapFunctions().animateToNewPosition(LatLng(28.670988, 77.2794488));

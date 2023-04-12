@@ -41,10 +41,14 @@ class RfidPageController extends GetxController {
   }
 
   orderRFID() async {
-
-    String order_id = await CommonFunctions().getOrderIdRazorpay( rfid_price.value);
+    showLoading(kLoading);
+    String order_id =
+        await CommonFunctions().getOrderIdRazorpay(rfid_price.value);
+    hideLoading();
     CommonFunctions().openRazorPay(
-        amount: rfid_price.value, order_id: order_id, descirption: 'RFID payment');
+        amount: rfid_price.value,
+        order_id: order_id,
+        descirption: 'RFID payment');
   }
 
   @override

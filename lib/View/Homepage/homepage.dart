@@ -96,11 +96,12 @@ showBottomSheetWhenClickedOnMarker(
   //     Get.put(CalistaCafePageController());
   double distance = 0;
   if (MapFunctions().curPos != null) {
-    distance = MapFunctions.distanceBetweenCoordinates(
-            MapFunctions().curPos!.latitude,
-            MapFunctions().curPos!.longitude,
-            model.lattitude,
-            model.longitude)
+    distance = (MapFunctions.distanceBetweenCoordinates(
+                MapFunctions().curPos!.latitude,
+                MapFunctions().curPos!.longitude,
+                model.lattitude,
+                model.longitude) /
+            1000.0)
         .toPrecision(2);
   }
   List<String> amenities = model.amenities.split(',');
@@ -201,6 +202,7 @@ showBottomSheetWhenClickedOnMarker(
                       height(8.h),
                       GridView.builder(
                         shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3, childAspectRatio: 4.7),
                         itemCount: amenities.length,

@@ -78,8 +78,8 @@ ChargeStationDetailsModel kChargeStationDetailsModel =
         Chargers: []);
 StationMarkerModel kStationMarkerModel = StationMarkerModel(
     id: -1,
-    lattitude: 0,
-    longitude: 0,
+    lattitude: -1,
+    longitude: -1,
     isBusy: false,
     amenities: '',
     charger_status: '',

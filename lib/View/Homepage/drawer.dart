@@ -7,6 +7,9 @@ import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
+import '../../Singletones/app_data.dart';
+import '../Widgets/cached_network_image.dart';
+
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
@@ -38,6 +41,7 @@ class CustomDrawer extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
+              Get.back();
               Get.toNamed(Routes.profilePageRoute);
             },
             child: Container(
@@ -54,27 +58,34 @@ class CustomDrawer extends StatelessWidget {
                     //replace child with cachedNetworkImage with url
                     child:
                         // cachedNetworkImage(imageUrl)
-                        Image.asset('assets/images/profile_pic.png'),
+                        // Image.asset('assets/images/profile_pic.png'),
+                        ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Obx(() =>
+                          cachedNetworkImage(appData.userModel.value.image)),
+                    ),
                   ),
                 ),
                 width(size.width * .03),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(
-                        text: 'Jane Doe',
-                        fontWeight: FontWeight.bold,
-                        minFontSize: 18.sp,
-                        color: Colors.white),
-                    height(size.height * .002),
-                    CustomText(
-                        text: '+91 9567892341',
-                        fontWeight: FontWeight.normal,
-                        size: 14.sp,
-                        isAutoSize: true,
-                        color: Colors.white),
-                  ],
+                Obx(
+                  () => Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                          text: appData.userModel.value.name,
+                          fontWeight: FontWeight.bold,
+                          minFontSize: 18.sp,
+                          color: Colors.white),
+                      height(size.height * .002),
+                      CustomText(
+                          text: appData.userModel.value.phone,
+                          fontWeight: FontWeight.normal,
+                          size: 14.sp,
+                          isAutoSize: true,
+                          color: Colors.white),
+                    ],
+                  ),
                 ),
                 Spacer(),
                 Icon(
@@ -91,6 +102,7 @@ class CustomDrawer extends StatelessWidget {
                 horizontal: size.width * .04, vertical: size.height * .02),
             child: InkWell(
               onTap: () {
+                Get.back();
                 Get.toNamed(Routes.myvehicleRoute);
               },
               child: Container(
@@ -120,6 +132,7 @@ class CustomDrawer extends StatelessWidget {
                 horizontal: size.width * .04, vertical: size.height * .02),
             child: InkWell(
               onTap: () {
+                Get.back();
                 Get.toNamed(Routes.rfidNumberRoute);
               },
               child: Row(

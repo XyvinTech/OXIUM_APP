@@ -39,8 +39,8 @@ class CallAPI {
       var body;
       if (res.statusCode == 200) body = json.decode(res.body);
       return ResponseModel(statusCode: res.statusCode, body: body);
-    } on HttpException catch (e) {
-      log(e.message);
+    } on Exception catch (e) {
+      log(e.toString());
       hideLoading();
       // TODO
     }
@@ -138,8 +138,7 @@ class CallAPI {
       log(e.toString());
       hideLoading();
       showError('Failed to get data');
-
-      // TODO
+      // TODO:
     }
     return ResponseModel(statusCode: 404, body: null);
   }
@@ -172,7 +171,7 @@ class CallAPI {
   }
 
 //////IMAGE UPLOAD//////
-  asyncProfileImageUpload(String text, File file) async {
+  uploadFile(String text, File file) async {
     //create multipart request for POST or PATCH method
     showLoading('uploading...');
     var request = http.MultipartRequest(

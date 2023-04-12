@@ -1,5 +1,5 @@
-import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
 import 'package:freelancer_app/Model/userModel.dart';
+import 'package:freelancer_app/Utils/debouncer.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/state_manager.dart';
 
@@ -17,9 +17,10 @@ class AppData {
       'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgyMTk5NDU1Iiwic2NvcGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpc3MiOiJodHRwOi8vZXpib3QuY29tIiwiaWF0IjoxNjc5NjQxNDQyLCJleHAiOjE3MTExNzc0NDJ9.Scge54LZumVuYwtZmUmNa0YNDZE28CCll2GDnafPrYk';
   Rx<UserModel> userModel = kUserModel.obs;
   RxBool isReserved = false.obs;
+  Debouncer debouncer = Debouncer(milliseconds: 1000);
 
 //FOR FILTER PAGE SO THAT THE DATA DON'T DELETED WHEN CONTROLLER DISPOSES
-    List<RxList<FilterModel>> filterList = [
+  List<RxList<FilterModel>> filterList = [
     RxList([
       FilterModel(title: 'Available', isSelected: false),
       FilterModel(title: 'Busy', isSelected: false),

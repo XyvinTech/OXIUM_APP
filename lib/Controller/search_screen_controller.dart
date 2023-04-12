@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
 import 'package:freelancer_app/Model/searchStationModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:get/get.dart';
 
 import '../Utils/debouncer.dart';
@@ -22,6 +23,7 @@ class SearchScreenController extends GetxController {
 
   getSearchedChargeStationList(String name) async {
     if (name.isEmpty) return;
+    
     search_list.value = await CommonFunctions().getSearchedChargeStations(name);
   }
 }

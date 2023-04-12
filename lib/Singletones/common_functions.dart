@@ -103,12 +103,14 @@ class CommonFunctions {
     _getOrderResponse['result']['pgPaymentId'] = payResponse.paymentId;
     _getOrderResponse['result']['pgSIgnature'] = payResponse.signature;
     _getOrderResponse['result']['status'] = "P";
+    if (Get.currentRoute == Routes.rfidNumberRoute)
+      _getOrderResponse['result']['rfidAmountPaid'] = "Y";
     print(_getOrderResponse);
     var res = await CallAPI()
         .postData(_getOrderResponse['result'], 'payment/savePayment');
     kLog(res.statusCode.toString());
     _getOrderResponse = null;
-    if (res.statusCode == 200) {
+    if (res.statusCode == 200 && res.body['success']) {
       //TODO: what to do if RFID purchase successful
       showSuccess('Purchased successfully!');
     } else {
