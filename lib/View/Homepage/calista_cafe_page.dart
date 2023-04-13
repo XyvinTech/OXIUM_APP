@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/calista_cafePage_controller.dart';
+import 'package:freelancer_app/Model/chargerModel.dart';
 import 'package:freelancer_app/Model/evPortsModel.dart';
 import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -224,16 +225,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       itemCount: controller.model.value.Chargers.length,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        //SELECT THE DC AND CAPACITY FOR CHARGER
-                        String ac_dc =
-                            controller.model.value.Chargers[index].outputType;
-                        String capacity = controller
-                                .model.value.Chargers[index].evports.isEmpty
-                            ? '0 KwH'
-                            : controller.model.value.Chargers[index].evports[0]
-                                    .energyKWh
-                                    .toString() +
-                                ' KwH';
+                        
+                        ChargerModel charger =
+                            controller.model.value.Chargers[index];
                         return Container(
                           margin: EdgeInsets.symmetric(
                               horizontal: size.width * .04,
@@ -241,19 +235,23 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                           child: ExpandablePanel(
                               collapsed: ExpandableButton(
                                   child: _chargerCard(
-                                      title: 'Charge ${(index + 1)} ',
-                                      subTitle: ac_dc + ' ' + capacity,
-                                      // trailing: 'Available $available/$total',
-                                      evPorts: controller
-                                          .model.value.Chargers[index].evports,
-                                      index: index)),
+                                title: charger.charger_name,
+                                subTitle: charger.outputType +
+                                    ' ' +
+                                    charger.capacity +
+                                    ' KwH',
+                                evPorts: charger.evports,
+                                index: index,
+                              )),
                               expanded: _chargerCardExpanded(
-                                  title: 'Charge ${(index + 1)}',
-                                  subTitle: ac_dc + ' ' + capacity,
-                                  // trailing: 'Available $available/$total',
-                                  evPorts: controller
-                                      .model.value.Chargers[index].evports,
-                                  index: index)),
+                                title: charger.charger_name,
+                                subTitle: charger.outputType +
+                                    ' ' +
+                                    charger.capacity +
+                                    ' KwH',
+                                evPorts: charger.evports,
+                                index: index,
+                              )),
                         );
                       }),
                 ),
@@ -399,42 +397,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       ),
                     ),
                   ),
-                  // SizedBox(
-                  //   width: 20.w,
-                  // ),
-                  // Flexible(
-                  //   child: GestureDetector(
-                  //     onTap: () {
-                  //       Get.toNamed(Routes.bookASlotPageRoute);
-                  //     },
-                  //     child: Obx(
-                  //       () => Container(
-                  //         padding: EdgeInsets.symmetric(vertical: 10.w),
-                  //         decoration: BoxDecoration(
-                  //             color: appData.isReserved.value
-                  //                 ? Color(0xffCBFFC7)
-                  //                 : Colors.transparent,
-                  //             borderRadius: BorderRadius.circular(35),
-                  //             border: Border.all(
-                  //                 width: 2,
-                  //                 color: appData.isReserved.value
-                  //                     ? Color(0xff219653)
-                  //                     : Color(0xff0047C3))),
-                  //         child: Center(
-                  //           child: CustomBigText(
-                  //             text: appData.isReserved.value
-                  //                 ? "Reserved"
-                  //                 : "Reserve",
-                  //             size: 14.sp,
-                  //             color: appData.isReserved.value
-                  //                 ? Color(0xff219653)
-                  //                 : Color(0xff0047C3),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // )
                 ],
               ),
             ),
@@ -445,9 +407,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   }
 
   Widget connectors({
-    // required Color containerColor,
-    // required Color color,
-    // required Color borderColor,
     required bool isSelected,
     required EvPortModel evport,
     required int index,
@@ -538,7 +497,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   Widget _chargerCardExpanded({
     required String title,
     required String subTitle,
-    // required String trailing,
     required List<EvPortModel> evPorts,
     required int index,
   }) {
@@ -567,7 +525,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
         padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
         alignment: Alignment.center,
         height: 100.h +
-            65.h *
+            85.h *
                 (controller.model.value.Chargers[index].evports.length / 2.0)
                     .ceil(),
         decoration: BoxDecoration(
@@ -586,7 +544,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   horizontal: size.width * 0.04,
                 ),
                 child: Row(
-                  // mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
@@ -629,9 +586,11 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                             child: CustomBigText(
                               text: trailing,
                               size: 12,
-                              color: available > 0
-                                  ? Color(0xff219653)
-                                  : Color(0xff333333),
+                              color: trailing == kBusy
+                                  ? Color(0xffE37A2D)
+                                  : available > 0
+                                      ? Color(0xff219653)
+                                      : Color(0xff333333),
                             ),
                           ),
                           width(size.width * 0.06),
@@ -652,14 +611,31 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 color: Color(0xffE0E0E0),
               ),
             ),
-            height(size.height * 0.025),
+            height(size.height * 0.015),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomSmallText(
+                    text: 'Tariff',
+                    size: 12,
+                  ),
+                  CustomSmallText(
+                    text:
+                        '₹ ${controller.model.value.Chargers[index].tariff} /KwH',
+                    size: 12,
+                  ),
+                ],
+              ),
+            ),
+            height(size.height * 0.015),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
                 child: GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount:
-                        controller.model.value.Chargers[index].evports.length,
+                    itemCount: evPorts.length,
                     scrollDirection: Axis.vertical,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 3.2,
@@ -675,8 +651,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                     controller.selectedType.value == index_grid,
                             index: index,
                             index1: index_grid,
-                            evport: controller.model.value.Chargers[index]
-                                .evports[index_grid]),
+                            evport: evPorts[index_grid]),
                       );
                     }),
               ),
@@ -690,7 +665,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   Widget _chargerCard({
     required String title,
     required String subTitle,
-    // required String trailing,
     required List<EvPortModel> evPorts,
     required int index,
   }) {
@@ -769,8 +743,11 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                     child: CustomBigText(
                       text: trailing,
                       size: 12,
-                      color:
-                          available > 0 ? Color(0xff219653) : Color(0xff333333),
+                      color: trailing == kBusy
+                          ? Color(0xffE37A2D)
+                          : available > 0
+                              ? Color(0xff219653)
+                              : Color(0xff333333),
                     ),
                   ),
                   width(size.width * 0.06),
