@@ -36,7 +36,9 @@ class VehicleSearchScreen extends GetView<VehiclesScreenController> {
                 color: Colors.white,
               ),
               icononTap: () {},
-              skiponTap: () {},
+              skiponTap: () {
+                Get.back();
+              },
             ),
           ),
           backgroundColor: kscaffoldBackgroundColor,

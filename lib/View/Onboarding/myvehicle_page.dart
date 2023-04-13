@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/my_vehicles_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
+import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:get/get.dart';
 
 import '../../Model/vehicleModel.dart';
@@ -48,12 +49,17 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
               ),
               Expanded(
                 child: Obx(
-                  () => ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: controller.myVehicleList.length,
-                    itemBuilder: ((context, index) =>
-                        _myVehicle(controller.myVehicleList[index])),
-                  ),
+                  () => (controller.myVehicleList.isEmpty)
+                      ? Align(
+                          alignment: Alignment.center,
+                          child: CustomText(text: 'No Vehicles Available'),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: controller.myVehicleList.length,
+                          itemBuilder: ((context, index) =>
+                              _myVehicle(controller.myVehicleList[index])),
+                        ),
                 ),
               ),
               StartedButton(

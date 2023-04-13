@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/constants.dart';
 import 'package:http/http.dart' as http;
 
 import '../Model/apiResponseModel.dart';
@@ -100,6 +101,8 @@ class CallAPI {
       });
       log('PUT request end');
       var body;
+      kLog(res.statusCode.toString());
+      kLog(res.body.toString());
       if (res.statusCode == 200) body = json.decode(res.body);
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {

@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:linear_progress_bar/linear_progress_bar.dart';
 
+import '../Widgets/customText.dart';
+
 class AddVehiclesPage extends GetView<VehiclesScreenController> {
   const AddVehiclesPage({super.key});
 
@@ -32,7 +34,9 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
             icononTap: () {
               Get.toNamed(Routes.vehicledetailspageRoute);
             },
-            skiponTap: () {},
+            skiponTap: () {
+              Get.toNamed(Routes.orderRfidPageRoute);
+            },
           ),
         ),
         body: NestedScrollView(
@@ -273,60 +277,64 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
               color: kscaffoldBackgroundColor,
               padding: EdgeInsets.symmetric(horizontal: size.width * .05),
               child: Obx(
-                () => ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: controller.selectedVehicleList.length,
-                  itemBuilder: (_, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Obx(() => InkWell(
-                            onTap: (() {
-                              if (controller.isSelectedVehicleindex.value !=
-                                  index) {
-                                controller.isVisible.value = true;
-                                controller.isSelectedVehicleindex.value = index;
-                                controller.selectedVehicle.value =
-                                    controller.selectedVehicleList[index];
-                              } else {
-                                controller.isVisible.value = false;
-                                controller.isSelectedVehicleindex.value = -1;
-                                controller.selectedVehicle.value =
-                                    kVehicleModel;
-                              }
-                            }),
-                            child: Container(
-                              height: size.height * 0.155,
-                              width: size.width * 0.075,
-                              decoration: BoxDecoration(
-                                color:
-                                    controller.isSelectedVehicleindex == index
-                                        ? Color(0xffEFFFF6)
-                                        : kwhite,
-                                borderRadius: BorderRadius.circular(30),
-                                border: Border.all(
-                                  width: 2,
-                                  color:
-                                      controller.isSelectedVehicleindex == index
-                                          ? Color.fromRGBO(135, 221, 171, 0.6)
-                                          : Color(0xffE0E0E0),
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  cachedNetworkImage(
-                                    controller.selectedVehicleList[index].icon,
-                                    width: 120.w,
-                                  ),
-                                  width(20.w),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                () => (controller.selectedVehicleList.isEmpty)
+                    ? Align(
+                        alignment: Alignment.center,
+                        child: CustomText(text: 'No Vehicles Available'),
+                      )
+                    : ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: controller.selectedVehicleList.length,
+                        itemBuilder: (_, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Obx(() => InkWell(
+                                  onTap: (() {
+                                    if (controller
+                                            .isSelectedVehicleindex.value !=
+                                        index) {
+                                      controller.isVisible.value = true;
+                                      controller.isSelectedVehicleindex.value =
+                                          index;
+                                      controller.selectedVehicle.value =
+                                          controller.selectedVehicleList[index];
+                                    } else {
+                                      controller.isVisible.value = false;
+                                      controller.isSelectedVehicleindex.value =
+                                          -1;
+                                      controller.selectedVehicle.value =
+                                          kVehicleModel;
+                                    }
+                                  }),
+                                  child: Container(
+                                    height: size.height * 0.155,
+                                    width: size.width * 0.075,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          controller.isSelectedVehicleindex ==
+                                                  index
+                                              ? Color(0xffEFFFF6)
+                                              : kwhite,
+                                      borderRadius: BorderRadius.circular(30),
+                                      border: Border.all(
+                                        width: 2,
+                                        color: controller
+                                                    .isSelectedVehicleindex ==
+                                                index
+                                            ? Color.fromRGBO(135, 221, 171, 0.6)
+                                            : Color(0xffE0E0E0),
+                                      ),
+                                    ),
+                                    child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.spaceAround,
                                       children: [
+                                        cachedNetworkImage(
+                                          controller
+                                              .selectedVehicleList[index].icon,
+                                          width: 120.w,
+                                        ),
+                                        width(20.w),
                                         Expanded(
                                           child: Column(
                                             crossAxisAlignment:
@@ -334,64 +342,83 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              CustomSmallText(
-                                                text: controller
-                                                    .selectedVehicleList[index]
-                                                    .vehicleDetails,
-                                                color: Color(0xff828282),
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    CustomSmallText(
+                                                      text: controller
+                                                          .selectedVehicleList[
+                                                              index]
+                                                          .vehicleDetails,
+                                                      color: Color(0xff828282),
+                                                    ),
+                                                    CustomBigText(
+                                                      text: controller
+                                                          .selectedVehicleList[
+                                                              index]
+                                                          .modelName,
+                                                      size: 16,
+                                                      color: Color(0xff4F4F4F),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                              CustomBigText(
-                                                text: controller
-                                                    .selectedVehicleList[index]
-                                                    .modelName,
-                                                size: 16,
-                                                color: Color(0xff4F4F4F),
-                                              ),
+                                              Expanded(
+                                                child: ListView.builder(
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount: controller
+                                                      .selectedVehicleList[
+                                                          index]
+                                                      .evPort
+                                                      .length,
+                                                  itemBuilder: ((context,
+                                                          index1) =>
+                                                      Align(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Container(
+                                                          height: 22,
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  right: 5.w),
+                                                          color: Color.fromRGBO(
+                                                              184,
+                                                              210,
+                                                              255,
+                                                              0.6),
+                                                          child: Center(
+                                                            child:
+                                                                CustomSmallText(
+                                                              text: controller
+                                                                      .selectedVehicleList[
+                                                                          index]
+                                                                      .evPort[index1]
+                                                                  [
+                                                                  'connectorType'],
+                                                              color: Color(
+                                                                  0xff0047C3),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )),
+                                                ),
+                                              )
                                             ],
                                           ),
                                         ),
-                                        Expanded(
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: controller
-                                                .selectedVehicleList[index]
-                                                .evPort
-                                                .length,
-                                            itemBuilder: ((context, index1) =>
-                                                Align(
-                                                  alignment: Alignment.center,
-                                                  child: Container(
-                                                    height: 22,
-                                                    margin: EdgeInsets.only(
-                                                        right: 5.w),
-                                                    color: Color.fromRGBO(
-                                                        184, 210, 255, 0.6),
-                                                    child: Center(
-                                                      child: CustomSmallText(
-                                                        text: controller
-                                                                .selectedVehicleList[
-                                                                    index]
-                                                                .evPort[index1]
-                                                            ['connectorType'],
-                                                        color:
-                                                            Color(0xff0047C3),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )),
-                                          ),
-                                        )
                                       ],
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                          )),
-                    );
-                  },
-                ),
+                                )),
+                          );
+                        },
+                      ),
               ),
             ),
           ),

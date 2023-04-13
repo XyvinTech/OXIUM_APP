@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/profile_screen_controller.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Utils/SharedPreferenceUtils.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:get/get.dart';
@@ -213,23 +214,31 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                   ),
                 ),
                 Spacer(),
-                Container(
-                  height: size.height * .067,
-                  width: size.width * .65,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: Color(0xffEB5757).withOpacity(.20)),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.logout, color: Color(0xffEB5757)),
-                        width(size.width * .02),
-                        CustomText(
-                            text: 'Logout',
-                            color: Color(0xffEB5757),
-                            size: 14,
-                            fontWeight: FontWeight.bold)
-                      ]),
+                GestureDetector(
+                  onTap: () async {
+                    await clearData();
+                    appData.token = '';
+                    appData.userModel.value = kUserModel;
+                    Get.offAllNamed(Routes.loginpageRoute);
+                  },
+                  child: Container(
+                    height: size.height * .067,
+                    width: size.width * .65,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: Color(0xffEB5757).withOpacity(.20)),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.logout, color: Color(0xffEB5757)),
+                          width(size.width * .02),
+                          CustomText(
+                              text: 'Logout',
+                              color: Color(0xffEB5757),
+                              size: 14,
+                              fontWeight: FontWeight.bold)
+                        ]),
+                  ),
                 ),
                 height(size.height * .04)
               ],

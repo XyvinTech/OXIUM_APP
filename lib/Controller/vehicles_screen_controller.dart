@@ -6,6 +6,7 @@ import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
 import '../Model/vehicleModel.dart';
+import '../Singletones/app_data.dart';
 import '../Utils/routes.dart';
 
 class VehiclesScreenController extends GetxController {
@@ -71,7 +72,7 @@ class VehiclesScreenController extends GetxController {
   onVehicleSubmit() async {
     showLoading('Adding vehicle...');
     bool isSuccess = await CommonFunctions().addEvToUser(
-        userName: '9782199455',
+        userName: appData.userModel.value.username,
         ev: selectedVehicle.value,
         regNumber: numEditingController.text);
     hideLoading();

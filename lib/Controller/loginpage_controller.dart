@@ -12,6 +12,8 @@ class LoginPageController extends GetxController {
   // TextEditingController textEditingController = TextEditingController();
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController mailEditingController = TextEditingController();
+  TextEditingController tempEmailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   RxBool enablenameTextfield = false.obs;
   RxBool enablemailTextfield = false.obs;
   RxInt selectedIndex = 0.obs;
@@ -41,6 +43,20 @@ class LoginPageController extends GetxController {
     super.onInit();
   }
 
+  Future<bool> login() async {
+    showLoading(kLoading);
+    bool res = await CommonFunctions()
+        .login(phoneController.text, tempEmailController.text);
+    hideLoading();
+    if (res) {
+      Get.toNamed(Routes.enterotppageRoute, arguments: phoneController.text);
+    } else {
+      showError('Failed to login. Try again.');
+    }
+    return res;
+  }
+
+  //FOR UPDATING USER NAME AND EMAIL AFTER OTP
   saveUserNameEmail() async {
     if (nameEditingController.text.isEmpty ||
         mailEditingController.text.isEmpty) {

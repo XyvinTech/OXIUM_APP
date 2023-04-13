@@ -27,7 +27,7 @@ class LoginPage extends GetView<LoginPageController> {
             children: [
               LoginCustomAppBar(),
               Spacer(
-                flex: 18,
+                flex: 15,
               ),
               Text(
                 kLoginJoinGoec,
@@ -41,7 +41,7 @@ class LoginPage extends GetView<LoginPageController> {
                 style: kAppRevolutionsTextStyle,
               ),
               Spacer(
-                flex: 4,
+                flex: 10,
               ),
               //Create Account button
 
@@ -58,7 +58,7 @@ class LoginPage extends GetView<LoginPageController> {
 
               //Login button
 
-              LoginButton(color: Colors.transparent, text: "Login"),
+              // LoginButton(color: Colors.transparent, text: "Login"),
               Spacer(
                 flex: 2,
               ),

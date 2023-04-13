@@ -225,7 +225,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       itemCount: controller.model.value.Chargers.length,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        
                         ChargerModel charger =
                             controller.model.value.Chargers[index];
                         return Container(
@@ -347,6 +346,8 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 InkWell(
                   onTap: () {
                     //TODO: open review write dialog
+                    controller.selectedRating.value = 0;
+                    controller.reviewController.text = '';
                     Get.dialog(_dialougebox());
                   },
                   child: Text('Write Review',
@@ -790,35 +791,33 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
               height(20.h),
               Padding(
                 padding: EdgeInsets.only(left: 10.w),
-                child: Row(
-                  children: [
-                    Wrap(
-                      children: List.generate(
-                          2,
-                          (index) => Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: Obx(
+                  () => Row(
+                    children: List.generate(
+                        5,
+                        (index) => Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              child: GestureDetector(
+                                onTap: () {
+                                  controller.selectedRating.value = index + 1;
+                                },
                                 child: SvgPicture.asset(
-                                  "assets/svg/star_rate3.svg",
+                                  controller.selectedRating.value == 0 ||
+                                          controller.selectedRating.value - 1 <
+                                              index
+                                      ? "assets/svg/star_rate.svg"
+                                      : "assets/svg/star_rate3.svg",
                                 ),
-                              )),
-                    ),
-                    Wrap(
-                      children: List.generate(
-                          3,
-                          (index) => Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: SvgPicture.asset(
-                                  "assets/svg/star_rate.svg",
-                                ),
-                              )),
-                    ),
-                  ],
+                              ),
+                            )),
+                  ),
                 ),
               ),
               height(25.h),
               TextFormField(
                 minLines: 7,
                 maxLines: 7,
+                controller: controller.reviewController,
                 keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                     hintText: "Leave Your Feedback here",
@@ -837,8 +836,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
               height(20.h),
               _button(
                   button: "Leave feedback",
-                  onTap: () {
-                    Get.dialog(_responseDialougebox());
+                  onTap: () async {
+                    bool status = await controller.postReviewForChargeStation();
+                    if (status) Get.dialog(_responseDialougebox());
                   }),
               height(20.h),
               CustomBigText(

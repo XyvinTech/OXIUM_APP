@@ -10,8 +10,20 @@ import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/customText.dart';
 
-class MapScreen extends GetView<HomePageController> {
+class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
+
+  @override
+  State<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends State<MapScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  HomePageController controller = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Container(

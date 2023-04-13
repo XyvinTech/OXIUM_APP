@@ -170,7 +170,7 @@ class CommonFunctions {
 
   Future<List<VehicleModel>> getUserEvs() async {
     var res = await CallAPI().getData('userevs', {
-      "username": "9782199455",
+      "username": appData.userModel.value.username,
     });
 
     if (res.statusCode == 200 && res.body['success']) {
@@ -186,9 +186,11 @@ class CommonFunctions {
 
   Future<UserModel> getUserProfile() async {
     var res = await CallAPI().getData('appuser', {
-      "username": "9782199455",
+      "username": appData.userModel.value.username,
     });
-    if (res.statusCode == 200) {
+    if (res.statusCode == 200 && res.body['result'] != null) {
+      kLog(appData.token);
+      kLog(res.body.toString());
       return appData.userModel.value = UserModel.fromJson(res.body['result']);
     } else {
       return kUserModel;
@@ -196,8 +198,9 @@ class CommonFunctions {
   }
 
   Future<bool> putUserNameEmail(String name, String email) async {
+    kLog('username' + appData.userModel.value.username);
     var res = await CallAPI().putData({
-      "username": "9782199455",
+      "username": appData.userModel.value.username,
       "name": name,
       "email": email,
     }, 'appuser');
@@ -211,7 +214,7 @@ class CommonFunctions {
 
   Future<bool> putUserProfile(String name, String email, String phone) async {
     var res = await CallAPI().putData({
-      "username": "9782199455",
+      "username": appData.userModel.value.username,
       "name": name,
       "email": email,
       "phone": phone,
@@ -226,7 +229,7 @@ class CommonFunctions {
 
   Future<int> getRFIDPrice() async {
     var res = await CallAPI().getData('rfidprice', {
-      "username": "9782199455",
+      "username": appData.userModel.value.username,
     });
 
     if (res.statusCode == 200) {
@@ -238,7 +241,7 @@ class CommonFunctions {
 
   Future<List<RFIDModel>> getUserRFIDs() async {
     var res = await CallAPI().getData('rfidbyusername', {
-      "user": "9782199455",
+      "user": appData.userModel.value.username,
     });
 
     if (res.statusCode == 200 && res.body['success']) {
@@ -313,6 +316,58 @@ class CommonFunctions {
       return list;
     } else {
       return [];
+    }
+  }
+
+  Future<bool> postReviewForChargeStation(int id, int rating, review) async {
+    var res = await CallAPI().postData(
+      {
+        "id": id,
+        "rating": rating,
+        "review": review,
+      },
+      'review',
+    );
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> login(String username, String email) async {
+    var res = await CallAPI().postData(
+      {
+        "username": username.replaceAll('+91', '').replaceAll(' ', ''),
+        "email": email,
+      },
+      'appuser',
+    );
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<ResponseModel> verifyOTP(String username, String otp) async {
+    var res = await CallAPI().postData(
+      {
+        "username": username.replaceAll('+91', '').replaceAll(' ', ''),
+        "password": otp,
+      },
+      'appuserauth',
+    );
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return res;
+    } else {
+      return ResponseModel(statusCode: 500, body: '');
     }
   }
 }

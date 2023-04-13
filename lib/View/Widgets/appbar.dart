@@ -50,14 +50,15 @@ class CustomAppBar extends StatelessWidget {
   final Widget? logo;
   final void Function()? skiponTap;
   final void Function()? icononTap;
-  const CustomAppBar(
-      {super.key,
-      this.text,
-      this.icon,
-      this.color,
-      this.skiponTap,
-      this.icononTap,
-      this.logo});
+  const CustomAppBar({
+    super.key,
+    this.text,
+    this.icon,
+    this.color,
+    this.skiponTap,
+    this.icononTap,
+    this.logo,
+  });
 
   @override
   Widget build(BuildContext context) {

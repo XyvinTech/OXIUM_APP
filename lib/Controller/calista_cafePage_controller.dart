@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,8 @@ class CalistaCafePageController extends GetxController {
   RxDouble distance = 0.0.obs;
   Rx<ChargeStationDetailsModel> model = kChargeStationDetailsModel.obs;
   RxList<String> amenities = RxList();
+  RxInt selectedRating = 0.obs;
+  TextEditingController reviewController = TextEditingController();
   @override
   void onInit() {
     // TODO: implement onInit
@@ -60,5 +63,13 @@ class CalistaCafePageController extends GetxController {
   changeCharger(int index, int index_grid) {
     selectedCharger.value = index;
     selectedType.value = index_grid;
+  }
+
+  postReviewForChargeStation() async {
+    showLoading(kLoading);
+    bool status = await CommonFunctions().postReviewForChargeStation(
+        model.value.id, selectedRating.value, reviewController.text);
+    hideLoading();
+    return status;
   }
 }

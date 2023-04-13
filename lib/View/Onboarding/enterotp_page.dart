@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/otpnumberPage_controller.dart';
-import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
@@ -56,21 +55,22 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
                       SizedBox(
                         height: size.height * 0.02,
                       ),
-                      SizedBox(
-                        width: 250.w,
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * .06),
                         child: CustomSmallText(
                           text:
-                              "Enter the OTP we just send to verify your Number xxxxxxx701",
+                              "Enter the OTP we just send to verify your number ${controller.phone}",
                           size: 16,
                         ),
                       ),
-
                       SizedBox(
                         height: size.height * 0.04,
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: PinCodeTextField(
+                            controller: controller.otpController,
                             appContext: context,
                             length: 5,
                             pinTheme: PinTheme(
@@ -88,73 +88,36 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
                               print(valu);
                             }),
                       ),
-                      // Wrap(
-                      //   children: List.generate(
-                      //     5,
-                      //     (index) => InkWell(
-                      //       onTap: () {},
-                      //       child: Container(
-                      //         margin: EdgeInsets.only(
-                      //             left: size.width * 0.0125,
-                      //             right: size.width * 0.0125),
-                      //         height: size.height * 0.1,
-                      //         // width: size.width / 6.53,
-                      //         width: size.width * .15,
-
-                      //         decoration: BoxDecoration(
-                      //           color: kwhite,
-                      //           borderRadius: BorderRadius.circular(48),
-                      //           border: Border.all(
-                      //             width: 2,
-                      //             color: Color(0xffE0E0E0),
-                      //           ),
-                      //         ),
-                      //         child: Center(
-                      //           child: TextFormField(
-                      //             keyboardType: TextInputType.number,
-                      //             inputFormatters: [
-                      //               LengthLimitingTextInputFormatter(1),
-                      //               FilteringTextInputFormatter.digitsOnly,
-                      //             ],
-                      //             textAlign: TextAlign.center,
-                      //             decoration: InputDecoration(
-                      //               // contentPadding:
-                      //               //     EdgeInsets.only(left: size.width * 0.0175),
-                      //               border: InputBorder.none,
-                      //             ),
-                      //             onChanged: (Value) {
-                      //               if (Value.length == 1) {
-                      //                 FocusScope.of(context).nextFocus();
-                      //               } else {
-                      //                 FocusScope.of(context).previousFocus();
-                      //               }
-                      //             },
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       SizedBox(
                         height: 20.h,
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomSmallText(
-                              text: "Time remining is 30s",
-                              textAlign: TextAlign.left,
-                              size: 14,
-                            ),
-                            CustomSmallText(
-                              text: "Resend OTP",
-                              color: Color(0xff0047C3),
-                              size: 16,
-                              textAlign: TextAlign.right,
-                            )
-                          ],
+                        child: Obx(
+                          () => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomSmallText(
+                                text: "Time remining is ${controller.s.value}s",
+                                textAlign: TextAlign.left,
+                                size: 14,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  if (controller.s.value <= 0)
+                                    controller.resendOTP();
+                                },
+                                child: CustomSmallText(
+                                  text: "Resend OTP",
+                                  color: controller.s.value <= 0
+                                      ? Color(0xff0047C3)
+                                      : Colors.grey,
+                                  size: 16,
+                                  textAlign: TextAlign.right,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       height(size.height * 0.3),
@@ -163,7 +126,7 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
                         child: AppButton(
                           text: "Verify Number",
                           onTap: () {
-                            Get.toNamed(Routes.addNameEmailPageRoute);
+                            controller.verifyOTP();
                           },
                         ),
                       ),
