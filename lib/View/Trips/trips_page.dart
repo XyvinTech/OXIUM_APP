@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +12,16 @@ import 'package:get/get.dart';
 import '../../Controller/trips_screen_controller.dart';
 import '../../Utils/routes.dart';
 
-class TripsScreen extends GetView<TripsScreenController> {
+class TripsScreen extends StatefulWidget {
+  @override
+  State<TripsScreen> createState() => _TripsScreenState();
+}
+
+class _TripsScreenState extends State<TripsScreen>
+    with AutomaticKeepAliveClientMixin {
+  TripsScreenController controller = Get.find();
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;

@@ -10,11 +10,8 @@ import 'package:get/get.dart';
 import '../../Singletones/app_data.dart';
 import '../Widgets/cached_network_image.dart';
 
-class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key});
 
-  @override
-  Widget build(BuildContext context) {
+  Widget CustomDrawer(BuildContext context) {
     return Drawer(
       width: size.width * .75,
       child: Container(
@@ -276,4 +273,3 @@ class CustomDrawer extends StatelessWidget {
       ),
     );
   }
-}

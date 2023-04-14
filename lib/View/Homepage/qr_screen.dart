@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/qr_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
-import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -79,7 +78,6 @@ class QrScreen extends GetView<QrController> {
     controller.qrViewController = qrViewController;
     controller.qrViewController!.scannedDataStream.listen((event) {
       controller.onQrCodeReceived(event);
-      kLog(event.format.toString());
     });
   }
 

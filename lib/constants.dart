@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
@@ -23,7 +25,6 @@ final Color kscaffoldBackgroundColor = Color(0xFFF5F5F5);
 final Color kDefaultHomePageBackgroundColor = Color(0xffF0F1F6);
 final Color kBusyColor = Color(0xffF9E4D5);
 final Color kBusyBorderColor = Color(0xffE37A2D);
-
 
 //appStrings
 final String kAppName = 'Freelancer app';
@@ -64,7 +65,7 @@ final UserModel kUserModel = UserModel(
     total_sessions: 0,
     total_units: 0,
     rfid: '');
-ChargeStationDetailsModel kChargeStationDetailsModel =
+final ChargeStationDetailsModel kChargeStationDetailsModel =
     ChargeStationDetailsModel(
         id: -1,
         name: '',
@@ -76,7 +77,7 @@ ChargeStationDetailsModel kChargeStationDetailsModel =
         amenities: '',
         isFavorite: false,
         Chargers: []);
-StationMarkerModel kStationMarkerModel = StationMarkerModel(
+final StationMarkerModel kStationMarkerModel = StationMarkerModel(
     id: -1,
     lattitude: -1,
     longitude: -1,
@@ -86,6 +87,51 @@ StationMarkerModel kStationMarkerModel = StationMarkerModel(
     ac_dc: '',
     charger_type: '',
     charger_capacity: '');
+
+final BookingModel kBookingModel = BookingModel(
+    bookingId: -1,
+    chargingpoint: -1,
+    chargerName: '',
+    userEVId: -1,
+    username: '',
+    amount: 0,
+    stopReason: '',
+    userstartattempts: 0,
+    userstopattempts: 0,
+    maxattempts: 0,
+    pricing: 0,
+    damount: 0,
+    tdamount: 0,
+    extracharges: 0,
+    taxes: 0,
+    bookedvia: '',
+    user_can_Request: '',
+    priceby: '',
+    book_time: '',
+    start_time: '',
+    stop_time: '',
+    requested_stop_time: '',
+    requested_stop_duration: '',
+    requested_stop_unit: '',
+    requested_stop_soc: '',
+    stopchargingby: '',
+    discountcode: '',
+    status: '',
+    scheduleId: '');
+
+final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
+    Connector: -1,
+    amount: 0,
+    SOC: 0,
+    Duration: 0,
+    PriceBy: '',
+    unit: 0,
+    load: 0,
+    price: 0,
+    startTime: '',
+    Charger: '',
+    status: '',
+    Chargingstatus: '');
 
 //app-Textstyles
 

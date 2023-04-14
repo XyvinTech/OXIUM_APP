@@ -100,7 +100,7 @@ class CustomAppBar extends StatelessWidget {
                     padding: EdgeInsets.only(top: size.height * 0.004),
                     child: IconButton(
                       color: kwhite,
-                      onPressed: icononTap,
+                      onPressed: skiponTap,
                       icon: icon!,
                     ),
                   ),

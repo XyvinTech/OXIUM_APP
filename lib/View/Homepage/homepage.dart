@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Singletones/injector.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/my_flutter_app_icons.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
@@ -26,11 +27,15 @@ class HomePageScreen extends GetView<HomePageController> {
 
   @override
   Widget build(BuildContext context) {
-    if (size.height == 0) size = MediaQuery.of(context).size;
+    if (size.height == 0) {
+      size = MediaQuery.of(context).size;
+      Injector().injectImages(context);
+    }
+
     return Scaffold(
       key: controller.drawerKey,
       backgroundColor: kDefaultHomePageBackgroundColor,
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(context),
       body: PageView(
         controller: controller.pageController,
         physics: NeverScrollableScrollPhysics(),
@@ -81,7 +86,7 @@ class HomePageScreen extends GetView<HomePageController> {
             onTap: (index) {
               controller.activeIndex.value = index;
               controller.pageController.animateToPage(index,
-                  curve: Curves.ease, duration: Duration(milliseconds: 200));
+                  curve: Curves.ease, duration: Duration(milliseconds: 600));
             }
             //other params
             ),

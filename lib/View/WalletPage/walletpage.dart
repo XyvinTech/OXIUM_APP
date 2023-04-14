@@ -8,258 +8,266 @@ import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
-class WalletScreen extends GetView<WalletPageController> {
+class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
 
   @override
+  State<WalletScreen> createState() => _WalletScreenState();
+}
+
+class _WalletScreenState extends State<WalletScreen>
+    with AutomaticKeepAliveClientMixin {
+  WalletPageController controller = Get.find();
+  @override
+  bool get wantKeepAlive => true;
+  @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: Color(0xffF5F9FF),
-          body: CustomScrollView(
-            shrinkWrap: true,
-            slivers: [
-              SliverAppBar(
-                floating: true,
-                pinned: true,
-                backgroundColor: kwhite,
-                expandedHeight: size.height * 0.66,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Column(
-                    children: [
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            height: size.height * 0.58,
-                            width: size.width,
-                            color: Color(0xffF5F9FF),
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: size.height * 0.46,
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.bottomLeft,
-                                          end: Alignment.topRight,
-                                          colors: [
-                                        Color(0xff202020),
-                                        Color(0xff4F4F4F),
-                                      ])),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
+    return Scaffold(
+        backgroundColor: Color(0xffF5F9FF),
+        body: CustomScrollView(
+          shrinkWrap: true,
+          slivers: [
+            SliverAppBar(
+              floating: true,
+              pinned: true,
+              backgroundColor: kwhite,
+              expandedHeight: size.height * 0.66 + 0 * controller.reload.value,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Column(
+                  children: [
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          height: size.height * 0.58,
+                          width: size.width,
+                          color: Color(0xffF5F9FF),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: size.height * 0.46,
+                                width: size.width,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.bottomLeft,
+                                        end: Alignment.topRight,
+                                        colors: [
+                                      Color(0xff202020),
+                                      Color(0xff4F4F4F),
+                                    ])),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SafeArea(
+                                      child: Container(
                                         child: SvgPicture.asset(
                                             "assets/svg/g1.svg"),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          Positioned(
-                            left: size.width * 0.44,
-                            top: size.height * 0.04,
+                        ),
+                        Positioned(
+                          left: size.width * 0.44,
+                          top: size.height * 0.02,
+                          child: SafeArea(
                             child: CustomBigText(
                               text: "Wallet",
                               color: Color(0xffF2F2F2),
                               size: 18,
                             ),
                           ),
-                          Positioned(
-                            left: size.width * 0.11,
-                            top: size.height * 0.12,
-                            child: SvgPicture.asset("assets/svg/goeclogo.svg"),
-                          ),
-                          Positioned(
-                            right: size.width * 0.11,
-                            top: size.height * 0.11,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                CustomBigText(
-                                  text: "324",
-                                  size: 18,
-                                  color: Color(0xffF2F2F2),
-                                ),
-                                height(size.height * 0.003),
-                                CustomSmallText(
-                                  text: "No of Charges",
-                                )
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            right: size.width * 0.11,
-                            top: size.height * 0.23,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                CustomBigText(
-                                  text: "21 Jun 2022",
-                                  size: 18,
-                                  color: Color(0xffF2F2F2),
-                                ),
-                                height(size.height * 0.003),
-                                CustomSmallText(
-                                  text: "Expiry date",
-                                )
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            left: size.width * 0.11,
-                            top: size.height * 0.23,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomSmallText(
-                                  text: "Balance Credits",
-                                ),
-                                height(size.height * 0.003),
-                                CustomBigText(
-                                  text: "₹ 12556",
-                                  size: 26,
-                                  color: Color(0xff00FFB3),
-                                )
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            bottom: size.height * 0.083,
-                            left: size.width * .02,
-                            right: size.width * .02,
-                            child: InkWell(
-                              onTap: () {
-                                Get.to(() => PopUpPage());
-                              },
-                              child: _walletCard(
-                                  title: "TopUp",
-                                  assets: "assets/svg/circledoller.svg",
-                                  color: Color(0xff0047C3),
-                                  shadowColor:
-                                      Color(0xff000000).withOpacity(.33),
-                                  textColor: Color(0xff00FFB3)),
-                            ),
-                          ),
-                          // Positioned(
-                          //   bottom: size.height * 0.025,
-                          //   right: size.width * 0.04,
-                          //   child: _walletCard(
-                          //       title: "Scan Code",
-                          //       assets: "assets/svg/qr_code.svg",
-                          //       color: kwhite,
-                          //       shadowColor: Color(0xff000000).withOpacity(.06),
-                          //       textColor: Color(0xff0047C3)),
-                          // ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(size.height * 0.1),
-                  child: Container(
-                    color: Colors.white,
-                    width: double.infinity,
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: size.height * 0.01,
                         ),
-                        Container(
-                          height: size.height * 0.008,
-                          width: size.width * 0.34,
-                          decoration: BoxDecoration(
-                              color: Color(0xffE0E0E0),
-                              borderRadius: BorderRadius.circular(10)),
+                        Positioned(
+                          left: size.width * 0.11,
+                          top: size.height * 0.12,
+                          child: SvgPicture.asset("assets/svg/goeclogo.svg"),
                         ),
-                        SizedBox(
-                          height: size.height * 0.015,
+                        Positioned(
+                          right: size.width * 0.11,
+                          top: size.height * 0.11,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              CustomBigText(
+                                text: "324",
+                                size: 18,
+                                color: Color(0xffF2F2F2),
+                              ),
+                              height(size.height * 0.003),
+                              CustomSmallText(
+                                text: "No of Charges",
+                              )
+                            ],
+                          ),
                         ),
-                        CustomBigText(
-                          text: "Payments",
-                          size: 14,
-                          color: Color(0xff828282),
+                        Positioned(
+                          right: size.width * 0.11,
+                          top: size.height * 0.23,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              CustomBigText(
+                                text: "21 Jun 2022",
+                                size: 18,
+                                color: Color(0xffF2F2F2),
+                              ),
+                              height(size.height * 0.003),
+                              CustomSmallText(
+                                text: "Expiry date",
+                              )
+                            ],
+                          ),
                         ),
-                        SizedBox(
-                          height: size.height * 0.02,
+                        Positioned(
+                          left: size.width * 0.11,
+                          top: size.height * 0.23,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomSmallText(
+                                text: "Balance Credits",
+                              ),
+                              height(size.height * 0.003),
+                              CustomBigText(
+                                text: "₹ 12556",
+                                size: 26,
+                                color: Color(0xff00FFB3),
+                              )
+                            ],
+                          ),
                         ),
+                        Positioned(
+                          bottom: size.height * 0.083,
+                          left: size.width * .02,
+                          right: size.width * .02,
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(() => PopUpPage());
+                            },
+                            child: _walletCard(
+                                title: "TopUp",
+                                assets: "assets/svg/circledoller.svg",
+                                color: Color(0xff0047C3),
+                                shadowColor: Color(0xff000000).withOpacity(.33),
+                                textColor: Color(0xff00FFB3)),
+                          ),
+                        ),
+                        // Positioned(
+                        //   bottom: size.height * 0.025,
+                        //   right: size.width * 0.04,
+                        //   child: _walletCard(
+                        //       title: "Scan Code",
+                        //       assets: "assets/svg/qr_code.svg",
+                        //       color: kwhite,
+                        //       shadowColor: Color(0xff000000).withOpacity(.06),
+                        //       textColor: Color(0xff0047C3)),
+                        // ),
                       ],
                     ),
+                  ],
+                ),
+              ),
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(size.height * 0.1),
+                child: Container(
+                  color: Colors.white,
+                  width: double.infinity,
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      Container(
+                        height: size.height * 0.008,
+                        width: size.width * 0.34,
+                        decoration: BoxDecoration(
+                            color: Color(0xffE0E0E0),
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.015,
+                      ),
+                      CustomBigText(
+                        text: "Payments",
+                        size: 14,
+                        color: Color(0xff828282),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.02,
+                      ),
+                    ],
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      height(size.height * 0.01),
-                      Container(
-                        height: 1000,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                // width: size.width * .92,
-                                padding:
-                                    EdgeInsets.only(top: size.height * .01),
-                                child: ListView.builder(
-                                    itemCount: 40,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (_, index) {
-                                      return Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: size.width * .03,
-                                            vertical: size.height * .01),
-                                        child: InkWell(
-                                          onTap: () {
-                                            Get.dialog(
-                                              _dialougebox(
-                                                title: "Calista Cafe",
-                                                amount: "+500 Cr",
-                                                amountColor: Color(0xff27AE60),
-                                              ),
-                                            );
-
-                                            // wallet loss credit dialogue
-
-                                            //            Get.dialog(
-                                            //   _dialougebox(
-                                            //     title: "Wallet Credit",
-                                            //     amount: "-500 Cr",
-                                            //     amountColor: Color(0xffEB5757),
-                                            //   ),
-                                            // );
-                                          },
-                                          child: _creditCard(
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    height(size.height * 0.01),
+                    Container(
+                      height: 1000,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              // width: size.width * .92,
+                              padding: EdgeInsets.only(top: size.height * .01),
+                              child: ListView.builder(
+                                  itemCount: 40,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (_, index) {
+                                    return Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: size.width * .03,
+                                          vertical: size.height * .01),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Get.dialog(
+                                            _dialougebox(
                                               title: "Calista Cafe",
-                                              date: "12 Jun 2022",
-                                              time: "03:30 PM",
-                                              amount: "+500 Cr"),
-                                        ),
-                                      );
-                                    }),
-                              ),
-                            )
-                          ],
-                        ),
+                                              amount: "+500 Cr",
+                                              amountColor: Color(0xff27AE60),
+                                            ),
+                                          );
+
+                                          // wallet loss credit dialogue
+
+                                          //            Get.dialog(
+                                          //   _dialougebox(
+                                          //     title: "Wallet Credit",
+                                          //     amount: "-500 Cr",
+                                          //     amountColor: Color(0xffEB5757),
+                                          //   ),
+                                          // );
+                                        },
+                                        child: _creditCard(
+                                            title: "Calista Cafe",
+                                            date: "12 Jun 2022",
+                                            time: "03:30 PM",
+                                            amount: "+500 Cr"),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          )
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              )
-            ],
-          )),
-    );
+              ),
+            )
+          ],
+        ));
   }
 
   Widget _walletCard(

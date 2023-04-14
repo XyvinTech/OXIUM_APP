@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -20,7 +21,8 @@ class QrController extends GetxController {
   }
 
   onQrCodeReceived(Barcode format) {
-    //TODO: do whatever needed here
-    Get.toNamed(Routes.chargingPageRoute);
+    kLog(format.code.toString());
+    String qr = (format.code ?? '') + '-Q';
+    Get.toNamed(Routes.chargingPageRoute, arguments: qr);
   }
 }

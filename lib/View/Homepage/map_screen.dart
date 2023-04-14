@@ -36,6 +36,9 @@ class _MapScreenState extends State<MapScreen>
                   padding: EdgeInsets.all(controller.reload.value * 0 +
                       MapFunctions().reload.value * 0),
                   child: GoogleMap(
+                    // liteModeEnabled: true,
+                    compassEnabled: false,
+                    mapToolbarEnabled: false,
                     onCameraMoveStarted: () {
                       if (MapFunctions().isIdle)
                         MapFunctions().isFocused = false;
@@ -74,6 +77,8 @@ class _MapScreenState extends State<MapScreen>
                           element.markerId == MarkerId('myMarker')));
                     },
                   ),
+                
+                
                 ),
               ),
             ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/splash_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:get/get.dart';
 
+import '../../Singletones/injector.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 
@@ -13,6 +13,10 @@ class SplashScreen extends GetView<SplashScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    if (size.height == 0) {
+      size = MediaQuery.of(context).size;
+      Injector().injectImages(context);
+    }
     return Scaffold(
       backgroundColor: Color(0xff0047C3),
       body: Padding(

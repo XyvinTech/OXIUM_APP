@@ -1,7 +1,9 @@
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/Model/RfidModel.dart';
 import 'package:freelancer_app/Model/apiResponseModel.dart';
+import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Model/searchStationModel.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
@@ -368,6 +370,67 @@ class CommonFunctions {
       return res;
     } else {
       return ResponseModel(statusCode: 500, body: '');
+    }
+  }
+
+  //CHARGING API's
+  Future<BookingModel> createBooking(
+      {required String chargerName,
+      required String chargingPoint,
+      required int userEvId,
+      required String bookingVia}) async {
+    var res = await CallAPI().postData(
+      {
+        "username": appData.userModel.value.username,
+        "chargerName": chargerName,
+        "chargingpoint": int.parse(chargingPoint),
+        "userEVId": userEvId,
+        "bookedvia": bookingVia
+      },
+      'booking',
+    );
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return BookingModel.fromJson(res.body['result']);
+    } else {
+      return kBookingModel;
+    }
+  }
+
+  Future<bool> changeChargingStatus({
+    required String chargerName,
+    required String chargingPoint,
+    required String bookingId,
+    required bool isStart,
+  }) async {
+    var res = await CallAPI().postData(
+      {
+        "chargingpoint": int.parse(chargingPoint),
+        "deviceId": chargerName,
+        "requestStatus": isStart ? "StartTransaction" : "StopTransaction",
+        "bookingId": bookingId
+      },
+      'changestatus',
+    );
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<ChargingStatusModel> getChargingStatus(String bookingId) async {
+    var res =
+        await CallAPI().getData('bookingstatus', {'bookingId': bookingId});
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return ChargingStatusModel.fromJson(res.body['result']);
+    } else {
+      return kChargingStatusModel;
     }
   }
 }

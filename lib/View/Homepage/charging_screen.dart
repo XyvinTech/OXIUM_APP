@@ -349,10 +349,11 @@ class ChargingScreen extends GetView<ChargingScreenController> {
           child: Row(
             children: [
               CustomBigText(
-                text: "Reconnect",
+                text: "Connecting",
                 size: 14.sp,
                 color: Color(0xff0047C3),
               ),
+              Spacer(),
               Expanded(
                 child: Container(child: LottieLoadingWidget()),
               )

@@ -14,7 +14,16 @@ import 'package:get/get.dart';
 
 import '../../Utils/routes.dart';
 
-class ChargeScreen extends GetView<ChargeScreenController> {
+class ChargeScreen extends StatefulWidget {
+  @override
+  State<ChargeScreen> createState() => _ChargeScreenState();
+}
+
+class _ChargeScreenState extends State<ChargeScreen>
+    with AutomaticKeepAliveClientMixin {
+  ChargeScreenController controller = Get.find();
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;

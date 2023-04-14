@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Controller/trips_screen_controller.dart';
+import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
@@ -27,8 +28,10 @@ class HomePageController extends GetxController {
   final ChargeScreenController chargeScreenController =
       Get.put(ChargeScreenController());
   final tripsScreenController = Get.put(TripsScreenController());
+  final WalletPageController walletPageController =
+      Get.put(WalletPageController());
   List<StationMarkerModel> station_marker_list = [];
-  Debouncer debouncer = Debouncer(milliseconds: 2500);
+  Debouncer debouncer = Debouncer(milliseconds: 3000);
 
   @override
   void onInit() async {
@@ -45,7 +48,7 @@ class HomePageController extends GetxController {
         "assets/images/CSAR.png", 70);
     MapFunctions().myMarker = await ImageByteConverter.getBytesFromAsset(
         "assets/images/myMarker.png", 60);
-    
+
     Position? pos = await MapFunctions().getCurrentPosition();
     // MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
     MapFunctions().animateToNewPosition(LatLng(28.670988, 77.2794488));
@@ -56,6 +59,12 @@ class HomePageController extends GetxController {
     Future.delayed(Duration(milliseconds: 1000), () {
       MapFunctions().myPositionListener();
     });
+  }
+
+  onClose() {
+    super.onClose();
+    MapFunctions().controller.dispose();
+    MapFunctions().dirMapController.dispose();
   }
 
   getNearestChargestations(Position pos) async {
