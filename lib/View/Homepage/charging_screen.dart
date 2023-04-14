@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/charging_screen_controller.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Homepage/ChargningAnimations/gradiant_circular_progressbar.dart';
 import 'package:freelancer_app/View/Homepage/ChargningAnimations/lottie_loading_animation.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
+import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
@@ -46,7 +48,10 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Flexible(
-                                  child: Container(
+                                  child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
                                       width: double.infinity,
                                       color: Colors.white,
                                       child: Obx(
@@ -54,7 +59,48 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                                 .chargingStatus.value.isEmpty
                                             ? GradientIndicator()
                                             : PercentageIndicator(progress: .7),
-                                      ))),
+                                      )),
+                                  Container(
+                                      // color: Colors.amber,
+                                      child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      height(40.h),
+                                      Image.asset(
+                                        'assets/images/bolt.png',
+                                        height: 50,
+                                      ),
+                                      height(5.h),
+                                      CustomText(
+                                        text:
+                                            '${controller.status_model.value.SOC}%',
+                                        isItalic: true,
+                                        fontWeight: FontWeight.w700,
+                                        size: 20,
+                                        color: Color(0xff2F80ED),
+                                      ),
+                                      height(20.h),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          CustomText(
+                                            text: '02h',
+                                            fontWeight: FontWeight.bold,
+                                            size: 15,
+                                            color: Color(0xff0047C2),
+                                          ),
+                                          CustomText(
+                                            text: '02h',
+                                            fontWeight: FontWeight.bold,
+                                            size: 15,
+                                            color: Color(0xff0047C2),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ))
+                                ],
+                              )),
                               if (controller.chargingStatus.value ==
                                       "connected" ||
                                   controller.chargingStatus.value == "progress")
