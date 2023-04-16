@@ -63,8 +63,9 @@ class HomePageController extends GetxController {
 
   onClose() {
     super.onClose();
-    MapFunctions().controller.dispose();
-    MapFunctions().dirMapController.dispose();
+    // MapFunctions().controller.dispose();
+    // MapFunctions().dirMapController.dispose();
+    MapFunctions().dispose();
   }
 
   getNearestChargestations(Position pos) async {

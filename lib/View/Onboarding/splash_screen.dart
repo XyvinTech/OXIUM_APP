@@ -15,7 +15,7 @@ class SplashScreen extends GetView<SplashScreenController> {
   Widget build(BuildContext context) {
     if (size.height == 0) {
       size = MediaQuery.of(context).size;
-      Injector().injectImages(context);
+      // Injector().injectImages(context);
     }
     return Scaffold(
       backgroundColor: Color(0xff0047C3),

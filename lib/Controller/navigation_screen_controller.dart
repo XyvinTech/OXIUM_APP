@@ -35,14 +35,14 @@ class NavigationScreenController extends GetxController {
   }
 
   initMap() {
-    MapFunctions().addCarMarker(MapFunctions().curPos!);
+    MapFunctions().addCarMarker(MapFunctions().curPos);
     Future.delayed(Duration(milliseconds: 1000), () {
       // MapFunctions().setMapFitToPolyline(
       //   MapFunctions().polylines,
       //   MapFunctions().dirMapController,
       //   isNavigation: true,
       // );
-      MapFunctions().animateForNavigation(MapFunctions().curPos!);
+      MapFunctions().animateForNavigation(MapFunctions().curPos);
       // MapFunctions().animatePolyline(MapFunctions().polylineString, reload);
     });
   }

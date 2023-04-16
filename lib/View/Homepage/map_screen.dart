@@ -65,7 +65,7 @@ class _MapScreenState extends State<MapScreen>
                     },
                     onTap: (value) {
                       print(value);
-                      MapFunctions().addMyPositionMarker(MapFunctions().curPos!,
+                      MapFunctions().addMyPositionMarker(MapFunctions().curPos,
                           MapFunctions().markers_homepage);
                       // MapFunctions().addMarkerHomePage(
                       //     id: value.latitude.toString(),
@@ -194,8 +194,8 @@ class _MapScreenState extends State<MapScreen>
                           if (res != null) MapFunctions().curPos = res;
                         }
                         MapFunctions().animateToNewPosition(LatLng(
-                            MapFunctions().curPos!.latitude,
-                            MapFunctions().curPos!.longitude));
+                            MapFunctions().curPos.latitude,
+                            MapFunctions().curPos.longitude));
                       },
                       child:
                           SvgPicture.asset('assets/svg/location_searching.svg'),

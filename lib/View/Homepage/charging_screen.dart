@@ -65,7 +65,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      height(40.h),
+                                      height(55.h),
                                       Image.asset(
                                         'assets/images/bolt.png',
                                         height: 50,
@@ -83,17 +83,44 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          CustomText(
-                                            text: '02h',
-                                            fontWeight: FontWeight.bold,
-                                            size: 15,
-                                            color: Color(0xff0047C2),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              CustomText(
+                                                text: '02',
+                                                fontWeight: FontWeight.bold,
+                                                size: 16,
+                                                color: Color(0xff0047C2),
+                                              ),
+                                              CustomText(
+                                                text: 'hrs',
+                                                fontWeight: FontWeight.w400,
+                                                size: 12,
+                                                color: Color(0xff828282),
+                                              ),
+                                            ],
                                           ),
-                                          CustomText(
-                                            text: '02h',
-                                            fontWeight: FontWeight.bold,
-                                            size: 15,
-                                            color: Color(0xff0047C2),
+                                          width(10.w),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              CustomText(
+                                                text: '33',
+                                                fontWeight: FontWeight.bold,
+                                                size: 16,
+                                                color: Color(0xff0047C2),
+                                              ),
+                                              CustomText(
+                                                text: 'min',
+                                                fontWeight: FontWeight.w400,
+                                                size: 12,
+                                                color: Color(0xff828282),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       )
@@ -395,7 +422,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
           child: Row(
             children: [
               CustomBigText(
-                text: "Connecting",
+                text: "Connecting...",
                 size: 14.sp,
                 color: Color(0xff0047C3),
               ),

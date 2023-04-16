@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freelancer_app/View/WalletPage/golden_top_up.dart';
-import 'package:freelancer_app/View/WalletPage/mini_top_up.dart';
-import 'package:freelancer_app/View/WalletPage/normal_top_up.dart';
-import 'package:freelancer_app/View/WalletPage/platinum_top_up.dart';
+import 'package:freelancer_app/Controller/walletPage_controller.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
+import '../../Singletones/dialogs.dart';
 import '../../Utils/toastUtils.dart';
+import '../Widgets/customText.dart';
+import '../Widgets/textfield.dart';
 
-class PopUpPage extends StatelessWidget {
+class PopUpPage extends GetView<WalletPageController> {
   const PopUpPage({super.key});
 
   @override
@@ -24,7 +25,7 @@ class PopUpPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: size.width * .062, vertical: size.height * .02),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               height(size.height * 0.02),
               Row(
@@ -41,7 +42,7 @@ class PopUpPage extends StatelessWidget {
                       child: Container(
                           alignment: Alignment.center,
                           child: CustomBigText(
-                              text: 'Topup Plans',
+                              text: 'Add Coins',
                               size: 18,
                               color: Color(0xff4F4F4F),
                               fontWeight: FontWeight.bold))),
@@ -49,64 +50,210 @@ class PopUpPage extends StatelessWidget {
                 ],
               ),
               height(size.height * 0.04),
-              InkWell(
-                onTap: () {
-                  Get.to(() => PopUp());
-                },
-                child: _topupCard(
-                  title: "Mini top-up",
-                  color: Color(0xff2F80ED),
-                ),
+              // InkWell(
+              //   onTap: () {
+              //     Get.to(() => PopUp());
+              //   },
+              //   child: _topupCard(
+              //     title: "Mini top-up",
+              //     color: Color(0xff2F80ED),
+              //   ),
+              // ),
+              // height(size.height * 0.02),
+              // InkWell(
+              //   onTap: () {
+              //     Get.to(NormalTopUp());
+              //   },
+              //   child: _topupCard(
+              //     title: "Normal top-up",
+              //     color: Color(0xffF2994A),
+              //   ),
+              // ),
+              // height(size.height * 0.02),
+              // InkWell(
+              //   onTap: () {
+              //     Get.to(GoldenTopUP());
+              //   },
+              //   child: _topupCard(
+              //     title: "Golden top-up",
+              //     color: Color(0xff2F80ED),
+              //     gradient: LinearGradient(
+              //       colors: [
+              //         Color(0xffFAEDB6),
+              //         Color(0xffD2B269),
+              //         Color(0xffF0E6A8),
+              //         Color(0xffCEAE65),
+              //         Color(0xffEEBC3D),
+              //       ],
+              //     ),
+              //     textColor: Color(0xff4F4F4F),
+              //   ),
+              // ),
+              // height(size.height * 0.02),
+              // InkWell(
+              //   onTap: () {
+              //     Get.to(PlatinumTopUp());
+              //   },
+              //   child: _topupCard(
+              //     title: "Platinum top-up",
+              //     color: Color(0xff2F80ED),
+              //     gradient: LinearGradient(
+              //       colors: [
+              //         Color(0xff3E3E3E),
+              //         Color(0xff969696),
+              //         Color(0xff666666),
+              //         Color(0xff929292),
+              //       ],
+              //     ),
+              //     textColor: Color(0xffF2F2F2),
+              //   ),
+              // ),
+
+              CustomText(
+                text: 'Balance Coins',
+                fontWeight: FontWeight.w400,
+                size: 13.5,
+                color: Color(0xffB7B7B7),
               ),
-              height(size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  Get.to(NormalTopUp());
-                },
-                child: _topupCard(
-                  title: "Normal top-up",
-                  color: Color(0xffF2994A),
-                ),
+              CustomText(
+                text: '12556',
+                fontWeight: FontWeight.bold,
+                size: 24,
+                color: Color(0xff0047C2),
               ),
-              height(size.height * 0.02),
-              InkWell(
-                onTap: () {
-                  Get.to(GoldenTopUP());
-                },
-                child: _topupCard(
-                  title: "Golden top-up",
-                  color: Color(0xff2F80ED),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xffFAEDB6),
-                      Color(0xffD2B269),
-                      Color(0xffF0E6A8),
-                      Color(0xffCEAE65),
-                      Color(0xffEEBC3D),
+              height(10.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(
+                      text: '₹ 1 = 1 Coins',
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff4F4F4F),
+                      size: 16),
+                  Column(
+                    children: [
+                      CustomText(
+                        text: 'Wallet Minimum',
+                        fontWeight: FontWeight.w400,
+                        size: 13.5,
+                        color: Color(0xffB7B7B7),
+                      ),
+                      CustomText(
+                          text: '200 Coins',
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff4F4F4F),
+                          size: 16),
                     ],
                   ),
-                  textColor: Color(0xff4F4F4F),
-                ),
+                ],
               ),
-              height(size.height * 0.02),
+              height(50.h),
+              CustomText(
+                text: 'Enter the amount you wish to top-up',
+                fontWeight: FontWeight.w400,
+                size: 14.5,
+                color: Color(0xff828282),
+              ),
+              height(20.h),
+              AppTextField(
+                color: controller.amountController == true
+                    ? Color(0xff0047C3)
+                    : Color(0xffE0E0E0),
+                onTap: () {
+                  // controller.mailTextFieldColorChange();
+                },
+                hintText: "Enter amount",
+                icon: Icon(
+                  Icons.currency_rupee,
+                  size: 20,
+                ),
+                // icon: Image.asset("assets/images/sms.png"),
+                keyboardtype: TextInputType.number,
+                Controller: controller.amountController,
+                onChanged: (String val) {
+                  appData.rechargeAmount = val;
+                },
+              ),
+              height(20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      controller.amountController.text = '100';
+                      appData.rechargeAmount = '100';
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.w, vertical: 12.h),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xffDEEAFF)),
+                      child: CustomText(
+                          text: '100 Coins',
+                          size: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff909090)),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      controller.amountController.text = '200';
+                      appData.rechargeAmount = '200';
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.w, vertical: 12.h),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xffDEEAFF)),
+                      child: CustomText(
+                          text: '200 Coins',
+                          size: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff909090)),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      controller.amountController.text = '500';
+                      appData.rechargeAmount = '500';
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.w, vertical: 12.h),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xffDEEAFF)),
+                      child: CustomText(
+                          text: '500 Coins',
+                          size: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff909090)),
+                    ),
+                  ),
+                ],
+              ),
+              Spacer(),
               InkWell(
                 onTap: () {
-                  Get.to(PlatinumTopUp());
+                  // controller.orderTopUp();
+                  Dialogs().tariffPopUp(kBookingModel);
                 },
-                child: _topupCard(
-                  title: "Platinum top-up",
-                  color: Color(0xff2F80ED),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xff3E3E3E),
-                      Color(0xff969696),
-                      Color(0xff666666),
-                      Color(0xff929292),
-                    ],
-                  ),
-                  textColor: Color(0xffF2F2F2),
-                ),
-              ),
+                child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
+                    decoration: BoxDecoration(
+                        color: Color(0xff0047C3),
+                        borderRadius: BorderRadius.circular(56.r)),
+                    child: Center(
+                      child: CustomBigText(
+                        text: "Add Money",
+                        size: 16.sp,
+                        color: Color(0xffF2F2F2),
+                      ),
+                    )),
+              )
             ],
           ),
         ),

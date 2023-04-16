@@ -50,7 +50,7 @@ class NavigationScreen extends GetView<NavigationScreenController> {
                       //     MapFunctions().polylines,
                       //     MapFunctions().dirMapController);
                       MapFunctions()
-                          .animateForNavigation(MapFunctions().curPos!);
+                          .animateForNavigation(MapFunctions().curPos);
                       log(MapFunctions().curPos.toString());
                       // MapFunctions().addMarkerHomePage(
                       //     name: value.latitude.toString(),

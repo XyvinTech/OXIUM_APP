@@ -33,7 +33,7 @@ class DirectionsScreenController extends GetxController {
 
   void initMap() {
     MapFunctions()
-        .addMyPositionMarker(MapFunctions().curPos!, MapFunctions().markers);
+        .addMyPositionMarker(MapFunctions().curPos, MapFunctions().markers);
     Future.delayed(Duration(milliseconds: 1000), () {
       log('delayed');
       log(MapFunctions().polylineString);

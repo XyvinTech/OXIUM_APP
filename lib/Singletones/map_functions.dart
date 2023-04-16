@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
@@ -30,8 +31,10 @@ class MapFunctions {
   late GoogleMapController controller;
   late GoogleMapController dirMapController;
   late StreamSubscription mapStream;
+  StreamSubscription<CompassEvent>? headingListener;
+  late Timer mapTimer;
   double zoom = 16;
-  Position? curPos = null;
+  Position curPos = kPosition;
   RxString curPosName = ''.obs;
   RxString curPosPlaceId = ''.obs;
   Set<Marker> markers_homepage = {};
@@ -50,9 +53,17 @@ class MapFunctions {
   String googleApiKey = "AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs";
   var googlePlace = GooglePlace('AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs');
 
-  Rx<CameraPosition> initialPosition = CameraPosition(
-          target: LatLng(20.5937, 78.9629), zoom: 15)
-      .obs;
+  Rx<CameraPosition> initialPosition =
+      CameraPosition(target: LatLng(20.5937, 78.9629), zoom: 15).obs;
+
+  @override
+  void dispose() {
+    controller.dispose();
+    mapStream.cancel();
+    dirMapController.dispose();
+    headingListener?.cancel();
+    mapTimer.cancel();
+  }
 
   void initCameraPosition(LatLng latLng) {
     initialPosition.value = CameraPosition(target: latLng, zoom: zoom);
@@ -145,35 +156,44 @@ class MapFunctions {
 
   Future<void> myPositionListener() async {
     kLog('listener');
-    if ((await checkLocationPermission()))
+    if ((await checkLocationPermission())) {
+      startMapTimer();
+      getHeading();
       mapStream = await Geolocator.getPositionStream().listen((event) async {
-        // await animateToNewPosition(LatLng(event.latitude, event.longitude));
-        // kLog(event.toString());
-        if (curPos != null &&
-            (event.latitude != curPos!.latitude ||
-                event.longitude != curPos!.longitude)) {
-          heading = bearingBetween(curPos!.latitude, curPos!.longitude,
-              event.latitude, event.longitude);
-          // kLog(heading.toString());
-        }
         curPos = event;
-
-        if (Get.currentRoute == Routes.navigationPageRoute) {
-          addCarMarker(event);
-          checkForUpdateSteps();
-        }
-        addMyPositionMarker(event, markers_homepage);
-        reload++;
-        if (Get.currentRoute == Routes.navigationPageRoute) {
-          animateForNavigation(event);
-        } else if (isFocused) {
-          controller.animateCamera(CameraUpdate.newCameraPosition(
-              CameraPosition(
-                  target: LatLng(event.latitude, event.longitude),
-                  zoom: zoom,
-                  bearing: heading)));
-        }
+        updateMarkers(event);
       });
+    }
+  }
+
+  getHeading() {
+    headingListener = FlutterCompass.events?.listen((event) {
+      heading = event.heading ?? 0;
+    });
+  }
+
+  startMapTimer() {
+    mapTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+      kLog(heading.toString());
+      if (Get.currentRoute == Routes.navigationPageRoute) {
+        addCarMarker(curPos);
+        checkForUpdateSteps();
+      }
+      addMyPositionMarker(curPos, markers_homepage);
+      reload++;
+    });
+  }
+
+  updateMarkers(Position event) {
+
+    if (Get.currentRoute == Routes.navigationPageRoute) {
+      animateForNavigation(event);
+    } else if (isFocused) {
+      controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+          target: LatLng(event.latitude, event.longitude),
+          zoom: zoom,
+          bearing: heading)));
+    }
   }
 
   addCarMarker(Position event) {
@@ -183,7 +203,7 @@ class MapFunctions {
         // infoWindow: InfoWindow(title: name),
         icon: BitmapDescriptor.fromBytes(MapFunctions().carMarker!),
         position: LatLng(event.latitude, event.longitude),
-        rotation: heading,
+        rotation: heading + 90,
         anchor: Offset(.5, .5)));
   }
 
@@ -194,14 +214,14 @@ class MapFunctions {
         // infoWindow: InfoWindow(title: name),
         icon: BitmapDescriptor.fromBytes(MapFunctions().myMarker!),
         position: LatLng(event.latitude, event.longitude),
-        rotation: heading,
+        rotation: heading + 90,
         anchor: Offset(.5, .5)));
   }
 
   Future<void> animateToNewPosition(LatLng latLng,
       {double? newZoom, double bearing = 0}) async {
     await controller.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(target: latLng, zoom: newZoom ?? zoom, bearing: bearing),
+      CameraPosition(target: latLng, zoom: newZoom ?? zoom, bearing: heading),
     ));
   }
 
@@ -233,12 +253,15 @@ class MapFunctions {
     controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng((minLat + maxLat) / 2, (minLong + maxLong) / 2),
         zoom: zoom - .5,
-        bearing: bearingBetween(
-                leg.startLocation!.latitude,
-                leg.startLocation!.longitude,
-                leg.endLocation!.latitude,
-                leg.endLocation!.longitude) -
-            90)));
+        bearing: heading
+        // bearingBetween(
+        //         leg.startLocation!.latitude,
+        //         leg.startLocation!.longitude,
+        //         leg.endLocation!.latitude,
+        //         leg.endLocation!.longitude) -
+        //     90
+
+        )));
     // Future.delayed(Duration(milliseconds: 4000), () async {
     //   // ScreenCoordinate minScreen =
     //   //     await controller.getScreenCoordinate(LatLng(minLat, minLong));
@@ -289,10 +312,8 @@ class MapFunctions {
     try {
       var result = await googlePlace.autocomplete.get(
         place,
-        origin: LatLon(
-            MapFunctions().curPos!.latitude, MapFunctions().curPos!.longitude),
-        location: LatLon(
-            MapFunctions().curPos!.latitude, MapFunctions().curPos!.longitude),
+        origin: LatLon(curPos.latitude, curPos.longitude),
+        location: LatLon(curPos.latitude, curPos.longitude),
       );
       if (result != null && result.predictions != null) {
         result.predictions!.forEach((element) {
@@ -445,10 +466,10 @@ class MapFunctions {
   }
 
   Future<String> getMyLocationName() async {
-    if (curPos == null) await getCurrentPosition();
-    if (curPos == null) return '';
+    if (curPos.latitude == 0) await getCurrentPosition();
+    if (curPos.latitude == 0) return '';
 
-    var res = await getLocationName(curPos!.latitude, curPos!.longitude);
+    var res = await getLocationName(curPos.latitude, curPos.longitude);
     curPosName.value = res[0] ?? '';
     curPosPlaceId.value = res[1] ?? '';
     return curPosName.value;
@@ -488,8 +509,8 @@ class MapFunctions {
     if (stepList != null && stepList!.isNotEmpty) {
       if (steps.value == 0 ||
           areCoordinatesEqual(
-              curPos!.latitude,
-              curPos!.longitude,
+              curPos.latitude,
+              curPos.longitude,
               stepList![steps.value].startLocation!.latitude,
               stepList![steps.value].startLocation!.longitude)) {
         //If it's the steps end then update the step card and push to next step

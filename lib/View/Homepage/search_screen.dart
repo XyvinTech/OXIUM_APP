@@ -164,7 +164,7 @@ class SearchScreen extends GetView<SearchScreenController> {
                                     height(5.h),
                                     CustomText(
                                         text:
-                                            '${(MapFunctions.distanceBetweenCoordinates(MapFunctions().curPos!.latitude, MapFunctions().curPos!.longitude, controller.search_list[index].lattitude, controller.search_list[index].longitude) / 1000.0).toPrecision(2)} km',
+                                            '${(MapFunctions.distanceBetweenCoordinates(MapFunctions().curPos.latitude, MapFunctions().curPos.longitude, controller.search_list[index].lattitude, controller.search_list[index].longitude) / 1000.0).toPrecision(2)} km',
                                         size: 10,
                                         color: Color(0xff828282))
                                   ],

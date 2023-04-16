@@ -382,7 +382,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 children: [
                   Flexible(
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        controller.startCharging();
+                      },
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 12.w),
                         decoration: BoxDecoration(

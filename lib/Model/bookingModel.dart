@@ -26,7 +26,7 @@ class BookingModel {
   final String requested_stop_soc;
   final String stopchargingby;
   final String discountcode;
-  final String status;
+   String status;
   final String scheduleId;
   BookingModel({
   required   this.bookingId,

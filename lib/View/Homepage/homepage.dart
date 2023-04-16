@@ -29,7 +29,7 @@ class HomePageScreen extends GetView<HomePageController> {
   Widget build(BuildContext context) {
     if (size.height == 0) {
       size = MediaQuery.of(context).size;
-      Injector().injectImages(context);
+      // Injector().injectImages(context);
     }
 
     return Scaffold(
@@ -102,8 +102,8 @@ showBottomSheetWhenClickedOnMarker(
   double distance = 0;
   if (MapFunctions().curPos != null) {
     distance = (MapFunctions.distanceBetweenCoordinates(
-                MapFunctions().curPos!.latitude,
-                MapFunctions().curPos!.longitude,
+                MapFunctions().curPos.latitude,
+                MapFunctions().curPos.longitude,
                 model.lattitude,
                 model.longitude) /
             1000.0)

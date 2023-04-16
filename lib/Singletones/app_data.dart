@@ -18,6 +18,8 @@ class AppData {
   Rx<UserModel> userModel = kUserModel.obs;
   RxBool isReserved = false.obs;
   Debouncer debouncer = Debouncer(milliseconds: 1000);
+  String qr = '';
+  String rechargeAmount = '';
 
 //FOR FILTER PAGE SO THAT THE DATA DON'T DELETED WHEN CONTROLLER DISPOSES
   List<RxList<FilterModel>> filterList = [

@@ -8,6 +8,7 @@ import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
+import 'package:geolocator/geolocator.dart';
 
 late Size size = Size(0, 0);
 double zoom = 15;
@@ -42,6 +43,16 @@ final String kAll = 'All';
 final String kAvailable = 'Available';
 final String kUnavailable = 'Unavailable';
 final String kBusy = 'Busy';
+
+final Position kPosition = Position(
+    longitude: 78.9629,
+    latitude: 20.5937,
+    timestamp: DateTime.now(),
+    accuracy: 0,
+    altitude: 0,
+    heading: 0,
+    speed: 0,
+    speedAccuracy: 0);
 
 final VehicleModel kVehicleModel = VehicleModel(
     id: -111,

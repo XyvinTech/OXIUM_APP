@@ -270,7 +270,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.popupPageRoute,
-      binding: PopupPageBindigs(),
+      binding: WalletPageBindings(),
       page: () => PopUpPage(),
     ),
 

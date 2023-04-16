@@ -18,7 +18,7 @@ Widget CustomText({
   TextStyle style = isRoboto == null || !isRoboto
       ? TextStyle(
           fontStyle: isItalic ? FontStyle.italic : null,
-          fontSize: size ?? 16,
+          fontSize: size ?? 16, 
           color: color ?? Colors.black,
           fontWeight: fontWeight ?? FontWeight.normal,
           letterSpacing: letterSpacing ?? null,

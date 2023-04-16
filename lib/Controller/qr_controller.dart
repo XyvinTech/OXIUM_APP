@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-
-import '../Utils/routes.dart';
 
 class QrController extends GetxController {
   // RxBool iskeybort =(MediaQuery.of(context).viewInsets.bottom!=0).obs ;
@@ -20,9 +20,18 @@ class QrController extends GetxController {
     super.dispose();
   }
 
-  onQrCodeReceived(Barcode format) {
+  onQrCodeReceived(Barcode format) async {
+    qrViewController?.pauseCamera();
     kLog(format.code.toString());
     String qr = (format.code ?? '') + '-Q';
-    Get.toNamed(Routes.chargingPageRoute, arguments: qr);
+    appData.qr = qr;
+    CommonFunctions().createBookingAndCheck(qr);
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    qrViewController?.dispose();
   }
 }

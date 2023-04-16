@@ -34,8 +34,8 @@ class CalistaCafePageController extends GetxController {
     model.value = Get.arguments;
     amenities.value = model.value.amenities.split(',');
     distance.value = (MapFunctions.distanceBetweenCoordinates(
-                MapFunctions().curPos!.latitude,
-                MapFunctions().curPos!.longitude,
+                MapFunctions().curPos.latitude,
+                MapFunctions().curPos.longitude,
                 model.value.lattitude,
                 model.value.longitude) /
             1000.0)
@@ -48,10 +48,10 @@ class CalistaCafePageController extends GetxController {
     model.value = await CommonFunctions().getChargeStationDetails(stationId);
     amenities.value = model.value.amenities.split(',');
     kLog(model.string);
-    if (MapFunctions().curPos != null) {
+    if (MapFunctions().curPos.latitude != 0) {
       distance.value = (MapFunctions.distanceBetweenCoordinates(
-                  MapFunctions().curPos!.latitude,
-                  MapFunctions().curPos!.longitude,
+                  MapFunctions().curPos.latitude,
+                  MapFunctions().curPos.longitude,
                   model.value.lattitude,
                   model.value.longitude) /
               1000.0)
@@ -71,5 +71,16 @@ class CalistaCafePageController extends GetxController {
         model.value.id, selectedRating.value, reviewController.text);
     hideLoading();
     return status;
+  }
+
+  startCharging() {
+    String qr = '${model.value.id}' +
+        '-' +
+        model.value.Chargers[selectedCharger.value].charger_name +
+        '-' +
+        '${model.value.Chargers[selectedCharger.value].evports[selectedType.value].seqNumber}' +
+        '-' +
+        'A';
+    CommonFunctions().createBookingAndCheck(qr);
   }
 }

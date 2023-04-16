@@ -5,13 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/constants.dart';
 
-class Injector {
-  //make it singleTone class
-  static final Injector _singleton = Injector._internal();
-  factory Injector() {
-    return _singleton;
-  }
-  Injector._internal();
+  class Injector {
+    //make it singleTone class
+    static final Injector _singleton = Injector._internal();
+    factory Injector() {
+      return _singleton;
+    }
+    Injector._internal();
 
 //  THIS METHOD IS FOR INJECTING THE STARTUP ASSETS OR ANY OTHER KIND OF DEPENDENIES
   inject() async {}

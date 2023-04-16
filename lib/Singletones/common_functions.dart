@@ -18,6 +18,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 import '../Utils/toastUtils.dart';
+import 'dialogs.dart';
 
 class CommonFunctions {
   //make it singleTone class
@@ -37,8 +38,9 @@ class CommonFunctions {
     kLog(response.paymentId.toString());
     kLog(response.orderId.toString());
     kLog(response.signature.toString());
+    //SAVE THE PAYEMENT TO CMS
+    await savePaymentRazorpay(response);
     if (Get.currentRoute == Routes.rfidNumberRoute) {
-      await savePaymentRazorpay(response);
       RfidPageController controller = Get.find();
       controller.getUserRFIDs();
     }
@@ -49,7 +51,11 @@ class CommonFunctions {
   void handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
     print("////////////////////");
-    showError(response.message!);
+
+    if (Get.currentRoute == Routes.rfidNumberRoute)
+      showError(response.message!);
+    else
+      Dialogs().rechargePopUp(isSuccess: false);
 
     print(response.error);
     closeRazorPay();
@@ -114,9 +120,17 @@ class CommonFunctions {
     _getOrderResponse = null;
     if (res.statusCode == 200 && res.body['success']) {
       //TODO: what to do if RFID purchase successful
-      showSuccess('Purchased successfully!');
+
+      if (Get.currentRoute == Routes.rfidNumberRoute) {
+        showSuccess('Payment successful!');
+      } else {
+        Dialogs().rechargePopUp(isSuccess: true);
+      }
     } else {
-      showError('Purchase Failed error code ${res.statusCode}!');
+      if (Get.currentRoute == Routes.rfidNumberRoute)
+        showError('Payment failed with error code ${res.statusCode}!');
+      else
+        Dialogs().rechargePopUp(isSuccess: false);
     }
   }
 
@@ -374,18 +388,26 @@ class CommonFunctions {
   }
 
   //CHARGING API's
-  Future<BookingModel> createBooking(
-      {required String chargerName,
-      required String chargingPoint,
-      required int userEvId,
-      required String bookingVia}) async {
+  Future createBookingAndCheck(String qr) async {
+    showLoading(kLoading);
+    BookingModel res = await CommonFunctions().createBooking(qr: qr);
+    hideLoading();
+    if (res.status == 'S') {
+      Dialogs().tariffPopUp(res);
+    } else if (res.status == 'X') {
+      Dialogs().notEnoughCreditPopUp();
+    }
+  }
+
+  Future<BookingModel> createBooking({required String qr}) async {
+    List<String> seperator = qr.split('-');
     var res = await CallAPI().postData(
       {
         "username": appData.userModel.value.username,
-        "chargerName": chargerName,
-        "chargingpoint": int.parse(chargingPoint),
-        "userEVId": userEvId,
-        "bookedvia": bookingVia
+        "chargerName": seperator[1],
+        "chargingpoint": int.parse(seperator[2]),
+        "userEVId": 366,
+        "bookedvia": seperator[3]
       },
       'booking',
     );
@@ -394,6 +416,7 @@ class CommonFunctions {
     if (res.statusCode == 200 && res.body['success']) {
       return BookingModel.fromJson(res.body['result']);
     } else {
+      if (!res.body['success']) kBookingModel.status = 'X';
       return kBookingModel;
     }
   }
