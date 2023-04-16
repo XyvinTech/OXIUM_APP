@@ -21,12 +21,29 @@ class SearchPlacesScreenController extends GetxController {
   @override
   onInit() async {
     super.onInit();
-    await MapFunctions().getMyLocationName();
+    await MapFunctions().getMyLocationNameAndPlaceId();
     log(MapFunctions().curPosName.value);
   }
 
   searchPlace(String text) async {
     autoCompletePrediction.value =
         (await MapFunctions().searchPlaceByName(text)) ?? [];
+  }
+
+  onSearchResultClicked() async {
+    List<String> list = [];
+    if (MapFunctions().curPosName.value.isEmpty)
+      list = await MapFunctions().getMyLocationNameAndPlaceId();
+    else
+      list = [
+        MapFunctions().curPosName.value,
+        MapFunctions().curPosPlaceId.value
+      ];
+    Get.back(result: [
+      AutocompletePrediction(
+        description: list[0],
+        placeId: list[1],
+      )
+    ]);
   }
 }

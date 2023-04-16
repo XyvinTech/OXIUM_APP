@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
-import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -173,8 +172,7 @@ class MapFunctions {
   }
 
   startMapTimer() {
-    mapTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
-      kLog(heading.toString());
+    mapTimer = Timer.periodic(Duration(milliseconds: 300), (timer) {
       if (Get.currentRoute == Routes.navigationPageRoute) {
         addCarMarker(curPos);
         checkForUpdateSteps();
@@ -185,7 +183,6 @@ class MapFunctions {
   }
 
   updateMarkers(Position event) {
-
     if (Get.currentRoute == Routes.navigationPageRoute) {
       animateForNavigation(event);
     } else if (isFocused) {
@@ -334,7 +331,7 @@ class MapFunctions {
   Future<DetailsResponse?> getDetailsByPlaceId(String placeId) async {
     DetailsResponse? res = await googlePlace.details.get(placeId);
     if (res != null && res.status == 'OK') {
-      print(res.result!.geometry!.location!.lat);
+      // print(res.result!.geometry!.location!.lat);
       return res;
     }
     return null;
@@ -448,7 +445,8 @@ class MapFunctions {
     });
   }
 
-  Future<List> getLocationName(double lat, double lng) async {
+  Future<List<String>> getNameAndPlaceIdFromLatLng(
+      double lat, double lng) async {
     var endpoint =
         'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$googleApiKey';
     var response = await http.get(Uri.parse(endpoint));
@@ -462,17 +460,18 @@ class MapFunctions {
         ];
       }
     }
-    return [null, null];
+    return ['', ''];
   }
 
-  Future<String> getMyLocationName() async {
+  Future<List<String>>getMyLocationNameAndPlaceId() async {
     if (curPos.latitude == 0) await getCurrentPosition();
-    if (curPos.latitude == 0) return '';
+    if (curPos.latitude == 0) return ['', ''];
 
-    var res = await getLocationName(curPos.latitude, curPos.longitude);
-    curPosName.value = res[0] ?? '';
-    curPosPlaceId.value = res[1] ?? '';
-    return curPosName.value;
+    var res =
+        await getNameAndPlaceIdFromLatLng(curPos.latitude, curPos.longitude);
+    curPosName.value = res[0];
+    curPosPlaceId.value = res[1];
+    return [curPosName.value, curPosPlaceId.value];
   }
 
   static double distanceBetweenCoordinates(
@@ -496,11 +495,11 @@ class MapFunctions {
   static bool areCoordinatesEqual(
       double lat1, double lon1, double lat2, double lon2) {
     double distance = distanceBetweenCoordinates(lat1, lon1, lat2, lon2);
-    double threshold = 150; // in meters, adjust as necessary
+    double threshold = 50; // in meters, adjust as necessary
     return distance < threshold;
   }
 
-  List? stepList;
+  List? stepList = [];
   void checkForUpdateSteps() {
     if (directionsResult.value.routes == null) return;
     stepList = directionsResult.value.routes?.first.legs?.first.steps ?? [];
@@ -515,9 +514,12 @@ class MapFunctions {
               stepList![steps.value].startLocation!.longitude)) {
         //If it's the steps end then update the step card and push to next step
         stepDistance.value = stepList![steps.value].distance.value;
+
+        // kLog(steps.toString());
         steps++;
+        steps.value = steps.value % (stepList!.length);
         String text = stepList![steps.value].instructions;
-        text = text.replaceAll('<b>', '').replaceAll('</b>', '');
+        // text = text.replaceAll('<b>', '').replaceAll('</b>', '');
         if (text.isEmpty)
           maneuverText.value = 'Go Straight';
         else
@@ -525,7 +527,7 @@ class MapFunctions {
 
         int sum = 0;
         int? val;
-        kLog('length of  steps ${stepList!.length}');
+        // kLog('length of  steps ${stepList!.length}');
         for (int i = steps.value; i < stepList!.length; i++) {
           kLog('step: $i');
           kLog(stepList![i].instructions.toString());
@@ -535,9 +537,9 @@ class MapFunctions {
         awayDistance.value = sum;
       }
     }
-    kLog(stepDistance.value.toString());
-    kLog(awayDistance.value.toString());
-    showSuccess('${stepDistance.value}  ${awayDistance.value}');
+    // kLog(stepDistance.value.toString());
+    // kLog(awayDistance.value.toString());
+    // showSuccess('${stepDistance.value}  ${awayDistance.value}');
   }
 
   static double bearingBetween(

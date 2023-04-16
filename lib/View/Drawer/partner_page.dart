@@ -21,8 +21,6 @@ class PartnerScreen extends GetView<PartnerPageController> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    print(size.height);
-    print(size.width);
     return Scaffold(
         body: SafeArea(
       child: CustomScrollView(

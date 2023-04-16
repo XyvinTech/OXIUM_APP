@@ -196,14 +196,7 @@ class _TripsScreenState extends State<TripsScreen>
                                                           .split(', ')
                                                           .first,
                                                   onTap: () {
-                                                    Get.toNamed(Routes
-                                                            .searchPlacesPageRoute)!
-                                                        .then((value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) return;
-                                                      controller.source.value =
-                                                          value[0];
-                                                    });
+                                                    controller.getSource();
                                                   }),
                                             ),
                                             height(size.height * .02),
@@ -219,14 +212,7 @@ class _TripsScreenState extends State<TripsScreen>
                                                           .split(', ')
                                                           .first,
                                                   onTap: () {
-                                                    Get.toNamed(Routes
-                                                            .searchPlacesPageRoute)!
-                                                        .then((value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) return;
-                                                      controller.destination
-                                                          .value = value[0];
-                                                    });
+                                                    controller.getDestination();
                                                   }),
                                             ),
                                           ],
@@ -245,13 +231,7 @@ class _TripsScreenState extends State<TripsScreen>
                                         onTap: () async {
                                           await controller
                                               .getDirectionsPolyline();
-                                          Get.toNamed(
-                                              Routes.directionsPageRoute,
-                                              arguments: [
-                                                controller.directionsResult,
-                                                controller.source,
-                                                controller.destination
-                                              ]);
+                                         
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(

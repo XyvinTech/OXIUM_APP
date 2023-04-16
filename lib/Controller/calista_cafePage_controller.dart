@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
+import 'package:google_directions_api/google_directions_api.dart';
+import 'package:google_place/google_place.dart';
 import 'package:validators/validators.dart';
 
 import '../Singletones/common_functions.dart';
 import '../Singletones/map_functions.dart';
+import '../Utils/routes.dart';
 import '../Utils/toastUtils.dart';
 
 class CalistaCafePageController extends GetxController {
@@ -17,6 +20,9 @@ class CalistaCafePageController extends GetxController {
   RxList<String> amenities = RxList();
   RxInt selectedRating = 0.obs;
   TextEditingController reviewController = TextEditingController();
+  Rx<DirectionsResult> directionsResult = DirectionsResult().obs;
+  Rx<AutocompletePrediction> source = AutocompletePrediction().obs,
+      destination = AutocompletePrediction().obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -82,5 +88,32 @@ class CalistaCafePageController extends GetxController {
         '-' +
         'A';
     CommonFunctions().createBookingAndCheck(qr);
+  }
+
+  getDirections(bool isNavigation) async {
+    showLoading(kLoading);
+    List<String> list = await MapFunctions().getNameAndPlaceIdFromLatLng(
+        MapFunctions().curPos.latitude, MapFunctions().curPos.longitude);
+    source.value = AutocompletePrediction(
+      description: list[0],
+      placeId: list[1],
+    );
+    list = await MapFunctions().getNameAndPlaceIdFromLatLng(
+        model.value.lattitude, model.value.longitude);
+    destination.value = AutocompletePrediction(
+      description: list[0],
+      placeId: list[1],
+    );
+    directionsResult.value =
+        (await MapFunctions().getDirections(source.value, destination.value)) ??
+            DirectionsResult();
+    hideLoading();
+    if (directionsResult.value.status == DirectionsStatus.ok) {
+      Get.toNamed(
+          isNavigation
+              ? Routes.navigationPageRoute
+              : Routes.directionsPageRoute,
+          arguments: [directionsResult, source, destination]);
+    }
   }
 }

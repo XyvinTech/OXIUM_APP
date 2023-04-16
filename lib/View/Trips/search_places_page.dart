@@ -147,16 +147,7 @@ class SearchPlacesScreen extends GetView<SearchPlacesScreenController> {
                 children: [
                   InkWell(
                     onTap: () async {
-                      if (MapFunctions().curPosName.value.isEmpty)
-                        await MapFunctions().getMyLocationName();
-                      Get.back(result: [
-                        // controller.autoCompletePrediction[index]
-
-                        AutocompletePrediction(
-                          description: MapFunctions().curPosName.value,
-                          placeId: MapFunctions().curPosPlaceId.value,
-                        )
-                      ]);
+                    controller.onSearchResultClicked();
                     },
                     child: Container(
                       margin:

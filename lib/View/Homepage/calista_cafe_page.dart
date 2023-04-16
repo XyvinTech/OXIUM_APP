@@ -167,24 +167,29 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: size.height * .04,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * .075),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Color(0xff2F80ED)),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset('assets/svg/direction.svg'),
-                                width(size.width * .01),
-                                CustomText(
-                                    text: 'Directions',
-                                    size: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2F2F2)),
-                              ],
+                          InkWell(
+                            onTap: () {
+                              controller.getDirections(false);
+                            },
+                            child: Container(
+                              height: size.height * .04,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * .075),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Color(0xff2F80ED)),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset('assets/svg/direction.svg'),
+                                  width(size.width * .01),
+                                  CustomText(
+                                      text: 'Directions',
+                                      size: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xffF2F2F2)),
+                                ],
+                              ),
                             ),
                           ),
                           Row(
@@ -1002,22 +1007,27 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 ),
               ],
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 7.w),
-              decoration: BoxDecoration(
-                color: Color(0xff2F80ED),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                children: [
-                  CustomBigText(
-                    text: "Navigate",
-                    size: 12.sp,
-                    color: kwhite,
-                  ),
-                  width(size.width * 0.02),
-                  SvgPicture.asset("assets/svg/assistant_direction.svg")
-                ],
+            InkWell(
+              onTap: () {
+                controller.getDirections(true);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 7.w),
+                decoration: BoxDecoration(
+                  color: Color(0xff2F80ED),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  children: [
+                    CustomBigText(
+                      text: "Navigate",
+                      size: 12.sp,
+                      color: kwhite,
+                    ),
+                    width(size.width * 0.02),
+                    SvgPicture.asset("assets/svg/assistant_direction.svg")
+                  ],
+                ),
               ),
             ),
           ],

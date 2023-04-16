@@ -20,8 +20,8 @@ import 'package:freelancer_app/constants.dart';
     List<String> _asset_svg_list = await _getAssetImageList(true);
     List<String> _asset_png_list = await _getAssetImageList(false);
     _asset_svg_list.forEach((element) async {
-      await precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, element), null);
+      // await precacheImage(
+      //     ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, element), null);
     });
     _asset_png_list.forEach((element) async {
       await precacheImage(AssetImage(element),context);

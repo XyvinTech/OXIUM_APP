@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
@@ -201,41 +202,56 @@ class NavigationScreen extends GetView<NavigationScreenController> {
 
   Widget stepWidget() {
     return Container(
-      height: size.height * .10,
+      // height: size.height * .10,
+      // width: size.width,
       decoration: BoxDecoration(color: Color(0xff2B2B2B)),
-      padding: EdgeInsets.symmetric(horizontal: size.width * .05),
+      padding: EdgeInsets.symmetric(
+          horizontal: size.width * .05, vertical: size.height * .01),
       child: Row(children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Obx(
-              () => Text(
-                'After ${MapFunctions().stepDistance.value} m',
-                style: GoogleFonts.inter(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white.withOpacity(.6),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Obx(
+                () => Text(
+                  'After ${MapFunctions().stepDistance.value} m',
+                  style: GoogleFonts.inter(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white.withOpacity(.6),
+                  ),
                 ),
               ),
-            ),
-            height(3.h),
-            Obx(
-              () => Text(
-                MapFunctions().maneuverText.value,
-                style: GoogleFonts.inter(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            )
-          ],
+              // height(3.h),
+              Container(
+                // color: Colors.amber,
+                width: size.width,
+                child: Obx(() =>
+                    Html(data: """${MapFunctions().maneuverText}""", style: {
+                      // "font":
+                      // GoogleFonts.inter(
+                      //   fontSize: 10,
+                      //   fontWeight: FontWeight.w700,
+                      //   color: Colors.white,
+                      // ),
+                      "body": Style(
+                          padding: EdgeInsets.all(0),
+                          fontSize: FontSize.rem(1.1),
+                          alignment: Alignment.topLeft,
+                          color: Colors.white)
+                    })),
+              )
+            ],
+          ),
         ),
-        Spacer(),
-        SvgPicture.asset(
-          'assets/svg/alt_route.svg',
-          color: Colors.green,
+        // Spacer(),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: size.height * .02),
+          child: SvgPicture.asset(
+            'assets/svg/alt_route.svg',
+            color: Colors.green,
+          ),
         )
       ]),
     );

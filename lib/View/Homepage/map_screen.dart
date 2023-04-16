@@ -73,8 +73,8 @@ class _MapScreenState extends State<MapScreen>
                       //     isBusy: false,
                       //     controller: controller);
                       controller.reload++;
-                      print(MapFunctions().markers_homepage.where((element) =>
-                          element.markerId == MarkerId('myMarker')));
+                      // print(MapFunctions().markers_homepage.where((element) =>
+                      //     element.markerId == MarkerId('myMarker')));
                     },
                   ),
                 
