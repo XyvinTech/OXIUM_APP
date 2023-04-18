@@ -1,14 +1,15 @@
 class VehicleModel {
   int id;
-  String icon;
+  final String icon;
   String vehicleDetails;
-  String modelName;
-  String outputType;
-  String typeOfPorts;
-  String evRegNumber;
-  int ratedVoltages;
-  int capacity;
-  int numberOfPorts;
+  final String modelName;
+  final String outputType;
+  final String typeOfPorts;
+  final String evRegNumber;
+  final String defaultVehicle;
+  final int ratedVoltages;
+  final int capacity;
+  final int numberOfPorts;
   List evPort;
   VehicleModel({
     required this.id,
@@ -22,12 +23,14 @@ class VehicleModel {
     required this.capacity,
     required this.numberOfPorts,
     required this.evPort,
+    required this.defaultVehicle,
   });
   factory VehicleModel.fromjson(Map<String, dynamic> json) {
     return VehicleModel(
         id: json['id'],
         icon: json['icon'] ?? '',
         vehicleDetails: json['vehicleDetails'] ?? '',
+        defaultVehicle: json['defaultVehicle'] ?? '',
         evRegNumber: json['evRegNumber'] ?? '',
         modelName: json['modelName'] ?? '',
         outputType: json['outputType'] ?? '',

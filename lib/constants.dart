@@ -58,6 +58,7 @@ final VehicleModel kVehicleModel = VehicleModel(
     id: -111,
     icon: '',
     vehicleDetails: '',
+    defaultVehicle: 'N',
     evRegNumber: '',
     modelName: '',
     outputType: '',

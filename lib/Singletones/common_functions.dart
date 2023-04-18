@@ -164,15 +164,18 @@ class CommonFunctions {
     }
   }
 
-  Future<bool> addEvToUser(
-      {required String userName,
-      required VehicleModel ev,
-      required String regNumber}) async {
+  Future<bool> addEvToUser({
+    required String userName,
+    required VehicleModel ev,
+    required String regNumber,
+    bool isDefault = false,
+  }) async {
     ResponseModel res = await CallAPI().postData({
       "username": userName,
       "make": ev.vehicleDetails,
       "model": ev.modelName,
       "evRegNumber": regNumber,
+      "defaultVehicle": isDefault ? 'Y' : 'N',
     }, 'ev');
     kLog(res.statusCode.toString());
     kLog(res.body.toString());
@@ -406,7 +409,7 @@ class CommonFunctions {
         "username": appData.userModel.value.username,
         "chargerName": seperator[1],
         "chargingpoint": int.parse(seperator[2]),
-        "userEVId": 366,
+        "userEVId": 412,
         "bookedvia": seperator[3]
       },
       'booking',
