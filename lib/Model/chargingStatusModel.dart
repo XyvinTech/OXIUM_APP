@@ -1,12 +1,12 @@
 class ChargingStatusModel {
   final int Connector;
-  final int amount;
+  final double amount;
   final int SOC;
   final int Duration;
   final String PriceBy;
-  final int unit;
-  final int load;
-  final int price;
+  final double unit;
+  final double load;
+  final double price;
   final String startTime;
   final String Charger;
   final String status;
@@ -29,16 +29,16 @@ class ChargingStatusModel {
     return ChargingStatusModel(
       Connector: json['Connector'],
       amount: json['amount'],
-      SOC: json['SOC'],
-      Duration: json['Duration'],
-      PriceBy: json['PriceBy'],
-      unit: json['unit'],
-      load: json['load'],
-      price: json['price'],
-      startTime: json['startTime'],
-      Charger: json['Charger'],
-      status: json['status'],
-      Chargingstatus: json['Chargingstatus'],
+      SOC: json['SOC'] ?? 0,
+      Duration: json['Duration']??0,
+      PriceBy: json['PriceBy']??'',
+      unit: json['unit']??0.0,
+      load: json['load']??0.0,
+      price: json['price']??0.0,
+      startTime: json['startTime']??'',
+      Charger: json['Charger']??'',
+      status: json['status']??'',
+      Chargingstatus: json['Chargingstatus']??'',
     );
   }
   Map<String, dynamic> toJson() => {

@@ -32,13 +32,13 @@ class MyApp extends StatelessWidget {
             builder: EasyLoading.init(),
             theme: ThemeData(
               textTheme: GoogleFonts.poppinsTextTheme(
-                Theme.of(context).textTheme.apply(), 
+                Theme.of(context).textTheme.apply(),
               ),
               fontFamily: 'Poppins',
               primarySwatch: Colors.grey,
               scaffoldBackgroundColor: kscaffoldBackgroundColor,
             ),
-            initialRoute: Routes.homePageRoute,
+            initialRoute: Routes.qrScanPageRoute,
             getPages: AppPages.pages,
           );
         }));

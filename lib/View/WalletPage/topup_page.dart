@@ -7,7 +7,6 @@ import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
-import '../../Singletones/dialogs.dart';
 import '../../Utils/toastUtils.dart';
 import '../Widgets/customText.dart';
 import '../Widgets/textfield.dart';
@@ -237,8 +236,8 @@ class PopUpPage extends GetView<WalletPageController> {
               Spacer(),
               InkWell(
                 onTap: () {
-                  // controller.orderTopUp();
-                  Dialogs().tariffPopUp(kBookingModel);
+                  controller.orderTopUp();
+                  // Dialogs().tariffPopUp(kBookingModel);
                 },
                 child: Container(
                     padding:

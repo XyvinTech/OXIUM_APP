@@ -430,6 +430,12 @@ class CommonFunctions {
     required String bookingId,
     required bool isStart,
   }) async {
+    kLog({
+      "chargingpoint": int.parse(chargingPoint),
+      "deviceId": chargerName,
+      "requestStatus": isStart ? "StartTransaction" : "StopTransaction",
+      "bookingId": bookingId
+    }.toString());
     var res = await CallAPI().postData(
       {
         "chargingpoint": int.parse(chargingPoint),

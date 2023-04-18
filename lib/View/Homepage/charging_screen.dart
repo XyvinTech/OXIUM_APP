@@ -300,7 +300,12 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                               if (controller.chargingStatus.value == "progress")
                                 _withBgBtn(
                                   text: 'Stop Charging',
-                                  onTap: controller.toDisconnected,
+                                  onTap: () async {
+                                    controller.changeStatus(
+                                        isStart: false,
+                                        bookingId: controller
+                                            .booking_model.value.bookingId);
+                                  },
                                   color: Color(0xffEB5757),
                                   textColor: Color(0xffF2F2F2),
                                 )
@@ -318,8 +323,12 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                 // _dualBtn(
                                 //     (){controller.toReconnect()},
                                 //    (){controller.toReconnect()})
-                                _dualBtn(() {
+                                _dualBtn(() async {
                                   controller.toReconnect();
+                                  controller.changeStatus(
+                                      isStart: true,
+                                      bookingId: controller
+                                          .booking_model.value.bookingId);
                                 }, () {
                                   controller.toFinished();
                                 })
@@ -369,6 +378,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
         children: [
           Flexible(
             child: InkWell(
+              onTap: onTap_left,
               child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 25.w),
                   decoration: BoxDecoration(
@@ -381,7 +391,6 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                       color: Color(0xff0047C3),
                     ),
                   )),
-              onTap: onTap_left,
             ),
           ),
           SizedBox(

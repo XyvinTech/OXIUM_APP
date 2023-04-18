@@ -19,7 +19,7 @@ class ChargingScreenController extends GetxController {
   Rx<BookingModel> booking_model = kBookingModel.obs;
   onInit() {
     super.onInit();
-    String qr_or_app_data = Get.arguments[0] ?? '253-z1-1-Q-123';
+    String qr_or_app_data = Get.arguments[0] ?? '253-z1-1-Q';
     booking_model.value = Get.arguments[1] ?? kBookingModel;
     kLog(qr_or_app_data);
     List<String> seperator = qr_or_app_data.split('-');
@@ -82,15 +82,16 @@ class ChargingScreenController extends GetxController {
         chargerName: chargerName,
         chargingPoint: chargingPoint);
     hideLoading();
-    if (res)
-      getChargingStatus(bookingId);
-    else
+    if (res) {
+      if (isStart) getChargingStatus(bookingId);
+    } else
       toDisconnected();
   }
 
-  Future getChargingStatus(bookingId) async {
+  Future getChargingStatus(int bookingId) async {
     _timer = Timer.periodic(Duration(seconds: 7), (timer) async {
-      status_model.value = await CommonFunctions().getChargingStatus(bookingId);
+      status_model.value =
+          await CommonFunctions().getChargingStatus(bookingId.toString());
       kLog(status_model.value.toJson().toString());
       if (status_model.value.status == 'S' ||
           status_model.value.status == 'R' &&
@@ -106,9 +107,11 @@ class ChargingScreenController extends GetxController {
       } else if (status_model.value.status == 'R' &&
           chargingStatus.value == 'C') {
         toCompleted();
-      }
-      {
+        _timer?.cancel();
+      } else if (status_model.value.status.isEmpty ||
+          status_model.value.Chargingstatus.isEmpty) {
         toDisconnected();
+        _timer?.cancel();
       }
     });
   }
