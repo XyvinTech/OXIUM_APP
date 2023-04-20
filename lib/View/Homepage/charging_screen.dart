@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/charging_screen_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Homepage/ChargningAnimations/gradiant_circular_progressbar.dart';
@@ -58,7 +59,12 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                         () => controller
                                                 .chargingStatus.value.isEmpty
                                             ? GradientIndicator()
-                                            : PercentageIndicator(progress: .7),
+                                            : PercentageIndicator(
+                                                progress: controller
+                                                        .status_model
+                                                        .value
+                                                        .SOC /
+                                                    100.0),
                                       )),
                                   Container(
                                       // color: Colors.amber,
@@ -89,7 +95,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               CustomText(
-                                                text: '02',
+                                                text: '${controller.time[0]}',
                                                 fontWeight: FontWeight.bold,
                                                 size: 16,
                                                 color: Color(0xff0047C2),
@@ -109,7 +115,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               CustomText(
-                                                text: '33',
+                                                text: '${controller.time[1]}',
                                                 fontWeight: FontWeight.bold,
                                                 size: 16,
                                                 color: Color(0xff0047C2),
@@ -238,21 +244,23 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     CustomBigText(
-                                      text: "DC 34 kWh",
+                                      text:
+                                          "${controller.booking_model.value.outputType} ${controller.booking_model.value.capacity} KwH",
                                       size: 14.sp,
                                       color: Color(0xff4F4F4F),
                                     ),
                                     Row(
                                       children: [
                                         CustomBigText(
-                                          text: "DC 34 kWh",
+                                          text:
+                                              "${controller.booking_model.value.connectorType}",
                                           size: 14.sp,
                                           color: Color(0xff4F4F4F),
                                         ),
                                         SizedBox(width: 14.w),
-                                        Image.asset(
+                                        SvgPicture.asset(
                                             height: 24.h,
-                                            "assets/images/soket_icon.png")
+                                            "assets/svg/${controller.booking_model.value.connectorType.toLowerCase()}.svg")
                                       ],
                                     )
                                   ],

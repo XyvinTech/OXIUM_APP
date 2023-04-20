@@ -96,7 +96,7 @@ class BookingModel {
       discountcode: json['discountcode'] ?? '',
       status: json['status'] ?? '',
       scheduleId: json['scheduleId'] ?? '',
-      capacity: json['capacity'] ?? '',
+      capacity: json['capacity'] ?? 0,
       connectorType: json['connectorType'] ?? '',
       outputType: json['outputType'] ?? '',
     );

@@ -17,6 +17,7 @@ class ChargingScreenController extends GetxController {
   Timer? _timer;
   Rx<ChargingStatusModel> status_model = kChargingStatusModel.obs;
   Rx<BookingModel> booking_model = kBookingModel.obs;
+  RxList<int> time = [0, 0].obs;
   onInit() {
     super.onInit();
     String qr_or_app_data = Get.arguments[0] ?? '253-z1-1-Q';
@@ -102,6 +103,7 @@ class ChargingScreenController extends GetxController {
         //IF CHARGING STARTED
         if (chargingStatus.value != 'progress') {
           toConnected();
+          time.value = getTimeDifference(status_model.value.startTime);
           Future.delayed(Duration(seconds: 1), () => toProgress());
         }
       } else if (status_model.value.status == 'R' &&
@@ -114,5 +116,23 @@ class ChargingScreenController extends GetxController {
         _timer?.cancel();
       }
     });
+  }
+
+  getTimeDifference(String timeStamp) {
+    if (timeStamp.isEmpty) return [0, 0];
+    DateTime apiTime = DateTime.parse(timeStamp);
+
+// Get the current time
+    DateTime now = DateTime.now();
+
+// Calculate the time difference in milliseconds
+    int difference = now.difference(apiTime).inMilliseconds;
+
+// Calculate the hours and minutes difference
+    int hours = (difference / (1000 * 60 * 60)).floor();
+    int minutes = ((difference / (1000 * 60)) % 60).floor();
+    print(hours);
+    print(minutes);
+    return [hours, minutes];
   }
 }
