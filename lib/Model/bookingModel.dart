@@ -31,6 +31,7 @@ class BookingModel {
   final String connectorType;
   String status;
   final String scheduleId;
+  final double tariff;
   BookingModel({
     required this.bookingId,
     required this.chargingpoint,
@@ -64,6 +65,7 @@ class BookingModel {
     required this.capacity,
     required this.connectorType,
     required this.outputType,
+    required this.tariff,
   });
   factory BookingModel.fromJson(Map<String, dynamic> json) {
     return BookingModel(
@@ -99,6 +101,7 @@ class BookingModel {
       capacity: json['capacity'] ?? 0,
       connectorType: json['connectorType'] ?? '',
       outputType: json['outputType'] ?? '',
+      tariff: json['tariff'] ?? 0,
     );
   }
   Map<String, dynamic> toJson() => {
@@ -134,5 +137,6 @@ class BookingModel {
         "capacity": capacity,
         "connectorType": connectorType,
         "outputType": outputType,
+        "tariff": tariff,
       };
 }

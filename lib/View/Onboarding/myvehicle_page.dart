@@ -30,8 +30,11 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
           ),
           icon: Image.asset("assets/images/add.png"),
           icononTap: (() {
-            Get.toNamed(Routes.addvehiclesRoute);
+            Get.offNamed(Routes.addvehiclesRoute);
           }),
+          skiponTap: () {
+            Get.offNamed(Routes.addvehiclesRoute);
+          },
         ),
       ),
       body: SafeArea(
@@ -62,22 +65,23 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
                                 .where((p0) => p0.defaultVehicle == 'Y')
                                 .toList();
                             kLog(controller.myVehicleList[index].id.toString());
-                            if (def.isNotEmpty && index == 0) {
-                              return _myVehicle(def[0]);
-                            } else {
-                              return controller.myVehicleList[index]
-                                          .defaultVehicle ==
-                                      'Y'
-                                  ? Container()
-                                  : _myVehicle(controller.myVehicleList[index]);
-                            }
+                            // if (def.isNotEmpty && index == 0) {
+                            //   return _myVehicle(def[0]);
+                            // } else {
+                            //   return controller.myVehicleList[index]
+                            //               .defaultVehicle ==
+                            //           'Y'
+                            //       ? Container()
+                            //       : _myVehicle(controller.myVehicleList[index]);
+                            // }
+                            return _myVehicle(controller.myVehicleList[index]);
                           }),
                         ),
                 ),
               ),
               StartedButton(
                 onTap: () {
-                  Get.toNamed(Routes.orderRfidPageRoute);
+                  Get.offNamed(Routes.orderRfidPageRoute);
                 },
                 color: Color(0xff0047C3),
                 text: "Get Charged",

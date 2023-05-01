@@ -116,4 +116,14 @@ class CalistaCafePageController extends GetxController {
           arguments: [directionsResult, source, destination]);
     }
   }
+
+  changeFavoriteStatus() async {
+    showLoading(kLoading);
+    bool res = await CommonFunctions().changeFavorite(
+        stationId: model.value.id, makeFavorite: !model.value.isFavorite);
+    if (res) {
+      await getChargeStationDetails(model.value.id.toString());
+    }
+    hideLoading();
+  }
 }

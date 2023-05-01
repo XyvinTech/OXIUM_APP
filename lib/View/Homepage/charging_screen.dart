@@ -266,6 +266,20 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                   ],
                                 ),
                               ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomSmallText(
+                                    text: 'Tariff',
+                                    size: 12,
+                                  ),
+                                  CustomSmallText(
+                                    text:
+                                        '₹ ${controller.booking_model.value.tariff} /KwH',
+                                    size: 12,
+                                  ),
+                                ],
+                              ),
                               Divider(
                                 color: Color(0xffBDBDBD),
                                 thickness: .6,

@@ -25,15 +25,16 @@ class MyVehiclesScreenController extends GetxController {
 
   setAsDefaultVehicle(VehicleModel model) async {
     showLoading(kLoading);
-    bool res = await CommonFunctions().addEvToUser(
+    bool res = await CommonFunctions().setDefaultVehicle(
       userName: appData.userModel.value.username,
-      ev: model,
       regNumber: model.evRegNumber,
       isDefault: true,
     );
+    
     hideLoading();
     if (res) {
       getMyVehicles();
+      await CommonFunctions().getUserProfile();
       showSuccess('Default Vehicle Updated Successfully!');
     } else {
       showError('Failed to update default vehicle');

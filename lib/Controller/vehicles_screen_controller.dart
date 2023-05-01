@@ -78,7 +78,8 @@ class VehiclesScreenController extends GetxController {
     hideLoading();
     if (isSuccess) {
       showSuccess('Vehicle added successfully');
-      Get.toNamed(Routes.myvehicleRoute);
+      int s = 0;
+      Get.offNamedUntil(Routes.myvehicleRoute, (route) => s++ >= 2);
     } else {
       showError('Failed to add vehicle. Try again!');
     }

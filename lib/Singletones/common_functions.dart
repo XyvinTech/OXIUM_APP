@@ -1,5 +1,4 @@
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
-import 'package:freelancer_app/Model/RfidModel.dart';
 import 'package:freelancer_app/Model/apiResponseModel.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
@@ -17,6 +16,7 @@ import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:uuid/uuid.dart';
 
+import '../Model/RFIDModel.dart';
 import '../Utils/toastUtils.dart';
 import 'dialogs.dart';
 
@@ -33,7 +33,7 @@ class CommonFunctions {
   var _getOrderResponse;
 
   Future<void> handlePaymentSuccess(PaymentSuccessResponse response) async {
-    //TODO: call api here when it is success payment
+  //TODO: call api here when it is success payment
     print("////////////////////");
     kLog(response.paymentId.toString());
     kLog(response.orderId.toString());
@@ -44,7 +44,6 @@ class CommonFunctions {
       RfidPageController controller = Get.find();
       controller.getUserRFIDs();
     }
-
     closeRazorPay();
   }
 
@@ -174,6 +173,21 @@ class CommonFunctions {
       "username": userName,
       "make": ev.vehicleDetails,
       "model": ev.modelName,
+      "evRegNumber": regNumber,
+      "defaultVehicle": isDefault ? 'Y' : 'N',
+    }, 'ev');
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    return (res.statusCode == 200 && res.body['success']);
+  }
+
+  Future<bool> setDefaultVehicle({
+    required String userName,
+    required String regNumber,
+    bool isDefault = false,
+  }) async {
+    ResponseModel res = await CallAPI().putData({
+      "username": userName,
       "evRegNumber": regNumber,
       "defaultVehicle": isDefault ? 'Y' : 'N',
     }, 'ev');
@@ -463,6 +477,32 @@ class CommonFunctions {
       return ChargingStatusModel.fromJson(res.body['result']);
     } else {
       return kChargingStatusModel;
+    }
+  }
+
+  Future<bool> changeFavorite({
+    required int stationId,
+    required bool makeFavorite,
+  }) async {
+    var res;
+    if (makeFavorite) {
+      res = await CallAPI().postData(
+        {},
+        'favorites/$stationId',
+      );
+    } else{
+      res = await CallAPI().deleteData(
+        {},
+        'favorites/$stationId',
+      );
+    }
+
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

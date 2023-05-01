@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:freelancer_app/Model/evPortsModel.dart';
 import 'package:validators/validators.dart';
 
 import '../Singletones/app_data.dart';
+import '../constants.dart';
 import 'SharedPreferenceUtils.dart';
 
 String? validateText(String value) {
@@ -56,4 +58,24 @@ extension TitleCase on String {
 Future<Map<String, dynamic>> loadJsonFromAsset(String path) async {
   String jsonString = await rootBundle.loadString(path);
   return json.decode(jsonString);
+}
+
+List<dynamic> calculateAvailabiliy(List<EvPortModel> evPorts) {
+  int available = 0, busy = 0, unAvailable = 0, total = evPorts.length;
+  String trailing = '';
+  evPorts.forEach((element) {
+    if (element.ocppStatus == kAvailable)
+      available++;
+    else if (element.ocppStatus == kUnavailable || element.ocppStatus.isEmpty)
+      unAvailable++;
+    else
+      busy++;
+  });
+  if (available > 0)
+    trailing = '$kAvailable $available/$total';
+  else if (busy > 0)
+    trailing = kBusy;
+  else
+    trailing = kUnavailable;
+  return [trailing,available];
 }

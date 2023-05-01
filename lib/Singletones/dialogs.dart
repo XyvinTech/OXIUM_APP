@@ -101,7 +101,7 @@ class Dialogs {
                             size: 13,
                           ),
                           CustomSmallText(
-                            text: '₹ 22 /KwH',
+                            text: '₹ ${_bookingModel.tariff} /KwH',
                             size: 13,
                           ),
                         ],

@@ -110,6 +110,12 @@ showBottomSheetWhenClickedOnMarker(
         .toPrecision(2);
   }
   List<String> amenities = model.amenities.split(',');
+  bool available = false;
+  List res = [];
+  model.Chargers.forEach((element) {
+    res = calculateAvailabiliy(element.evports);
+    if (res[0] == kAvailable) available = true;
+  });
 
   await Get.bottomSheet(WillPopScope(
     onWillPop: () async {
@@ -251,13 +257,23 @@ showBottomSheetWhenClickedOnMarker(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xff219653)),
+                      color: available
+                          ? Color(0xff219653)
+                          : Color.fromARGB(255, 221, 90, 90)),
                   child: Row(
                     children: [
-                      SvgPicture.asset('assets/svg/tick.svg'),
+                      available
+                          ? SvgPicture.asset('assets/svg/tick.svg')
+                          : Icon(
+                              Icons.info_outline,
+                              color: Colors.white,
+                              size: 20,
+                            ),
                       width(size.width * .01),
                       CustomText(
-                          text: 'Charges Available',
+                          text: available
+                              ? 'Chargers Available'
+                              : 'Chargers Unavailable',
                           size: 14,
                           fontWeight: FontWeight.bold,
                           color: Color(0xffF2F2F2)),

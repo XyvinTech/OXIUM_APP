@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_controller.dart';
-import 'package:freelancer_app/Model/RfidModel.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 
+import '../Model/RFIDModel.dart';
 import '../Singletones/common_functions.dart';
 import '../Utils/toastUtils.dart';
 import '../constants.dart';
@@ -16,6 +16,7 @@ class RfidPageController extends GetxController {
   RxList carouselImage = [
     "assets/images/carouselOne.png",
     "assets/images/carouselTwo.png",
+    
     "assets/images/carouselThree.png",
   ].obs;
   CarouselController? carouselController;

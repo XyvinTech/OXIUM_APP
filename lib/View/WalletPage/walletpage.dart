@@ -8,6 +8,8 @@ import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
+import '../../Singletones/app_data.dart';
+
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
 
@@ -133,10 +135,13 @@ class _WalletScreenState extends State<WalletScreen>
                                 text: "Balance Credits",
                               ),
                               height(size.height * 0.003),
-                              CustomBigText(
-                                text: "₹ 12556",
-                                size: 26,
-                                color: Color(0xff00FFB3),
+                              Obx(
+                                () => CustomBigText(
+                                  text:
+                                      "₹ ${appData.userModel.value.balanceAmount}",
+                                  size: 26,
+                                  color: Color(0xff00FFB3),
+                                ),
                               )
                             ],
                           ),

@@ -197,6 +197,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                               InkWell(
                                 onTap: () {
                                   //TODO: call api for adding as favorite or removing from favorite
+                                  controller.changeFavoriteStatus();
                                 },
                                 child: Container(
                                   alignment: Alignment.center,
@@ -509,22 +510,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required int index,
   }) {
     //////////LOGIC CODES////////
-    int available = 0, busy = 0, unAailable = 0, total = evPorts.length;
-    String trailing = '';
-    evPorts.forEach((element) {
-      if (element.ocppStatus == kAvailable)
-        available++;
-      else if (element.ocppStatus == kUnavailable || element.ocppStatus.isEmpty)
-        unAailable++;
-      else
-        busy++;
-    });
-    if (available > 0)
-      trailing = '$kAvailable $available/$total';
-    else if (busy > 0)
-      trailing = kBusy;
-    else
-      trailing = kUnavailable;
+    List res = calculateAvailabiliy(evPorts);
+    int available = res[1];
+    String trailing = res[0];
     ///////END LOGIC CODES///////
 
     return Padding(
@@ -677,22 +665,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required int index,
   }) {
     //////////LOGIC CODES////////
-    int available = 0, busy = 0, unAailable = 0, total = evPorts.length;
-    String trailing = '';
-    evPorts.forEach((element) {
-      if (element.ocppStatus == kAvailable)
-        available++;
-      else if (element.ocppStatus == kUnavailable || element.ocppStatus.isEmpty)
-        unAailable++;
-      else
-        busy++;
-    });
-    if (available > 0)
-      trailing = '$kAvailable $available/$total';
-    else if (busy > 0)
-      trailing = kBusy;
-    else
-      trailing = kUnavailable;
+    List res = calculateAvailabiliy(evPorts);
+    int available = res[1];
+    String trailing = res[0];
     ///////END LOGIC CODES///////
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),

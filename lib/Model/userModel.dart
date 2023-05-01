@@ -1,3 +1,6 @@
+import 'package:freelancer_app/Model/vehicleModel.dart';
+import 'package:freelancer_app/constants.dart';
+
 class UserModel {
   String username;
   final String name;
@@ -8,6 +11,8 @@ class UserModel {
   final String rfid;
   final int total_sessions;
   final int total_units;
+  final double balanceAmount;
+  final VehicleModel defaultVehicle;
 
   UserModel({
     required this.username,
@@ -19,6 +24,8 @@ class UserModel {
     required this.total_sessions,
     required this.total_units,
     required this.rfid,
+    required this.balanceAmount,
+    required this.defaultVehicle,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -32,6 +39,10 @@ class UserModel {
       status: json['status'] ?? '',
       total_sessions: json['total_sessions'] ?? 0,
       total_units: json['total_units'] ?? 0,
+      balanceAmount: json['balanceAmount'] ?? 0,
+      defaultVehicle: json['defaultVehicle'] != null
+          ? VehicleModel.fromjson(json['defaultVehicle'])
+          : kVehicleModel,
     );
   }
 
@@ -45,5 +56,7 @@ class UserModel {
         "status": status,
         "total_sessions": total_sessions,
         "total_units": total_units,
+        "balanceAmount": balanceAmount,
+        "defaultVehicle": defaultVehicle,
       };
 }
