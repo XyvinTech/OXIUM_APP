@@ -48,7 +48,7 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
                         print(value);
                         MapFunctions().setMapFitToPolyline(
                             MapFunctions().polylines,
-                            MapFunctions().dirMapController);
+                            MapFunctions().dirMapController!);
                         // MapFunctions().addMarkerHomePage(
                         //     name: value.latitude.toString(),
                         //     latLng: value,

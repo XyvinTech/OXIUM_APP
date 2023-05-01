@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/qr_controller.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:get/get.dart';
 
@@ -123,31 +124,31 @@ class Dialogs {
                     children: [
                       Row(
                         children: [
-                          Container(
-                            child: Image.asset(
-                              "assets/images/jeep1.png",
-                              height: size.height * 0.05,
-                              width: size.width * 0.15,
-                            ),
-                          ),
+                          Obx(() => cachedNetworkImage(
+                              appData.userModel.value.defaultVehicle.icon,
+                              width: size.width * .18)),
                           SizedBox(
                             width: size.width * 0.04,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomSmallText(
-                                text: "Jeep",
-                                size: 14.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              CustomBigText(
-                                text: "RUBICON",
-                                size: 15.sp,
-                                color: Color(0xff4F4F4F),
-                              ),
-                            ],
+                          Obx(
+                            () => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomSmallText(
+                                  text: appData.userModel.value.defaultVehicle
+                                      .vehicleDetails,
+                                  size: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                CustomBigText(
+                                  text: appData
+                                      .userModel.value.defaultVehicle.modelName,
+                                  size: 15.sp,
+                                  color: Color(0xff4F4F4F),
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),

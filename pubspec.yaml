@@ -77,6 +77,7 @@ dependencies:
   flutter_compass: ^0.7.0
   # flutter_widget_from_html: ^0.10.0
   flutter_html: ^2.2.1
+  timeago: 
 
 dev_dependencies:
   flutter_test:

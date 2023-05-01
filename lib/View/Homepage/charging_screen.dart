@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/charging_screen_controller.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Homepage/ChargningAnimations/gradiant_circular_progressbar.dart';
 import 'package:freelancer_app/View/Homepage/ChargningAnimations/lottie_loading_animation.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
+import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -186,8 +188,12 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Image.asset(
-                                          width: 76, "assets/images/jeep1.png"),
+                                      // Image.asset(
+                                      //     width: 76, "assets/images/jeep1.png"),
+                                      cachedNetworkImage(
+                                          appData.userModel.value.defaultVehicle
+                                              .icon,
+                                          width: 80.sp),
                                       SizedBox(width: 13),
                                       Column(
                                         mainAxisAlignment:
@@ -195,9 +201,9 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          CustomSmallText(text: "Jeep"),
+                                          CustomSmallText(text: appData.userModel.value.defaultVehicle.vehicleDetails),
                                           CustomBigText(
-                                            text: "RUBICON",
+                                            text: appData.userModel.value.defaultVehicle.modelName,
                                             size: 16,
                                           )
                                         ],
@@ -267,7 +273,8 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                 ),
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   CustomSmallText(
                                     text: 'Tariff',

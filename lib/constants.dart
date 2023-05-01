@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
+import 'package:freelancer_app/Model/reviewMode.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
@@ -150,6 +151,14 @@ final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
     Charger: '',
     status: '',
     Chargingstatus: '');
+
+final ReviewModel kReviewModel = ReviewModel(
+    stationId: '',
+    name: '',
+    image: '',
+    rating: 0,
+    review: '',
+    creationDateTime: '');
 
 //app-Textstyles
 

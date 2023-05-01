@@ -28,7 +28,7 @@ class MapFunctions {
   bool isFocused = true;
   bool isIdle = false;
   late GoogleMapController controller;
-  late GoogleMapController dirMapController;
+  GoogleMapController? dirMapController;
   late StreamSubscription mapStream;
   StreamSubscription<CompassEvent>? headingListener;
   late Timer mapTimer;
@@ -59,7 +59,7 @@ class MapFunctions {
   void dispose() {
     controller.dispose();
     mapStream.cancel();
-    dirMapController.dispose();
+    dirMapController?.dispose();
     headingListener?.cancel();
     mapTimer.cancel();
   }
@@ -245,7 +245,7 @@ class MapFunctions {
             southwest: LatLng(minLat, minLong),
             northeast: LatLng(maxLat, maxLong)),
         30));
-    zoom = await dirMapController.getZoomLevel();
+    zoom = await dirMapController!.getZoomLevel();
     var leg = directionsResult.value.routes!.first.legs!.first;
     controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng((minLat + maxLat) / 2, (minLong + maxLong) / 2),
@@ -463,7 +463,7 @@ class MapFunctions {
     return ['', ''];
   }
 
-  Future<List<String>>getMyLocationNameAndPlaceId() async {
+  Future<List<String>> getMyLocationNameAndPlaceId() async {
     if (curPos.latitude == 0) await getCurrentPosition();
     if (curPos.latitude == 0) return ['', ''];
 
@@ -554,7 +554,7 @@ class MapFunctions {
   }
 
   animateForNavigation(Position event) {
-    dirMapController.animateCamera(CameraUpdate.newCameraPosition(
+    dirMapController!.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
           target: LatLng(event.latitude, event.longitude),
           zoom: 16,

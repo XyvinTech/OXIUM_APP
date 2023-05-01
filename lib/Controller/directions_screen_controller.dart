@@ -38,7 +38,7 @@ class DirectionsScreenController extends GetxController {
       log('delayed');
       log(MapFunctions().polylineString);
       MapFunctions().setMapFitToPolyline(
-          MapFunctions().polylines, MapFunctions().dirMapController);
+          MapFunctions().polylines, MapFunctions().dirMapController!);
     });
     distance = directionsResult.value.routes!.first.legs!.first.distance!.text!
         .replaceFirst('km', 'KMS');
@@ -50,7 +50,7 @@ class DirectionsScreenController extends GetxController {
   void onClose() {
     // TODO: implement onClose
     super.onClose();
-    MapFunctions().dirMapController.dispose();
+    MapFunctions().dirMapController?.dispose();
     MapFunctions().timer?.cancel();
   }
 }

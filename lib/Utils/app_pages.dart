@@ -13,6 +13,7 @@ import 'package:freelancer_app/Bindings/partner_page_binding.dart';
 import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
 import 'package:freelancer_app/Bindings/qr_binding.dart';
 import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
+import 'package:freelancer_app/Bindings/review_page_binding.dart';
 import 'package:freelancer_app/Bindings/rfid_page_bindings.dart';
 import 'package:freelancer_app/Bindings/order_rfid_page_binding.dart';
 import 'package:freelancer_app/Bindings/splash_screen_binding.dart';
@@ -33,6 +34,7 @@ import 'package:freelancer_app/View/Homepage/feedback/share_experience_page.dart
 import 'package:freelancer_app/View/Homepage/feedback/thanks_for_feedback.dart';
 import 'package:freelancer_app/View/Homepage/homepage.dart';
 import 'package:freelancer_app/View/Homepage/qr_screen.dart';
+import 'package:freelancer_app/View/Homepage/review_page.dart';
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
 import 'package:freelancer_app/View/Onboarding/bottom_nav_page.dart';
 import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
@@ -138,6 +140,11 @@ abstract class AppPages {
       name: Routes.bottomNavPageRoute,
       binding: CalistaCafePageBindings(),
       page: () => BottomNavScreen(),
+    ),
+    GetPage(
+      name: Routes.reviewPageRoute,
+      binding: ReviewPageBindings(),
+      page: () => ReviewPage(),
     ),
 
     ///

@@ -11,7 +11,7 @@ class ChargeScreenController extends GetxController
   @override
   void onInit() {
     // TODO: implement onInit
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
     super.onInit();
     tabController.addListener(() {
       log('changed');

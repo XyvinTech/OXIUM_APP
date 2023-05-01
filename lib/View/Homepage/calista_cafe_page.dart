@@ -273,10 +273,16 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                         text: 'Customer Review',
                         color: Color(0xff4f4f4f),
                       ),
-                      CustomText(
-                          text: 'View Reviews',
-                          color: Color(0xff0047C3),
-                          size: 13)
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed(Routes.reviewPageRoute,
+                              arguments: controller.model.value.id);
+                        },
+                        child: CustomText(
+                            text: 'View Reviews',
+                            color: Color(0xff0047C3),
+                            size: 13),
+                      )
                     ],
                   ),
                 ),

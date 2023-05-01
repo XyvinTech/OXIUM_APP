@@ -47,7 +47,7 @@ class ExploreTripScreen extends GetView<ExploreTripScreenController> {
                 onTap: (value) {
                   print(value);
                   MapFunctions().setMapFitToPolyline(MapFunctions().polylines,
-                      MapFunctions().dirMapController);
+                      MapFunctions().dirMapController!);
                   controller.reload++;
                 },
               ),

@@ -4,12 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
+import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/View/Widgets/rounded_container.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
 import '../../Controller/trips_screen_controller.dart';
+import '../../Singletones/app_data.dart';
 import '../../Utils/routes.dart';
 
 class TripsScreen extends StatefulWidget {
@@ -76,29 +78,37 @@ class _TripsScreenState extends State<TripsScreen>
                                   children: [
                                     Row(
                                       children: [
-                                        Container(
-                                          child: Image.asset(
-                                            "assets/images/jeep1.png",
-                                            height: size.height * 0.05,
-                                            width: size.width * 0.15,
-                                          ),
+                                        // Container(
+                                        //   child: Image.asset(
+                                        //     "assets/images/jeep1.png",
+                                        //     height: size.height * 0.05,
+                                        //     width: size.width * 0.15,
+                                        //   ),
+                                        // ),
+                                        Obx(
+                                          ()=> cachedNetworkImage(
+                                              appData.userModel.value
+                                                  .defaultVehicle.icon,
+                                              width: size.width * .18),
                                         ),
                                         SizedBox(
                                           width: size.width * 0.04,
                                         ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            CustomSmallText(
-                                              text: "Jeep",
-                                              size: 12,
-                                            ),
-                                            CustomBigText(
-                                              text: "RUBICON",
-                                              size: 14,
-                                            ),
-                                          ],
+                                        Obx(
+                                          ()=> Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              CustomSmallText(
+                                                text: appData.userModel.value.defaultVehicle.vehicleDetails,
+                                                size: 12,
+                                              ),
+                                              CustomBigText(
+                                                text: appData.userModel.value.defaultVehicle.modelName,
+                                                size: 14,
+                                              ),
+                                            ],
+                                          ),
                                         )
                                       ],
                                     ),
@@ -231,7 +241,6 @@ class _TripsScreenState extends State<TripsScreen>
                                         onTap: () async {
                                           await controller
                                               .getDirectionsPolyline();
-                                         
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(

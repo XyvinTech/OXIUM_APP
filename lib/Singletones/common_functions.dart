@@ -3,6 +3,7 @@ import 'package:freelancer_app/Model/apiResponseModel.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
+import 'package:freelancer_app/Model/reviewMode.dart';
 import 'package:freelancer_app/Model/searchStationModel.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
@@ -13,6 +14,7 @@ import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_place/google_place.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -33,7 +35,7 @@ class CommonFunctions {
   var _getOrderResponse;
 
   Future<void> handlePaymentSuccess(PaymentSuccessResponse response) async {
-  //TODO: call api here when it is success payment
+    //TODO: call api here when it is success payment
     print("////////////////////");
     kLog(response.paymentId.toString());
     kLog(response.orderId.toString());
@@ -358,6 +360,7 @@ class CommonFunctions {
         "id": id,
         "rating": rating,
         "review": review,
+        'name': appData.userModel.value.username,
       },
       'review',
     );
@@ -490,7 +493,7 @@ class CommonFunctions {
         {},
         'favorites/$stationId',
       );
-    } else{
+    } else {
       res = await CallAPI().deleteData(
         {},
         'favorites/$stationId',
@@ -503,6 +506,27 @@ class CommonFunctions {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<List<ReviewModel>> getReviewOfStation(String stationId) async {
+    var res = await CallAPI().getData('review-data', {
+      'stationId': stationId,
+      'page': '0',
+      'size': '10',
+      'minRating': '1',
+      'maxRating': '5',
+    });
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      List<ReviewModel> list = [];
+      res.body['result']['content'].forEach((element) {
+        list.add(ReviewModel.fromJson(element));
+      });
+      return list;
+    } else {
+      return [];
     }
   }
 }
