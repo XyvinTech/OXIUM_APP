@@ -59,7 +59,7 @@ class _MapScreenState extends State<MapScreen>
                     markers: MapFunctions().markers_homepage,
                     onMapCreated: (controller) {
                       MapFunctions().controller = controller;
-                      MapFunctions().setMapStyle(controller);
+                      // MapFunctions().setMapStyle(controller);
                       kLog('loading map');
                       MapFunctions().getCurrentPosition();
                     },
@@ -77,8 +77,6 @@ class _MapScreenState extends State<MapScreen>
                       //     element.markerId == MarkerId('myMarker')));
                     },
                   ),
-                
-                
                 ),
               ),
             ),

@@ -382,37 +382,43 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
               ],
             ),
           ),
-          Positioned(
-            bottom: 0,
-            child: Container(
-              width: size.width,
-              color: kwhite,
-              padding: EdgeInsets.only(
-                  bottom: 32.w, top: 21.w, left: 29.w, right: 29),
-              alignment: Alignment.center,
-              child: Row(
-                children: [
-                  Flexible(
-                    child: InkWell(
-                      onTap: () {
-                        controller.startCharging();
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 12.w),
-                        decoration: BoxDecoration(
-                            color: Color(0xff0047C3),
-                            borderRadius: BorderRadius.circular(35)),
-                        child: Center(
-                          child: CustomBigText(
-                            text: "Start Charging",
-                            size: 14.sp,
-                            color: Color(0xffF2F2F2),
+          Obx(
+            () => Visibility(
+              visible: controller.selectedCharger.value != -1 &&
+                  controller.selectedType.value != -1,
+              child: Positioned(
+                bottom: 0,
+                child: Container(
+                  width: size.width,
+                  color: kwhite,
+                  padding: EdgeInsets.only(
+                      bottom: 32.w, top: 21.w, left: 29.w, right: 29),
+                  alignment: Alignment.center,
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: InkWell(
+                          onTap: () {
+                            controller.startCharging();
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 12.w),
+                            decoration: BoxDecoration(
+                                color: Color(0xff0047C3),
+                                borderRadius: BorderRadius.circular(35)),
+                            child: Center(
+                              child: CustomBigText(
+                                text: "Start Charging",
+                                size: 14.sp,
+                                color: Color(0xffF2F2F2),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
@@ -430,10 +436,13 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     String status;
     if (evport.ocppStatus == kAvailable)
       status = kAvailable;
-    else if (evport.ocppStatus == kUnavailable || evport.ocppStatus.isEmpty)
-      status = kUnavailable;
-    else
+    else if (evport.ocppStatus == 'Charging')
       status = kBusy;
+    else if (evport.ocppStatus == kFaulted)
+      status = kFaulted;
+    else
+      status = kUnavailable;
+    kLog(status);
     return Align(
       alignment: Alignment.center,
       child: InkWell(
@@ -445,18 +454,24 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
           width: size.width * 0.4,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: isSelected
+              color: isSelected && status == kAvailable
                   ? Color(0xff6FCF97).withOpacity(.28)
-                  : Colors.transparent,
+                  : status == kBusy
+                      ? Color(0xffE37A2D).withOpacity(.2)
+                      : status == kFaulted
+                          ? Color.fromARGB(255, 249, 59, 45).withOpacity(.2)
+                          : Colors.transparent,
               border: Border.all(
                 width: 1.3,
                 color: isSelected
                     ? Color(0xff6FCF97)
                     : status == kBusy
-                        ? Color(0xffE37A2D33)
-                        : status == kUnavailable
-                            ? Color(0xff959595)
-                            : Color(0xff0047C3).withOpacity(.6),
+                        ? Color(0xffE37A2D)
+                        : status == kFaulted
+                            ? Color.fromARGB(255, 249, 59, 45)
+                            : status == kUnavailable
+                                ? Color(0xff959595)
+                                : Color(0xff0047C3).withOpacity(.6),
               )),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -468,10 +483,12 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: status == kBusy
-                          ? Color(0xffE37A2D33)
-                          : status == kUnavailable
-                              ? Color(0xff959595)
-                              : Color(0xff219653)),
+                          ? Color(0xffE37A2D)
+                          : status == kFaulted
+                              ? Color.fromARGB(255, 249, 59, 45)
+                              : status == kUnavailable
+                                  ? Color(0xff959595)
+                                  : Color(0xff219653)),
                 ),
                 width(7.w),
                 Column(
@@ -483,7 +500,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                           ? Color(0xff4f4f4f)
                           : status == kBusy
                               ? Color(0xffE333333)
-                              : status == kUnavailable
+                              : status == kUnavailable || status == kFaulted
                                   ? Color(0xff959595)
                                   : Color(0xff0047C3),
                     ),
@@ -497,7 +514,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   size: 14.sp,
                   color: isSelected
                       ? Color(0xff333333)
-                      : status == kUnavailable
+                      : status == kUnavailable || status == kFaulted
                           ? Color(0xff959595)
                           : Color(0xff0047C3),
                 ),
@@ -579,20 +596,25 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                             width: size.width * 0.25,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: trailing == kBusy
-                                  ? kBusyColor
-                                  : available > 0
-                                      ? Color(0xff219653).withOpacity(0.24)
-                                      : Color(0xffEAEAEA),
+                              color: available > 0
+                                  ? Color(0xff219653).withOpacity(0.24)
+                                  : trailing == kBusy
+                                      ? kBusyColor
+                                      : trailing == kFaulted
+                                          ? Color.fromARGB(255, 249, 59, 45)
+                                              .withOpacity(.2)
+                                          : Color(0xffEAEAEA),
                             ),
                             child: CustomBigText(
                               text: trailing,
                               size: 12,
-                              color: trailing == kBusy
-                                  ? Color(0xffE37A2D)
-                                  : available > 0
-                                      ? Color(0xff219653)
-                                      : Color(0xff333333),
+                              color: available > 0
+                                  ? Color(0xff219653)
+                                  : trailing == kBusy
+                                      ? Color(0xffE37A2D)
+                                      : trailing == kFaulted
+                                          ? Color.fromARGB(255, 249, 59, 45)
+                                          : Color(0xff333333),
                             ),
                           ),
                           width(size.width * 0.06),
@@ -723,20 +745,25 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                     width: size.width * 0.25,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: trailing == kBusy
-                          ? kBusyColor
-                          : available > 0
-                              ? Color(0xff219653).withOpacity(0.24)
-                              : Color(0xffEAEAEA),
+                      color: available > 0
+                          ? Color(0xff219653).withOpacity(0.24)
+                          : trailing == kBusy
+                              ? kBusyColor
+                              : trailing == kFaulted
+                                  ? Color.fromARGB(255, 249, 59, 45)
+                                      .withOpacity(.2)
+                                  : Color(0xff959595).withOpacity(.2),
                     ),
                     child: CustomBigText(
                       text: trailing,
                       size: 12,
-                      color: trailing == kBusy
-                          ? Color(0xffE37A2D)
-                          : available > 0
-                              ? Color(0xff219653)
-                              : Color(0xff333333),
+                      color: available > 0
+                          ? Color(0xff219653)
+                          : trailing == kBusy
+                              ? Color(0xffE37A2D)
+                              : trailing == kFaulted
+                                  ? Color.fromARGB(255, 249, 59, 45)
+                                  : Color(0xff333333),
                     ),
                   ),
                   width(size.width * 0.06),

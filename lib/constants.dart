@@ -43,6 +43,7 @@ final String kLoginTermsAndPrivay = 'Login with Phone';
 final String kAll = 'All';
 final String kAvailable = 'Available';
 final String kUnavailable = 'Unavailable';
+final String kFaulted = 'Faulted';
 final String kBusy = 'Busy';
 
 final Position kPosition = Position(
@@ -150,6 +151,7 @@ final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
     startTime: '',
     Charger: '',
     status: '',
+    tariff: 0,
     Chargingstatus: '');
 
 final ReviewModel kReviewModel = ReviewModel(

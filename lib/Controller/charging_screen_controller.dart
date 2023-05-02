@@ -20,16 +20,19 @@ class ChargingScreenController extends GetxController {
   RxList<int> time = [0, 0].obs;
   onInit() {
     super.onInit();
-    String qr_or_app_data = Get.arguments[0] ?? '253-z1-1-Q';
-    booking_model.value = Get.arguments[1] ?? kBookingModel;
+    String qr_or_app_data =
+        Get.arguments != null ? Get.arguments[0] ?? '253-z1-1-Q' : '444-t1-1-Q';
+    booking_model.value = Get.arguments != null
+        ? Get.arguments[1] ?? kBookingModel
+        : kBookingModel;
     kLog(qr_or_app_data);
     List<String> seperator = qr_or_app_data.split('-');
     stationId = seperator[0];
     chargerName = seperator[1];
     chargingPoint = seperator[2];
     bookingVia = seperator[3];
-    // createBooking();
     changeStatus(isStart: true, bookingId: booking_model.value.bookingId);
+    // getChargingStatus(529);
   }
 
   onClose() {
@@ -103,16 +106,24 @@ class ChargingScreenController extends GetxController {
         //IF CHARGING STARTED
         if (chargingStatus.value != 'progress') {
           toConnected();
-          time.value = getTimeDifference(status_model.value.startTime);
+          print(status_model.value.startTime);
+
           Future.delayed(Duration(seconds: 1), () => toProgress());
+        } else if (chargingStatus.value == 'progress') {
+          time.value = getTimeDifference(status_model.value.startTime);
         }
       } else if (status_model.value.status == 'R' &&
           chargingStatus.value == 'C') {
         toCompleted();
         _timer?.cancel();
-      } else if (status_model.value.status.isEmpty ||
-          status_model.value.Chargingstatus.isEmpty) {
+      } else if (status_model.value.status.isNotEmpty &&
+          status_model.value.status == 'E') {
         toDisconnected();
+        _timer?.cancel();
+      } else if (status_model.value.status.isEmpty) {
+        toReconnect();
+      } else {
+        toFinished();
         _timer?.cancel();
       }
     });

@@ -14,7 +14,6 @@ import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_place/google_place.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -208,7 +207,9 @@ class CommonFunctions {
       "username": appData.userModel.value.username,
     });
 
-    if (res.statusCode == 200 && res.body['success']) {
+    if (res.statusCode == 200 &&
+        res.body['success'] != null &&
+        res.body['success']) {
       List<VehicleModel> list = [];
       res.body['result'].forEach((element) {
         list.add(VehicleModel.fromjson(element));
@@ -311,7 +312,7 @@ class CommonFunctions {
       "lattitude": "${pos.latitude}",
       "longitude": "${pos.longitude}",
     });
-    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<StationMarkerModel> list = [];
       res.body['result'].forEach((element) {
@@ -357,7 +358,7 @@ class CommonFunctions {
   Future<bool> postReviewForChargeStation(int id, int rating, review) async {
     var res = await CallAPI().postData(
       {
-        "id": id,
+        "stationId": id,
         "rating": rating,
         "review": review,
         'name': appData.userModel.value.username,
@@ -472,11 +473,16 @@ class CommonFunctions {
   }
 
   Future<ChargingStatusModel> getChargingStatus(String bookingId) async {
-    var res =
-        await CallAPI().getData('bookingstatus', {'bookingId': bookingId});
+    var res = await CallAPI().getData('bookingstatus', {
+      'bookingId': bookingId,
+    });
     kLog(res.statusCode.toString());
     kLog(res.body.toString());
-    if (res.statusCode == 200 && res.body['success']) {
+    if (res.statusCode == 500) {
+      ChargingStatusModel model = kChargingStatusModel;
+      model.status = 'E';
+      return kChargingStatusModel;
+    } else if (res.statusCode == 200 && res.body['success']) {
       return ChargingStatusModel.fromJson(res.body['result']);
     } else {
       return kChargingStatusModel;

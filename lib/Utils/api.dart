@@ -17,7 +17,7 @@ class CallAPI {
   }
   CallAPI._internal();
 
-  int timeOutSec = 10;
+  int timeOutSec = 15;
   String _url = 'https://app.bigboystoy.in/Chargetron/api/app/';
 
 /////////POST DATA/////////////////

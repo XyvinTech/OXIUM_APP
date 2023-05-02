@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/charging_screen_controller.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/View/Homepage/ChargningAnimations/gradiant_circular_progressbar.dart';
 import 'package:freelancer_app/View/Homepage/ChargningAnimations/lottie_loading_animation.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
@@ -13,6 +12,7 @@ import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
+import 'ChargningAnimations/gradiant_circular_progressbar.dart';
 import 'ChargningAnimations/percentage_circular_progress_indicator.dart';
 
 class ChargingScreen extends GetView<ChargingScreenController> {
@@ -58,15 +58,19 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       width: double.infinity,
                                       color: Colors.white,
                                       child: Obx(
-                                        () => controller
-                                                .chargingStatus.value.isEmpty
+                                        () => controller.chargingStatus.value
+                                                    .isEmpty ||
+                                                controller.booking_model.value
+                                                        .outputType ==
+                                                    'AC'
                                             ? GradientIndicator()
                                             : PercentageIndicator(
-                                                progress: controller
-                                                        .status_model
-                                                        .value
-                                                        .SOC /
-                                                    100.0),
+                                                progress: (controller
+                                                            .status_model
+                                                            .value
+                                                            .SOC /
+                                                        100.0) +
+                                                    .001),
                                       )),
                                   Container(
                                       // color: Colors.amber,
@@ -272,20 +276,24 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                   ],
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CustomSmallText(
-                                    text: 'Tariff',
-                                    size: 12,
-                                  ),
-                                  CustomSmallText(
-                                    text:
-                                        '₹ ${controller.booking_model.value.tariff} /KwH',
-                                    size: 12,
-                                  ),
-                                ],
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * 0.00),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CustomSmallText(
+                                      text: 'Tariff',
+                                      size: 12,
+                                    ),
+                                    CustomSmallText(
+                                      text:
+                                          '₹ ${controller.status_model.value.tariff} /KwH',
+                                      size: 12,
+                                    ),
+                                  ],
+                                ),
                               ),
                               Divider(
                                 color: Color(0xffBDBDBD),
@@ -307,21 +315,25 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                               text: "Energy consumed",
                                               size: 12.sp)
                                         ]),
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          CustomBigText(
-                                            text: "₹ 2000",
-                                            size: 16.sp,
-                                            color: Color(0xff0047C3),
-                                          ),
-                                          CustomBigText(
-                                            text: "234 kWh",
-                                            size: 16.sp,
-                                            color: Color(0xff0047C3),
-                                          ),
-                                        ]),
+                                    Obx(
+                                      () => Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            CustomBigText(
+                                              text:
+                                                  "₹${controller.status_model.value.amount}",
+                                              size: 16.sp,
+                                              color: Color(0xff0047C3),
+                                            ),
+                                            CustomBigText(
+                                              text:
+                                                  "${controller.status_model.value.unit} kWh",
+                                              size: 16.sp,
+                                              color: Color(0xff0047C3),
+                                            ),
+                                          ]),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -362,7 +374,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                   controller.toFinished();
                                 })
                               else
-                                _reconnectBtn(onTap: () {
+                                _connectingBtn(onTap: () {
                                   controller.toConnected();
                                 })
                             ],
@@ -447,7 +459,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
     );
   }
 
-  Widget _reconnectBtn({VoidCallback? onTap}) {
+  Widget _connectingBtn({VoidCallback? onTap}) {
     return InkWell(
       onTap: onTap,
       child: Container(

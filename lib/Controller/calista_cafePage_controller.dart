@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_directions_api/google_directions_api.dart';
@@ -67,8 +68,14 @@ class CalistaCafePageController extends GetxController {
   }
 
   changeCharger(int index, int index_grid) {
-    selectedCharger.value = index;
-    selectedType.value = index_grid;
+    if (selectedCharger.value != -1)
+      selectedCharger.value = -1;
+    else
+      selectedCharger.value = index;
+    if (selectedType.value != -1)
+      selectedType.value = -1;
+    else
+      selectedType.value = index_grid;
   }
 
   postReviewForChargeStation() async {
@@ -80,14 +87,14 @@ class CalistaCafePageController extends GetxController {
   }
 
   startCharging() {
-    String qr = '${model.value.id}' +
+    appData.qr = '${model.value.id}' +
         '-' +
         model.value.Chargers[selectedCharger.value].charger_name +
         '-' +
         '${model.value.Chargers[selectedCharger.value].evports[selectedType.value].seqNumber}' +
         '-' +
         'A';
-    CommonFunctions().createBookingAndCheck(qr);
+    CommonFunctions().createBookingAndCheck(appData.qr);
   }
 
   getDirections(bool isNavigation) async {

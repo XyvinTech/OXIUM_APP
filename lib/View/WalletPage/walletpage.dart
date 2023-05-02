@@ -96,7 +96,8 @@ class _WalletScreenState extends State<WalletScreen>
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               CustomBigText(
-                                text: "324",
+                                text:
+                                    "${appData.userModel.value.total_sessions}",
                                 size: 18,
                                 color: Color(0xffF2F2F2),
                               ),
@@ -138,7 +139,7 @@ class _WalletScreenState extends State<WalletScreen>
                               Obx(
                                 () => CustomBigText(
                                   text:
-                                      "₹ ${appData.userModel.value.balanceAmount}",
+                                      "₹ ${appData.userModel.value.balanceAmount.toStringAsFixed(2)}",
                                   size: 26,
                                   color: Color(0xff00FFB3),
                                 ),

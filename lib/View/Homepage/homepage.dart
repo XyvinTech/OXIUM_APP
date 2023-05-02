@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
-import 'package:freelancer_app/Singletones/injector.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/my_flutter_app_icons.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
@@ -114,7 +113,8 @@ showBottomSheetWhenClickedOnMarker(
   List res = [];
   model.Chargers.forEach((element) {
     res = calculateAvailabiliy(element.evports);
-    if (res[0] == kAvailable) available = true;
+    kLog(res.toString());
+    if (res[1] > 0) available = true;
   });
 
   await Get.bottomSheet(WillPopScope(

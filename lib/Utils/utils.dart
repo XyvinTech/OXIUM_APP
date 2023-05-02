@@ -61,21 +61,29 @@ Future<Map<String, dynamic>> loadJsonFromAsset(String path) async {
 }
 
 List<dynamic> calculateAvailabiliy(List<EvPortModel> evPorts) {
-  int available = 0, busy = 0, unAvailable = 0, total = evPorts.length;
+  int available = 0,
+      busy = 0,
+      unAvailable = 0,
+      faulty = 0,
+      total = evPorts.length;
   String trailing = '';
   evPorts.forEach((element) {
     if (element.ocppStatus == kAvailable)
       available++;
-    else if (element.ocppStatus == kUnavailable || element.ocppStatus.isEmpty)
-      unAvailable++;
-    else
+    else if (element.ocppStatus == 'Charging')
       busy++;
+    else if (element.ocppStatus == kFaulted)
+      faulty++;
+    else
+      unAvailable++;
   });
   if (available > 0)
     trailing = '$kAvailable $available/$total';
   else if (busy > 0)
     trailing = kBusy;
+  else if (faulty > 0)
+    trailing = kFaulted;
   else
     trailing = kUnavailable;
-  return [trailing,available];
+  return [trailing, available];
 }
