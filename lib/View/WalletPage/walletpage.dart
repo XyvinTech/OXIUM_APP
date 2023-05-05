@@ -90,8 +90,31 @@ class _WalletScreenState extends State<WalletScreen>
                           child: SvgPicture.asset("assets/svg/goeclogo.svg"),
                         ),
                         Positioned(
+                            right: size.width * 0.11,
+                            top: size.height * 0.11,
+                            child: CustomBigText(
+                              text: '₹ 1 = 1 Coins',
+                              color: Color(0xffF2F2F2),
+                            )
+                            // Column(
+                            //   crossAxisAlignment: CrossAxisAlignment.end,
+                            //   children: [
+                            //     CustomBigText(
+                            //       text:
+                            //           "${appData.userModel.value.total_sessions}",
+                            //       size: 18,
+                            //       color: Color(0xffF2F2F2),
+                            //     ),
+                            //     height(size.height * 0.003),
+                            //     CustomSmallText(
+                            //       text: "No of Charges",
+                            //     )
+                            //   ],
+                            // ),
+                            ),
+                        Positioned(
                           right: size.width * 0.11,
-                          top: size.height * 0.11,
+                          top: size.height * 0.23,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -104,24 +127,6 @@ class _WalletScreenState extends State<WalletScreen>
                               height(size.height * 0.003),
                               CustomSmallText(
                                 text: "No of Charges",
-                              )
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          right: size.width * 0.11,
-                          top: size.height * 0.23,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              CustomBigText(
-                                text: "21 Jun 2022",
-                                size: 18,
-                                color: Color(0xffF2F2F2),
-                              ),
-                              height(size.height * 0.003),
-                              CustomSmallText(
-                                text: "Expiry date",
                               )
                             ],
                           ),

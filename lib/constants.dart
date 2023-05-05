@@ -155,7 +155,7 @@ final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
     Chargingstatus: '');
 
 final ReviewModel kReviewModel = ReviewModel(
-    stationId: '',
+    stationId: -1,
     name: '',
     image: '',
     rating: 0,

@@ -10,7 +10,7 @@ class UserModel {
   final String status;
   final String rfid;
   final int total_sessions;
-  final int total_units;
+  final double total_units;
   final double balanceAmount;
   final VehicleModel defaultVehicle;
 
@@ -38,7 +38,7 @@ class UserModel {
       rfid: json['rfid'] ?? '',
       status: json['status'] ?? '',
       total_sessions: json['total_sessions'] ?? 0,
-      total_units: json['total_units'] ?? 0,
+      total_units: json['total_units'].toDouble() ?? 0,
       balanceAmount: json['balanceAmount'] ?? 0,
       defaultVehicle: json['defaultVehicle'] != null
           ? VehicleModel.fromjson(json['defaultVehicle'])
