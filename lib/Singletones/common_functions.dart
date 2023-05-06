@@ -123,7 +123,8 @@ class CommonFunctions {
 
       if (Get.currentRoute == Routes.rfidNumberRoute) {
         showSuccess('Payment successful!');
-      } else {
+      } else if (Get.currentRoute == Routes.popupPageRoute &&
+          appData.qr.isNotEmpty) {
         Dialogs().rechargePopUp(isSuccess: true);
       }
     } else {
