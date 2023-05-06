@@ -34,7 +34,7 @@ class _WalletScreenState extends State<WalletScreen>
               floating: true,
               pinned: true,
               backgroundColor: kwhite,
-              expandedHeight: size.height * 0.66 + 0 * controller.reload.value,
+              expandedHeight: size.height * 0.562 + 0 * controller.reload.value,
               flexibleSpace: FlexibleSpaceBar(
                 background: Column(
                   children: [
@@ -210,9 +210,6 @@ class _WalletScreenState extends State<WalletScreen>
                         size: 14,
                         color: Color(0xff828282),
                       ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
                     ],
                   ),
                 ),
@@ -221,59 +218,50 @@ class _WalletScreenState extends State<WalletScreen>
             SliverToBoxAdapter(
               child: Container(
                 color: Colors.white,
-                child: Column(
-                  children: [
-                    height(size.height * 0.01),
-                    Container(
-                      height: 1000,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              // width: size.width * .92,
-                              padding: EdgeInsets.only(top: size.height * .01),
-                              child: ListView.builder(
-                                  itemCount: 40,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemBuilder: (_, index) {
-                                    return Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: size.width * .03,
-                                          vertical: size.height * .01),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Get.dialog(
-                                            _dialougebox(
-                                              title: "Calista Cafe",
-                                              amount: "+500 Cr",
-                                              amountColor: Color(0xff27AE60),
-                                            ),
-                                          );
-
-                                          // wallet loss credit dialogue
-
-                                          //            Get.dialog(
-                                          //   _dialougebox(
-                                          //     title: "Wallet Credit",
-                                          //     amount: "-500 Cr",
-                                          //     amountColor: Color(0xffEB5757),
-                                          //   ),
-                                          // );
-                                        },
-                                        child: _creditCard(
-                                            title: "Calista Cafe",
-                                            date: "12 Jun 2022",
-                                            time: "03:30 PM",
-                                            amount: "+500 Cr"),
+                child: Container(
+                  height: 1000,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: 40,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (_, index) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: size.width * .03,
+                                    vertical: size.height * .01),
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.dialog(
+                                      _dialougebox(
+                                        title: "Calista Cafe",
+                                        amount: "+500 Cr",
+                                        amountColor: Color(0xff27AE60),
                                       ),
                                     );
-                                  }),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+
+                                    // wallet loss credit dialogue
+
+                                    //            Get.dialog(
+                                    //   _dialougebox(
+                                    //     title: "Wallet Credit",
+                                    //     amount: "-500 Cr",
+                                    //     amountColor: Color(0xffEB5757),
+                                    //   ),
+                                    // );
+                                  },
+                                  child: _creditCard(
+                                      title: "Calista Cafe",
+                                      date: "12 Jun 2022",
+                                      time: "03:30 PM",
+                                      amount: "+500"),
+                                ),
+                              );
+                            }),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
@@ -327,7 +315,10 @@ class _WalletScreenState extends State<WalletScreen>
     required String amount,
   }) {
     return Container(
-      height: size.height * 0.08,
+      height: size.height * 0.15,
+      padding: EdgeInsets.symmetric(
+          vertical: size.height * .01, horizontal: size.width * .03),
+      alignment: Alignment.center,
       decoration: BoxDecoration(
           color: kwhite,
           borderRadius: BorderRadius.circular(10),
@@ -338,64 +329,71 @@ class _WalletScreenState extends State<WalletScreen>
                 spreadRadius: 0,
                 color: Color(0xff000000).withOpacity(.08))
           ]),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: size.height * 0.05,
-                  width: size.width * 0.12,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(
-                      "assets/images/coffee1.png",
+                CircleAvatar(
+                    child: SvgPicture.asset('assets/svg/wallet_topup.svg')),
+                width(size.width * .02),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomSmallText(
+                      text: 'Credit',
+                      size: 10,
                     ),
-                  ),
+                    CustomBigText(
+                      text: title,
+                      letterspacing: -0.408,
+                      color: Color(0xff828282),
+                      size: 16,
+                      fontWeight: FontWeight.w500,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                width(size.width * 0.03),
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.015),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomSmallText(
-                        text: title,
-                        letterspacing: -0.408,
-                        size: 16,
-                      ),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            "assets/svg/calendar_month.svg",
-                            width: size.width * 0.045,
-                          ),
-                          width(size.width * 0.01),
-                          CustomSmallText(
-                            text: "${date} at ${time}",
-                            size: 12,
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                CustomBigText(
-                  text: amount,
-                  size: 16,
-                  color: Color(0xff27AE60),
-                ),
-                width(size.width * 0.03),
+                Spacer(),
                 SvgPicture.asset("assets/svg/arrow_forward_ios.svg")
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                width(size.width * .01),
+                SvgPicture.asset(
+                  "assets/svg/calendar_month.svg",
+                  width: size.width * 0.045,
+                ),
+                CustomSmallText(
+                  text: "${date} at ${time}",
+                  size: 12,
+                ),
+                Spacer(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    CustomBigText(
+                      text: amount,
+                      size: 17,
+                      color: Color(0xff27AE60),
+                    ),
+                    CustomSmallText(
+                      text: 'Coins',
+                      size: 12,
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
