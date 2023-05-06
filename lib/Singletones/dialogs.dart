@@ -398,8 +398,194 @@ class Dialogs {
         barrierDismissible: false);
   }
 
-
-
-
-
+  wallet_transaction_popup(
+      {required String title,
+      required String amount,
+      required Color amountColor}) {
+    Get.dialog(AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      contentPadding: EdgeInsets.all(0),
+      content: Container(
+        height: size.height * 0.63,
+        width: size.width * 0.8,
+        decoration: BoxDecoration(
+            // borderRadius: BorderRadius.circular(20),
+            ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  left: size.width * 0.04,
+                  right: size.width * 0.04,
+                  top: size.height * 0.02),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomBigText(
+                    text: "Payments",
+                    size: 14,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SvgPicture.asset("assets/svg/close.svg"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            height(size.height * 0.01),
+            Divider(
+              thickness: size.height * 0.002,
+              color: Color(0xffE0E0E0),
+            ),
+            height(size.height * 0.02),
+            Padding(
+              padding: EdgeInsets.only(
+                left: size.width * 0.04,
+                right: size.width * 0.04,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/svg/wallet_topup.svg',
+                        width: size.width * 0.1,
+                      ),
+                      width(size.width * 0.04),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: size.height * 0.00),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomSmallText(
+                              text: title,
+                              letterspacing: -0.408,
+                              size: 16,
+                            ),
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  "assets/svg/calendar_month.svg",
+                                  width: size.width * 0.045,
+                                ),
+                                width(size.width * 0.01),
+                                CustomSmallText(
+                                  text: "12 Jun 2022 at 03:30 PM",
+                                  size: 12,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  height(size.height * .04),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomSmallText(text: 'Order ID'),
+                      CustomBigText(text: 'GOEC_200323_61547834'),
+                    ],
+                  ),
+                  height(size.height * .04),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomSmallText(text: 'Payment Type'),
+                          height(size.height * 0.01),
+                          CustomBigText(
+                            text: 'RazorPay',
+                            color: Color(0xff5C5C5C),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomSmallText(text: 'Payment Status'),
+                          height(size.height * 0.01),
+                          Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * .03,
+                                  vertical: size.width * 0.01),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Color(0xff219653).withOpacity(.3)),
+                              child: CustomSmallText(
+                                text: 'Success',
+                                color: Color(0xff219653),
+                                fontWeight: FontWeight.bold,
+                                size: 12,
+                              )),
+                        ],
+                      ),
+                    ],
+                  ),
+                  height(size.height * .045),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: size.height * 0.008,
+                        horizontal: size.width * 0.04),
+                    height: size.height * 0.095,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: kwhite,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Color(0xff219653),
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        CustomSmallText(
+                          text: "Topup Added",
+                          size: 12,
+                        ),
+                        height(size.height * 0.004),
+                        CustomBigText(
+                          text: amount,
+                          color: amountColor,
+                          size: 24,
+                          fontWeight: FontWeight.w500,
+                        )
+                      ],
+                    ),
+                  ),
+                  height(size.height * 0.04),
+                  InkWell(
+                    onTap: () {
+                      //TODO: on download invoice
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset('assets/svg/download.svg'),
+                        width(size.width * .02),
+                        CustomBigText(
+                          text: 'Download invoice',
+                          color: Color(0xff0047C3),
+                          size: 15,
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ));
+  }
 }
