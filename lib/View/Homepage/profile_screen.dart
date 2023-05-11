@@ -204,7 +204,7 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                           height(size.height * .01),
                           CustomText(
                               text:
-                                  '${appData.userModel.value.total_units} units',
+                                  '${appData.userModel.value.total_units.toStringAsFixed(2)} units',
                               size: 16,
                               fontWeight: FontWeight.bold,
                               color: Color(0xff828282)),

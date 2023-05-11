@@ -62,9 +62,12 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                       ),
                     ),
                     height(40.h),
-                    _card(
-                        energy: "${controller.status_model.value.unit}",
-                        amount: "${controller.status_model.value.amount}"),
+                    Obx(
+                      () => _card(
+                          energy: "${controller.status_model.value.unit}",
+                          amount:
+                              "${(controller.status_model.value.amount + controller.status_model.value.taxamount).toStringAsFixed(2)}"),
+                    ),
                     height(50.h),
                   ],
                 ),
@@ -200,7 +203,7 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                   Row(
                     children: [
                       CustomBigText(
-                        text: energy,
+                        text: amount,
                         size: 24.sp,
                         color: Color(0xff4F4F4F),
                       ),

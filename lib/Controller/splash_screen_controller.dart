@@ -19,9 +19,9 @@ class SplashScreenController extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
-    appData.token = await getString('token') ?? appData.token;
-    // appData.userModel.value.username = await getString('username') ?? '9782199455';
-    appData.userModel.value.username = '121212';
+    // appData.token = await getString('token') ?? appData.token;
+    appData.userModel.value.username = await getString('username') ?? '111222';
+    appData.userModel.value.username = '111222';
     kLog('username: ' + appData.userModel.value.username);
     kLog(appData.token);
     var res = await CommonFunctions().getUserProfile();

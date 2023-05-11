@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/qr_controller.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
+import 'package:freelancer_app/Model/orderModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:get/get.dart';
@@ -399,10 +401,21 @@ class Dialogs {
         barrierDismissible: false);
   }
 
-  wallet_transaction_popup(
-      {required String title,
-      required String amount,
-      required Color amountColor}) {
+  wallet_transaction_popup({
+    required OrderModel model,
+  }) {
+    String title = '';
+    Color color = Colors.transparent;
+    if (model.status == 'P') {
+      title = 'Success';
+      color = Color(0xff219653);
+    } else if (model.status == 'I') {
+      title = 'Pending';
+      color = Color(0xffDF8600);
+    } else {
+      title == 'Failed';
+      color = Color(0xffDC2525);
+    }
     Get.dialog(AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       contentPadding: EdgeInsets.all(0),
@@ -466,7 +479,9 @@ class Dialogs {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomSmallText(
-                              text: title,
+                              text: model.statusUpdateBy == 'M'
+                                  ? 'Wallet Topup'
+                                  : 'Admin topup',
                               letterspacing: -0.408,
                               size: 16,
                             ),
@@ -478,7 +493,9 @@ class Dialogs {
                                 ),
                                 width(size.width * 0.01),
                                 CustomSmallText(
-                                  text: "12 Jun 2022 at 03:30 PM",
+                                  text: getTimeFromTimeStamp(
+                                      model.pgOrderGenTime,
+                                      'dd MMM yyyy hh:mm a'),
                                   size: 12,
                                 )
                               ],
@@ -493,7 +510,7 @@ class Dialogs {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomSmallText(text: 'Order ID'),
-                      CustomBigText(text: 'GOEC_200323_61547834'),
+                      CustomBigText(text: model.pgOrderId),
                     ],
                   ),
                   height(size.height * .04),
@@ -506,7 +523,7 @@ class Dialogs {
                           CustomSmallText(text: 'Payment Type'),
                           height(size.height * 0.01),
                           CustomBigText(
-                            text: 'RazorPay',
+                            text: model.type,
                             color: Color(0xff5C5C5C),
                           ),
                         ],
@@ -522,10 +539,10 @@ class Dialogs {
                                   vertical: size.width * 0.01),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff219653).withOpacity(.3)),
+                                  color: color.withOpacity(.3)),
                               child: CustomSmallText(
-                                text: 'Success',
-                                color: Color(0xff219653),
+                                text: title,
+                                color: color,
                                 fontWeight: FontWeight.bold,
                                 size: 12,
                               )),
@@ -555,8 +572,8 @@ class Dialogs {
                         ),
                         height(size.height * 0.004),
                         CustomBigText(
-                          text: amount,
-                          color: amountColor,
+                          text: "${model.amount}",
+                          color: color,
                           size: 24,
                           fontWeight: FontWeight.w500,
                         )
@@ -564,21 +581,25 @@ class Dialogs {
                     ),
                   ),
                   height(size.height * 0.04),
-                  InkWell(
-                    onTap: () {
-                      //TODO: on download invoice
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/svg/download.svg'),
-                        width(size.width * .02),
-                        CustomBigText(
-                          text: 'Download invoice',
-                          color: Color(0xff0047C3),
-                          size: 15,
-                        )
-                      ],
+                  Visibility(
+                    visible: title == 'Success',
+                    child: InkWell(
+                      onTap: () {
+                        //TODO: on download invoice
+                        CommonFunctions().downloadBookingInvoice(644);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/svg/download.svg'),
+                          width(size.width * .02),
+                          CustomBigText(
+                            text: 'Download invoice',
+                            color: Color(0xff0047C3),
+                            size: 15,
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -588,5 +609,14 @@ class Dialogs {
         ),
       ),
     ));
+  }
+
+  connectPortTipDialog() {
+    Get.dialog(
+        Container(
+            alignment: Alignment.center,
+            color: Colors.white,
+            child: CustomText(text: 'Connect port please')),
+        barrierDismissible: true);
   }
 }

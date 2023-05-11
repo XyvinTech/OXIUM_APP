@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:http/http.dart' as http;
 
 import '../Model/apiResponseModel.dart';
 import '../Singletones/app_data.dart';
+import 'utils.dart';
 
 class CallAPI {
   //make it singleTone class
@@ -198,5 +200,36 @@ class CallAPI {
     log(res['image']);
     // appData.userModel.image = res['image'] ?? '';
     return res['image'];
+  }
+
+  Future<void> download(String endpoint, String fileName) async {
+    // PermissionStatus status = await Permission.storage.request();
+    // if (!status.isGranted) {
+    //   showError('Storage permission Denied');
+    //   return;
+    // }
+    final request = http.Request('GET', Uri.parse(_url + endpoint));
+    request.headers['Authorization'] = 'JWT-${appData.token}';
+    var _response = await http.Client().send(request);
+    kLog(_response.statusCode.toString());
+    if (_response.statusCode != 200) return;
+    var _total = _response.contentLength ?? 1;
+    kLog(_total.toString());
+    var _received = 0;
+    double percentage = 0;
+    final List<int> _bytes = [];
+    _response.stream.listen((value) {
+      _bytes.addAll(value);
+      _received += value.length;
+      percentage = (_received / _total);
+      EasyLoading.showProgress(percentage > 1 ? 0 : percentage,
+          status: '${(percentage * 100.0).toStringAsFixed(0)} %');
+    }).onDone(() async {
+      hideLoading();
+      final file =
+          File('${(await getDownloadFolderpath())}/invoice_$fileName.pdf');
+      await file.writeAsBytes(_bytes);
+      showSuccess('Downloaded successfully');
+    });
   }
 }

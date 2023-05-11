@@ -100,11 +100,19 @@ class ChargingScreenController extends GetxController {
       status_model.value =
           await CommonFunctions().getChargingStatus(bookingId.toString());
       kLog(status_model.value.toJson().toString());
+
+      // if (status_model.value.Chargingstatus == 'I' && !Get.isDialogOpen!) {
+      //   Dialogs().connectPortTipDialog();
+      // } else if (status_model.value.Chargingstatus != 'I' &&
+      //     Get.isDialogOpen!) {
+      //   Get.back();
+      // }
+
       if (status_model.value.status == 'S' ||
           status_model.value.status == 'R' &&
-              status_model.value.Chargingstatus == 'I')
+              status_model.value.Chargingstatus == 'I') {
         toReconnect();
-      else if (status_model.value.status == 'R' &&
+      } else if (status_model.value.status == 'R' &&
           status_model.value.Chargingstatus == 'R') {
         //IF CHARGING STARTED
         if (chargingStatus.value != 'progress') {
@@ -151,6 +159,12 @@ class ChargingScreenController extends GetxController {
   }
 
   onClickFinished() {
-    Get.toNamed(Routes.shareExperiencePageRoute, arguments: qr_or_app_data);
+    Get.toNamed(Routes.shareExperiencePageRoute,
+        arguments: [qr_or_app_data, status_model.value]);
+  }
+
+  downloadInvoice() async {
+    await CommonFunctions()
+        .downloadBookingInvoice(booking_model.value.bookingId);
   }
 }

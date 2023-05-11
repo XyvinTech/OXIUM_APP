@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
+import 'package:freelancer_app/Model/orderModel.dart';
 import 'package:freelancer_app/Singletones/dialogs.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/WalletPage/topup_page.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
@@ -220,44 +222,31 @@ class _WalletScreenState extends State<WalletScreen>
               child: Container(
                 color: Colors.white,
                 child: Container(
-                  height: 1000,
+                  height:
+                      controller.modelList.length * (size.height * 0.15 * 1.18),
                   child: Column(
                     children: [
                       Expanded(
-                        child: ListView.builder(
-                            itemCount: 40,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (_, index) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * .03,
-                                    vertical: size.height * .01),
-                                child: InkWell(
-                                  onTap: () {
-                                    Dialogs().wallet_transaction_popup(
-                                      title: "Wallet Topup",
-                                      amount: "+500",
-                                      amountColor: Color(0xff27AE60),
-                                    );
-
-                                    // wallet loss credit dialogue
-
-                                    //            Get.dialog(
-                                    //   _dialougebox(
-                                    //     title: "Wallet Credit",
-                                    //     amount: "-500 Cr",
-                                    //     amountColor: Color(0xffEB5757),
-                                    //   ),
-                                    // );
-                                  },
-                                  child: _creditCard(
-                                      title: "Calista Cafe",
-                                      date: "12 Jun 2022",
-                                      time: "03:30 PM",
-                                      amount: "+500"),
-                                ),
-                              );
-                            }),
+                        child: Obx(
+                          () => ListView.builder(
+                              itemCount: controller.modelList.length,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (_, index) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * .03,
+                                      vertical: size.height * .01),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Dialogs().wallet_transaction_popup(
+                                          model: controller.modelList[index]);
+                                    },
+                                    child: _creditCard(
+                                        model: controller.modelList[index]),
+                                  ),
+                                );
+                              }),
+                        ),
                       )
                     ],
                   ),
@@ -308,11 +297,20 @@ class _WalletScreenState extends State<WalletScreen>
   }
 
   Widget _creditCard({
-    required String title,
-    required String date,
-    required String time,
-    required String amount,
+    required OrderModel model,
   }) {
+    String title = '';
+    Color color = Colors.transparent;
+    if (model.status == 'P') {
+      title = 'Success';
+      color = Color(0xff219653);
+    } else if (model.status == 'I') {
+      title = 'Pending';
+      color = Color(0xffDF8600);
+    } else {
+      title == 'Failed';
+      color = Color(0xffDC2525);
+    }
     return Container(
       height: size.height * 0.15,
       padding: EdgeInsets.symmetric(
@@ -337,7 +335,9 @@ class _WalletScreenState extends State<WalletScreen>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CircleAvatar(
-                    child: SvgPicture.asset('assets/svg/wallet_topup.svg')),
+                    child: SvgPicture.asset(model.statusUpdateBy == 'M'
+                        ? 'assets/svg/wallet_topup.svg'
+                        : 'assets/svg/admin_topup.svg')),
                 width(size.width * .02),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -345,13 +345,15 @@ class _WalletScreenState extends State<WalletScreen>
                   children: [
                     CustomSmallText(
                       text: 'Credit',
-                      size: 10,
+                      size: 10.sp,
                     ),
                     CustomBigText(
-                      text: title,
+                      text: model.statusUpdateBy == 'M'
+                          ? 'Wallet Topup'
+                          : 'Admin Topup',
                       letterspacing: -0.408,
                       color: Color(0xff828282),
-                      size: 16,
+                      size: 18.sp,
                       fontWeight: FontWeight.w500,
                       textOverflow: TextOverflow.ellipsis,
                     ),
@@ -365,27 +367,29 @@ class _WalletScreenState extends State<WalletScreen>
           Expanded(
             child: Row(
               children: [
-                width(size.width * .01),
+                width(size.width * .03),
                 SvgPicture.asset(
                   "assets/svg/calendar_month.svg",
                   width: size.width * 0.045,
                 ),
                 CustomSmallText(
-                  text: "${date} at ${time}",
-                  size: 12,
+                  text: getTimeFromTimeStamp(
+                      model.pgOrderGenTime, 'dd MMM yyyy hh:mm a'),
+                  size: 12.sp,
                 ),
                 Spacer(),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     CustomBigText(
-                      text: amount,
-                      size: 17,
-                      color: Color(0xff27AE60),
+                      text: "${model.amount}",
+                      size: 20.sp,
+                      color: color,
                     ),
+                    width(5.w),
                     CustomSmallText(
                       text: 'Coins',
-                      size: 12,
+                      size: 12.sp,
                     )
                   ],
                 ),

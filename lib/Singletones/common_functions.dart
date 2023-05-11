@@ -3,6 +3,7 @@ import 'package:freelancer_app/Model/apiResponseModel.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
+import 'package:freelancer_app/Model/orderModel.dart';
 import 'package:freelancer_app/Model/reviewMode.dart';
 import 'package:freelancer_app/Model/searchStationModel.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
@@ -541,22 +542,26 @@ class CommonFunctions {
     }
   }
 
-  Future<List<ReviewModel>> getWalletTransactions(
+  Future<List<OrderModel>> getWalletTransactions(
       String page, String size) async {
     var res = await CallAPI().getData('paymentDetails', {
       'page': page,
       'size': size,
     });
     kLog(res.statusCode.toString());
-    kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
-      List<ReviewModel> list = [];
+      List<OrderModel> list = [];
       res.body['result']['content'].forEach((element) {
-        list.add(ReviewModel.fromJson(element));
+        list.add(OrderModel.fromJson(element));
       });
       return list;
     } else {
       return [];
     }
+  }
+
+  downloadBookingInvoice(int bookingId) async {
+    await CallAPI().download('downloadpdfinvoice?bookingId=$bookingId',
+        'booking_invoice_$bookingId');
   }
 }

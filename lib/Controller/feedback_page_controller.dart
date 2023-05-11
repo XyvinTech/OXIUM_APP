@@ -25,6 +25,7 @@ class FeedBackPageController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    getArguments();
   }
 
   getArguments() {

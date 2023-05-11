@@ -58,11 +58,14 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       width: double.infinity,
                                       color: Colors.white,
                                       child: Obx(
-                                        () => controller.chargingStatus.value
-                                                    .isEmpty ||
-                                                controller.booking_model.value
-                                                        .outputType ==
-                                                    'AC'
+                                        () => (controller.chargingStatus.value
+                                                        .isEmpty ||
+                                                    controller.booking_model
+                                                            .value.outputType ==
+                                                        'AC') &&
+                                                controller
+                                                        .chargingStatus.value !=
+                                                    'finished'
                                             ? GradientIndicator()
                                             : PercentageIndicator(
                                                 progress: (controller
@@ -328,7 +331,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                           children: [
                                             CustomBigText(
                                               text:
-                                                  "₹${controller.status_model.value.amount}",
+                                                  "₹${(controller.status_model.value.amount + controller.status_model.value.taxamount).toStringAsFixed(2)}",
                                               size: 16.sp,
                                               color: Color(0xff0047C3),
                                             ),
@@ -371,11 +374,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                 //     (){controller.toReconnect()},
                                 //    (){controller.toReconnect()})
                                 _dualBtn(() async {
-                                  controller.toReconnect();
-                                  controller.changeStatus(
-                                      isStart: true,
-                                      bookingId: controller
-                                          .booking_model.value.bookingId);
+                                  controller.downloadInvoice();
                                 }, () {
                                   controller.onClickFinished();
                                 })
@@ -427,13 +426,13 @@ class ChargingScreen extends GetView<ChargingScreenController> {
             child: InkWell(
               onTap: onTap_left,
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25.w),
+                  padding: EdgeInsets.symmetric(horizontal: 0.w),
                   decoration: BoxDecoration(
                       border: Border.all(width: 1, color: Color(0xff0047C3)),
                       borderRadius: BorderRadius.circular(56.r)),
                   child: Center(
                     child: CustomBigText(
-                      text: "Reconnect",
+                      text: "Download Invoice",
                       size: 14.sp,
                       color: Color(0xff0047C3),
                     ),
@@ -441,12 +440,12 @@ class ChargingScreen extends GetView<ChargingScreenController> {
             ),
           ),
           SizedBox(
-            width: 26.w,
+            width: 6.w,
           ),
           Flexible(
             child: InkWell(
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25.w),
+                  padding: EdgeInsets.symmetric(horizontal: 0.w),
                   decoration: BoxDecoration(
                       color: Color(0xff0047C3),
                       borderRadius: BorderRadius.circular(56.r)),

@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter/services.dart';
 import 'package:freelancer_app/Model/evPortsModel.dart';
+import 'package:intl/intl.dart';
 import 'package:validators/validators.dart';
 
 import '../Singletones/app_data.dart';
@@ -86,4 +89,24 @@ List<dynamic> calculateAvailabiliy(List<EvPortModel> evPorts) {
   else
     trailing = kUnavailable;
   return [trailing, available];
+}
+
+String getTimeFromTimeStamp(String timestamp, String format) {
+  DateTime dateTime = DateTime.parse(timestamp);
+  String formattedString = DateFormat(format).format(dateTime);
+  print(formattedString);
+  return formattedString;
+}
+
+Future<String> getDownloadFolderpath() async {
+  var directory;
+  String path = '';
+  if (Platform.isAndroid) {
+    // directory = await getExternalStorageDirectory();
+    directory = Directory('/storage/emulated/0');
+  } else if (Platform.isIOS) {
+    directory = await getApplicationDocumentsDirectory();
+  }
+  path = '${directory.path}/Download';
+  return path;
 }

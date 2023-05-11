@@ -152,7 +152,9 @@ final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
     Charger: '',
     status: '',
     tariff: 0,
-    Chargingstatus: '');
+    Chargingstatus: '',
+    taxamount: 0
+    );
 
 final ReviewModel kReviewModel = ReviewModel(
     stationId: -1,

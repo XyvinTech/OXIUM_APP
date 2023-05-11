@@ -9,9 +9,10 @@ class ChargingStatusModel {
   final double price;
   final String startTime;
   final String Charger;
-   String status;
+  String status;
   final String Chargingstatus;
   final double tariff;
+  final double taxamount;
 
   ChargingStatusModel({
     required this.Connector,
@@ -27,6 +28,7 @@ class ChargingStatusModel {
     required this.status,
     required this.Chargingstatus,
     required this.tariff,
+    required this.taxamount,
   });
   factory ChargingStatusModel.fromJson(Map<String, dynamic> json) {
     return ChargingStatusModel(
@@ -43,6 +45,7 @@ class ChargingStatusModel {
       status: json['status'] ?? '',
       Chargingstatus: json['Chargingstatus'] ?? '',
       tariff: json['tariff'] ?? 0,
+      taxamount: json['taxamount'] ?? 0,
     );
   }
   Map<String, dynamic> toJson() => {
@@ -59,5 +62,6 @@ class ChargingStatusModel {
         "status": status,
         "Chargingstatus": Chargingstatus,
         "tariff": tariff,
+        "taxamount": taxamount,
       };
 }
