@@ -205,9 +205,15 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          CustomSmallText(text: appData.userModel.value.defaultVehicle.vehicleDetails),
+                                          CustomSmallText(
+                                              text: appData
+                                                  .userModel
+                                                  .value
+                                                  .defaultVehicle
+                                                  .vehicleDetails),
                                           CustomBigText(
-                                            text: appData.userModel.value.defaultVehicle.modelName,
+                                            text: appData.userModel.value
+                                                .defaultVehicle.modelName,
                                             size: 16,
                                           )
                                         ],
@@ -371,7 +377,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       bookingId: controller
                                           .booking_model.value.bookingId);
                                 }, () {
-                                  controller.toFinished();
+                                  controller.onClickFinished();
                                 })
                               else
                                 _connectingBtn(onTap: () {

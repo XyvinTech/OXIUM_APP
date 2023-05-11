@@ -44,7 +44,8 @@ class CommonFunctions {
     if (Get.currentRoute == Routes.rfidNumberRoute) {
       RfidPageController controller = Get.find();
       controller.getUserRFIDs();
-    }
+    } else if (Get.currentRoute == Routes.popupPageRoute)
+      CommonFunctions().getUserProfile();
     closeRazorPay();
   }
 
@@ -280,8 +281,11 @@ class CommonFunctions {
     var res = await CallAPI().getData('rfidbyusername', {
       "user": appData.userModel.value.username,
     });
-
-    if (res.statusCode == 200 && res.body['success']) {
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 &&
+        res.body['success'] &&
+        res.body['result'] != null) {
       List<RFIDModel> list = [];
       res.body['result'].forEach((element) {
         list.add(RFIDModel.fromJson(element));
@@ -523,6 +527,25 @@ class CommonFunctions {
       'size': '10',
       'minRating': '1',
       'maxRating': '5',
+    });
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      List<ReviewModel> list = [];
+      res.body['result']['content'].forEach((element) {
+        list.add(ReviewModel.fromJson(element));
+      });
+      return list;
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<ReviewModel>> getWalletTransactions(
+      String page, String size) async {
+    var res = await CallAPI().getData('paymentDetails', {
+      'page': page,
+      'size': size,
     });
     kLog(res.statusCode.toString());
     kLog(res.body.toString());

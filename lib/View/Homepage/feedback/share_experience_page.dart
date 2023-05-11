@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
@@ -64,7 +62,9 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                       ),
                     ),
                     height(40.h),
-                    _card(energy: "356", amount: "-2000"),
+                    _card(
+                        energy: "${controller.status_model.value.unit}",
+                        amount: "${controller.status_model.value.amount}"),
                     height(50.h),
                   ],
                 ),
@@ -114,9 +114,14 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                       },
                     ),
                     height(20.h),
-                    CustomBigText(
-                      text: "Return to maps",
-                      size: 14.sp,
+                    InkWell(
+                      onTap: () {
+                        controller.backToMaps();
+                      },
+                      child: CustomBigText(
+                        text: "Return to maps",
+                        size: 14.sp,
+                      ),
                     ),
                     height(35.h),
                   ],
@@ -147,71 +152,96 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 0.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.h, right: 8.w),
-                      child: Container(
-                        height: 25.h,
-                        width: 70.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Color(0xffDEEAFF),
-                        ),
-                        child: Center(
-                          child: CustomSmallText(
-                            text: "Energy",
-                            size: 12.sp,
-                            color: Color(0xff0047C3),
-                          ),
-                        ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.h, right: 8.w),
+                    child: Center(
+                      child: CustomSmallText(
+                        text: "Total Energy",
+                        size: 12.sp,
+                        // color: Color(0xff0047C3),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Row(
-                        children: [
-                          CustomBigText(
-                            text: energy,
-                            size: 24.sp,
-                            color: Color(0xff4F4F4F),
-                          ),
-                          width(4.w),
-                          Padding(
-                            padding: EdgeInsets.only(top: 4.h),
-                            child: CustomSmallText(
-                              text: "kWh",
-                              size: 14.sp,
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  CustomSmallText(
-                    text: "Amount (in coins)",
-                    size: 12.sp,
-                    textAlign: TextAlign.right,
                   ),
-                  CustomBigText(
-                    text: amount,
-                    size: 24.sp,
-                    color: Color(0xffEB5757),
-                    letterspacing: -0.408,
-                    align: TextAlign.right,
+                  Row(
+                    children: [
+                      CustomBigText(
+                        text: energy,
+                        size: 24.sp,
+                        color: Color(0xff4F4F4F),
+                      ),
+                      width(4.w),
+                      CustomSmallText(
+                        text: "kWh",
+                        size: 14.sp,
+                      )
+                    ],
                   )
                 ],
-              )
+              ),
+
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.h, right: 8.w),
+                    child: Center(
+                      child: CustomSmallText(
+                        text: "Amount Debited",
+                        size: 12.sp,
+                        // color: Color(0xff0047C3),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      CustomBigText(
+                        text: energy,
+                        size: 24.sp,
+                        color: Color(0xff4F4F4F),
+                      ),
+                      width(5.w),
+                      CustomSmallText(
+                        text: "Coins",
+                        size: 14.sp,
+                      )
+                    ],
+                  )
+                ],
+              ),
+
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //   crossAxisAlignment: CrossAxisAlignment.end,
+              //   children: [
+              //     CustomSmallText(
+              //       text: "Amount Debited",
+              //       size: 12.sp,
+              //       // textAlign: TextAlign.right,
+              //     ),
+              //     Row(
+              //       crossAxisAlignment: CrossAxisAlignment.end,
+              //       children: [
+              //         CustomBigText(
+              //           text: amount,
+              //           size: 24.sp,
+              //           // color: Color(0xffEB5757),
+              //           color: Color(0xff4F4F4F),
+              //           letterspacing: -0.408,
+              //         ),
+              //         width(10.w),
+              //         CustomSmallText(
+              //           text: 'Coins',
+              //           size: 10.sp,
+              //         ),
+              //       ],
+              //     ),
+              //   ],
+              // )
             ],
           ),
         ),

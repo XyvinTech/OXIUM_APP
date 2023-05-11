@@ -7,6 +7,8 @@ import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
+import '../Utils/routes.dart';
+
 class ChargingScreenController extends GetxController {
   // connected finished completed disconnected progress
   RxString chargingStatus = "".obs;
@@ -18,9 +20,10 @@ class ChargingScreenController extends GetxController {
   Rx<ChargingStatusModel> status_model = kChargingStatusModel.obs;
   Rx<BookingModel> booking_model = kBookingModel.obs;
   RxList<int> time = [0, 0].obs;
+  String qr_or_app_data = '';
   onInit() {
     super.onInit();
-    String qr_or_app_data =
+    qr_or_app_data =
         Get.arguments != null ? Get.arguments[0] ?? '253-z1-1-Q' : '444-t1-1-Q';
     booking_model.value = Get.arguments != null
         ? Get.arguments[1] ?? kBookingModel
@@ -145,5 +148,9 @@ class ChargingScreenController extends GetxController {
     print(hours);
     print(minutes);
     return [hours, minutes];
+  }
+
+  onClickFinished() {
+    Get.toNamed(Routes.shareExperiencePageRoute, arguments: qr_or_app_data);
   }
 }

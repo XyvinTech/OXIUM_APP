@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/feedback_page_controller.dart';
@@ -71,31 +70,27 @@ class ThankForFeedbackScreen extends GetView<FeedBackPageController> {
                       letterspacing: -0.408,
                     ),
                     height(40.h),
-                    Row(
-                      children: [
-                        Wrap(
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.w),
+                      child: Obx(
+                        () => Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(
-                              2,
+                              5,
                               (index) => Padding(
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 15.w),
+                                        EdgeInsets.symmetric(horizontal: 10.w),
                                     child: SvgPicture.asset(
-                                      "assets/svg/star_rate3.svg",
+                                      controller.selectedRating.value == 0 ||
+                                              controller.selectedRating.value -
+                                                      1 <
+                                                  index
+                                          ? "assets/svg/star_rate.svg"
+                                          : "assets/svg/star_rate3.svg",
                                     ),
                                   )),
                         ),
-                        Wrap(
-                          children: List.generate(
-                              3,
-                              (index) => Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 15.w),
-                                    child: SvgPicture.asset(
-                                      "assets/svg/star_rate.svg",
-                                    ),
-                                  )),
-                        ),
-                      ],
+                      ),
                     ),
                     height(35.h),
                     Padding(
@@ -108,20 +103,19 @@ class ThankForFeedbackScreen extends GetView<FeedBackPageController> {
                       ),
                     ),
                     height(20.h),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 70.w),
-                      child: CustomSmallText(
-                        text:
-                            "Yor feedback is valuable to us for the future developments ",
-                        size: 14.sp,
-                        textAlign: TextAlign.center,
-                        letterspacing: -0.408,
-                      ),
+                    CustomSmallText(
+                      text:
+                          "Your feedback is valuable to us \nfor the future developments ",
+                      size: 14.sp,
+                      textAlign: TextAlign.center,
+                      letterspacing: -0.408,
                     ),
                     height(100.h),
                     _button(
                       button: "Back to Maps",
-                      onTap: () {},
+                      onTap: () {
+                        controller.backToMaps();
+                      },
                     ),
                     height(65.h),
                   ],

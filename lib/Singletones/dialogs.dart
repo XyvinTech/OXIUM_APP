@@ -74,20 +74,21 @@ class Dialogs {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomText(
-                              text: 'DC 34 kWh',
+                              text:
+                                  '${_bookingModel.outputType} ${_bookingModel.capacity} kWh',
                               color: Color(0xff4f4f4f),
                               size: 15,
                               fontWeight: FontWeight.bold),
                           Row(
                             children: [
                               CustomText(
-                                  text: 'Type 2',
+                                  text: '${_bookingModel.connectorType}',
                                   color: Color(0xff4f4f4f),
                                   size: 15,
                                   fontWeight: FontWeight.bold),
                               width(8.w),
                               SvgPicture.asset(
-                                'assets/svg/type 2.svg',
+                                'assets/svg/${_bookingModel.connectorType.toLowerCase()}.svg',
                                 color: Color(0xff4f4f4f),
                               ),
                             ],
