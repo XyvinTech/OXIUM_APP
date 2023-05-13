@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter/services.dart';
 import 'package:freelancer_app/Model/evPortsModel.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:validators/validators.dart';
 
 import '../Singletones/app_data.dart';
@@ -109,4 +109,21 @@ Future<String> getDownloadFolderpath() async {
   }
   path = '${directory.path}/Download';
   return path;
+}
+
+getTimeDifference({required String startTime, String endtime = ''}) {
+  if (startTime.isEmpty) return [0, 0];
+  DateTime apiTime = DateTime.parse(startTime);
+
+// Get the current time
+  DateTime now = DateTime.now();
+  if (endtime.isNotEmpty) now = DateTime.parse(endtime);
+
+// Calculate the time difference in milliseconds
+  int difference = now.difference(apiTime).inMilliseconds;
+
+// Calculate the hours and minutes difference
+  int hours = (difference / (1000 * 60 * 60)).floor();
+  int minutes = ((difference / (1000 * 60)) % 60).floor();
+  return [hours, minutes];
 }

@@ -6,6 +6,7 @@ import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/orderModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Utils/utils.dart';
+import 'package:freelancer_app/View/Charge/charge_transaction_dialog.dart';
 import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:get/get.dart';
@@ -609,6 +610,15 @@ class Dialogs {
         ),
       ),
     ));
+  }
+
+  charge_transaction_popup({
+    required BookingModel model,
+  }) {
+    Get.dialog(AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        contentPadding: EdgeInsets.all(0),
+        content: ChargeTransactionDialog(model: model)));
   }
 
   connectPortTipDialog() {

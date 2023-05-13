@@ -1,13 +1,23 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:freelancer_app/Model/bookingModel.dart';
+import 'package:freelancer_app/Model/chargeTransactionModel.dart';
+import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
+
+import '../Singletones/dialogs.dart';
 
 class ChargeScreenController extends GetxController
     with GetSingleTickerProviderStateMixin {
   RxInt IsTabIndex = 0.obs;
+  bool isLoading = false;
 
   late TabController tabController;
+  RxList<ChargeTransactionModel> model_list = RxList();
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -17,6 +27,7 @@ class ChargeScreenController extends GetxController
       log('changed');
       IsTabIndex.value = tabController.index;
     });
+    getChargeTransactions();
   }
 
   @override
@@ -26,9 +37,24 @@ class ChargeScreenController extends GetxController
     tabController.dispose();
   }
 
-  @override
-  void onReady() {
-    // TODO: implement onReady
-    super.onReady();
+  getChargeTransactions() async {
+    showLoading(kLoading);
+    model_list.value =
+        await CommonFunctions().getChargeTransactions('${0}', '${10}');
+    hideLoading();
+  }
+
+  getBooking(int bookingId) async {
+    if (isLoading) return;
+    isLoading = true;
+    showLoading(kLoading);
+    BookingModel model =
+        await CommonFunctions().getBooking(bookingId: "${bookingId}");
+    hideLoading();
+
+    if (model.bookingId != -1) {
+      Dialogs().charge_transaction_popup(model: model);
+    }
+    isLoading = false;
   }
 }

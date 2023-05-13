@@ -23,22 +23,23 @@ class ChargeStationDetailsModel {
     required this.amenities,
     required this.isFavorite,
     required this.Chargers,
-
   });
 
   factory ChargeStationDetailsModel.fromJson(Map<String, dynamic> json) {
     return ChargeStationDetailsModel(
       id: json['id'],
-      name: json['name']??'',
-      location_name: json['location_name']??'',
-      rating: json['rating']??'',
-      image: json['image']??'',
-      lattitude: json['lattitude']??0,
-      longitude: json['longitude']??0,
-      amenities: json['amenities']??'',
-      isFavorite: json['isFavorite']??false,
-      Chargers: json['Chargers'].map<ChargerModel>((e) => ChargerModel.fromJson(e)).toList() ??
-              [],
+      name: json['name'] ?? '',
+      location_name: json['location_name'] ?? '',
+      rating: json['rating'] ?? '',
+      image: json['image'] ?? '',
+      lattitude: json['lattitude'] ?? 0,
+      longitude: json['longitude'] ?? 0,
+      amenities: json['amenities'] ?? '',
+      isFavorite: json['isFavorite'] ?? false,
+      Chargers: json['Chargers']
+              .map<ChargerModel>((e) => ChargerModel.fromJson(e))
+              .toList() ??
+          [],
     );
   }
 
@@ -46,7 +47,7 @@ class ChargeStationDetailsModel {
         "id": id,
         "rating": rating,
         "name": name,
-        "location_name":location_name,
+        "location_name": location_name,
         "image": image,
         "lattitude": lattitude,
         "longitude": longitude,

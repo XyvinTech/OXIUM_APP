@@ -10,19 +10,14 @@ import 'package:freelancer_app/Bindings/homepage_binding.dart';
 import 'package:freelancer_app/Bindings/my_vehicles_screen_binding.dart';
 import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/partner_page_binding.dart';
-import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
 import 'package:freelancer_app/Bindings/qr_binding.dart';
-import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/review_page_binding.dart';
 import 'package:freelancer_app/Bindings/rfid_page_bindings.dart';
-import 'package:freelancer_app/Bindings/order_rfid_page_binding.dart';
 import 'package:freelancer_app/Bindings/splash_screen_binding.dart';
-import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
 import 'package:freelancer_app/Bindings/wallet_page_bindings.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
-import 'package:freelancer_app/View/Charge/reservation_page.dart';
 import 'package:freelancer_app/View/Drawer/about_page.dart';
 import 'package:freelancer_app/View/Drawer/favourite_page.dart';
 import 'package:freelancer_app/View/Drawer/helpPage.dart';
@@ -41,9 +36,9 @@ import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/enterotp_page.dart';
 import 'package:freelancer_app/View/Onboarding/login_page.dart';
 import 'package:freelancer_app/View/Onboarding/myvehicle_page.dart';
+import 'package:freelancer_app/View/Onboarding/order_rfid_page.dart';
 import 'package:freelancer_app/View/Onboarding/personal_vehicle_details_page.dart';
 import 'package:freelancer_app/View/Onboarding/rfidnumber_page.dart';
-import 'package:freelancer_app/View/Onboarding/order_rfid_page.dart';
 import 'package:freelancer_app/View/Onboarding/splash_screen.dart';
 import 'package:freelancer_app/View/Onboarding/vehiclesearch_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
@@ -154,11 +149,6 @@ abstract class AppPages {
       name: Routes.chargePageRoute,
       binding: ChargeScreenBinding(),
       page: () => ChargeScreen(),
-    ),
-    GetPage(
-      name: Routes.reservationPageRoute,
-      binding: ReservationScreenBindigs(),
-      page: () => ReservationScreen(),
     ),
 
     ///

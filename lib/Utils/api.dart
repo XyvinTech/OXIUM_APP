@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 
 import '../Model/apiResponseModel.dart';
 import '../Singletones/app_data.dart';
@@ -203,11 +204,12 @@ class CallAPI {
   }
 
   Future<void> download(String endpoint, String fileName) async {
-    // PermissionStatus status = await Permission.storage.request();
-    // if (!status.isGranted) {
-    //   showError('Storage permission Denied');
-    //   return;
-    // }
+    PermissionStatus status = await Permission.storage.request();
+    kLog(status.isGranted.toString());
+    if (!status.isGranted) {
+      showError('Storage permission Denied');
+      return;
+    }
     final request = http.Request('GET', Uri.parse(_url + endpoint));
     request.headers['Authorization'] = 'JWT-${appData.token}';
     var _response = await http.Client().send(request);

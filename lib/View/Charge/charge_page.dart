@@ -6,7 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/chargePage_controller.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
+import 'package:freelancer_app/Model/chargeTransactionModel.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
@@ -297,29 +299,32 @@ class _ChargeScreenState extends State<ChargeScreen>
                 ),
               )),
           SliverToBoxAdapter(
-            child: Container(
-              height: size.height * .097 * 40,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                      child: TabBarView(
-                        controller: controller.tabController,
-                        children: [
-                          _chargeTab(),
-                          // _reservationsTab(),
-                          _tripsTab(),
-                        ],
-                      ),
+            child: Obx(
+              () => Container(
+                height:
+                    (size.height * .1 + 20.h) * controller.model_list.length,
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: size.height * 0.02,
                     ),
-                  )
-                ],
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                        child: TabBarView(
+                          controller: controller.tabController,
+                          children: [
+                            _chargeTab(),
+                            // _reservationsTab(),
+                            _tripsTab(),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -401,32 +406,13 @@ class _ChargeScreenState extends State<ChargeScreen>
           height: size.height * 0.025,
         ),
         Expanded(
-          child: Container(
-            child: ListView.builder(
-                itemCount: 40,
+          child: Obx(
+            () => ListView.builder(
+                itemCount: controller.model_list.length,
                 // shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (_, index) {
-                  return InkWell(
-                      onTap: () {
-                        // Get.dialog(
-                        //   _dialougebox(
-                        //     title: "Calista Cafe",
-                        //     amount: "-500",
-                        //     amountColor: Color(0xffEB5757),
-                        //   ),
-                        // wallet credit dialogue
-
-                        //            Get.dialog(
-                        //   _dialougebox(
-                        //     title: "Wallet Credit",
-                        //     amount: "+500 Cr",
-                        //     amountColor: Color(0xff27AE60),
-                        //   ),
-                        // );
-                        // );
-                      },
-                      child: _chargeHistoryCard());
+                  return _chargeHistoryCard(controller.model_list[index]);
                 }),
           ),
         )
@@ -434,16 +420,20 @@ class _ChargeScreenState extends State<ChargeScreen>
     );
   }
 
-  Widget _chargeHistoryCard() {
+  Widget _chargeHistoryCard(ChargeTransactionModel model) {
+    int hour = 0, minute = 0;
+    List<int> time = getTimeDifference(
+        startTime: model.chargingStartTime, endtime: model.ChargingStopTime);
+    if (model.ChargingStopTime.isEmpty) {
+      hour = 0;
+      minute = 0;
+    } else {
+      hour = time[0];
+      minute = time[1];
+    }
     return InkWell(
       onTap: () {
-        Get.dialog(
-          _dialougebox(
-            title: "Calista Cafe",
-            amount: "-500 Cr",
-            amountColor: Color(0xffEB5757),
-          ),
-        );
+        controller.getBooking(model.bookingId);
       },
       child: Padding(
         padding: EdgeInsets.only(bottom: 10.h),
@@ -469,27 +459,24 @@ class _ChargeScreenState extends State<ChargeScreen>
               Row(
                 children: [
                   //TODO: use cached network image here
-                  Image.asset(
-                    "assets/images/coffee.png",
-                    height: size.height * 0.055,
-                    width: size.width * 0.13,
-                  ),
+                  cachedNetworkImage(model.image, width: size.width * .13),
                   SizedBox(
                     width: size.width * 0.03,
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: size.height * 0.012),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomSmallText(
-                          text: "Calista cafe",
+                          text: model.stationName,
                           size: 10,
                         ),
                         SizedBox(
                           height: size.height * 0.007,
                         ),
                         CustomSmallText(
-                          text: "DC 45 kWh",
+                          text: model.stationAddress,
                           size: 12,
                         ),
                       ],
@@ -504,7 +491,7 @@ class _ChargeScreenState extends State<ChargeScreen>
                     child: Column(
                       children: [
                         CustomSmallText(
-                          text: "1 H 23 MIN",
+                          text: "$hour H $minute MIN",
                           size: 12,
                         ),
                         SizedBox(
@@ -751,7 +738,7 @@ class _ChargeScreenState extends State<ChargeScreen>
   Widget _reverstaionsCard() {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.reservationPageRoute);
+        // Get.toNamed(Routes.reservationPageRoute);
       },
       child: Padding(
         padding: EdgeInsets.only(top: 10.h),
@@ -1492,5 +1479,4 @@ class _ChargeScreenState extends State<ChargeScreen>
   //     ],
   //   );
   // }
-
 }

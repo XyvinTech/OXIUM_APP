@@ -8,6 +8,7 @@ import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
 import '../Utils/routes.dart';
+import '../Utils/utils.dart';
 
 class ChargingScreenController extends GetxController {
   // connected finished completed disconnected progress
@@ -121,7 +122,8 @@ class ChargingScreenController extends GetxController {
 
           Future.delayed(Duration(seconds: 1), () => toProgress());
         } else if (chargingStatus.value == 'progress') {
-          time.value = getTimeDifference(status_model.value.startTime);
+          time.value =
+              getTimeDifference(startTime: status_model.value.startTime);
         }
       } else if (status_model.value.status == 'R' &&
           chargingStatus.value == 'C') {
@@ -138,24 +140,6 @@ class ChargingScreenController extends GetxController {
         _timer?.cancel();
       }
     });
-  }
-
-  getTimeDifference(String timeStamp) {
-    if (timeStamp.isEmpty) return [0, 0];
-    DateTime apiTime = DateTime.parse(timeStamp);
-
-// Get the current time
-    DateTime now = DateTime.now();
-
-// Calculate the time difference in milliseconds
-    int difference = now.difference(apiTime).inMilliseconds;
-
-// Calculate the hours and minutes difference
-    int hours = (difference / (1000 * 60 * 60)).floor();
-    int minutes = ((difference / (1000 * 60)) % 60).floor();
-    print(hours);
-    print(minutes);
-    return [hours, minutes];
   }
 
   onClickFinished() {

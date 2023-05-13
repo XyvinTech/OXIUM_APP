@@ -482,9 +482,10 @@ class _TripsScreenState extends State<TripsScreen>
   Widget _chargeHistoryCard() {
     return Column(
       children: [
+
         InkWell(
           onTap: () {
-            Get.toNamed(Routes.reservationPageRoute);
+            // Get.toNamed(Routes.reservationPageRoute);
           },
           child: Container(
             padding: EdgeInsets.only(

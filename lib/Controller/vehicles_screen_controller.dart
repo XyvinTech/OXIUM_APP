@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
-import 'package:freelancer_app/Utils/api.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -15,6 +14,7 @@ class VehiclesScreenController extends GetxController {
   // RxBool isSelectColor = false.obs;
   // RxBool isVehicleColor = false.obs;
   RxBool isVisible = false.obs;
+  bool isLoading = false;
   // RxInt isSelectedindex = (-1).obs;
   // RxInt isIndex = 0.obs;
   // RxInt isIndex1 = 0.obs;
@@ -70,6 +70,8 @@ class VehiclesScreenController extends GetxController {
   }
 
   onVehicleSubmit() async {
+    if (isLoading) return;
+    isLoading = true;
     showLoading('Adding vehicle...');
     bool isSuccess = await CommonFunctions().addEvToUser(
         userName: appData.userModel.value.username,
@@ -83,6 +85,7 @@ class VehiclesScreenController extends GetxController {
     } else {
       showError('Failed to add vehicle. Try again!');
     }
+    isLoading = false;
   }
 
   ///SEARCH VEHICLES///

@@ -144,7 +144,7 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
         height: 85.h,
         width: double.maxFinite,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.r),
+          borderRadius: BorderRadius.circular(10.r),
           border: Border.all(
             width: 1.3.w,
             color: Color(0xff219653),

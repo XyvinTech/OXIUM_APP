@@ -19,6 +19,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 import '../Model/RFIDModel.dart';
+import '../Model/chargeTransactionModel.dart';
 import '../Utils/toastUtils.dart';
 import 'dialogs.dart';
 
@@ -45,8 +46,8 @@ class CommonFunctions {
     if (Get.currentRoute == Routes.rfidNumberRoute) {
       RfidPageController controller = Get.find();
       controller.getUserRFIDs();
-    } else if (Get.currentRoute == Routes.popupPageRoute)
-      CommonFunctions().getUserProfile();
+    } 
+    await CommonFunctions().getUserProfile();
     closeRazorPay();
   }
 
@@ -448,6 +449,22 @@ class CommonFunctions {
     }
   }
 
+  Future<BookingModel> getBooking({required String bookingId}) async {
+    var res = await CallAPI().getData(
+      'getbooking',
+      {
+        "bookingId": bookingId,
+      },
+    );
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return BookingModel.fromJson(res.body['result']);
+    } else {
+      return kBookingModel;
+    }
+  }
+
   Future<bool> changeChargingStatus({
     required String chargerName,
     required String chargingPoint,
@@ -553,6 +570,25 @@ class CommonFunctions {
       List<OrderModel> list = [];
       res.body['result']['content'].forEach((element) {
         list.add(OrderModel.fromJson(element));
+      });
+      return list;
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<ChargeTransactionModel>> getChargeTransactions(
+      String page, String size) async {
+    var res = await CallAPI().getData('bookinglist', {
+      'username': appData.userModel.value.username,
+      'page': page,
+      'size': size
+    });
+    kLog(res.statusCode.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      List<ChargeTransactionModel> list = [];
+      res.body['result'].forEach((element) {
+        list.add(ChargeTransactionModel.fromJson(element));
       });
       return list;
     } else {

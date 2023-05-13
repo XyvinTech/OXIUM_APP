@@ -114,11 +114,14 @@ class PopUpPage extends GetView<WalletPageController> {
                 size: 13.5,
                 color: Color(0xffB7B7B7),
               ),
-              CustomText(
-                text: "${appData.userModel.value.balanceAmount}",
-                fontWeight: FontWeight.bold,
-                size: 24,
-                color: Color(0xff0047C2),
+              Obx(
+                () => CustomText(
+                  text:
+                      "${appData.userModel.value.balanceAmount.toStringAsFixed(2)}",
+                  fontWeight: FontWeight.bold,
+                  size: 24,
+                  color: Color(0xff0047C2),
+                ),
               ),
               height(10.h),
               Row(
