@@ -10,18 +10,25 @@ class ReviewPageController extends GetxController {
   RxInt reload = 0.obs;
   CalistaCafePageController calistaCafePageController = Get.find();
   RxList<ReviewModel> modelList = RxList();
+  RxString totalRating = '0'.obs;
+  RxInt totalElements = 0.obs;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    int id = Get.arguments ?? -1;
-    if (id != -1) getReview(id);
+    if (Get.arguments != null) {
+      totalRating.value = Get.arguments[0];
+      getReview(Get.arguments[1]);
+    }
+    // int id = Get.arguments ?? -1;
+    // if (id != -1) getReview(id);
   }
 
   getReview(int stationId) async {
     showLoading(kLoading);
-    modelList.value =
-        await CommonFunctions().getReviewOfStation(stationId.toString());
+    var res = await CommonFunctions().getReviewOfStation(stationId.toString());
     hideLoading();
+    totalElements.value = res[0];
+    modelList.value = res[1];
   }
 }

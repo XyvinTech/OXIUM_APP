@@ -19,6 +19,7 @@ import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../Singletones/common_functions.dart';
 import '../../Utils/routes.dart';
 
 class HomePageScreen extends GetView<HomePageController> {
@@ -163,8 +164,13 @@ showBottomSheetWhenClickedOnMarker(
                   flex: 3,
                   // child: Image.asset('assets/svg/cafe_image.png'),
                   child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: cachedNetworkImage(model.image)),
+                      borderRadius: BorderRadius.circular(15),
+                      child: Container(
+                        color: Colors.grey,
+                        height: 90.w,
+                        // width: 90.w,
+                        child: cachedNetworkImage(model.image),
+                      )),
                 ),
 
                 width(size.width * .035),
@@ -302,17 +308,33 @@ showBottomSheetWhenClickedOnMarker(
                     //       border: Border.all(color: Color(0xffBDBDBD))),
                     //   child: SvgPicture.asset('assets/svg/telegram.svg'),
                     // ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin:
-                          EdgeInsets.symmetric(horizontal: size.width * .01),
-                      padding: EdgeInsets.all(size.width * .02),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Color(0xffBDBDBD))),
-                      child: SvgPicture.asset(model.isFavorite
-                          ? 'assets/svg/favorite1.svg'
-                          : 'assets/svg/favorite.svg'),
+                    InkWell(
+                      onTap: () async {
+                        showLoading(kLoading);
+                        bool res = await CommonFunctions().changeFavorite(
+                            stationId: model.id,
+                            makeFavorite: !model.isFavorite);
+                        if (res) {
+                          model.isFavorite = !model.isFavorite;
+                          controller.reload++;
+                        }
+                        hideLoading();
+                      },
+                      child: Obx(
+                        () => Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.symmetric(
+                              horizontal: size.width * .01 +
+                                  controller.reload.value * 0),
+                          padding: EdgeInsets.all(size.width * .02),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Color(0xffBDBDBD))),
+                          child: SvgPicture.asset(model.isFavorite
+                              ? 'assets/svg/favorite1.svg'
+                              : 'assets/svg/favorite.svg'),
+                        ),
+                      ),
                     ),
                   ],
                 )

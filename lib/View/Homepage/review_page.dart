@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freelancer_app/Controller/calista_cafePage_controller.dart';
 import 'package:freelancer_app/Controller/review_page_controller.dart';
 import 'package:freelancer_app/Model/reviewMode.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/apptext.dart';
 import '../Widgets/customText.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class ReviewPage extends GetView<ReviewPageController> {
   const ReviewPage({super.key});
@@ -89,14 +88,19 @@ class ReviewPage extends GetView<ReviewPageController> {
                                       size: 17,
                                     ),
                                     CustomText(
-                                        text: '4.6',
+                                        text: controller.totalRating.value,
                                         size: 15,
                                         fontWeight: FontWeight.bold,
                                         color: Color(0xffF2994A)),
                                   ]),
                             ),
                             height(size.height * .006),
-                            CustomText(text: '24 Reviews', color: Colors.grey)
+                            Obx(
+                              () => CustomText(
+                                  text:
+                                      '${controller.totalElements.value} Reviews',
+                                  color: Colors.grey),
+                            )
                           ],
                         ),
                       ),
@@ -141,13 +145,15 @@ class ReviewPage extends GetView<ReviewPageController> {
                         decoration: TextDecoration.underline)),
               ),
               height(size.height * .02),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: controller.modelList.length,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: ((context, index) {
-                  return customerReviewCard(controller.modelList[index]);
-                }),
+              Obx(
+                () => ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: controller.modelList.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: ((context, index) {
+                    return customerReviewCard(controller.modelList[index]);
+                  }),
+                ),
               ),
               height(size.height * .2),
             ],
@@ -180,7 +186,7 @@ class ReviewPage extends GetView<ReviewPageController> {
     String time = timeago.format(dateTime);
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: size.width * .04, vertical: size.height * .01),
+          horizontal: size.width * .04, vertical: size.height * .00),
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Expanded(
             child: Container(
@@ -195,10 +201,11 @@ class ReviewPage extends GetView<ReviewPageController> {
             ),
           ),
         )),
-        width(size.width * .015),
+        width(size.width * .03),
         Expanded(
             flex: 8,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -226,7 +233,12 @@ class ReviewPage extends GetView<ReviewPageController> {
                 CustomText(
                   color: Color(0xff4f4f4f),
                   size: 15,
-                  text: model.review,
+                  text: model.review.trim(),
+                ),
+                // height(size.height * .01)
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5.h),
+                  child: Divider(),
                 )
               ],
             ))

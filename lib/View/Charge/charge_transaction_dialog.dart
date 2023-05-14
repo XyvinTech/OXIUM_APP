@@ -24,7 +24,7 @@ Widget ChargeTransactionDialog({required final BookingModel model}) {
     minute = time[1];
   }
   return Container(
-    height: 650.h,
+    height: model.status == 'C' ? 650.h : 600.h,
     width: size.width,
     child: Column(
       children: [
@@ -89,23 +89,26 @@ Widget ChargeTransactionDialog({required final BookingModel model}) {
                   energy: '${model.damount.toStringAsFixed(2)}',
                   amount:
                       '${(model.damount + model.tdamount).toStringAsFixed(2)}'),
-              height(30.h),
-              InkWell(
-                onTap: () {
-                  //TODO: on download invoice
-                  CommonFunctions().downloadBookingInvoice(model.bookingId);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/svg/download.svg'),
-                    width(size.width * .02),
-                    CustomBigText(
-                      text: 'Download invoice',
-                      color: Color(0xff0047C3),
-                      size: 15,
-                    )
-                  ],
+              Visibility(visible: model.status == 'C', child: height(30.h)),
+              Visibility(
+                visible: model.status == 'C',
+                child: InkWell(
+                  onTap: () {
+                    //TODO: on download invoice
+                    CommonFunctions().downloadBookingInvoice(model.bookingId);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset('assets/svg/download.svg'),
+                      width(size.width * .02),
+                      CustomBigText(
+                        text: 'Download invoice',
+                        color: Color(0xff0047C3),
+                        size: 15,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -209,21 +212,24 @@ Widget _reservationAppBar() {
       ),
     ),
     child: Padding(
-      padding: EdgeInsets.only(left: size.width * 0.07),
+      padding: EdgeInsets.only(left: size.width * 0.04),
       child: Row(
         children: [
           InkWell(
             onTap: () {
               Get.back();
             },
-            child: Icon(
-              Icons.arrow_back_ios,
-              size: size.width * 0.05,
-              color: Color(0xff828282),
+            child: Padding(
+              padding: EdgeInsets.all(8.h),
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: size.width * 0.05,
+                color: Color(0xff828282),
+              ),
             ),
           ),
           SizedBox(
-            width: size.width * 0.1,
+            width: size.width * 0.01,
           ),
           CustomBigText(
             text: "Charging Summery",

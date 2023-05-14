@@ -9,7 +9,7 @@ class ChargeStationDetailsModel {
   final double lattitude;
   final double longitude;
   final String amenities;
-  final bool isFavorite;
+  bool isFavorite;
   final List<ChargerModel> Chargers;
 
   ChargeStationDetailsModel({
@@ -30,7 +30,7 @@ class ChargeStationDetailsModel {
       id: json['id'],
       name: json['name'] ?? '',
       location_name: json['location_name'] ?? '',
-      rating: json['rating'] ?? '',
+      rating: json['rating'] == 'null'?'0': json['rating'] ?? '',
       image: json['image'] ?? '',
       lattitude: json['lattitude'] ?? 0,
       longitude: json['longitude'] ?? 0,
@@ -43,7 +43,7 @@ class ChargeStationDetailsModel {
     );
   }
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => { 
         "id": id,
         "rating": rating,
         "name": name,

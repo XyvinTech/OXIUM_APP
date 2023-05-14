@@ -214,7 +214,11 @@ class CallAPI {
     request.headers['Authorization'] = 'JWT-${appData.token}';
     var _response = await http.Client().send(request);
     kLog(_response.statusCode.toString());
-    if (_response.statusCode != 200) return;
+    if (_response.statusCode != 200) {
+      showError('Unable to download!');
+      return;
+    }
+
     var _total = _response.contentLength ?? 1;
     kLog(_total.toString());
     var _received = 0;

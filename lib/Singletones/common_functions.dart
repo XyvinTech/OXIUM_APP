@@ -20,6 +20,7 @@ import 'package:uuid/uuid.dart';
 
 import '../Model/RFIDModel.dart';
 import '../Model/chargeTransactionModel.dart';
+import '../Model/favoriteModel.dart';
 import '../Utils/toastUtils.dart';
 import 'dialogs.dart';
 
@@ -46,8 +47,9 @@ class CommonFunctions {
     if (Get.currentRoute == Routes.rfidNumberRoute) {
       RfidPageController controller = Get.find();
       controller.getUserRFIDs();
-    } 
+    }
     await CommonFunctions().getUserProfile();
+    // kLog('recharge');
     closeRazorPay();
   }
 
@@ -362,12 +364,13 @@ class CommonFunctions {
     }
   }
 
-  Future<bool> postReviewForChargeStation(int id, int rating, review) async {
+  Future<bool> postReviewForChargeStation(
+      int id, int rating, String review) async {
     var res = await CallAPI().postData(
       {
         "stationId": id,
         "rating": rating,
-        "review": review,
+        "review": review.trim(),
         'name': appData.userModel.value.username,
       },
       'review',
@@ -538,7 +541,7 @@ class CommonFunctions {
     }
   }
 
-  Future<List<ReviewModel>> getReviewOfStation(String stationId) async {
+  Future<List> getReviewOfStation(String stationId) async {
     var res = await CallAPI().getData('review-data', {
       'stationId': stationId,
       'page': '0',
@@ -547,15 +550,14 @@ class CommonFunctions {
       'maxRating': '5',
     });
     kLog(res.statusCode.toString());
-    kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<ReviewModel> list = [];
       res.body['result']['content'].forEach((element) {
         list.add(ReviewModel.fromJson(element));
       });
-      return list;
+      return [res.body['result']['totalElements'], list];
     } else {
-      return [];
+      return [0, []];
     }
   }
 
@@ -599,5 +601,21 @@ class CommonFunctions {
   downloadBookingInvoice(int bookingId) async {
     await CallAPI().download('downloadpdfinvoice?bookingId=$bookingId',
         'booking_invoice_$bookingId');
+  }
+
+  Future<List<FavoriteModel>> getFavorites() async {
+    var res = await CallAPI().getData('favoritestations', {
+      'username': appData.userModel.value.username,
+    });
+    kLog(res.statusCode.toString());
+    if (res.statusCode == 200 && res.body.isNotEmpty && res.body['success']) {
+      List<FavoriteModel> list = [];
+      res.body['result'].forEach((element) {
+        list.add(FavoriteModel.fromJson(element));
+      });
+      return list;
+    } else {
+      return [];
+    }
   }
 }

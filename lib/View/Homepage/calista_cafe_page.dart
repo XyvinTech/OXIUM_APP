@@ -59,10 +59,15 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                           Expanded(
                             flex: 3,
                             child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(15),
                                 child: Obx(
-                                  () => cachedNetworkImage(
-                                      controller.model.value.image),
+                                  () => Container(
+                                    color: Colors.grey,
+                                    height: 90.w,
+                                    // width: 90.w,
+                                    child: cachedNetworkImage(
+                                        controller.model.value.image),
+                                  ),
                                 )),
                           ),
                           width(size.width * .035),
@@ -264,121 +269,128 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   padding: EdgeInsets.symmetric(vertical: size.height * .04),
                   child: navigationCard(),
                 ),
+                height(size.height * .025),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * .04),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomBigText(
-                        text: 'Customer Review',
+                        text: 'View Customer Reviews',
                         color: Color(0xff4f4f4f),
                       ),
                       InkWell(
                         onTap: () {
-                          Get.toNamed(Routes.reviewPageRoute,
-                              arguments: controller.model.value.id);
+                          Get.toNamed(Routes.reviewPageRoute, arguments: [
+                            controller.model.value.rating,
+                            controller.model.value.id
+                          ]);
                         },
-                        child: CustomText(
-                            text: 'View Reviews',
-                            color: Color(0xff0047C3),
-                            size: 13),
-                      )
-                    ],
-                  ),
-                ),
-                height(size.height * .022),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * .04),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                // height: size.height * .023,
-                                padding: EdgeInsets.symmetric(
-                                  vertical: size.height * .005,
-                                  horizontal: size.width * .02,
-                                ),
-                                width: size.width * .17,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Color(0xffFFE1C7)),
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.star,
-                                        color: Color(0xffF2994A),
-                                        size: 17,
-                                      ),
-                                      CustomText(
-                                          text: '4.6',
-                                          size: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xffF2994A)),
-                                    ]),
-                              ),
-                              height(size.height * .006),
-                              CustomText(text: '24 Reviews', color: Colors.grey)
-                            ],
-                          ),
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 15.w),
+                          child: CustomText(
+                              fontWeight: FontWeight.bold,
+                              text: 'View',
+                              color: Color(0xff0047C3),
+                              size: 14),
                         ),
                       ),
-                      Container(
-                        width: size.width * .005,
-                        height: size.height * .1,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.grey.shade300),
-                      ),
-                      Expanded(
-                          flex: 3,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * .09),
-                            child: Column(children: [
-                              reviewProgressBar('5', .3),
-                              reviewProgressBar('4', .7),
-                              reviewProgressBar('3', .5),
-                              reviewProgressBar('2', .8),
-                              reviewProgressBar('1', .1),
-                            ]),
-                          ))
                     ],
                   ),
                 ),
-                height(size.height * .04),
-                InkWell(
-                  onTap: () {
-                    //TODO: open review write dialog
-                    controller.selectedRating.value = 0;
-                    controller.reviewController.text = '';
-                    Get.dialog(_dialougebox());
-                  },
-                  child: Text('Write Review',
-                      style: GoogleFonts.poppins(
-                          color: Color(0xff0047C3),
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline)),
-                ),
-                height(size.height * .02),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 4,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: ((context, index) {
-                    return customerReviewCard();
-                  }),
-                ),
-                height(size.height * .2),
+                //   height(size.height * .022),
+                //   Padding(
+                //     padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+                //     child: Row(
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: [
+                //         Expanded(
+                //           flex: 2,
+                //           child: Align(
+                //             alignment: Alignment.center,
+                //             child: Column(
+                //               crossAxisAlignment: CrossAxisAlignment.start,
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               children: [
+                //                 Container(
+                //                   // height: size.height * .023,
+                //                   padding: EdgeInsets.symmetric(
+                //                     vertical: size.height * .005,
+                //                     horizontal: size.width * .02,
+                //                   ),
+                //                   width: size.width * .17,
+                //                   decoration: BoxDecoration(
+                //                       borderRadius: BorderRadius.circular(10),
+                //                       color: Color(0xffFFE1C7)),
+                //                   child: Row(
+                //                       mainAxisAlignment: MainAxisAlignment.center,
+                //                       children: [
+                //                         Icon(
+                //                           Icons.star,
+                //                           color: Color(0xffF2994A),
+                //                           size: 17,
+                //                         ),
+                //                         CustomText(
+                //                             text: '4.6',
+                //                             size: 15,
+                //                             fontWeight: FontWeight.bold,
+                //                             color: Color(0xffF2994A)),
+                //                       ]),
+                //                 ),
+                //                 height(size.height * .006),
+                //                 CustomText(text: '24 Reviews', color: Colors.grey)
+                //               ],
+                //             ),
+                //           ),
+                //         ),
+                //         Container(
+                //           width: size.width * .005,
+                //           height: size.height * .1,
+                //           decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.circular(8),
+                //               color: Colors.grey.shade300),
+                //         ),
+                //         Expanded(
+                //             flex: 3,
+                //             child: Padding(
+                //               padding: EdgeInsets.symmetric(
+                //                   horizontal: size.width * .09),
+                //               child: Column(children: [
+                //                 reviewProgressBar('5', .3),
+                //                 reviewProgressBar('4', .7),
+                //                 reviewProgressBar('3', .5),
+                //                 reviewProgressBar('2', .8),
+                //                 reviewProgressBar('1', .1),
+                //               ]),
+                //             ))
+                //       ],
+                //     ),
+                //   ),
+                //   height(size.height * .04),
+                //   InkWell(
+                //     onTap: () {
+                //       //TODO: open review write dialog
+                //       controller.selectedRating.value = 0;
+                //       controller.reviewController.text = '';
+                //       Get.dialog(_dialougebox());
+                //     },
+                //     child: Text('Write Review',
+                //         style: GoogleFonts.poppins(
+                //             color: Color(0xff0047C3),
+                //             fontSize: 16.sp,
+                //             fontWeight: FontWeight.w600,
+                //             decoration: TextDecoration.underline)),
+                //   ),
+                //   height(size.height * .02),
+                //   ListView.builder(
+                //     shrinkWrap: true,
+                //     itemCount: 4,
+                //     physics: NeverScrollableScrollPhysics(),
+                //     itemBuilder: ((context, index) {
+                //       return customerReviewCard();
+                //     }),
+                //   ),
+                //   height(size.height * .2),
               ],
             ),
           ),

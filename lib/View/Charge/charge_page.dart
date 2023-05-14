@@ -301,8 +301,7 @@ class _ChargeScreenState extends State<ChargeScreen>
           SliverToBoxAdapter(
             child: Obx(
               () => Container(
-                height:
-                    (size.height * .1 + 20.h) * controller.model_list.length,
+                height: controller.boxHeight.value,
                 color: Colors.white,
                 child: Column(
                   children: [

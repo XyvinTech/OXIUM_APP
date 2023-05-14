@@ -2,7 +2,7 @@ class ReviewModel {
   final int stationId;
   final String name;
   final String image;
-  final double rating;
+  final int rating;
   final String review;
   final String creationDateTime;
 
@@ -17,7 +17,7 @@ class ReviewModel {
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
     return ReviewModel(
       stationId: json['stationId'],
-      name: json['name']??'',
+      name: json['name'] ?? '',
       image: json['image'] ?? '',
       rating: json['rating'] ?? 0,
       review: json['review'] ?? '',

@@ -54,7 +54,7 @@ class CalistaCafePageController extends GetxController {
     showLoading(kLoading);
     model.value = await CommonFunctions().getChargeStationDetails(stationId);
     amenities.value = model.value.amenities.split(',');
-    kLog(model.string);
+    kLog(model.value.isFavorite.toString());
     if (MapFunctions().curPos.latitude != 0) {
       distance.value = (MapFunctions.distanceBetweenCoordinates(
                   MapFunctions().curPos.latitude,

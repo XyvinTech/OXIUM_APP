@@ -17,6 +17,7 @@ class ChargeScreenController extends GetxController
 
   late TabController tabController;
   RxList<ChargeTransactionModel> model_list = RxList();
+  RxDouble boxHeight = (0.0).obs;
 
   @override
   void onInit() {
@@ -26,6 +27,7 @@ class ChargeScreenController extends GetxController
     tabController.addListener(() {
       log('changed');
       IsTabIndex.value = tabController.index;
+      setBoxHeight();
     });
     getChargeTransactions();
   }
@@ -42,6 +44,7 @@ class ChargeScreenController extends GetxController
     model_list.value =
         await CommonFunctions().getChargeTransactions('${0}', '${10}');
     hideLoading();
+    setBoxHeight();
   }
 
   getBooking(int bookingId) async {
@@ -56,5 +59,11 @@ class ChargeScreenController extends GetxController
       Dialogs().charge_transaction_popup(model: model);
     }
     isLoading = false;
+  }
+
+  setBoxHeight() {
+    boxHeight.value = size.height * .28 +
+        (size.height * .1) *
+            (tabController.index == 0 ? model_list.length : 40.0);
   }
 }
