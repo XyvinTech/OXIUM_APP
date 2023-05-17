@@ -1,6 +1,7 @@
 class ReviewModel {
   final int stationId;
   final String name;
+  final String userName;
   final String image;
   final int rating;
   final String review;
@@ -13,6 +14,7 @@ class ReviewModel {
     required this.rating,
     required this.review,
     required this.creationDateTime,
+    required this.userName,
   });
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
     return ReviewModel(
@@ -21,6 +23,7 @@ class ReviewModel {
       image: json['image'] ?? '',
       rating: json['rating'] ?? 0,
       review: json['review'] ?? '',
+      userName: json['userName'] ?? '',
       creationDateTime: json['creationDateTime'] ?? '',
     );
   }
@@ -30,6 +33,8 @@ class ReviewModel {
         "image": image,
         "rating": rating,
         "review": review,
+        "userName": userName,
         "creationDateTime": creationDateTime
       };
 }
+

@@ -218,6 +218,8 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                       controller.model.value.isFavorite
                                           ? 'assets/svg/favorite1.svg'
                                           : 'assets/svg/favorite.svg',
+                                      width: 15.w,
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
                                 ),
@@ -230,6 +232,45 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   ]),
                 ),
                 height(size.height * 0.04),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .06),
+                  child: Row(
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            height: 10.h,
+                            width: 10.h,
+                            decoration: BoxDecoration(
+                                color: controller.isOpen.value
+                                    ? Color(0xff219653)
+                                    : Color.fromARGB(255, 195, 56, 56),
+                                shape: BoxShape.circle),
+                          ),
+                          width(size.width * .02),
+                          CustomText(
+                              text: controller.isOpen.value
+                                  ? 'Open Now'
+                                  : 'Closed Now',
+                              color: controller.isOpen.value
+                                  ? Color(0xff219653)
+                                  : Color.fromARGB(255, 195, 56, 56),
+                              size: 13,
+                              fontWeight: FontWeight.w600)
+                        ],
+                      ),
+                      Spacer(),
+                      CustomText(
+                          text:
+                              '${convertToPmFormat(controller.model.value.startTime)} to ${convertToPmFormat(
+                            controller.model.value.stopTime,
+                          )}',
+                          color: Color(0xffa9a9a9),
+                          size: 14)
+                    ],
+                  ),
+                ),
+                height(size.height * .02),
                 Obx(
                   () => ListView.builder(
                       shrinkWrap: true,

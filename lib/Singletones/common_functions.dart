@@ -1,7 +1,7 @@
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/Model/apiResponseModel.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
-import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Model/orderModel.dart';
 import 'package:freelancer_app/Model/reviewMode.dart';
@@ -587,9 +587,10 @@ class CommonFunctions {
       'size': size
     });
     kLog(res.statusCode.toString());
+
     if (res.statusCode == 200 && res.body['success']) {
       List<ChargeTransactionModel> list = [];
-      res.body['result'].forEach((element) {
+      res.body['result']['content'].forEach((element) {
         list.add(ChargeTransactionModel.fromJson(element));
       });
       return list;

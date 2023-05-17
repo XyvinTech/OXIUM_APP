@@ -9,6 +9,8 @@ class ChargeStationDetailsModel {
   final double lattitude;
   final double longitude;
   final String amenities;
+  final String startTime;
+  final String stopTime;
   bool isFavorite;
   final List<ChargerModel> Chargers;
 
@@ -23,6 +25,8 @@ class ChargeStationDetailsModel {
     required this.amenities,
     required this.isFavorite,
     required this.Chargers,
+    required this.startTime,
+    required this.stopTime,
   });
 
   factory ChargeStationDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -30,11 +34,13 @@ class ChargeStationDetailsModel {
       id: json['id'],
       name: json['name'] ?? '',
       location_name: json['location_name'] ?? '',
-      rating: json['rating'] == 'null'?'0': json['rating'] ?? '',
+      rating: json['rating'] == 'null' ? '0' : json['rating'] ?? '',
       image: json['image'] ?? '',
       lattitude: json['lattitude'] ?? 0,
       longitude: json['longitude'] ?? 0,
       amenities: json['amenities'] ?? '',
+      startTime: json['startTime'] ?? '',
+      stopTime: json['stopTime'] ?? '',
       isFavorite: json['isFavorite'] ?? false,
       Chargers: json['Chargers']
               .map<ChargerModel>((e) => ChargerModel.fromJson(e))
@@ -43,7 +49,7 @@ class ChargeStationDetailsModel {
     );
   }
 
-  Map<String, dynamic> toJson() => { 
+  Map<String, dynamic> toJson() => {
         "id": id,
         "rating": rating,
         "name": name,
@@ -53,6 +59,8 @@ class ChargeStationDetailsModel {
         "longitude": longitude,
         "amenities": amenities,
         "isFavorite": isFavorite,
+        "startTime": startTime,
+        "stopTime": stopTime,
         "Chargers": Chargers.map((e) => e.toJson()).toList()
       };
 }

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
-import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Model/reviewMode.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
@@ -91,6 +91,8 @@ final ChargeStationDetailsModel kChargeStationDetailsModel =
         lattitude: -1,
         longitude: -1,
         amenities: '',
+        startTime: '',
+        stopTime: '',
         isFavorite: false,
         Chargers: []);
 final StationMarkerModel kStationMarkerModel = StationMarkerModel(
@@ -111,6 +113,7 @@ final BookingModel kBookingModel = BookingModel(
     userEVId: -1,
     username: '',
     amount: 0,
+    unitConsumed: 0,
     stopReason: '',
     userstartattempts: 0,
     userstopattempts: 0,
@@ -153,8 +156,7 @@ final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
     status: '',
     tariff: 0,
     Chargingstatus: '',
-    taxamount: 0
-    );
+    taxamount: 0);
 
 final ReviewModel kReviewModel = ReviewModel(
     stationId: -1,
@@ -162,6 +164,7 @@ final ReviewModel kReviewModel = ReviewModel(
     image: '',
     rating: 0,
     review: '',
+    userName: '',
     creationDateTime: '');
 
 //app-Textstyles

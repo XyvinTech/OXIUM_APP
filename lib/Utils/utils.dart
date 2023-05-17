@@ -92,10 +92,36 @@ List<dynamic> calculateAvailabiliy(List<EvPortModel> evPorts) {
 }
 
 String getTimeFromTimeStamp(String timestamp, String format) {
+  if (timestamp.isEmpty) return '00:00 AM';
   DateTime dateTime = DateTime.parse(timestamp);
   String formattedString = DateFormat(format).format(dateTime);
   print(formattedString);
   return formattedString;
+}
+
+String convertToPmFormat(String time) {
+  DateTime dateTime = DateTime.parse('2000-01-01 $time');
+  String formattedTime = DateFormat('h:mm a').format(dateTime);
+  return formattedTime;
+}
+
+bool isTimeInRange(String startTime, String endTime) {
+  DateTime now = DateTime.now();
+  DateFormat dateFormat = DateFormat('HH:mm');
+
+  DateTime start = dateFormat.parse(startTime);
+  DateTime end = dateFormat.parse(endTime);
+
+  if (start.isAfter(end)) {
+    // Handle case where start time is after end time (e.g., spanning midnight)
+    end = end.add(Duration(days: 1));
+  }
+
+  if (now.isAfter(start) && now.isBefore(end)) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 Future<String> getDownloadFolderpath() async {

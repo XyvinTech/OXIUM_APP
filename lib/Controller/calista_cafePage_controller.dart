@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:freelancer_app/Model/chargeStationDetailsModel.dart.dart';
+import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_directions_api/google_directions_api.dart';
@@ -16,6 +17,7 @@ class CalistaCafePageController extends GetxController {
   RxInt selectedCharger = (-1).obs;
   RxInt selectedType = (-1).obs;
   RxInt itemCountPerConnector = 3.obs;
+  RxBool isOpen = false.obs;
   RxDouble distance = 0.0.obs;
   Rx<ChargeStationDetailsModel> model = kChargeStationDetailsModel.obs;
   RxList<String> amenities = RxList();
@@ -47,6 +49,7 @@ class CalistaCafePageController extends GetxController {
                 model.value.longitude) /
             1000.0)
         .toPrecision(2);
+    isOpen.value = isTimeInRange(model.value.startTime, model.value.stopTime);
   }
 
 //THIS FUNCTION IS NOT USED HERE. IF NEEDED THEN WE WILL USE IT
@@ -64,6 +67,7 @@ class CalistaCafePageController extends GetxController {
               1000.0)
           .toPrecision(2);
     }
+    isOpen.value = isTimeInRange(model.value.startTime, model.value.stopTime);
     hideLoading();
   }
 

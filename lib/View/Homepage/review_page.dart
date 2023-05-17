@@ -210,7 +210,7 @@ class ReviewPage extends GetView<ReviewPageController> {
                 Row(
                   children: [
                     CustomBigText(
-                      text: model.name,
+                      text: model.userName,
                       size: 17,
                       color: Color(0xff4f4f4f),
                     ),

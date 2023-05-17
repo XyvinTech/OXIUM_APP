@@ -86,7 +86,7 @@ Widget ChargeTransactionDialog({required final BookingModel model}) {
               ),
               height(50.h),
               _card(
-                  energy: '${model.damount.toStringAsFixed(2)}',
+                  energy: '${model.unitConsumed.toStringAsFixed(2)}',
                   amount:
                       '${(model.damount + model.tdamount).toStringAsFixed(2)}'),
               Visibility(visible: model.status == 'C', child: height(30.h)),

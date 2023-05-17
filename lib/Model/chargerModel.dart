@@ -40,3 +40,4 @@ class ChargerModel {
         "evports": evports.map((e) => e.toJson()).toList(),
       };
 }
+

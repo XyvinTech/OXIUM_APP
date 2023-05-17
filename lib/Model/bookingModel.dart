@@ -12,6 +12,7 @@ class BookingModel {
   final double pricing;
   final double damount;
   final double tdamount;
+  final double unitConsumed;
   final double extracharges;
   final double taxes;
   final String bookedvia;
@@ -66,6 +67,7 @@ class BookingModel {
     required this.connectorType,
     required this.outputType,
     required this.tariff,
+    required this.unitConsumed,
   });
   factory BookingModel.fromJson(Map<String, dynamic> json) {
     return BookingModel(
@@ -102,6 +104,7 @@ class BookingModel {
       connectorType: json['connectorType'] ?? '',
       outputType: json['outputType'] ?? '',
       tariff: json['tariff'] ?? 0,
+      unitConsumed: json['unitConsumed'] ?? 0,
     );
   }
   Map<String, dynamic> toJson() => {
@@ -138,5 +141,6 @@ class BookingModel {
         "connectorType": connectorType,
         "outputType": outputType,
         "tariff": tariff,
+        "unitConsumed": unitConsumed,
       };
 }
