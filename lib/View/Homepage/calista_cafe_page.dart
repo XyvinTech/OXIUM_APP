@@ -79,7 +79,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                               children: [
                                 Container(
                                   height: size.height * .023,
-                                  width: size.width * .12,
+                                  width: size.width * .14,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Color(0xffFFE1C7)),
@@ -94,8 +94,12 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                         ),
                                         Obx(
                                           () => CustomText(
-                                              text:
-                                                  controller.model.value.rating,
+                                              text: controller.model.value
+                                                      .rating.isEmpty
+                                                  ? '0'
+                                                  : double.parse(controller
+                                                          .model.value.rating)
+                                                      .toStringAsFixed(2),
                                               size: 12,
                                               color: Color(0xffF2994A)),
                                         ),

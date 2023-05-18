@@ -34,7 +34,7 @@ class ChargeStationDetailsModel {
       id: json['id'],
       name: json['name'] ?? '',
       location_name: json['location_name'] ?? '',
-      rating: json['rating'] == 'null' ? '0' : json['rating'] ?? '',
+      rating: json['rating'] == 'null' ? '0.0' : json['rating'] ?? '0.0',
       image: json['image'] ?? '',
       lattitude: json['lattitude'] ?? 0,
       longitude: json['longitude'] ?? 0,

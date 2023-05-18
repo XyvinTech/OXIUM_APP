@@ -361,9 +361,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                 )
                               else if (controller.chargingStatus.value ==
                                   "connected")
-                                _withBgBtn(
-                                    text: 'Connected',
-                                    onTap: controller.toProgress)
+                                _withBgBtn(text: 'Connected', onTap: () {})
                               else if (controller.chargingStatus.value ==
                                       "finished" ||
                                   controller.chargingStatus.value ==
@@ -380,7 +378,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                 })
                               else
                                 _connectingBtn(onTap: () {
-                                  controller.toConnected();
+                                  // controller.toConnected();
                                 })
                             ],
                           ),

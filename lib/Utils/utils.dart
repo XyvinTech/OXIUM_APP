@@ -100,12 +100,14 @@ String getTimeFromTimeStamp(String timestamp, String format) {
 }
 
 String convertToPmFormat(String time) {
+  if (time.isEmpty) return '00:00 AM';
   DateTime dateTime = DateTime.parse('2000-01-01 $time');
   String formattedTime = DateFormat('h:mm a').format(dateTime);
   return formattedTime;
 }
 
 bool isTimeInRange(String startTime, String endTime) {
+  if (startTime.isEmpty || endTime.isEmpty) return false;
   DateTime now = DateTime.now();
   DateFormat dateFormat = DateFormat('HH:mm');
 

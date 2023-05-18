@@ -33,7 +33,7 @@ class ChargingStatusModel {
   factory ChargingStatusModel.fromJson(Map<String, dynamic> json) {
     return ChargingStatusModel(
       Connector: json['Connector'],
-      amount: json['amount'],
+      amount: json['amount'] ?? 0,
       SOC: json['SOC'] ?? 0,
       Duration: json['Duration'] ?? 0,
       PriceBy: json['PriceBy'] ?? '',
