@@ -35,7 +35,7 @@ class ChargeTransactionModel {
     return ChargeTransactionModel(
       image: json['image'] ?? '',
       ChargingStopTime: json['ChargingStopTime'] ?? '',
-      amount: json['amount'] ?? 0.0,
+      amount: json['amount'] ?? 0,
       chargerName: json['chargerName'] ?? '',
       startReading: json['startReading'] ?? 0,
       bookingId: json['bookingId'] ?? -1,

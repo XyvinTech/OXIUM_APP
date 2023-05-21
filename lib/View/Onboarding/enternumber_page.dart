@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
-import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
@@ -12,7 +11,6 @@ import 'package:get/get.dart';
 import 'package:linear_progress_bar/linear_progress_bar.dart';
 
 import '../../constants.dart';
-import '../Widgets/textfield.dart';
 
 class EnterNumberPage extends GetView<LoginPageController> {
   const EnterNumberPage({Key? key}) : super(key: key);
@@ -170,19 +168,19 @@ class EnterNumberPage extends GetView<LoginPageController> {
                         ),
                       ),
                       height(size.height * .01),
-                      AppTextField(
-                        color: controller.tempEmailController == true
-                            ? Color(0xff0047C3)
-                            : Color(0xffE0E0E0),
-                        onTap: () {
-                          controller.mailTextFieldColorChange();
-                        },
-                        hintText: "Email",
-                        icon: Image.asset("assets/images/sms.png"),
-                        keyboardtype: TextInputType.emailAddress,
-                        Controller: controller.tempEmailController,
-                        onChanged: (String val) {},
-                      ),
+                      // AppTextField(
+                      //   color: controller.tempEmailController == true
+                      //       ? Color(0xff0047C3)
+                      //       : Color(0xffE0E0E0),
+                      //   onTap: () {
+                      //     controller.mailTextFieldColorChange();
+                      //   },
+                      //   hintText: "Email",
+                      //   icon: Image.asset("assets/images/sms.png"),
+                      //   keyboardtype: TextInputType.emailAddress,
+                      //   Controller: controller.tempEmailController,
+                      //   onChanged: (String val) {},
+                      // ),
                       SizedBox(
                         height: size.height * 0.02,
                       ),

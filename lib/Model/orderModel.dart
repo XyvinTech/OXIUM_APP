@@ -13,7 +13,7 @@ class OrderModel {
   final String lastUpdateTime;
   final String paymentMode;
   final String statusUpdateBy;
-  final double rfidAmountPaid;
+  final String rfidAmountPaid;
 
   OrderModel({
     required this.transactionId,

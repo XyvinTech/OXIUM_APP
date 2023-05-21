@@ -68,6 +68,8 @@ class OtpNumberPageController extends GetxController {
       if (appData.userModel.value.name.isEmpty ||
           appData.userModel.value.email.isEmpty) {
         Get.offAllNamed(Routes.addNameEmailPageRoute);
+      } else {
+        Get.offAllNamed(Routes.homePageRoute);
       }
     }
   }

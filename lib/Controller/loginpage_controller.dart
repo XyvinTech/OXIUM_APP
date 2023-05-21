@@ -46,7 +46,7 @@ class LoginPageController extends GetxController {
   Future<bool> login() async {
     showLoading(kLoading);
     bool res = await CommonFunctions()
-        .login(phoneController.text, tempEmailController.text);
+        .login(phoneController.text);
     hideLoading();
     if (res) {
       Get.toNamed(Routes.enterotppageRoute, arguments: phoneController.text);

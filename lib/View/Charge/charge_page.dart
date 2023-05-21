@@ -497,7 +497,7 @@ class _ChargeScreenState extends State<ChargeScreen>
                           height: size.height * 0.007,
                         ),
                         CustomBigText(
-                          text: "Cr. 523 ",
+                          text: "Cr. ${model.amount.toStringAsFixed(2)} ",
                           size: 16,
                           color: Color(0xff4F4F4F),
                         ),

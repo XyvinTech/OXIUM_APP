@@ -1,4 +1,3 @@
-import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +19,8 @@ class SplashScreenController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     appData.token = await getString('token') ?? appData.token;
-    appData.userModel.value.username = await getString('username') ?? '222111';
+    appData.userModel.value.username = await getString('username') ?? '';
+    // ?? '222111';
     // appData.userModel.value.username = '222111';
     //pass 01521
     kLog('username: ' + appData.userModel.value.username);

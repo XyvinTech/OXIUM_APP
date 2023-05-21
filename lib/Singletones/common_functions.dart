@@ -384,11 +384,10 @@ class CommonFunctions {
     }
   }
 
-  Future<bool> login(String username, String email) async {
+  Future<bool> login(String username) async {
     var res = await CallAPI().postData(
       {
-        "username": username.replaceAll('+91', '').replaceAll(' ', ''),
-        "email": email,
+        "username": username.trim(),
       },
       'appuser',
     );
@@ -402,10 +401,27 @@ class CommonFunctions {
   }
 
   Future<ResponseModel> verifyOTP(String username, String otp) async {
+    var res = await CallAPI().getData(
+      'verifyOTP',
+      {
+        "username": username.replaceAll(' ', ''),
+        "otp": otp,
+      },
+    );
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return await getToken(username, res.body['result'] ?? '');
+    } else {
+      return ResponseModel(statusCode: 500, body: '');
+    }
+  }
+
+  Future<ResponseModel> getToken(String username, String password) async {
     var res = await CallAPI().postData(
       {
-        "username": username.replaceAll('+91', '').replaceAll(' ', ''),
-        "password": otp,
+        "username": username.replaceAll(' ', ''),
+        "password": password,
       },
       'appuserauth',
     );
