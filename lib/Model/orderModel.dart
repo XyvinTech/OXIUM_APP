@@ -49,7 +49,7 @@ class OrderModel {
       lastUpdateTime: json['lastUpdateTime'] ?? '',
       paymentMode: json['paymentMode'] ?? '',
       statusUpdateBy: json['statusUpdateBy'] ?? '',
-      rfidAmountPaid: json['rfidAmountPaid'] ?? 0,
+      rfidAmountPaid: json['rfidAmountPaid'] ?? '',
     );
   }
 

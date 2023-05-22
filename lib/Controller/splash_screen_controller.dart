@@ -1,3 +1,4 @@
+import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
@@ -26,9 +27,19 @@ class SplashScreenController extends GetxController {
     kLog('username: ' + appData.userModel.value.username);
     kLog(appData.token);
     var res = await CommonFunctions().getUserProfile();
-    if (res.email.isEmpty)
+
+    if (res.username.isEmpty) {
       Get.offAllNamed(Routes.loginpageRoute);
-    else
-      Get.offAllNamed(Routes.homePageRoute);
+    } else {
+      BookingModel _bookingModel = await CommonFunctions().getActiveBooking();
+      if (_bookingModel.bookingId != -1) {
+        appData.qr =
+            '0-${_bookingModel.chargerName}-${_bookingModel.chargingpoint}-${_bookingModel.bookedvia}';
+        Get.offAllNamed(Routes.chargingPageRoute,
+            arguments: [appData.qr, _bookingModel]);
+      } else {
+        Get.offAllNamed(Routes.homePageRoute);
+      }
+    }
   }
 }

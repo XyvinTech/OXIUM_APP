@@ -468,6 +468,23 @@ class CommonFunctions {
     }
   }
 
+  Future<BookingModel> getActiveBooking() async {
+    var res = await CallAPI().getData(
+      'activebooking',
+      {
+        "username": appData.userModel.value.username,
+      },
+    );
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      return BookingModel.fromJson(res.body['result']);
+    } else {
+      // if (!res.body['success']) kBookingModel.status = 'X';
+      return kBookingModel;
+    }
+  }
+
   Future<BookingModel> getBooking({required String bookingId}) async {
     var res = await CallAPI().getData(
       'getbooking',

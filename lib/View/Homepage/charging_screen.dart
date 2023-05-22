@@ -58,14 +58,18 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       width: double.infinity,
                                       color: Colors.white,
                                       child: Obx(
-                                        () => (controller.chargingStatus.value
-                                                        .isEmpty ||
-                                                    controller.booking_model
-                                                            .value.outputType ==
-                                                        'AC') &&
-                                                controller
-                                                        .chargingStatus.value !=
-                                                    'finished'
+                                        () => controller.chargingStatus.value ==
+                                                    'initiating' ||
+                                                ((controller.chargingStatus
+                                                            .value.isEmpty ||
+                                                        controller
+                                                                .booking_model
+                                                                .value
+                                                                .outputType ==
+                                                            'AC') &&
+                                                    (controller.chargingStatus
+                                                            .value !=
+                                                        'finished'))
                                             ? GradientIndicator()
                                             : PercentageIndicator(
                                                 progress: (controller
@@ -151,6 +155,12 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                     size: 12.sp,
                                     color: Color(0xff828282))
                               else if (controller.chargingStatus.value ==
+                                  "finishing")
+                                CustomBigText(
+                                    text: "Charging finishing...",
+                                    size: 12.sp,
+                                    color: Color(0xff828282))
+                              else if (controller.chargingStatus.value ==
                                   "finished")
                                 CustomBigText(
                                     text: "Charging Finished",
@@ -182,6 +192,12 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                     ],
                                   ),
                                 )
+                              else if (controller.chargingStatus.value ==
+                                  'initiating')
+                                CustomBigText(
+                                    text: "Initiating ...",
+                                    size: 12.sp,
+                                    color: Color(0xff0047C3))
                               else
                                 CustomBigText(
                                     text: "Connecting ...",
@@ -347,16 +363,30 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                 ),
                               ),
                               //  !buttons
-                              if (controller.chargingStatus.value == "progress")
+                              if (controller.chargingStatus.value ==
+                                      "progress" ||
+                                  controller.chargingStatus.value ==
+                                      'finishing')
                                 _withBgBtn(
-                                  text: 'Stop Charging',
+                                  text: controller.chargingStatus.value ==
+                                          'finishing'
+                                      ? 'Finishing...'
+                                      : 'Stop Charging',
                                   onTap: () async {
+                                    if (controller.chargingStatus.value ==
+                                        'progress') {
+                                      controller.chargingStatus.value =
+                                          'finishing';
+                                    }
                                     controller.changeStatus(
                                         isStart: false,
                                         bookingId: controller
                                             .booking_model.value.bookingId);
                                   },
-                                  color: Color(0xffEB5757),
+                                  color: controller.chargingStatus.value ==
+                                          'finishing'
+                                      ? Colors.grey.shade500
+                                      : Color(0xffEB5757),
                                   textColor: Color(0xffF2F2F2),
                                 )
                               else if (controller.chargingStatus.value ==
@@ -474,10 +504,14 @@ class ChargingScreen extends GetView<ChargingScreenController> {
               borderRadius: BorderRadius.circular(56.r)),
           child: Row(
             children: [
-              CustomBigText(
-                text: "Connecting...",
-                size: 14.sp,
-                color: Color(0xff0047C3),
+              Obx(
+                () => CustomBigText(
+                  text: controller.chargingStatus.value == 'initiating'
+                      ? 'Initiating...'
+                      : "Connecting...",
+                  size: 14.sp,
+                  color: Color(0xff0047C3),
+                ),
               ),
               Spacer(),
               Expanded(

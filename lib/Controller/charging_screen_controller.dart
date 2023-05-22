@@ -29,13 +29,18 @@ class ChargingScreenController extends GetxController {
     booking_model.value = Get.arguments != null
         ? Get.arguments[1] ?? kBookingModel
         : kBookingModel;
+    // saveToSharedPreferences();
     kLog(qr_or_app_data);
     List<String> seperator = qr_or_app_data.split('-');
     stationId = seperator[0];
     chargerName = seperator[1];
     chargingPoint = seperator[2];
     bookingVia = seperator[3];
-    changeStatus(isStart: true, bookingId: booking_model.value.bookingId);
+    if (booking_model.value.status == 'R') {
+      getChargingStatus(booking_model.value.bookingId);
+    } else {
+      changeStatus(isStart: true, bookingId: booking_model.value.bookingId);
+    }
     // getChargingStatus(529);
   }
 
@@ -66,6 +71,10 @@ class ChargingScreenController extends GetxController {
 
   toReconnect() {
     chargingStatus.value = "";
+  }
+
+  toInitiating() {
+    chargingStatus.value = "initiating";
   }
 
   // Future createBooking() async {
@@ -112,11 +121,12 @@ class ChargingScreenController extends GetxController {
       if (status_model.value.status == 'S' ||
           status_model.value.status == 'R' &&
               status_model.value.Chargingstatus == 'I') {
-        toReconnect();
+        toInitiating();
       } else if (status_model.value.status == 'R' &&
           status_model.value.Chargingstatus == 'R') {
         //IF CHARGING STARTED
-        if (chargingStatus.value != 'progress') {
+        if (chargingStatus.value != 'progress' &&
+            chargingStatus.value != 'finishing') {
           toConnected();
           print(status_model.value.startTime);
 

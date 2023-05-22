@@ -173,7 +173,7 @@ class Dialogs {
                 Spacer(),
                 InkWell(
                   onTap: () {
-                    Get.toNamed(Routes.chargingPageRoute,
+                    Get.offAllNamed(Routes.chargingPageRoute,
                         arguments: [appData.qr, _bookingModel]);
                   },
                   child: Container(

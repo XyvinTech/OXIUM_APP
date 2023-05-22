@@ -51,6 +51,6 @@ class FeedBackPageController extends GetxController {
   }
 
   backToMaps() {
-    Get.until((route) => Get.currentRoute == Routes.homePageRoute);
+    Get.offAndToNamed(Routes.homePageRoute);
   }
 }
