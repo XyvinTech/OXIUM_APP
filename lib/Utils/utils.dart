@@ -139,8 +139,8 @@ Future<String> getDownloadFolderpath() async {
   return path;
 }
 
-getTimeDifference({required String startTime, String endtime = ''}) {
-  if (startTime.isEmpty) return [0, 0];
+getTimeDifference({required String startTime, required String endtime}) {
+  if (startTime.isEmpty || endtime.isEmpty) return [0, 0];
   DateTime apiTime = DateTime.parse(startTime);
 
 // Get the current time

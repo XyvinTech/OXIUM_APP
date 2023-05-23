@@ -47,7 +47,7 @@ class ChargeScreenController extends GetxController
     setBoxHeight();
   }
 
-  getBooking(int bookingId) async {
+  getBooking(int bookingId, String stationName, String stationAddress) async {
     if (isLoading) return;
     isLoading = true;
     showLoading(kLoading);
@@ -56,7 +56,10 @@ class ChargeScreenController extends GetxController
     hideLoading();
 
     if (model.bookingId != -1) {
-      Dialogs().charge_transaction_popup(model: model);
+      Dialogs().charge_transaction_popup(
+          model: model,
+          stationAddress: stationAddress,
+          stationName: stationName);
     }
     isLoading = false;
   }

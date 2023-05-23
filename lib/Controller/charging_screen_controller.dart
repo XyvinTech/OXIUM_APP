@@ -133,7 +133,7 @@ class ChargingScreenController extends GetxController {
           Future.delayed(Duration(seconds: 1), () => toProgress());
         } else if (chargingStatus.value == 'progress') {
           time.value =
-              getTimeDifference(startTime: status_model.value.startTime);
+              getTimeDifference(startTime: status_model.value.startTime,endtime: status_model.value.lastupdated);
         }
       } else if (status_model.value.status == 'R' &&
           chargingStatus.value == 'C') {

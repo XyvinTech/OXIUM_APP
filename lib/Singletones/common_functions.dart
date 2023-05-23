@@ -1,4 +1,5 @@
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
+import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Model/apiResponseModel.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
@@ -49,6 +50,8 @@ class CommonFunctions {
       controller.getUserRFIDs();
     }
     await CommonFunctions().getUserProfile();
+    WalletPageController _walletPageController = Get.find();
+    await _walletPageController.getWalletTransactions();
     // kLog('recharge');
     closeRazorPay();
   }
@@ -412,6 +415,9 @@ class CommonFunctions {
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return await getToken(username, res.body['result'] ?? '');
+    } else if (res.statusCode == 200 && !res.body['success']) {
+      showError(res.body['message'] + '!');
+      return ResponseModel(statusCode: 500, body: '');
     } else {
       return ResponseModel(statusCode: 500, body: '');
     }
@@ -461,11 +467,30 @@ class CommonFunctions {
     kLog(res.statusCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
+      //cancel booking if booking already exist issue arises and status == 'S'
+      if (res.body['result']['status'] == 'S' &&
+          res.body['message'].trim() == 'Booking Already Exist') {
+        bool isCancelled =
+            await cancelBooking(res.body['result']['bookingId'], qr: qr);
+        if (isCancelled) {
+          return await createBooking(qr: qr);
+        }
+      }
       return BookingModel.fromJson(res.body['result']);
     } else {
       if (!res.body['success']) kBookingModel.status = 'X';
       return kBookingModel;
     }
+  }
+
+  Future<bool> cancelBooking(int bookingId, {required String qr}) async {
+    var res = await CallAPI()
+        .getData('changebookingstatus', {"bookingId": "$bookingId"});
+    if (res.statusCode == 200 && res.body['success']) {
+      kLog('booking cancelled successfully');
+      return true;
+    } else
+      return false;
   }
 
   Future<BookingModel> getActiveBooking() async {

@@ -432,7 +432,7 @@ class _ChargeScreenState extends State<ChargeScreen>
     }
     return InkWell(
       onTap: () {
-        controller.getBooking(model.bookingId);
+        controller.getBooking(model.bookingId,model.stationName,model.stationAddress);
       },
       child: Padding(
         padding: EdgeInsets.only(bottom: 10.h),

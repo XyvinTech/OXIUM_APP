@@ -152,6 +152,7 @@ final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
     load: 0,
     price: 0,
     startTime: '',
+    lastupdated: '',
     Charger: '',
     status: '',
     tariff: 0,

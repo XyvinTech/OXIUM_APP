@@ -612,13 +612,17 @@ class Dialogs {
     ));
   }
 
-  charge_transaction_popup({
-    required BookingModel model,
-  }) {
+  charge_transaction_popup(
+      {required BookingModel model,
+      required final String stationName,
+      required final String stationAddress}) {
     Get.dialog(AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         contentPadding: EdgeInsets.all(0),
-        content: ChargeTransactionDialog(model: model)));
+        content: ChargeTransactionDialog(
+            model: model,
+            stationName: stationName,
+            stationAddress: stationAddress)));
   }
 
   connectPortTipDialog() {

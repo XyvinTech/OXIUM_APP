@@ -8,6 +8,7 @@ class ChargingStatusModel {
   final double load;
   final double price;
   final String startTime;
+  final String lastupdated;
   final String Charger;
   String status;
   final String Chargingstatus;
@@ -24,6 +25,7 @@ class ChargingStatusModel {
     required this.load,
     required this.price,
     required this.startTime,
+    required this.lastupdated,
     required this.Charger,
     required this.status,
     required this.Chargingstatus,
@@ -41,6 +43,7 @@ class ChargingStatusModel {
       load: json['load'] ?? 0.0,
       price: json['price'] ?? 0.0,
       startTime: json['startTime'] ?? '',
+      lastupdated: json['lastupdated'] ?? '',
       Charger: json['Charger'] ?? '',
       status: json['status'] ?? '',
       Chargingstatus: json['Chargingstatus'] ?? '',
@@ -58,6 +61,7 @@ class ChargingStatusModel {
         "load": load,
         "price": price,
         "startTime": startTime,
+        "lastupdated": lastupdated,
         "Charger": Charger,
         "status": status,
         "Chargingstatus": Chargingstatus,

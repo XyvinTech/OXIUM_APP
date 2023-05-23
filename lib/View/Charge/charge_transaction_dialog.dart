@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import '../../Model/bookingModel.dart';
 import '../../Singletones/common_functions.dart';
 
-Widget ChargeTransactionDialog({required final BookingModel model}) {
+Widget ChargeTransactionDialog({required final BookingModel model,required final String stationName,required final String stationAddress}) {
   final a = 5;
   final b = 4;
   int hour = 0, minute = 0;
@@ -37,7 +37,7 @@ Widget ChargeTransactionDialog({required final BookingModel model}) {
               SizedBox(
                 height: 30.h,
               ),
-              _detailsSection(),
+              _detailsSection(model: model,stationName: stationName,stationAddress: stationAddress),
               SizedBox(
                 height: 35.h,
               ),
@@ -241,7 +241,7 @@ Widget _reservationAppBar() {
   );
 }
 
-Widget _detailsSection() {
+Widget _detailsSection({required BookingModel model,required final String stationName,required final String stationAddress}) {
   return Container(
     child: Row(
       children: [
@@ -261,7 +261,7 @@ Widget _detailsSection() {
                 children: [
                   Flexible(
                     child: CustomBigText(
-                      text: "Calista Cafe",
+                      text: stationName,
                       size: 16,
                       color: Color(0xff4F4F4F),
                       textOverflow: TextOverflow.ellipsis,
@@ -276,7 +276,7 @@ Widget _detailsSection() {
                 children: [
                   Flexible(
                     child: CustomSmallText(
-                      text: "Mannampatta . Near Govt ",
+                      text: stationAddress,
                       size: 12,
                       color: Color(0xff4F4F4F),
                     ),

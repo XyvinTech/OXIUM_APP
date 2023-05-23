@@ -58,6 +58,7 @@ class OtpNumberPageController extends GetxController {
         await CommonFunctions().verifyOTP(phone, otpController.text);
     hideLoading();
     if (res.statusCode == 200) {
+      
       appData.token = res.body['result']['token'];
       appData.userModel.value.username = res.body['result']['username'];
       await saveString('token', appData.token);
