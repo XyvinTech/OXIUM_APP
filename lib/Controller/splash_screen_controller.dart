@@ -24,6 +24,8 @@ class SplashScreenController extends GetxController {
     // ?? '222111';
     // appData.userModel.value.username = '222111';
     //pass 01521
+    appData.token =
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NzgyMTk5NDU1Iiwic2NvcGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpc3MiOiJodHRwOi8vZXpib3QuY29tIiwiaWF0IjoxNjc5NjQxNDQyLCJleHAiOjE3MTExNzc0NDJ9.Scge54LZumVuYwtZmUmNa0YNDZE28CCll2GDnafPrYk';
     kLog('username: ' + appData.userModel.value.username);
     kLog(appData.token);
     var res = await CommonFunctions().getUserProfile();

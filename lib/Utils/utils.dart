@@ -95,7 +95,7 @@ String getTimeFromTimeStamp(String timestamp, String format) {
   if (timestamp.isEmpty) return '00:00 AM';
   DateTime dateTime = DateTime.parse(timestamp);
   String formattedString = DateFormat(format).format(dateTime);
-  print(formattedString);
+  // print(formattedString);
   return formattedString;
 }
 

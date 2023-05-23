@@ -628,6 +628,8 @@ class CommonFunctions {
     kLog(res.statusCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<OrderModel> list = [];
+      WalletPageController _walletPageController = Get.find();
+      _walletPageController.totalElements = res.body['result']['totalElements'];
       res.body['result']['content'].forEach((element) {
         list.add(OrderModel.fromJson(element));
       });
