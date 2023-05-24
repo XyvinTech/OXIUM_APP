@@ -78,7 +78,6 @@ dependencies:
   # flutter_widget_from_html: ^0.10.0
   flutter_html: ^2.2.1
   timeago:
-  infinite_scroll_pagination: ^3.2.0
 
 dev_dependencies:
   flutter_test:

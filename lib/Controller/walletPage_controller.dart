@@ -23,6 +23,11 @@ class WalletPageController extends GetxController {
     _scrollListen();
   }
 
+  onClose() {
+    super.onClose();
+    scrollController.dispose();
+  }
+
   _scrollListen() {
     scrollController.addListener(() async {
 // nextPageTrigger will have a value equivalent to 80% of the list size.

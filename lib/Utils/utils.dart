@@ -131,6 +131,7 @@ Future<String> getDownloadFolderpath() async {
   String path = '';
   if (Platform.isAndroid) {
     // directory = await getExternalStorageDirectory();
+    kLog((await getExternalStorageDirectory()).toString());
     directory = Directory('/storage/emulated/0');
   } else if (Platform.isIOS) {
     directory = await getApplicationDocumentsDirectory();
