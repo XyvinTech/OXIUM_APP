@@ -257,6 +257,20 @@ class CommonFunctions {
     }
   }
 
+  Future<bool> putProfileImage(String fileData) async {
+    kLog('put profile image');
+    var res = await CallAPI().putData({
+      "username": appData.userModel.value.username,
+      "fileData": fileData,
+    }, 'appuser');
+    if (res.statusCode == 200 && res.body['success']) {
+      return true;
+    } else {
+      showError('Failed to save name and email.');
+      return false;
+    }
+  }
+
   Future<bool> putUserProfile(String name, String email, String phone) async {
     var res = await CallAPI().putData({
       "username": appData.userModel.value.username,

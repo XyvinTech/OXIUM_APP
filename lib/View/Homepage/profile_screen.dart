@@ -4,11 +4,11 @@ import 'package:freelancer_app/Controller/profile_screen_controller.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Utils/SharedPreferenceUtils.dart';
 import 'package:freelancer_app/Utils/routes.dart';
-import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
+import '../Widgets/cached_network_image.dart';
 import '../Widgets/customText.dart';
 
 class ProfileScreen extends GetView<ProfileScreenController> {
@@ -101,9 +101,16 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                               shape: BoxShape.circle,
                               color: kDefaultHomePageBackgroundColor),
                           child: Padding(
-                            padding: const EdgeInsets.all(1.0),
-                            child: Image.asset('assets/images/profile_pic.png'),
-                          ),
+                              padding: const EdgeInsets.all(1.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Obx(
+                                  () => cachedNetworkImage(
+                                      appData.userModel.value.image),
+                                ),
+                              )
+                              // Image.asset('assets/images/profile_pic.png'),
+                              ),
                         ),
                       ),
                       Positioned(
@@ -122,10 +129,7 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                               shape: BoxShape.circle,
                               color: Color(0xff2F80ED),
                             ),
-                            child: appData.userModel.value.image.isEmpty
-                                ? SvgPicture.asset('assets/svg/edit.svg')
-                                : cachedNetworkImage(
-                                    appData.userModel.value.image),
+                            child: SvgPicture.asset('assets/svg/edit.svg'),
                           ),
                         ),
                       )
@@ -140,7 +144,7 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                   fontWeight: FontWeight.w600,
                 ),
                 CustomText(
-                  text: appData.userModel.value.phone,
+                  text: '+91 ' + appData.userModel.value.username,
                   color: Color(0xff828282),
                   size: 14,
                   fontWeight: FontWeight.w400,

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/editprofile_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/phonenumtext_field.dart';
 import 'package:get/get.dart';
 
+import '../../Singletones/app_data.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
+import '../Widgets/cached_network_image.dart';
 import '../Widgets/customText.dart';
 
 class EditProfileScreen extends GetView<EditProfileScreenController> {
@@ -70,31 +71,43 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                           shape: BoxShape.circle,
                           color: kDefaultHomePageBackgroundColor),
                       child: Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: Image.asset('assets/images/profile_pic.png'),
-                      ),
+                          padding: const EdgeInsets.all(1.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Obx(
+                              () => cachedNetworkImage(
+                                  appData.userModel.value.image),
+                            ),
+                          )
+                          // Image.asset('assets/images/profile_pic.png'),
+                          ),
                     ),
                   ),
                   height(size.height * .01),
-                  Container(
-                    height: size.height * .04,
-                    width: size.width * .35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Color(0xff2F80ED),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/svg/edit.svg'),
-                        width(size.width * .02),
-                        CustomText(
-                          text: 'Edit image',
-                          color: Colors.white,
-                          size: 12,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ],
+                  InkWell(
+                    onTap: () {
+                      controller.pickAndUploadImage();
+                    },
+                    child: Container(
+                      height: size.height * .04,
+                      width: size.width * .35,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Color(0xff2F80ED),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/svg/edit.svg'),
+                          width(size.width * .02),
+                          CustomText(
+                            text: 'Upload image',
+                            color: Colors.white,
+                            size: 11.5,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   height(size.height * .06),
