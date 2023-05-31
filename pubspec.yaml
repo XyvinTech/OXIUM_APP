@@ -79,6 +79,10 @@ dependencies:
   flutter_html: ^2.2.1
   timeago:
 
+
+  #firebase
+  google_sign_in: ^6.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

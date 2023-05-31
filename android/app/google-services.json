@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "588194938381",
+    "project_id": "goecapp-fafd9",
+    "storage_bucket": "goecapp-fafd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588194938381:android:8d429c44b9df9564991f44",
+        "android_client_info": {
+          "package_name": "com.goecworld.goec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588194938381-raojdldps3iarh9ubsbpfo1km1erb6k4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goecworld.goec",
+            "certificate_hash": "9ddc015fa82615903a82afe08a2a093b35fba24b"
+          }
+        },
+        {
+          "client_id": "588194938381-fmgvmq5vd3ff04505jl8f4v8tjfink3v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjYNFyfXb9A0K0aPxjExGwqW_xdQwQJcQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588194938381-fmgvmq5vd3ff04505jl8f4v8tjfink3v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
