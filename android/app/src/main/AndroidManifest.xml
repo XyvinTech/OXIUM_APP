@@ -24,7 +24,7 @@
    <application
         android:label="freelancer_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -62,5 +62,21 @@
 		    <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
 		    </intent-filter>
 		</receiver>
+                <!-- LATER ADDED CODE -->
+        <receiver
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationService"
+            android:exported="true" />
+        <!-- LATER ADD ENDED  -->
     </application>
 </manifest>
