@@ -209,31 +209,33 @@ class EnterNumberPage extends GetView<LoginPageController> {
                       SizedBox(
                         height: size.height * 0.075,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              height: size.height * 0.003,
-                              // width: size.width * 0.4,
-                              color: Color(0xffE0E0E0),
-                            ),
-                          ),
-                          SizedBox(
-                            width: size.width * 0.02,
-                          ),
-                          CustomSmallText(text: "OR"),
-                          SizedBox(
-                            width: size.width * 0.02,
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: size.height * 0.003,
-                              // width: size.width * 0.4,
-                              color: Color(0xffE0E0E0),
-                            ),
-                          ),
-                        ],
-                      ),
+
+                      // Row(
+                      //   children: [
+                      //     Expanded(
+                      //       child: Container(
+                      //         height: size.height * 0.003,
+                      //         // width: size.width * 0.4,
+                      //         color: Color(0xffE0E0E0),
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: size.width * 0.02,
+                      //     ),
+                      //     CustomSmallText(text: "OR"),
+                      //     SizedBox(
+                      //       width: size.width * 0.02,
+                      //     ),
+                      //     Expanded(
+                      //       child: Container(
+                      //         height: size.height * 0.003,
+                      //         // width: size.width * 0.4,
+                      //         color: Color(0xffE0E0E0),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+
                       SizedBox(
                         height: size.height * 0.075,
                       ),

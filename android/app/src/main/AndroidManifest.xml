@@ -64,9 +64,10 @@
 		    </intent-filter>
 		</receiver>
                 <!-- LATER ADDED CODE -->
-        <receiver
+        <!-- <receiver
             android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
-            android:exported="true">
+            android:exported="true"
+            tools:replace="android:exported">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
@@ -74,10 +75,11 @@
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </receiver>
-        <service
+        </receiver> -->
+        <!-- <service
             android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationService"
-            android:exported="true" />
+            android:exported="true" 
+            /> -->
         <!-- LATER ADD ENDED  -->
     </application>
 </manifest>

@@ -683,7 +683,7 @@ class CommonFunctions {
       'page': page,
       'size': size
     });
-    kLog(res.statusCode.toString());
+    kLog(res.statusCode.toString() + 'charge transaction status code');
 
     if (res.statusCode == 200 && res.body['success']) {
       List<ChargeTransactionModel> list = [];
