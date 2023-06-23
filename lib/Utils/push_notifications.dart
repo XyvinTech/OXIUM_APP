@@ -60,7 +60,7 @@ class FireBaseNotification {
     channel = AndroidNotificationChannel(
         'high_importance_channel', // id
         'High Importance Notifications', // title
-        'High Importance Channel Description',
+        description: 'High Importance Channel Description',
         importance: Importance.high,
         enableVibration: true,
         playSound: true,

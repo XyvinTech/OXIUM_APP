@@ -14,8 +14,7 @@ class NotificationService {
     return _notificationService;
   }
 
-  NotificationService._internal() {
-  }
+  NotificationService._internal() {}
 
   void init() async {
     final InitializationSettings initializationSettings =
@@ -28,7 +27,8 @@ class NotificationService {
   void createNotification(int count, int i, int id) {
     //show the notifications.
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'progress_channel', 'progress channel', 'progress channel description',
+        'progress_channel', 'progress channel',
+        channelDescription: 'progress channel description',
         channelShowBadge: false,
         importance: Importance.max,
         priority: Priority.high,

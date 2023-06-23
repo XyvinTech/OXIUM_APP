@@ -236,8 +236,8 @@ class NavigationScreen extends GetView<NavigationScreenController> {
                       //   color: Colors.white,
                       // ),
                       "body": Style(
-                          padding: EdgeInsets.all(0),
-                          fontSize: FontSize.rem(1.1),
+                          padding: HtmlPaddings.all(0) ,
+                          fontSize: FontSize.medium,
                           alignment: Alignment.topLeft,
                           color: Colors.white)
                     })),

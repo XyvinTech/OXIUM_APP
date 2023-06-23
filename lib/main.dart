@@ -38,7 +38,7 @@ void callbackDispatcher() {
       var androidPlatformChannelSpecifics = AndroidNotificationDetails(
           'progress_channel',
           'progress channel',
-          'progress channel description',
+          channelDescription: 'progress channel description',
           channelShowBadge: false,
           importance: Importance.max,
           priority: Priority.high,

@@ -60,7 +60,8 @@ class FireBaseNotification {
     channel = AndroidNotificationChannel(
         'high_importance_channel', // id
         'High Importance Notifications', // title
-        'This channel is very important and primary channel for notifications',
+        description:
+            'This channel is very important and primary channel for notifications',
         importance: Importance.high,
         enableVibration: true,
         playSound: true,
@@ -184,7 +185,6 @@ class FireBaseNotification {
 
   setNotificationId() async {
     if (appData.token.isEmpty) {
-
       await FirebaseMessaging.instance.getToken().then((token) {
         appData.notification_token = token ?? '';
         kLog('notification_token: ' + (token ?? 'no token'));
