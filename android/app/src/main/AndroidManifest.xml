@@ -8,21 +8,22 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
                            <!-- Provide required visibility configuration for API level 30 and above -->
     <queries>
-            <!-- If your app checks for SMS support -->
+            If your app checks for SMS support
         <intent>
-            <action android:name="android.intent.action.VIEW" />
+            <action android:name="android.intent.action.VIEW" android:exported="true" />
             <data android:scheme="sms" />
         </intent>
-            <!-- If your app checks for call support -->
+            If your app checks for call support
         <intent>
-            <action android:name="android.intent.action.VIEW" />
+            <action android:name="android.intent.action.VIEW" android:exported="true" />
             <data android:scheme="tel" />
         </intent>
     </queries>
    <application
-        android:label="freelancer_app"
+        android:label="GOEC"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

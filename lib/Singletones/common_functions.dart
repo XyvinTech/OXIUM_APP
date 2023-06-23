@@ -1,4 +1,5 @@
-import 'package:flutter/services.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Model/apiResponseModel.dart';
@@ -17,7 +18,6 @@ import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -403,24 +403,26 @@ class CommonFunctions {
     }
   }
 
-  Future googleLogin() async{
-    try{
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-          final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount!.authentication;
-          
+  // Future googleLogin() async {
+  //   try {
+  //     final GoogleSignIn _googleSignIn = GoogleSignIn();
+  //     final GoogleSignInAccount? googleSignInAccount =
+  //         await _googleSignIn.signIn();
+  //     final GoogleSignInAuthentication googleSignInAuthentication =
+  //         await googleSignInAccount!.authentication;
 
-      // credential = GoogleAuthProvider.credential(
-      //   accessToken: googleSignInAuthentication.accessToken,
-      //   idToken: googleSignInAuthentication.idToken,
-      // );
-    } on PlatformException catch (e) {
-      return false;
-    }
-  }
-
+  //     OAuthCredential credential = await GoogleAuthProvider.credential(
+  //       accessToken: googleSignInAuthentication.accessToken,
+  //       idToken: googleSignInAuthentication.idToken,
+  //     );
+  //     UserCredential userCredential =
+  //         await FirebaseAuth.instance.signInWithCredential(credential);
+  //     kLog(userCredential.user.toString());
+  //     kLog('google login ended');
+  //   } on FirebaseAuthException catch (e) {
+  //     kLog(e.code);
+  //   }
+  // }
 
   Future<bool> login(String username) async {
     var res = await CallAPI().postData(

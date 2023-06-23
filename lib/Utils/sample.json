@@ -1,0 +1,38 @@
+{
+  "senderId": null,
+  "category": null,
+  "collapseKey": "com.goecworld.goec",
+  "contentAvailable": false,
+  "data": {},
+  "from": 588194938381,
+  "messageId": 0,
+  "messageType": null,
+  "mutableContent": false,
+  "notification": {
+    "title": "hi",
+    "titleLocArgs": [],
+    "titleLocKey": null,
+    "body": "goo",
+    "bodyLocArgs": [],
+    "bodyLocKey": null,
+    "android": {
+      "channelId": null,
+      "clickAction": null,
+      "color": null,
+      "count": null,
+      "imageUrl": "https://placebear.com/g/200/200",
+      "link": null,
+      "priority": 0,
+      "smallIcon": null,
+      "sound": null,
+      "ticker": null,
+      "tag": "campaign_collapse_key_1719613810232972814",
+      "visibility": 0
+    },
+    "apple": null,
+    "web": null
+  },
+  "sentTime": 1686065820430,
+  "threadId": null,
+  "ttl": 2419200
+}

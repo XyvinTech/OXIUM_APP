@@ -3,6 +3,9 @@ import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Utils/firebase_notifications.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
@@ -234,28 +237,35 @@ class EnterNumberPage extends GetView<LoginPageController> {
                       SizedBox(
                         height: size.height * 0.075,
                       ),
-                      SignUpButton(
-                        borderWidth: 2,
-                        borderColor: Color(0xffE0E0E0),
-                        color: kwhite,
-                        text: "Sign up with Google",
-                        logo: Image.asset(
-                          "assets/images/google1.png",
-                          height: size.height * 0.033,
-                        ),
-                      ),
+                      // SignUpButton(
+                      //   onTap: () {
+                      //     // CommonFunctions().googleLogin();
+                      //   },
+                      //   borderWidth: 2,
+                      //   borderColor: Color(0xffE0E0E0),
+                      //   color: kwhite,
+                      //   text: "Sign up with Google",
+                      //   logo: Image.asset(
+                      //     "assets/images/google1.png",
+                      //     height: size.height * 0.033,
+                      //   ),
+                      // ),
                       SizedBox(
                         height: size.height * 0.025,
                       ),
-                      SignUpButton(
-                        textColor: Color(0xffF2F2F2),
-                        color: kblack,
-                        text: "Sign up with Apple",
-                        logo: Image.asset(
-                          "assets/images/apple.png",
-                          height: size.height * 0.033,
-                        ),
-                      ),
+                      // SignUpButton(
+                      //   onTap: () {
+                      //     FireBaseNotification.sendPushMessage('Applr body',
+                      //         'Apple', appData.notification_token);
+                      //   },
+                      //   textColor: Color(0xffF2F2F2),
+                      //   color: kblack,
+                      //   text: "Sign up with Apple",
+                      //   logo: Image.asset(
+                      //     "assets/images/apple.png",
+                      //     height: size.height * 0.033,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

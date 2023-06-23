@@ -20,6 +20,7 @@ class AppData {
   Debouncer debouncer = Debouncer(milliseconds: 1000);
   String qr = '';
   String rechargeAmount = '';
+  String notification_token = '';
 
 //FOR FILTER PAGE SO THAT THE DATA DON'T DELETED WHEN CONTROLLER DISPOSES
   List<RxList<FilterModel>> filterList = [

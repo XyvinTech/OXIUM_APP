@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -14,6 +15,7 @@ import 'package:logger/logger.dart';
 import 'package:workmanager/workmanager.dart';
 
 import 'Utils/app_pages.dart';
+import 'Utils/firebase_notifications.dart';
 
 @pragma(
     'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
@@ -30,7 +32,7 @@ void callbackDispatcher() {
       android: _androidInitializationSettings,
     );
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
-    var androidPlatformChannelSpecifics;
+    // var androidPlatformChannelSpecifics;
     Timer.periodic(Duration(seconds: 10), (timer) {
       Logger().e('timer');
       var androidPlatformChannelSpecifics = AndroidNotificationDetails(
@@ -56,6 +58,8 @@ void callbackDispatcher() {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FireBaseNotification().init();
   await Injector().inject();
   NotificationService().init();
   Workmanager().initialize(
@@ -70,7 +74,6 @@ Future<void> main() async {
     kLog('hi');
   });
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
