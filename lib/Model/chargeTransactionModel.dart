@@ -3,14 +3,14 @@ class ChargeTransactionModel {
   final String ChargingStopTime;
   final double amount;
   final String chargerName;
-  final int startReading;
+  final double startReading;
   final int bookingId;
   final String stationAddress;
   final double unit;
   final double price;
   final String chargingStartTime;
   final String stationName;
-  final int stopReading;
+  final double stopReading;
   final int chargingPoint;
   final String status;
 

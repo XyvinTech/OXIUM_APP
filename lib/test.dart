@@ -229,7 +229,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     _fetchPermissionStatus();
-    FlutterCompass compass = FlutterCompass();
+    // FlutterCompass compass = FlutterCompass();
     FlutterCompass.events?.listen((event) {
       kLog(event.heading.toString());
     });

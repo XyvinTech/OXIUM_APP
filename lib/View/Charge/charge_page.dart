@@ -432,7 +432,8 @@ class _ChargeScreenState extends State<ChargeScreen>
     }
     return InkWell(
       onTap: () {
-        controller.getBooking(model.bookingId,model.stationName,model.stationAddress);
+        controller.getBooking(
+            model.bookingId, model.stationName, model.stationAddress);
       },
       child: Padding(
         padding: EdgeInsets.only(bottom: 10.h),
@@ -455,33 +456,44 @@ class _ChargeScreenState extends State<ChargeScreen>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  //TODO: use cached network image here
-                  cachedNetworkImage(model.image, width: size.width * .13),
-                  SizedBox(
-                    width: size.width * 0.03,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: size.height * 0.012),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomSmallText(
-                          text: model.stationName,
-                          size: 10,
-                        ),
-                        SizedBox(
-                          height: size.height * 0.007,
-                        ),
-                        CustomSmallText(
-                          text: model.stationAddress,
-                          size: 12,
-                        ),
-                      ],
+              Expanded(
+                child: Row(
+                  children: [
+                    //TODO: use cached network image here
+                    cachedNetworkImage(model.image, width: size.width * .13),
+                    SizedBox(
+                      width: size.width * 0.03,
                     ),
-                  )
-                ],
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  EdgeInsets.only(top: size.height * 0.012),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomSmallText(
+                                    text: model.stationName,
+                                    size: 10,
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.007,
+                                  ),
+                                  CustomSmallText(
+                                    text: model.stationAddress,
+                                    size: 12,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
               Row(
                 children: [
