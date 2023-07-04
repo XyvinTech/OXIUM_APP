@@ -66,7 +66,7 @@ class ChargeScreenController extends GetxController
 
   setBoxHeight() {
     boxHeight.value = size.height * .28 +
-        (size.height * .1) *
+        (size.height * .11) *
             (tabController.index == 0 ? model_list.length : 40.0);
   }
 }
