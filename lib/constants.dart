@@ -131,7 +131,7 @@ final BookingModel kBookingModel = BookingModel(
     stop_time: '',
     requested_stop_time: '',
     requested_stop_duration: '',
-    requested_stop_unit: '',
+    requested_stop_unit: 0,
     requested_stop_soc: '',
     stopchargingby: '',
     discountcode: '',

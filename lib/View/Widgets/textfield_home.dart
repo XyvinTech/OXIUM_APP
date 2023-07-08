@@ -25,7 +25,7 @@ class textField extends StatelessWidget {
   final String Function(String?)? validator;
   final Function(String)? onChanged;
   final Widget? suffix;
-  bool autofocus;
+  final bool autofocus;
   @override
   Widget build(BuildContext context) {
     return Container(

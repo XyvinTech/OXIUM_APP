@@ -23,7 +23,7 @@ class BookingModel {
   final String stop_time;
   final String requested_stop_time;
   final String requested_stop_duration;
-  final String requested_stop_unit;
+  final double requested_stop_unit;
   final String requested_stop_soc;
   final String stopchargingby;
   final String discountcode;
@@ -94,7 +94,7 @@ class BookingModel {
       stop_time: json['stop_time'] ?? '',
       requested_stop_time: json['requested_stop_time'] ?? '',
       requested_stop_duration: json['requested_stop_duration'] ?? '',
-      requested_stop_unit: json['requested_stop_unit'] ?? '',
+      requested_stop_unit: json['requested_stop_unit'] ?? 0,
       requested_stop_soc: json['requested_stop_soc'] ?? '',
       stopchargingby: json['stopchargingby'] ?? '',
       discountcode: json['discountcode'] ?? '',
