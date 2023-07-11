@@ -465,6 +465,7 @@ class CommonFunctions {
       {
         "username": username.replaceAll(' ', ''),
         "password": password,
+        "deviceToken": appData.notification_token,
       },
       'appuserauth',
     );

@@ -188,6 +188,7 @@ class FireBaseNotification {
       await FirebaseMessaging.instance.getToken().then((token) {
         appData.notification_token = token ?? '';
         kLog('notification_token: ' + (token ?? 'no token'));
+        print('notification_token: ' + (token ?? 'no token'));
       });
       // await userCollection.update({"player_id": mtoken});
     }

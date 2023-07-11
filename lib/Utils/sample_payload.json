@@ -1,0 +1,26 @@
+{
+  "topic": "industry-tech",
+  "notification": {
+    "title": "Sparky says hello!"
+  },
+  "android": {
+    "notification": {
+      "image": "https://foo.bar/pizza-monster.png"
+    }
+  },
+  "apns": {
+    "payload": {
+      "aps": {
+        "mutable-content": 1
+      }
+    },
+    "fcm_options": {
+      "image": "https://foo.bar/pizza-monster.png"
+    }
+  },
+  "webpush": {
+    "headers": {
+      "image": "https://foo.bar/pizza-monster.png"
+    }
+  }
+}

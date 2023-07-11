@@ -31,9 +31,11 @@ class FireBaseNotification {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  String serverKey = "AAAAuKjxF_c:APA91bHg2wfF4C-90Rw_8OFN0h"
-      "WGhb7CfOrf847Ovka2aqKVUQg91WGYCFJgRzhJyLfWi21oyAWCzbLkrYPZg"
-      "nLQ_D3_lhfqR1ZF1nUZoxWr0ED9hWYIR8mqWe4hK12nJzYOkE7UU8Wk";
+  String serverKey =
+      "AAAAiPMmfg0:APA91bGMbmhLdnHEWcIAyj8kLqm6hwLS6DvSG2vZCXCWSb8CLRCndGgFNjaXNKUT91tmyOOP_ajypoxS9MGi5YD1JaxZvkcNHgArnK-SrFFtqV-iAKoYHCeVE7FWS40DUdMQJwapu8m8";
+  // String serverKey = "AAAAuKjxF_c:APA91bHg2wfF4C-90Rw_8OFN0h"
+  //     "WGhb7CfOrf847Ovka2aqKVUQg91WGYCFJgRzhJyLfWi21oyAWCzbLkrYPZg"
+  //     "nLQ_D3_lhfqR1ZF1nUZoxWr0ED9hWYIR8mqWe4hK12nJzYOkE7UU8Wk";
 
   void requestPermission() async {
     NotificationSettings settings = await messaging.requestPermission(
@@ -164,7 +166,7 @@ class FireBaseNotification {
       );
 
       var res = await http.post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        Uri.parse('ca1xOaQpTx-ZQVADbC2xGP:APA91bHnfcacRx4ritky8ngDbYpeHPmNI-bPLdWsobIKxUrhrEfgNgVXQibFo2rtQTGxLgRIKLxhmcPlOyhGAaVR4araiQenFYFh6hkmEy66ZJbzwTYBU83xh6nxY3CmjvyiqU1Bb8oJ'),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': 'key=${FireBaseNotification().serverKey}',
