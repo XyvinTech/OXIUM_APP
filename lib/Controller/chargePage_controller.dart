@@ -18,6 +18,8 @@ class ChargeScreenController extends GetxController
   late TabController tabController;
   RxList<ChargeTransactionModel> model_list = RxList();
   RxDouble boxHeight = (0.0).obs;
+  ScrollController scrollController = ScrollController();
+  int page = 0, totalElements = 0;
 
   @override
   void onInit() {
@@ -30,6 +32,7 @@ class ChargeScreenController extends GetxController
       setBoxHeight();
     });
     getChargeTransactions();
+    _scrollListen();
   }
 
   @override
@@ -37,12 +40,34 @@ class ChargeScreenController extends GetxController
     // TODO: implement onClose
     super.onClose();
     tabController.dispose();
+    scrollController.dispose();
+  }
+
+  _scrollListen() {
+    scrollController.addListener(() async {
+// nextPageTrigger will have a value equivalent to 80% of the list size.
+      var nextPageTrigger = 0.99 * scrollController.position.maxScrollExtent;
+      // log(nextPageTrigger.toString());
+      // log(scrollController.position.pixels.toString());
+// _scrollController fetches the next paginated data when the current postion of the user on the screen has surpassed
+      if (model_list.length < totalElements &&
+          !isLoading &&
+          scrollController.position.pixels > nextPageTrigger) {
+        // loading = true;
+        // fetchData();
+        kLog(model_list.length.toString());
+        page++;
+        isLoading = true;
+        await getChargeTransactions();
+        isLoading = false;
+      }
+    });
   }
 
   getChargeTransactions() async {
     showLoading(kLoading);
     model_list.value =
-        await CommonFunctions().getChargeTransactions('${0}', '${10}');
+        await CommonFunctions().getChargeTransactions('$page', '${10}');
     hideLoading();
     setBoxHeight();
   }

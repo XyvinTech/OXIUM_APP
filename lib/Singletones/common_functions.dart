@@ -232,6 +232,7 @@ class CommonFunctions {
   }
 
   Future<UserModel> getUserProfile() async {
+
     var res = await CallAPI().getData('appuser', {
       "username": appData.userModel.value.username,
     });

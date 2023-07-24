@@ -34,7 +34,9 @@ class _ChargeScreenState extends State<ChargeScreen>
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xffF5F9FF),
-        body: CustomScrollView(shrinkWrap: true, slivers: [
+        body: CustomScrollView(
+          controller: controller.scrollController,
+          shrinkWrap: true, slivers: [
           SliverAppBar(
               backgroundColor: Color(0xffF5F9FF),
               automaticallyImplyLeading: false,

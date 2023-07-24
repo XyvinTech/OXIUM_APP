@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Utils/local_notifications.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -132,22 +133,28 @@ class ChargingScreenController extends GetxController {
 
           Future.delayed(Duration(seconds: 1), () => toProgress());
         } else if (chargingStatus.value == 'progress') {
-          time.value =
-              getTimeDifference(startTime: status_model.value.startTime,endtime: status_model.value.lastupdated);
+          time.value = getTimeDifference(
+              startTime: status_model.value.startTime,
+              endtime: status_model.value.lastupdated);
+          NotificationService()
+              .createLocalNotification(100, status_model.value.SOC, 1);
         }
       } else if (status_model.value.status == 'R' &&
           chargingStatus.value == 'C') {
         toCompleted();
         _timer?.cancel();
+        NotificationService().cancelLocalNotification(1);
       } else if (status_model.value.status.isNotEmpty &&
           status_model.value.status == 'E') {
         toDisconnected();
         _timer?.cancel();
+         NotificationService().cancelLocalNotification(1);
       } else if (status_model.value.status.isEmpty) {
         toReconnect();
       } else {
         toFinished();
         _timer?.cancel();
+         NotificationService().cancelLocalNotification(1);
       }
     });
   }

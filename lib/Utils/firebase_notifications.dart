@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -17,8 +19,17 @@ class FireBaseNotification {
     return _singleton;
   }
 
-  init() {
+  init() async{
     requestPermission();
+        var initializationSettingsAndroid = AndroidInitializationSettings('logo');
+    var initSetttings =
+        InitializationSettings(android: initializationSettingsAndroid);
+    await flutterLocalNotificationsPlugin.initialize(
+      initSetttings,
+      onDidReceiveBackgroundNotificationResponse:
+          redirectWhenClickedOnLocalNotifications,
+      onDidReceiveNotificationResponse: redirectWhenClickedOnLocalNotifications,
+    );
     loadFCM();
     listenFCM();
     setNotificationId();
@@ -101,23 +112,26 @@ class FireBaseNotification {
         log(message.toString());
         message.toMap().printInfo();
         log(message.notification!.title.toString());
-        // flutterLocalNotificationsPlugin.show(
-        //   notification.hashCode,
-        //   notification.title,
-        //   notification.body,
-        //   NotificationDetails(
-        //     android: AndroidNotificationDetails(
-        //       channel.id, channel.name,
-        //       // TODO add a proper drawable resource to android, for now using
-        //       //      one that already exists in example app.
-        //       icon: 'logo',
-        //       playSound: false,
-        //       fullScreenIntent: false,
-        //       // sound: RawResourceAndroidNotificationSound('eshogol_tone'),
-        //       sound: RawResourceAndroidNotificationSound('default'),
-        //     ),
-        //   ),
-        // );
+        if (Platform.isAndroid)
+          flutterLocalNotificationsPlugin.show(
+              notification.hashCode,
+              notification.title,
+              notification.body,
+              NotificationDetails(
+                android: AndroidNotificationDetails(
+                  channel.id, channel.name,
+                  // TODO add a proper drawable resource to android, for now using
+                  //      one that already exists in example app.
+                  icon: 'logo',
+                  playSound: false,
+                  fullScreenIntent: false,
+                  ongoing: false,
+                  styleInformation: BigTextStyleInformation(''),
+                  // sound: RawResourceAndroidNotificationSound('eshogol_tone'),
+                  // sound: RawResourceAndroidNotificationSound('notification'),
+                ),
+              ),
+              payload: jsonEncode(message.data));
       }
     });
     FirebaseMessaging.instance.getInitialMessage().then((message) {
@@ -131,14 +145,18 @@ class FireBaseNotification {
     });
   }
 
-  redirectWhenClickedOnNotifications(message) {
-    if (message.data['student_id'].isEmpty) {
-    } else if (message.data["screen"] == "chat_screen") {
-      // Get.toNamed(Routes.chatPagesRoutes, arguments: {
-      //   "name": message.data["student_name"],
-      //   "image": message.data["student_image"],
-      //   "phone": message.data["student_phone"],
-      // });
+  redirectWhenClickedOnNotifications(RemoteMessage message) {
+    if (message.data['isPromotional'] ?? false) {
+      Get.toNamed(Routes.notificationPageRoute);
+    }
+  }
+
+  static redirectWhenClickedOnLocalNotifications(NotificationResponse message) {
+    print('local notification clicked: ' + message.payload.toString());
+    var data = jsonDecode(message.payload ?? '');
+    print(data);
+    if (data['isPromotional'] ?? false) {
+      Get.toNamed(Routes.notificationPageRoute);
     }
   }
 

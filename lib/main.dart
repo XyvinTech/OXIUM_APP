@@ -65,8 +65,20 @@ Future<void> main() async {
   //     );
   // Workmanager().registerOneOffTask("task-identifier", "simpleTask",
   //     inputData: {'data': 'hello'});
+  // int s = 0;
+  // Timer.periodic(Duration(seconds: 1), (timer) {
+  //   if (s > 100) {
+  //     NotificationService().cancelLocalNotification(0);
+  //     NotificationService().showCompletionNotification();
+  //     timer.cancel();
+  //   } else {
+  //     NotificationService().createLocalNotification(100, s, 0);
+  //     s++;
+  //   }
+  // });
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 

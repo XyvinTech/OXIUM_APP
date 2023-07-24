@@ -24,7 +24,7 @@ class NotificationService {
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  void createNotification(int count, int i, int id) {
+  void createLocalNotification(int max, int progress, int notification_id) {
     //show the notifications.
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'progress_channel', 'progress channel',
@@ -34,12 +34,71 @@ class NotificationService {
         priority: Priority.high,
         onlyAlertOnce: true,
         showProgress: true,
-        maxProgress: count,
-        progress: i);
+        maxProgress: max,
+        progress: progress);
     var platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
-    _flutterLocalNotificationsPlugin.show(id, 'progress notification title',
-        'progress notification body', platformChannelSpecifics,
+    _flutterLocalNotificationsPlugin.show(notification_id,
+        'Charging in progress', '$progress% charged', platformChannelSpecifics,
         payload: 'item x');
+  }
+
+  cancelLocalNotification(int id) {
+    _flutterLocalNotificationsPlugin.cancel(id);
+  }
+
+  Future<void> showProgressNotification(int progress) async {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'progress_notification_channel',
+      'Progress Notification',
+      channelDescription: 'Notification for progress updates',
+      importance: Importance.low,
+      priority: Priority.low,
+      showProgress: true,
+      maxProgress: 100,
+    );
+
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.show(
+      0, // Unique ID for the notification
+      'Charging your vehicle...',
+      '$progress% complete',
+      platformChannelSpecifics,
+      payload: 'progress_notification',
+    );
+  }
+
+  Future<void> showCompletionNotification() async {
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'completion_notification_channel',
+      'Completion Notification',
+      channelDescription: 'Notification for upload completion',
+      importance: Importance.high,
+      priority: Priority.high,
+      showProgress: false,
+    );
+
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin
+        .cancel(0); // Hide progress notification
+    await flutterLocalNotificationsPlugin.show(
+      1, // Unique ID for the completion notification
+      'Upload Complete',
+      'Your file has been uploaded successfully!',
+      platformChannelSpecifics,
+      payload: 'completion_notification',
+    );
   }
 }
