@@ -17,6 +17,7 @@ class AppData {
   // String token =
   //     "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5ODA5MzU5MzQ0Iiwic2NvcGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpc3MiOiJodHRwOi8vZXpib3QuY29tIiwiaWF0IjoxNjg5MjMyODI4LCJleHAiOjE3MjA3Njg4Mjh9.UP-42IXxpXnAFidFLrGImE6PeWEWLmd1LcqE2SI_XuY";
   Rx<UserModel> userModel = kUserModel.obs;
+  RxBool notificationAvailable = false.obs;
   RxBool isReserved = false.obs;
   Debouncer debouncer = Debouncer(milliseconds: 1000);
   String qr = '';

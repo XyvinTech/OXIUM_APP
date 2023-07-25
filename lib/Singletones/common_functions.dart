@@ -1,5 +1,6 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:freelancer_app/Controller/notification_screen_controller.dart';
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Model/apiResponseModel.dart';
@@ -24,6 +25,7 @@ import 'package:uuid/uuid.dart';
 import '../Model/RFIDModel.dart';
 import '../Model/chargeTransactionModel.dart';
 import '../Model/favoriteModel.dart';
+import '../Model/notificationModel.dart';
 import '../Utils/toastUtils.dart';
 import 'dialogs.dart';
 
@@ -232,7 +234,6 @@ class CommonFunctions {
   }
 
   Future<UserModel> getUserProfile() async {
-
     var res = await CallAPI().getData('appuser', {
       "username": appData.userModel.value.username,
     });
@@ -671,6 +672,27 @@ class CommonFunctions {
       _walletPageController.totalElements = res.body['result']['totalElements'];
       res.body['result']['content'].forEach((element) {
         list.add(OrderModel.fromJson(element));
+      });
+      return list;
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<NotificationModel>> getNotifications(
+      String page, String size) async {
+    var res = await CallAPI().getData('notifications', {
+      'page': page,
+      'size': size,
+      'username': appData.userModel.value.username
+    });
+    kLog(res.statusCode.toString());
+    if (res.statusCode == 200 && res.body['success']) {
+      List<NotificationModel> list = [];
+      NotificationScreenController _walletPageController = Get.find();
+      _walletPageController.totalElements = res.body['result']['totalElements'];
+      res.body['result']['content'].forEach((element) {
+        list.add(NotificationModel.fromJson(element));
       });
       return list;
     } else {

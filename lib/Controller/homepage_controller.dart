@@ -78,7 +78,7 @@ class HomePageController extends GetxController {
       MapFunctions().addMarkerHomePage(
           id: element.id.toString(),
           latLng: LatLng(element.lattitude, element.longitude),
-          isBusy: element.isBusy,
+          isBusy: element.charger_status.trim() == 'Connected' && element.isBusy,
           controller: this);
     });
   }

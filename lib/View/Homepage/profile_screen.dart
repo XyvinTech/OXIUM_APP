@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/profile_screen_controller.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Utils/SharedPreferenceUtils.dart';
+import 'package:freelancer_app/Utils/firebase_notifications.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:get/get.dart';
 
@@ -221,6 +222,7 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                 GestureDetector(
                   onTap: () async {
                     await clearData();
+                    FireBaseNotification().unsubscribeFirebaseNotification();
                     appData.token = '';
                     appData.userModel.value = kUserModel;
                     Get.offAllNamed(Routes.loginpageRoute);

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -142,6 +144,7 @@ class _MapScreenState extends State<MapScreen>
                 right: size.width * .03,
                 child: InkWell(
                   onTap: () {
+                    appData.notificationAvailable.value = false;
                     Get.toNamed(Routes.notificationPageRoute);
                   },
                   child: Container(
@@ -153,7 +156,23 @@ class _MapScreenState extends State<MapScreen>
                             BoxShadow(
                                 blurRadius: 10, color: Colors.grey.shade400)
                           ]),
-                      child: SvgPicture.asset('assets/svg/notifications.svg')),
+                      child: Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          SvgPicture.asset('assets/svg/notifications.svg'),
+                          Obx(
+                            () => !appData.notificationAvailable.value
+                                ? Container()
+                                : Container(
+                                    height: 10.h,
+                                    width: 10.h,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.red),
+                                  ),
+                          )
+                        ],
+                      )),
                 )),
             Positioned(
                 bottom: size.height * .11,
