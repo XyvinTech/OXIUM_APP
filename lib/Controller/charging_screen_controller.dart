@@ -48,6 +48,7 @@ class ChargingScreenController extends GetxController {
   onClose() {
     super.onClose();
     _timer?.cancel();
+    NotificationService().cancelLocalNotification(1);
   }
 
   toConnected() {
@@ -148,13 +149,13 @@ class ChargingScreenController extends GetxController {
           status_model.value.status == 'E') {
         toDisconnected();
         _timer?.cancel();
-         NotificationService().cancelLocalNotification(1);
+        NotificationService().cancelLocalNotification(1);
       } else if (status_model.value.status.isEmpty) {
         toReconnect();
       } else {
         toFinished();
         _timer?.cancel();
-         NotificationService().cancelLocalNotification(1);
+        NotificationService().cancelLocalNotification(1);
       }
     });
   }

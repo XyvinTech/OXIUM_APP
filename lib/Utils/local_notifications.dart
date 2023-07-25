@@ -34,6 +34,7 @@ class NotificationService {
         priority: Priority.high,
         onlyAlertOnce: true,
         showProgress: true,
+        ongoing: true,
         maxProgress: max,
         progress: progress);
     var platformChannelSpecifics =
