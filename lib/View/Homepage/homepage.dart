@@ -113,7 +113,8 @@ showBottomSheetWhenClickedOnMarker(
   bool available = false;
   List res = [];
   model.Chargers.forEach((element) {
-    res = calculateAvailabiliy(element.evports);
+    res = calculateAvailabiliy(
+        element.evports, element.ocppStatus == 'Connected');
     kLog(res.toString());
     if (res[1] > 0) available = true;
   });

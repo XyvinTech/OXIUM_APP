@@ -205,8 +205,10 @@ class CallAPI {
 
   Future<void> download(String endpoint, String fileName) async {
     PermissionStatus status = await Permission.storage.request();
+    PermissionStatus statusManager =
+        await Permission.manageExternalStorage.request();
     kLog(status.isGranted.toString());
-    if (!status.isGranted) {
+    if (!status.isGranted && !statusManager.isGranted) {
       showError('Storage permission Denied');
       return;
     }

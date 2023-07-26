@@ -63,7 +63,8 @@ Future<Map<String, dynamic>> loadJsonFromAsset(String path) async {
   return json.decode(jsonString);
 }
 
-List<dynamic> calculateAvailabiliy(List<EvPortModel> evPorts) {
+List<dynamic> calculateAvailabiliy(
+    List<EvPortModel> evPorts, bool isConnected) {
   int available = 0,
       busy = 0,
       unAvailable = 0,
@@ -88,6 +89,12 @@ List<dynamic> calculateAvailabiliy(List<EvPortModel> evPorts) {
     trailing = kFaulted;
   else
     trailing = kUnavailable;
+
+  //if charger is disconnected then show unavailable
+  if (!isConnected) {
+    trailing = kUnavailable;
+    available = 0;
+  }
   return [trailing, available];
 }
 

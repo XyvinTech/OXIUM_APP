@@ -49,9 +49,12 @@ class HomePageController extends GetxController {
     MapFunctions().myMarker = await ImageByteConverter.getBytesFromAsset(
         "assets/images/myMarker.png", 60);
 
+    // Position? pos = await MapFunctions().getCurrentPosition();
     Position? pos = await MapFunctions().getCurrentPosition();
+    // if (pos == null) pos = await MapFunctions().getCurrentPosition();
+
     // MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
-    MapFunctions().animateToNewPosition(LatLng(28.670988, 77.2794488));
+    // MapFunctions().animateToNewPosition(LatLng(28.670988, 77.2794488));
     if (pos != null) {
       await getNearestChargestations(pos);
       MapFunctions().addMyPositionMarker(pos, MapFunctions().markers_homepage);
@@ -78,7 +81,8 @@ class HomePageController extends GetxController {
       MapFunctions().addMarkerHomePage(
           id: element.id.toString(),
           latLng: LatLng(element.lattitude, element.longitude),
-          isBusy: element.charger_status.trim() != 'Connected' || element.isBusy,
+          isBusy:
+              element.charger_status.trim() != 'Connected' || element.isBusy,
           controller: this);
     });
   }

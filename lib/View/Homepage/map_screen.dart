@@ -63,12 +63,12 @@ class _MapScreenState extends State<MapScreen>
                       MapFunctions().controller = controller;
                       // MapFunctions().setMapStyle(controller);
                       kLog('loading map');
-                      MapFunctions().getCurrentPosition();
+                      // MapFunctions().getCurrentPosition();
                     },
                     onTap: (value) {
                       print(value);
-                      MapFunctions().addMyPositionMarker(MapFunctions().curPos,
-                          MapFunctions().markers_homepage);
+                      // MapFunctions().addMyPositionMarker(MapFunctions().curPos,
+                      //     MapFunctions().markers_homepage);
                       // MapFunctions().addMarkerHomePage(
                       //     id: value.latitude.toString(),
                       //     latLng: value,
@@ -206,13 +206,15 @@ class _MapScreenState extends State<MapScreen>
                         ]),
                     child: InkWell(
                       onTap: () async {
-                        if (MapFunctions().curPos == null) {
-                          var res = await MapFunctions().getCurrentPosition();
-                          if (res != null) MapFunctions().curPos = res;
-                        }
-                        MapFunctions().animateToNewPosition(LatLng(
-                            MapFunctions().curPos.latitude,
-                            MapFunctions().curPos.longitude));
+                        var res = await MapFunctions().getCurrentPosition();
+                        if (res != null) MapFunctions().curPos = res;
+
+                        MapFunctions().animateToNewPosition(
+                            LatLng(
+                              MapFunctions().curPos.latitude,
+                              MapFunctions().curPos.longitude,
+                            ),
+                            bearing: 0);
                       },
                       child:
                           SvgPicture.asset('assets/svg/location_searching.svg'),

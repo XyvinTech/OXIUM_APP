@@ -33,7 +33,7 @@ class MapFunctions {
   late StreamSubscription mapStream;
   StreamSubscription<CompassEvent>? headingListener;
   late Timer mapTimer;
-  double zoom = 16;
+  double zoom = 10;
   Position curPos = kPosition;
   RxString curPosName = ''.obs;
   RxString curPosPlaceId = ''.obs;
@@ -54,9 +54,8 @@ class MapFunctions {
   var googlePlace = GooglePlace('AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs');
 
   Rx<CameraPosition> initialPosition =
-      CameraPosition(target: LatLng(20.5937, 78.9629), zoom: 15).obs;
+      CameraPosition(target: LatLng(10.6732, 76.6413), zoom: 7.5, bearing: 0).obs;
 
-  @override
   void dispose() {
     controller.dispose();
     mapStream.cancel();
@@ -66,7 +65,8 @@ class MapFunctions {
   }
 
   void initCameraPosition(LatLng latLng) {
-    initialPosition.value = CameraPosition(target: latLng, zoom: zoom);
+    initialPosition.value =
+        CameraPosition(target: latLng, zoom: zoom, bearing: 0);
   }
 
   void setMapStyle(GoogleMapController controller) {
@@ -187,10 +187,12 @@ class MapFunctions {
     if (Get.currentRoute == Routes.navigationPageRoute) {
       animateForNavigation(event);
     } else if (isFocused) {
-      controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-          target: LatLng(event.latitude, event.longitude),
-          zoom: zoom,
-          bearing: heading)));
+      // controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      //   target: LatLng(event.latitude, event.longitude),
+      //   zoom: zoom,
+      //   // bearing: heading
+      //   bearing: 0,
+      // )));
     }
   }
 
@@ -219,7 +221,7 @@ class MapFunctions {
   Future<void> animateToNewPosition(LatLng latLng,
       {double? newZoom, double bearing = 0}) async {
     await controller.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(target: latLng, zoom: newZoom ?? zoom, bearing: heading),
+      CameraPosition(target: latLng, zoom: newZoom ?? zoom, bearing: bearing),
     ));
   }
 

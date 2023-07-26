@@ -499,7 +499,7 @@ class CommonFunctions {
         "username": appData.userModel.value.username,
         "chargerName": seperator[1],
         "chargingpoint": int.parse(seperator[2]),
-        "userEVId": 412,
+        "userEVId": appData.userModel.value.defaultVehicle.id,
         "bookedvia": seperator[3]
       },
       'booking',

@@ -283,6 +283,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       itemBuilder: (context, index) {
                         ChargerModel charger =
                             controller.model.value.Chargers[index];
+                        bool isConnected =
+                            controller.model.value.Chargers[index].ocppStatus ==
+                                'Connected';
                         return Container(
                           margin: EdgeInsets.symmetric(
                               horizontal: size.width * .04,
@@ -297,6 +300,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                     ' KwH',
                                 evPorts: charger.evports,
                                 index: index,
+                                isConnected: isConnected,
                               )),
                               expanded: _chargerCardExpanded(
                                 title: charger.charger_name,
@@ -306,6 +310,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                     ' KwH',
                                 evPorts: charger.evports,
                                 index: index,
+                                isConnected: isConnected,
                               )),
                         );
                       }),
@@ -489,6 +494,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required EvPortModel evport,
     required int index,
     required int index1,
+    required bool isConnected,
   }) {
     String status;
     if (evport.ocppStatus == kAvailable)
@@ -499,6 +505,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       status = kFaulted;
     else
       status = kUnavailable;
+    if (!isConnected) status = kUnavailable;
     kLog(status);
     return Align(
       alignment: Alignment.center,
@@ -588,9 +595,10 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required String subTitle,
     required List<EvPortModel> evPorts,
     required int index,
+    required bool isConnected,
   }) {
     //////////LOGIC CODES////////
-    List res = calculateAvailabiliy(evPorts);
+    List res = calculateAvailabiliy(evPorts, isConnected);
     int available = res[1];
     String trailing = res[0];
     ///////END LOGIC CODES///////
@@ -725,15 +733,17 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       crossAxisSpacing: size.height * .01,
                     ),
                     itemBuilder: (context, index_grid) {
-                      return Obx(
-                        () => connectors(
-                            isSelected:
-                                index == controller.selectedCharger.value &&
-                                    controller.selectedType.value == index_grid,
-                            index: index,
-                            index1: index_grid,
-                            evport: evPorts[index_grid]),
-                      );
+                      return Obx(() {
+                        return connectors(
+                          isSelected:
+                              index == controller.selectedCharger.value &&
+                                  controller.selectedType.value == index_grid,
+                          index: index,
+                          index1: index_grid,
+                          evport: evPorts[index_grid],
+                          isConnected: isConnected,
+                        );
+                      });
                     }),
               ),
             ),
@@ -748,9 +758,10 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required String subTitle,
     required List<EvPortModel> evPorts,
     required int index,
+    required bool isConnected,
   }) {
     //////////LOGIC CODES////////
-    List res = calculateAvailabiliy(evPorts);
+    List res = calculateAvailabiliy(evPorts, isConnected);
     int available = res[1];
     String trailing = res[0];
     ///////END LOGIC CODES///////
