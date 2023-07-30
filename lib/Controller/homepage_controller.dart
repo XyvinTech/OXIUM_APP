@@ -41,6 +41,8 @@ class HomePageController extends GetxController {
         "assets/svg/blue_marker.png", 70);
     MapFunctions().bytesGreen = await ImageByteConverter.getBytesFromAsset(
         "assets/svg/green_marker.png", 70);
+    MapFunctions().bytesGray = await ImageByteConverter.getBytesFromAsset(
+        "assets/svg/gray_marker.png", 70);
     MapFunctions().navigationMarker =
         await ImageByteConverter.getBytesFromAsset(
             "assets/images/pointer.png", 70);
@@ -81,8 +83,9 @@ class HomePageController extends GetxController {
       MapFunctions().addMarkerHomePage(
           id: element.id.toString(),
           latLng: LatLng(element.lattitude, element.longitude),
-          isBusy:
-              element.charger_status.trim() != 'Connected' || element.isBusy,
+          isBusy: element.isBusy,
+          status:  element.charger_status.trim(),
+              // element.charger_status.trim() != 'Connected' || element.isBusy,
           controller: this);
     });
   }

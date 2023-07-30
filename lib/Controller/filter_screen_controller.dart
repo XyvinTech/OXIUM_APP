@@ -84,6 +84,7 @@ class FilterScreenController extends GetxController {
           id: element.id.toString(),
           latLng: LatLng(element.lattitude, element.longitude),
           isBusy: element.isBusy,
+          status:  element.charger_status.trim(),
           controller: _controller);
     });
     _controller.reload++;

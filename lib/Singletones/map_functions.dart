@@ -49,12 +49,18 @@ class MapFunctions {
   RxInt awayDistance = 0.obs;
   RxString maneuverText = ''.obs;
   Timer? timer;
-  Uint8List? bytesBlue, bytesGreen, navigationMarker, carMarker, myMarker;
+  Uint8List? bytesBlue,
+      bytesGreen,
+      bytesGray,
+      navigationMarker,
+      carMarker,
+      myMarker;
   String googleApiKey = "AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs";
   var googlePlace = GooglePlace('AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs');
 
   Rx<CameraPosition> initialPosition =
-      CameraPosition(target: LatLng(10.6732, 76.6413), zoom: 7.5, bearing: 0).obs;
+      CameraPosition(target: LatLng(10.6732, 76.6413), zoom: 7.5, bearing: 0)
+          .obs;
 
   void dispose() {
     controller.dispose();
@@ -291,6 +297,7 @@ class MapFunctions {
     required LatLng latLng,
     required bool isBusy,
     required HomePageController controller,
+    required String status,
   }) {
     markers_homepage.add(Marker(
         onTap: () async {
@@ -301,14 +308,16 @@ class MapFunctions {
           });
         },
         markerId: MarkerId(id),
-        icon: BitmapDescriptor.fromBytes(isBusy ? bytesGreen! : bytesBlue!),
+        icon: BitmapDescriptor.fromBytes(status == 'disConnected'
+            ? bytesGray!
+            : isBusy
+                ? bytesGreen!
+                : bytesBlue!),
         position: latLng,
         anchor: Offset(.5, .5)));
   }
 
   Future<List<AutocompletePrediction>?> searchPlaceByName(String place) async {
-    kLog('search by $place');
-
     try {
       var result = await googlePlace.autocomplete.get(
         place,

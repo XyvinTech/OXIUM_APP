@@ -21,7 +21,7 @@ class CallAPI {
   CallAPI._internal();
 
   int timeOutSec = 15;
-  String _url = 'https://app.bigboystoy.in/Chargetron/api/app/';
+  String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
 
 /////////POST DATA/////////////////
   Future<ResponseModel> postData(
@@ -60,7 +60,7 @@ class CallAPI {
       http.Response res = await http.get(
         Uri.https(
             // '35.154.49.246',
-            url != null ? url.split('/')[2] : 'app.bigboystoy.in',
+            url != null ? url.split('/')[2] : 'cms.goecworld.com',
             url != null ? url.split('/')[3] : '/Chargetron/api/app/' + endPoint,
             params),
         headers: {
@@ -155,7 +155,7 @@ class CallAPI {
     http.Response res = await http.patch(
       Uri.http(
           // '35.154.49.246',
-          'https://app.bigboystoy.in/',
+          'https://cms.goecworld.com/',
           'Chargetron/api/app/' + endPoint,
           params),
       headers: {
