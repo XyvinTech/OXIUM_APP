@@ -21,7 +21,7 @@ final Color kred = Colors.red;
 final Color kgrey = Colors.grey;
 final Color kblue = Colors.blue;
 final Color ktransparent = Colors.transparent;
-final Color kOnboardingBackgroundColors = Color(0xff0047C3);
+final Color kOnboardingColors = Color(0xff0047C3);
 final Color ktextFieldColor = Color(0xffEEEEEE);
 final Color kscaffoldBackgroundColor = Color(0xFFF5F5F5);
 final Color kDefaultHomePageBackgroundColor = Color(0xffF0F1F6);
@@ -193,16 +193,16 @@ final TextStyle kAppRevolutionsTextStyle = TextStyle(
 
 final TextStyle kAppBottomTextSpanTextStyle1 = TextStyle(
   fontFamily: "Poppins",
-  fontSize: 12.sp,
+  fontSize: 13.sp,
   fontWeight: FontWeight.w400,
-  color: Color(0xffffffff),
+  color: Colors.black,
 );
 
 final TextStyle kAppBottomTextSpanTextStyle2 = TextStyle(
   fontFamily: "Poppins",
-  fontSize: 12.sp,
+  fontSize: 13.sp,
   fontWeight: FontWeight.w400,
-  color: Color(0xff00FFB3),
+  color: kOnboardingColors,
   decoration: TextDecoration.underline,
 );
 

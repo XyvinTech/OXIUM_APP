@@ -14,6 +14,7 @@ class LoginPageController extends GetxController {
   TextEditingController mailEditingController = TextEditingController();
   TextEditingController tempEmailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  PageController carController = PageController();
   RxBool enablenameTextfield = false.obs;
   RxBool enablemailTextfield = false.obs;
   RxInt selectedIndex = 0.obs;
@@ -45,8 +46,7 @@ class LoginPageController extends GetxController {
 
   Future<bool> login() async {
     showLoading(kLoading);
-    bool res = await CommonFunctions()
-        .login(phoneController.text);
+    bool res = await CommonFunctions().login(phoneController.text);
     hideLoading();
     if (res) {
       Get.toNamed(Routes.enterotppageRoute, arguments: phoneController.text);

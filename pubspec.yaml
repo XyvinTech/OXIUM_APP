@@ -67,7 +67,8 @@ dependencies:
   flutter_screenutil: ^5.6.1
   path_provider: ^2.0.15
   flutter_rating_bar: ^4.0.1
-
+  smooth_page_indicator: ^1.1.0
+  
   qr_code_scanner: ^1.0.1
   pin_code_fields: ^7.4.0
   linear_progress_bar: ^1.1.0

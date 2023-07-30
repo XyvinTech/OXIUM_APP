@@ -43,6 +43,31 @@ class LoginCustomAppBar extends StatelessWidget {
   }
 }
 
+class OnboardingCustomAppBar extends StatelessWidget {
+  final String? text;
+  final Widget? icon;
+  const OnboardingCustomAppBar({super.key, this.text, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          children: [
+            Image.asset(
+              "assets/images/goeclogo2.png",
+              height: 80,
+              width: 120,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class CustomAppBar extends StatelessWidget {
   final String? text;
   final Widget? icon;
@@ -70,7 +95,7 @@ class CustomAppBar extends StatelessWidget {
         // top: size.height * .02
       ),
       // height: size.height * 0.09,
-      color: color ?? kOnboardingBackgroundColors,
+      color: color ?? kOnboardingColors,
       child: SafeArea(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
