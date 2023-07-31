@@ -13,7 +13,6 @@ class LoginPage extends GetView<LoginPageController> {
 
   @override
   Widget build(BuildContext context) {
-    PageController cardController = PageController();
     size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -48,7 +47,7 @@ class LoginPage extends GetView<LoginPageController> {
                     child: SizedBox(
                       height: size.height / 2.1,
                       child: PageView(
-                        controller: cardController,
+                        controller: controller.cardController,
                         children: [
                           CustomCards(
                             image: "assets/images/OnboardingCard1.png",
@@ -70,7 +69,7 @@ class LoginPage extends GetView<LoginPageController> {
                     padding: const EdgeInsets.all(10),
                     child: Center(
                       child: SmoothPageIndicator(
-                        controller: cardController,
+                        controller: controller.cardController,
                         count: 3,
                         effect: ExpandingDotsEffect(
                           activeDotColor: Color.fromARGB(255, 14, 224, 157),
@@ -106,34 +105,55 @@ class LoginPage extends GetView<LoginPageController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        RichText(
-                          text: TextSpan(
-                            text:
-                                'By selecting get started, you are agreeing to the ',
-                            style: kAppBottomTextSpanTextStyle1,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: ' Terms &',
-                                style: kAppBottomTextSpanTextStyle2,
+                        Row(
+                          children: [
+                            Text(
+                              'By selecting get started, you are agreeing to the ',
+                              style: kAppBottomTextSpanTextStyle1,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                controller.onTermsCondition();
+                              },
+                              child: RichText(
+                                text: TextSpan(
+                                  text: ' Terms &',
+                                  style: kAppBottomTextSpanTextStyle2,
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        RichText(
-                          text: TextSpan(
-                            text: 'Conditions',
-                            style: kAppBottomTextSpanTextStyle2,
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: ' and ',
-                                style: kAppBottomTextSpanTextStyle1,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                controller.onTermsCondition();
+                              },
+                              child: RichText(
+                                text: TextSpan(
+                                  text: 'Conditions',
+                                  style: kAppBottomTextSpanTextStyle2,
+                                ),
                               ),
-                              TextSpan(
-                                text: 'Privacy Policy.',
-                                style: kAppBottomTextSpanTextStyle2,
+                            ),
+                            Text(
+                              ' and ',
+                              style: kAppBottomTextSpanTextStyle1,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                controller.onPrivacyPolicy();
+                              },
+                              child: RichText(
+                                text: TextSpan(
+                                  text: 'Privacy Policy.',
+                                  style: kAppBottomTextSpanTextStyle2,
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

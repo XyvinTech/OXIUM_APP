@@ -27,11 +27,16 @@ class EnterNumberPage extends GetView<LoginPageController> {
       backgroundColor: kwhite,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.09),
-        child: CustomAppBar(
-          // text: "Skip",
-          icon: Icon(
-            Icons.arrow_forward,
-            color: Colors.white,
+        child: GestureDetector(
+          onTap: () {
+            controller.onSkip();
+          },
+          child: CustomAppBar(
+            text: "Skip",
+            icon: Icon(
+              Icons.arrow_forward,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
@@ -190,7 +195,7 @@ class EnterNumberPage extends GetView<LoginPageController> {
                       CustomSmallText(
                           text: "We will send an OTP to verify yor Number"),
                       SizedBox(
-                        height: size.height * 0.035,
+                        height: size.height * 0.435,
                       ),
 
                       //send OTP button
@@ -206,9 +211,9 @@ class EnterNumberPage extends GetView<LoginPageController> {
                         },
                       ),
 
-                      SizedBox(
-                        height: size.height * 0.075,
-                      ),
+                      // SizedBox(
+                      //   height: size.height * 0.075,
+                      // ),
 
                       // Row(
                       //   children: [
@@ -236,9 +241,9 @@ class EnterNumberPage extends GetView<LoginPageController> {
                       //   ],
                       // ),
 
-                      SizedBox(
-                        height: size.height * 0.075,
-                      ),
+                      // SizedBox(
+                      //   height: size.height * 0.075,
+                      // ),
                       // SignUpButton(
                       //   onTap: () {
                       //     // CommonFunctions().googleLogin();
@@ -252,9 +257,9 @@ class EnterNumberPage extends GetView<LoginPageController> {
                       //     height: size.height * 0.033,
                       //   ),
                       // ),
-                      SizedBox(
-                        height: size.height * 0.025,
-                      ),
+                      // SizedBox(
+                      //   height: size.height * 0.025,
+                      // ),
                       // SignUpButton(
                       //   onTap: () {
                       //     FireBaseNotification.sendPushMessage('Applr body',
