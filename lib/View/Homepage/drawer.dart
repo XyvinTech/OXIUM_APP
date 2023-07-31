@@ -8,6 +8,7 @@ import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
 import '../../Singletones/app_data.dart';
+import '../Widgets/appbutton.dart';
 import '../Widgets/cached_network_image.dart';
 
 Widget CustomDrawer(BuildContext context) {
@@ -36,8 +37,46 @@ Widget CustomDrawer(BuildContext context) {
         ),
         InkWell(
           onTap: () {
-            Get.back();
-            Get.toNamed(Routes.profilePageRoute);
+            if (isLoggedIn) {
+              Get.back();
+              Get.toNamed(Routes.profilePageRoute);
+            } else {
+              Get.bottomSheet(Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Container(
+                  height: 200,
+                  child: Column(
+                    children: [
+                      Spacer(flex: 5),
+                      Text(
+                        "Signup to Access",
+                        style: kAppSignupStyle,
+                      ),
+                      Spacer(flex: 1),
+                      Text(
+                        "You Should Signup to Access this \nfunctionality",
+                        textAlign: TextAlign.center,
+                        style: kApphintTextStyle2,
+                      ),
+                      Spacer(flex: 5),
+                      StartedButton(
+                        color: Color(0xff0047C3),
+                        text: "Get OTP",
+                        isIcon: false,
+                        textColor: Color(
+                          0xffF2F2F2,
+                        ),
+                        //iconColor: Color(0xffF2F2F2),
+                        onTap: () {},
+                      ),
+                      Spacer(flex: 5),
+                    ],
+                  ),
+                ),
+              ));
+            }
           },
           child: Container(
             height: size.height * .12,
@@ -56,32 +95,44 @@ Widget CustomDrawer(BuildContext context) {
                       // Image.asset('assets/images/profile_pic.png'),
                       ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: Obx(() =>
-                        cachedNetworkImage(appData.userModel.value.image)),
+                    child: isLoggedIn
+                        ? Obx(() =>
+                            cachedNetworkImage(appData.userModel.value.image))
+                        : Container(
+                            height: 5,
+                            child: Image.asset(
+                              "assets/images/user.png",
+                            ),
+                          ),
                   ),
                 ),
               ),
               width(size.width * .03),
-              Obx(
-                () => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(
-                        text: appData.userModel.value.name,
-                        fontWeight: FontWeight.bold,
-                        minFontSize: 18.sp,
-                        color: Colors.white),
-                    height(size.height * .002),
-                    CustomText(
-                        text: '+91 ' + appData.userModel.value.username,
-                        fontWeight: FontWeight.normal,
-                        size: 14.sp,
-                        isAutoSize: true,
-                        color: Colors.white),
-                  ],
-                ),
-              ),
+              isLoggedIn
+                  ? Obx(
+                      () => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                              text: appData.userModel.value.name,
+                              fontWeight: FontWeight.bold,
+                              minFontSize: 18.sp,
+                              color: Colors.white),
+                          height(size.height * .002),
+                          CustomText(
+                              text: '+91 ' + appData.userModel.value.username,
+                              fontWeight: FontWeight.normal,
+                              size: 14.sp,
+                              isAutoSize: true,
+                              color: Colors.white),
+                        ],
+                      ),
+                    )
+                  : Text(
+                      "Login Now",
+                      style: kAppJoinGOECTextStyle,
+                    ),
               Spacer(),
               Icon(
                 Icons.arrow_forward_ios,
@@ -92,122 +143,130 @@ Widget CustomDrawer(BuildContext context) {
           ),
         ),
         height(size.height * .03),
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: size.width * .04, vertical: size.height * .02),
-          child: InkWell(
-            onTap: () {
-              Get.back();
-              Get.toNamed(Routes.myvehicleRoute);
-            },
-            child: Container(
-              child: Row(
-                children: [
-                  SvgPicture.asset('assets/svg/directions_car.svg'),
-                  width(size.width * .05),
-                  CustomText(
-                    text: 'My Vehicle',
-                    color: Color(0xff4F4F4F),
-                    size: 15.sp,
+        isLoggedIn
+            ? Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.width * .04, vertical: size.height * .02),
+                child: InkWell(
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(Routes.myvehicleRoute);
+                  },
+                  child: Container(
+                    child: Row(
+                      children: [
+                        SvgPicture.asset('assets/svg/directions_car.svg'),
+                        width(size.width * .05),
+                        CustomText(
+                          text: 'My Vehicle',
+                          color: Color(0xff4F4F4F),
+                          size: 15.sp,
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.black,
+                          size: 15,
+                        ),
+                      ],
+                    ),
                   ),
-                  Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.black,
-                    size: 15,
+                ),
+              )
+            : Center(),
+        // height(size.height * .05),
+        isLoggedIn
+            ? Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.width * .04, vertical: size.height * .02),
+                child: InkWell(
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(Routes.rfidNumberRoute);
+                  },
+                  child: Row(
+                    children: [
+                      SvgPicture.asset('assets/svg/credit_card.svg'),
+                      width(size.width * .05),
+                      CustomText(
+                        text: 'RFID',
+                        color: Color(0xff4F4F4F),
+                        size: 15.sp,
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.black,
+                        size: 15,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          ),
-        ),
+                ),
+              )
+            : Center(),
         // height(size.height * .05),
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: size.width * .04, vertical: size.height * .02),
-          child: InkWell(
-            onTap: () {
-              Get.back();
-              Get.toNamed(Routes.rfidNumberRoute);
-            },
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/svg/credit_card.svg'),
-                width(size.width * .05),
-                CustomText(
-                  text: 'RFID',
-                  color: Color(0xff4F4F4F),
-                  size: 15.sp,
+        isLoggedIn
+            ? Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.width * .04, vertical: size.height * .02),
+                child: InkWell(
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(Routes.partnerPageRoute);
+                  },
+                  child: Row(
+                    children: [
+                      SvgPicture.asset('assets/svg/handshake.svg'),
+                      width(size.width * .04),
+                      CustomText(
+                        text: 'Partner with us',
+                        color: Color(0xff4F4F4F),
+                        size: 15.sp,
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.black,
+                        size: 15,
+                      ),
+                    ],
+                  ),
                 ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 15,
+              )
+            : Center(),
+        isLoggedIn
+            ? Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.width * .04, vertical: size.height * .02),
+                child: InkWell(
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(Routes.favouritePageRoute);
+                  },
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/svg/favorite.svg',
+                        width: 24.sp,
+                        color: Color(0xff4f4f4f),
+                      ),
+                      width(size.width * .04),
+                      CustomText(
+                        text: 'Favourites',
+                        color: Color(0xff4F4F4F),
+                        size: 15.sp,
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.black,
+                        size: 15,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-        ),
-        // height(size.height * .05),
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: size.width * .04, vertical: size.height * .02),
-          child: InkWell(
-            onTap: () {
-              Get.back();
-              Get.toNamed(Routes.partnerPageRoute);
-            },
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/svg/handshake.svg'),
-                width(size.width * .04),
-                CustomText(
-                  text: 'Partner with us',
-                  color: Color(0xff4F4F4F),
-                  size: 15.sp,
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 15,
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: size.width * .04, vertical: size.height * .02),
-          child: InkWell(
-            onTap: () {
-              Get.back();
-              Get.toNamed(Routes.favouritePageRoute);
-            },
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  'assets/svg/favorite.svg',
-                  width: 24.sp,
-                  color: Color(0xff4f4f4f),
-                ),
-                width(size.width * .04),
-                CustomText(
-                  text: 'Favourites',
-                  color: Color(0xff4F4F4F),
-                  size: 15.sp,
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 15,
-                ),
-              ],
-            ),
-          ),
-        ),
+              )
+            : Center(),
         // height(size.height * .05),
         Padding(
           padding: EdgeInsets.symmetric(

@@ -115,7 +115,7 @@ class HelpScreen extends GetView<HelpPageController> {
                         autoPlay: false,
                         reverse: false,
                         enlargeCenterPage: true,
-                        enableInfiniteScroll: true,
+                        enableInfiniteScroll: false,
                         scrollDirection: Axis.horizontal,
                         autoPlayInterval: Duration(seconds: 2),
                         autoPlayAnimationDuration: Duration(milliseconds: 2000),
@@ -165,14 +165,16 @@ class HelpScreen extends GetView<HelpPageController> {
           height(size.height * 0.02),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .062),
-            child: _contractCard("Talk to Customer care", () {
+            child:
+                _contractCard("Talk to Customer care", Icons.call, "null", () {
               controller.openPhoneCall("+8801738347723");
             }),
           ),
           height(size.height * 0.02),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .062),
-            child: _contractCard("Chat on Whatsapp", () {
+            child: _contractCard(
+                "Chat on Whatsapp", null, "assets/images/whatsapp.png", () {
               // if (Platform.isAndroid) {
               //   controller.openWhatsApp();
               //   log("android whatsapp working");
@@ -185,7 +187,8 @@ class HelpScreen extends GetView<HelpPageController> {
           height(size.height * 0.02),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .062),
-            child: _contractCard("Report an Issue", () {
+            child: _contractCard(
+                "Report an Issue", null, "assets/images/report_issue.png", () {
               // if (Platform.isAndroid) {
               //   controller.openMail("mahmudulhasan5008@gmail.com");
               // } else if (Platform.isIOS) {
@@ -215,7 +218,8 @@ class HelpScreen extends GetView<HelpPageController> {
     ));
   }
 
-  Widget _contractCard(String title, void Function()? ontap) {
+  Widget _contractCard(
+      String title, IconData? icon, String? image, void Function()? ontap) {
     return InkWell(
       onTap: ontap,
       child: Container(
@@ -237,11 +241,16 @@ class HelpScreen extends GetView<HelpPageController> {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.call,
-                    size: 17,
-                    color: Color(0xff4F4F4F),
-                  ),
+                  icon != null
+                      ? Icon(
+                          icon,
+                          size: 17,
+                          color: Color(0xff4F4F4F),
+                        )
+                      : Center(
+                          child:
+                              Container(height: 22, child: Image.asset(image!)),
+                        ),
                   width(size.width * 0.05),
                   CustomBigText(
                     text: title,

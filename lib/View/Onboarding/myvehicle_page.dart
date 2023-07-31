@@ -86,6 +86,7 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
                 color: Color(0xff0047C3),
                 text: "Get Charged",
                 textColor: Color(0xffF2F2F2),
+                isIcon: true,
                 iconColor: Color(0xffF2F2F2),
               ),
               // LoginButton(color: Color(0xff0047C3), text: "Get Charged"),

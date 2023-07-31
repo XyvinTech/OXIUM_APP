@@ -9,6 +9,7 @@ import 'package:freelancer_app/Utils/my_flutter_app_icons.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
+import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Homepage/drawer.dart';
 import 'package:freelancer_app/View/Homepage/map_screen.dart';
 import 'package:freelancer_app/View/Trips/trips_page.dart';
@@ -42,8 +43,9 @@ class HomePageScreen extends GetView<HomePageController> {
         children: [
           MapScreen(),
           ChargeScreen(),
-          TripsScreen(),
           WalletScreen(),
+          //HelpScreen()
+          TripsScreen(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -74,8 +76,8 @@ class HomePageScreen extends GetView<HomePageController> {
             icons: [
               CustomIcon.map,
               CustomIcon.bolt,
-              CustomIcon.mode_of_travel,
               CustomIcon.account_balance_wallet,
+              CustomIcon.mode_of_travel,
             ],
             activeIndex: controller.activeIndex.value,
             height: size.height * .085,

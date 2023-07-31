@@ -88,6 +88,7 @@ class LoginPage extends GetView<LoginPageController> {
                   StartedButton(
                     color: kOnboardingColors,
                     iconColor: Colors.white,
+                    isIcon: true,
                     text: "Get Started",
                     textColor: Colors.white,
                     onTap: () {

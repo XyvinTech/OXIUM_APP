@@ -201,10 +201,12 @@ class EnterNumberPage extends GetView<LoginPageController> {
                       //send OTP button
                       StartedButton(
                         color: Color(0xff0047C3),
+                      
                         text: "Send OTP",
                         textColor: Color(
                           0xffF2F2F2,
                         ),
+                        isIcon: true,
                         iconColor: Color(0xffF2F2F2),
                         onTap: () {
                           controller.login();

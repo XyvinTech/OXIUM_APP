@@ -13,6 +13,7 @@ import 'package:geolocator/geolocator.dart';
 
 late Size size = Size(0, 0);
 double zoom = 15;
+bool isLoggedIn = false;
 
 final Color kblack = Colors.black;
 final Color kwhite = Colors.white;
@@ -183,6 +184,12 @@ final TextStyle kAppJoinGOECTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
   color: kwhite,
 );
+final TextStyle kAppSignupStyle = TextStyle(
+  fontFamily: "Poppins",
+  fontSize: 20.sp,
+  fontWeight: FontWeight.w600,
+  color: kblack,
+);
 
 final TextStyle kAppRevolutionsTextStyle = TextStyle(
   fontFamily: "Poppins",
@@ -224,6 +231,12 @@ final TextStyle kApphintTextStyle = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w400,
   color: Color(0xffBDBDBD),
+);
+final TextStyle kApphintTextStyle2 = TextStyle(
+  fontFamily: "Poppins",
+  fontSize: 16,
+  fontWeight: FontWeight.w400,
+  color: Color.fromARGB(251, 105, 105, 105),
 );
 
 kLog(String value) {
