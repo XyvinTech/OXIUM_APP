@@ -213,8 +213,8 @@ class CommonFunctions {
   //   return (res.statusCode == 200 && res.body['success']);
   // }
 
-  Future<bool> deleteEvOfUser() async {
-    ResponseModel res = await CallAPI().deleteData({"userEVId": 60}, 'ev');
+  Future<bool> deleteEvOfUser(VehicleModel ev) async {
+    ResponseModel res = await CallAPI().deleteData({"userEVId": ev.id}, 'ev');
     return (res.statusCode == 200 && res.body['success']);
   }
 
@@ -222,7 +222,7 @@ class CommonFunctions {
     var res = await CallAPI().getData('userevs', {
       "username": appData.userModel.value.username,
     });
-
+    kLog(res.body.toString());
     if (res.statusCode == 200 &&
         res.body['success'] != null &&
         res.body['success']) {
@@ -230,6 +230,7 @@ class CommonFunctions {
       res.body['result'].forEach((element) {
         list.add(VehicleModel.fromjson(element));
       });
+      kLog(list.length.toString());
       return list;
     } else {
       return [];

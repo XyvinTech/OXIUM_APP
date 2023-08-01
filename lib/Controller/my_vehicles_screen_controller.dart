@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
@@ -25,6 +27,7 @@ class MyVehiclesScreenController extends GetxController {
 
   setAsDefaultVehicle(VehicleModel model) async {
     showLoading(kLoading);
+    log(model.id.toString());
     bool res = await CommonFunctions().addEvToUser(
       ev: model,
       userName: appData.userModel.value.username,
