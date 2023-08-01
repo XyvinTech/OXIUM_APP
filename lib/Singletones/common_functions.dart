@@ -187,28 +187,31 @@ class CommonFunctions {
       "username": userName,
       "make": ev.vehicleDetails,
       "model": ev.modelName,
+      "year": ev.year,
       "evRegNumber": regNumber,
-      "defaultVehicle": isDefault ? 'Y' : 'N',
+      if (isDefault) "userEVId": ev.id,
+      if (isDefault) "defaultVehicle": 'Y',
     }, 'ev');
+    kLog(ev.id.toString());
     kLog(res.statusCode.toString());
     kLog(res.body.toString());
     return (res.statusCode == 200 && res.body['success']);
   }
 
-  Future<bool> setDefaultVehicle({
-    required String userName,
-    required String regNumber,
-    bool isDefault = false,
-  }) async {
-    ResponseModel res = await CallAPI().putData({
-      "username": userName,
-      "evRegNumber": regNumber,
-      "defaultVehicle": isDefault ? 'Y' : 'N',
-    }, 'ev');
-    kLog(res.statusCode.toString());
-    kLog(res.body.toString());
-    return (res.statusCode == 200 && res.body['success']);
-  }
+  // Future<bool> setDefaultVehicle({
+  //   required String userName,
+  //   required String regNumber,
+  //   bool isDefault = false,
+  // }) async {
+  //   ResponseModel res = await CallAPI().putData({
+  //     "username": userName,
+  //     "evRegNumber": regNumber,
+  //     "defaultVehicle": isDefault ? 'Y' : 'N',
+  //   }, 'ev');
+  //   kLog(res.statusCode.toString());
+  //   kLog(res.body.toString());
+  //   return (res.statusCode == 200 && res.body['success']);
+  // }
 
   Future<bool> deleteEvOfUser() async {
     ResponseModel res = await CallAPI().deleteData({"userEVId": 60}, 'ev');

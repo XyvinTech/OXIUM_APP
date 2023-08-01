@@ -126,7 +126,8 @@ class LoginPage extends GetView<LoginPageController> {
                             children: <TextSpan>[
                               TextSpan(
                                 text: ' and ',
-                                style: kAppBottomTextSpanTextStyle1,
+                                style: kAppBottomTextSpanTextStyle1.copyWith(
+                                    decoration: TextDecoration.none),
                               ),
                               TextSpan(
                                 text: 'Privacy Policy.',

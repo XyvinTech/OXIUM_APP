@@ -76,7 +76,9 @@ class VehiclesScreenController extends GetxController {
     bool isSuccess = await CommonFunctions().addEvToUser(
         userName: appData.userModel.value.username,
         ev: selectedVehicle.value,
-        regNumber: numEditingController.text);
+        regNumber: numEditingController.text,
+        isDefault: false,
+        );
     hideLoading();
     if (isSuccess) {
       showSuccess('Vehicle added successfully');

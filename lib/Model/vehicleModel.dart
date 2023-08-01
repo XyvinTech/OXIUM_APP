@@ -7,6 +7,7 @@ class VehicleModel {
   final String typeOfPorts;
   final String evRegNumber;
   final String defaultVehicle;
+  final String year;
   final int ratedVoltages;
   final int capacity;
   final int numberOfPorts;
@@ -16,6 +17,7 @@ class VehicleModel {
     required this.icon,
     required this.vehicleDetails,
     required this.modelName,
+    required this.year,
     required this.evRegNumber,
     required this.outputType,
     required this.typeOfPorts,
@@ -32,6 +34,7 @@ class VehicleModel {
         vehicleDetails: json['vehicleDetails'] ?? '',
         defaultVehicle: json['defaultVehicle'] ?? '',
         evRegNumber: json['evRegNumber'] ?? '',
+        year: json['year'] ?? '',
         modelName: json['modelName'] ?? '',
         outputType: json['outputType'] ?? '',
         typeOfPorts: json['typeOfPorts'] ?? '',
@@ -52,7 +55,8 @@ class VehicleModel {
         "ratedVoltages": ratedVoltages,
         "capacity": capacity,
         "numberOfPorts": numberOfPorts,
-        "evPort": evPort
+        "evPort": evPort,
+        "year": year
         // [
         //   {"evPortSeq": 1, "connectorType": "Type 2 ", "energyKWh": 12121.0}
         // ],

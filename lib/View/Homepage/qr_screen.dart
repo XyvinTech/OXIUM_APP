@@ -86,36 +86,43 @@ class QrScreen extends GetView<QrController> {
   Widget _otpContainer(BuildContext context, QrController controller) {
     return Container(
       width: 347.sw,
-      height: 290.h,
+      height: 150.h,
       padding:
           EdgeInsets.only(top: 16.h, left: 27.w, right: 27.w, bottom: 25.h),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(30.r)),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         CustomBigText(
-          text: 'Scan Or Enter Code Below',
+          text: 'Scan Qr to Charge',
           color: Color(0xff828282),
-          size: 16.sp,
+          size: 20.sp,
           fontWeight: FontWeight.bold,
         ),
         SizedBox(
           height: 20.h,
         ),
-        PinCodeTextField(
-            appContext: context,
-            length: 5,
-            pinTheme: PinTheme(
-              fieldHeight: 64.h,
-              fieldWidth: 47.w,
-              shape: PinCodeFieldShape.box,
-              borderRadius: BorderRadius.circular(38.r),
-              borderWidth: .805,
-              selectedFillColor: Color.fromARGB(255, 65, 65, 65),
-              inactiveColor: Color(0xffBDBDBD),
-            ),
-            onChanged: (valu) {
-              print(valu);
-            }),
+        CustomBigText(
+          text: 'Scan QR on charging station to start charging',
+          color: Color(0xff828282),
+          size: 16.sp,
+          align: TextAlign.center,
+          fontWeight: FontWeight.w500,
+        ),
+        // PinCodeTextField(
+        //     appContext: context,
+        //     length: 5,
+        //     pinTheme: PinTheme(
+        //       fieldHeight: 64.h,
+        //       fieldWidth: 47.w,
+        //       shape: PinCodeFieldShape.box,
+        //       borderRadius: BorderRadius.circular(38.r),
+        //       borderWidth: .805,
+        //       selectedFillColor: Color.fromARGB(255, 65, 65, 65),
+        //       inactiveColor: Color(0xffBDBDBD),
+        //     ),
+        //     onChanged: (valu) {
+        //       print(valu);
+        //     }),
         // SizedBox(
         //   height: 15.h,
         // ),
@@ -136,17 +143,17 @@ class QrScreen extends GetView<QrController> {
         //     )
         //   ],
         // ),
-        SizedBox(
-          height: 28.h,
-        ),
-        MainBtn(
-          text: "Proceed",
-          onPressed: () {
-            //TODO: whatever needed if code is entered.
-            appData.qr = '444-t1-1-Q';
-            CommonFunctions().createBookingAndCheck(appData.qr);
-          },
-        )
+        // SizedBox(
+        //   height: 28.h,
+        // ),
+        // MainBtn(
+        //   text: "Proceed",
+        //   onPressed: () {
+        //     //TODO: whatever needed if code is entered.
+        //     appData.qr = '444-t1-1-Q';
+        //     CommonFunctions().createBookingAndCheck(appData.qr);
+        //   },
+        // )
       ]),
     );
   }

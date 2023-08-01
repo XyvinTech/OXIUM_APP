@@ -65,6 +65,7 @@ final VehicleModel kVehicleModel = VehicleModel(
     modelName: '',
     outputType: '',
     typeOfPorts: '',
+    year: '',
     ratedVoltages: 0,
     capacity: 0,
     numberOfPorts: 0,
