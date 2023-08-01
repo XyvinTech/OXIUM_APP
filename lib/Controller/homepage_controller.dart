@@ -79,13 +79,12 @@ class HomePageController extends GetxController {
     hideLoading();
 
     station_marker_list.forEach((element) {
-      kLog(element.id.toString());
       MapFunctions().addMarkerHomePage(
           id: element.id.toString(),
           latLng: LatLng(element.lattitude, element.longitude),
           isBusy: element.isBusy,
-          status:  element.charger_status.trim(),
-              // element.charger_status.trim() != 'Connected' || element.isBusy,
+          status: element.charger_status.trim(),
+          // element.charger_status.trim() != 'Connected' || element.isBusy,
           controller: this);
     });
   }

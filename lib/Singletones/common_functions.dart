@@ -345,7 +345,6 @@ class CommonFunctions {
       "lattitude": "${pos.latitude}",
       "longitude": "${pos.longitude}",
     });
-    kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<StationMarkerModel> list = [];
       res.body['result'].forEach((element) {

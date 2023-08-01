@@ -13,7 +13,6 @@ import 'package:geolocator/geolocator.dart';
 
 late Size size = Size(0, 0);
 double zoom = 15;
-bool isLoggedIn = false;
 
 final Color kblack = Colors.black;
 final Color kwhite = Colors.white;

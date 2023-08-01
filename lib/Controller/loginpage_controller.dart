@@ -51,7 +51,6 @@ class LoginPageController extends GetxController {
     bool res = await CommonFunctions().login(phoneController.text);
     hideLoading();
     if (res) {
-      isLoggedIn = true;
       Get.toNamed(Routes.enterotppageRoute, arguments: phoneController.text);
     } else {
       showError('Failed to login. Try again.');
@@ -60,7 +59,6 @@ class LoginPageController extends GetxController {
   }
 
   onSkip() {
-    isLoggedIn = false;
     Get.offAllNamed(Routes.homePageRoute);
   }
 

@@ -12,6 +12,7 @@ import '../Widgets/appbutton.dart';
 import '../Widgets/cached_network_image.dart';
 
 Widget CustomDrawer(BuildContext context) {
+  bool isLoggedIn = appData.userModel.value.username.isNotEmpty;
   return Drawer(
     width: size.width * .75,
     child: Container(
