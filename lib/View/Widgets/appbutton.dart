@@ -48,11 +48,13 @@ class StartedButton extends StatelessWidget {
       required this.text,
       this.onTap,
       this.textColor,
-      this.iconColor})
+      this.iconColor,
+      required this.isIcon})
       : super(key: key);
   final Color color;
   final Color? textColor;
   final Color? iconColor;
+  final bool isIcon;
   final String text;
   final void Function()? onTap;
 
@@ -71,7 +73,9 @@ class StartedButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: isIcon
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.center,
             children: [
               Text(
                 text,
@@ -82,11 +86,13 @@ class StartedButton extends StatelessWidget {
                   color: textColor ?? Color(0xFF0047C3),
                 ),
               ),
-              Icon(
-                Icons.arrow_forward,
-                color: iconColor ?? Color(0xFF0047C3),
-                size: 20.w,
-              ),
+              isIcon
+                  ? Icon(
+                      Icons.arrow_forward,
+                      color: iconColor ?? Color(0xFF0047C3),
+                      size: 20.w,
+                    )
+                  : Center(),
             ],
           ),
         ),

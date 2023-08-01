@@ -119,7 +119,9 @@ class OrderRFIDScreen extends GetView<RfidPageController> {
                       left: size.width * 0.1,
                       child: InkWell(
                         onTap: () {
-                          Get.toNamed(Routes.rfidNumberRoute,);
+                          Get.toNamed(
+                            Routes.rfidNumberRoute,
+                          );
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
@@ -14,7 +15,7 @@ class LoginPageController extends GetxController {
   TextEditingController mailEditingController = TextEditingController();
   TextEditingController tempEmailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  PageController carController = PageController();
+  PageController cardController = PageController();
   RxBool enablenameTextfield = false.obs;
   RxBool enablemailTextfield = false.obs;
   RxInt selectedIndex = 0.obs;
@@ -41,6 +42,7 @@ class LoginPageController extends GetxController {
     // textEditingController.addListener(() {
     //   enablenameTextfield.value = nameEditingController.text.isNotEmpty;
     // });
+
     super.onInit();
   }
 
@@ -49,11 +51,17 @@ class LoginPageController extends GetxController {
     bool res = await CommonFunctions().login(phoneController.text);
     hideLoading();
     if (res) {
+      isLoggedIn = true;
       Get.toNamed(Routes.enterotppageRoute, arguments: phoneController.text);
     } else {
       showError('Failed to login. Try again.');
     }
     return res;
+  }
+
+  onSkip() {
+    isLoggedIn = false;
+    Get.offAllNamed(Routes.homePageRoute);
   }
 
   //FOR UPDATING USER NAME AND EMAIL AFTER OTP
@@ -68,5 +76,21 @@ class LoginPageController extends GetxController {
         nameEditingController.text, mailEditingController.text);
     if (res) Get.toNamed(Routes.addvehiclesRoute);
     hideLoading();
+  }
+
+  onTermsCondition() {
+    Get.bottomSheet(BottomSheet(
+        onClosing: () {},
+        builder: ((context) {
+          return Text("Terms & Conditions");
+        })));
+  }
+
+  onPrivacyPolicy() {
+    Get.bottomSheet(BottomSheet(
+        onClosing: () {},
+        builder: ((context) {
+          return Text("Privacy Policy");
+        })));
   }
 }
