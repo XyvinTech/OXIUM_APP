@@ -48,7 +48,7 @@ class MyVehiclesScreenController extends GetxController {
 
     hideLoading();
     if (res) {
-      getMyVehicles();
+      await getMyVehicles();
       await CommonFunctions().getUserProfile();
       showSuccess('Default Vehicle Updated Successfully!');
     } else {
