@@ -20,6 +20,7 @@ class NotificationService {
     final InitializationSettings initializationSettings =
         InitializationSettings(
       android: _androidInitializationSettings,
+      iOS: DarwinInitializationSettings()
     );
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }

@@ -21,7 +21,13 @@ class MyVehiclesScreenController extends GetxController {
 
   getMyVehicles() async {
     showLoading(kLoading);
-    myVehicleList.value = await CommonFunctions().getUserEvs();
+    myVehicleList.value = (await CommonFunctions().getUserEvs());
+    int index = myVehicleList.indexWhere((item) => item.defaultVehicle == 'Y');
+    if (index != -1) {
+      VehicleModel yItem = myVehicleList.removeAt(index);
+      myVehicleList.insert(0, yItem);
+    }
+
     hideLoading();
   }
 

@@ -239,7 +239,7 @@ class FireBaseNotification {
     requestPermission();
     var initializationSettingsAndroid = AndroidInitializationSettings('logo');
     var initSetttings =
-        InitializationSettings(android: initializationSettingsAndroid);
+        InitializationSettings(android: initializationSettingsAndroid,iOS: DarwinInitializationSettings());
     await flutterLocalNotificationsPlugin.initialize(
       initSetttings,
       onDidReceiveBackgroundNotificationResponse:
