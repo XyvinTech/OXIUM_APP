@@ -664,7 +664,7 @@ class CommonFunctions {
 
   Future<List<OrderModel>> getWalletTransactions(
       String page, String size) async {
-    var res = await CallAPI().getData('paymentDetails', {
+    var res = await CallAPI().getData('paymentDetails?', {
       'page': page,
       'size': size,
     });

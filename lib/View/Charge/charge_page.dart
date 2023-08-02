@@ -35,301 +35,306 @@ class _ChargeScreenState extends State<ChargeScreen>
       child: Scaffold(
         backgroundColor: Color(0xffF5F9FF),
         body: CustomScrollView(
-          controller: controller.scrollController,
-          shrinkWrap: true, slivers: [
-          SliverAppBar(
-              backgroundColor: Color(0xffF5F9FF),
-              automaticallyImplyLeading: false,
-              expandedHeight: size.height * 0.525,
-              // collapsedHeight: size.height * 0.01,
-              floating: true,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: size.width * 0.055,
-                        right: size.width * 0.055,
-                        top: size.height * 0.020,
-                        bottom: size.height * 0.02,
-                      ),
-                      child: Container(
-                        height: size.height * 0.43,
-                        width: size.width,
-                        child: Column(
-                          children: [
-                            Container(
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                color: kwhite,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: Offset(0, 4),
-                                    spreadRadius: 0,
-                                    blurRadius: 32,
-                                    color: Color(0xff000000).withOpacity(0.06),
-                                  )
-                                ],
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.055,
-                                    vertical: size.height * 0.02),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        cachedNetworkImage(
-                                            appData.userModel.value
-                                                .defaultVehicle.icon,
-                                            width: size.width * .18),
-                                        SizedBox(
-                                          width: size.width * 0.04,
-                                        ),
-                                        Obx(
-                                          () => Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              CustomSmallText(
-                                                text: appData
-                                                    .userModel
-                                                    .value
-                                                    .defaultVehicle
-                                                    .vehicleDetails,
-                                                size: 14.sp,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              CustomBigText(
-                                                text: appData.userModel.value
-                                                    .defaultVehicle.modelName,
-                                                size: 15.sp,
-                                                color: Color(0xff4F4F4F),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    //refresh button
-                                    InkWell(
-                                      onTap: () {
-                                        Get.toNamed(Routes.myvehicleRoute);
-                                      },
-                                      child: Image.asset(
-                                        "assets/images/refresh.png",
-                                        height: size.height * 0.025,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.height * 0.02,
-                            ),
-                            //resereve charger card
-                            Container(
-                              padding: EdgeInsets.only(
-                                top: size.height * 0.07,
-                                bottom: size.height * 0.02,
-                              ),
-                              height: size.height * 0.285,
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                color: kwhite,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: Offset(0, 4),
-                                    spreadRadius: 0,
-                                    blurRadius: 32,
-                                    color: Color(0xff000000).withOpacity(0.06),
-                                  )
-                                ],
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          CustomBigText(
-                                            text: "500 kWh",
-                                            size: 17.sp,
-                                            color: Color(0xff0047C3),
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.008,
-                                          ),
-                                          CustomSmallText(
-                                            text: "Energy Charged",
-                                            fontWeight: FontWeight.w500,
-                                            size: 14.sp,
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        height: size.height * 0.04,
-                                        width: size.width * 0.0055,
-                                        color: Color(0xffBDBDBD),
-                                      ),
-                                      Column(
-                                        children: [
-                                          CustomBigText(
-                                            text: "2,340",
-                                            size: 17.sp,
-                                            color: Color(0xff0047C3),
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.008,
-                                          ),
-                                          CustomSmallText(
-                                            text: "KMS Driven",
-                                            fontWeight: FontWeight.w500,
-                                            size: 14.sp,
-                                          ),
-                                        ],
+            controller: controller.scrollController,
+            shrinkWrap: true,
+            slivers: [
+              SliverAppBar(
+                  backgroundColor: Color(0xffF5F9FF),
+                  automaticallyImplyLeading: false,
+                  expandedHeight: size.height * 0.525,
+                  // collapsedHeight: size.height * 0.01,
+                  floating: true,
+                  pinned: true,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: size.width * 0.055,
+                            right: size.width * 0.055,
+                            top: size.height * 0.020,
+                            bottom: size.height * 0.02,
+                          ),
+                          child: Container(
+                            height: size.height * 0.43,
+                            width: size.width,
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: size.width,
+                                  decoration: BoxDecoration(
+                                    color: kwhite,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(0, 4),
+                                        spreadRadius: 0,
+                                        blurRadius: 32,
+                                        color:
+                                            Color(0xff000000).withOpacity(0.06),
                                       )
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.045,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: size.width * 0.055,
-                                      right: size.width * 0.055,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.width * 0.055,
+                                        vertical: size.height * 0.02),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Obx(
+                                          () => Row(
+                                            children: [
+                                              cachedNetworkImage(
+                                                  appData.userModel.value
+                                                      .defaultVehicle.icon,
+                                                  width: size.width * .18),
+                                              SizedBox(
+                                                width: size.width * 0.04,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  CustomSmallText(
+                                                    text: appData
+                                                        .userModel
+                                                        .value
+                                                        .defaultVehicle
+                                                        .vehicleDetails,
+                                                    size: 14.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  CustomBigText(
+                                                    text: appData
+                                                        .userModel
+                                                        .value
+                                                        .defaultVehicle
+                                                        .modelName,
+                                                    size: 15.sp,
+                                                    color: Color(0xff4F4F4F),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        //refresh button
+                                        InkWell(
+                                          onTap: () {
+                                            Get.toNamed(Routes.myvehicleRoute);
+                                          },
+                                          child: Image.asset(
+                                            "assets/images/refresh.png",
+                                            height: size.height * 0.025,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    child: AppButton(
-                                      text: "Reserve Charger",
-                                      sizeheight: size.height * 0.07,
-                                      onTap: () {
-                                        HomePageController homeController =
-                                            Get.find();
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.02,
+                                ),
+                                //resereve charger card
+                                Container(
+                                  padding: EdgeInsets.only(
+                                    top: size.height * 0.07,
+                                    bottom: size.height * 0.02,
+                                  ),
+                                  height: size.height * 0.285,
+                                  width: size.width,
+                                  decoration: BoxDecoration(
+                                    color: kwhite,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(0, 4),
+                                        spreadRadius: 0,
+                                        blurRadius: 32,
+                                        color:
+                                            Color(0xff000000).withOpacity(0.06),
+                                      )
+                                    ],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              CustomBigText(
+                                                text: "500 kWh",
+                                                size: 17.sp,
+                                                color: Color(0xff0047C3),
+                                              ),
+                                              SizedBox(
+                                                height: size.height * 0.008,
+                                              ),
+                                              CustomSmallText(
+                                                text: "Energy Charged",
+                                                fontWeight: FontWeight.w500,
+                                                size: 14.sp,
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            height: size.height * 0.04,
+                                            width: size.width * 0.0055,
+                                            color: Color(0xffBDBDBD),
+                                          ),
+                                          Column(
+                                            children: [
+                                              CustomBigText(
+                                                text: "2,340",
+                                                size: 17.sp,
+                                                color: Color(0xff0047C3),
+                                              ),
+                                              SizedBox(
+                                                height: size.height * 0.008,
+                                              ),
+                                              CustomSmallText(
+                                                text: "KMS Driven",
+                                                fontWeight: FontWeight.w500,
+                                                size: 14.sp,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: size.height * 0.045,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: size.width * 0.055,
+                                          right: size.width * 0.055,
+                                        ),
+                                        child: AppButton(
+                                          text: "Reserve Charger",
+                                          sizeheight: size.height * 0.07,
+                                          onTap: () {
+                                            HomePageController homeController =
+                                                Get.find();
 
-                                        homeController.pageController
-                                            .animateToPage(
-                                                0,
-                                                curve: Curves.ease,
-                                                duration: Duration(
-                                                    milliseconds: 200));
-                                        log('change');
-                                      },
+                                            homeController.pageController
+                                                .animateToPage(0,
+                                                    curve: Curves.ease,
+                                                    duration: Duration(
+                                                        milliseconds: 200));
+                                            log('change');
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                height(15.h),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  bottom: PreferredSize(
+                    preferredSize: Size.fromHeight(size.height * .09),
+                    child: Container(
+                      color: kwhite,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
+                          Container(
+                            height: size.height * 0.006,
+                            width: size.width * 0.25,
+                            color: Color(0xffD9D9D9),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.005,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.055),
+                            child: Container(
+                              height: size.height * .06,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: size.height * .01),
+                              child: TabBar(
+                                labelColor: kblue,
+                                controller: controller.tabController,
+                                indicatorColor: kwhite,
+                                onTap: (index) {
+                                  controller.IsTabIndex.value = index;
+                                },
+                                indicator: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(42),
+                                  color: Color(0xffDEEAFF),
+                                ),
+                                tabs: [
+                                  Tab(
+                                    child: CustomSmallText(
+                                      text: "Charge",
+                                      size: 15.sp,
+                                      color: Color(0xff0047C3),
+                                    ),
+                                  ),
+                                  // Tab(
+                                  //   child: CustomSmallText(
+                                  //     text: "Reservations",
+                                  //     size: 15.sp,
+                                  //     color: Color(0xff0047C3),
+                                  //   ),
+                                  // ),
+                                  Tab(
+                                    child: CustomSmallText(
+                                      text: "Trips",
+                                      size: 15.sp,
+                                      color: Color(0xff0047C3),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            height(15.h),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(size.height * .09),
-                child: Container(
-                  color: kwhite,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: size.height * 0.01,
-                      ),
-                      Container(
-                        height: size.height * 0.006,
-                        width: size.width * 0.25,
-                        color: Color(0xffD9D9D9),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.005,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.055),
-                        child: Container(
-                          height: size.height * .06,
-                          padding:
-                              EdgeInsets.symmetric(vertical: size.height * .01),
-                          child: TabBar(
-                            labelColor: kblue,
-                            controller: controller.tabController,
-                            indicatorColor: kwhite,
-                            onTap: (index) {
-                              controller.IsTabIndex.value = index;
-                            },
-                            indicator: BoxDecoration(
-                              borderRadius: BorderRadius.circular(42),
-                              color: Color(0xffDEEAFF),
-                            ),
-                            tabs: [
-                              Tab(
-                                child: CustomSmallText(
-                                  text: "Charge",
-                                  size: 15.sp,
-                                  color: Color(0xff0047C3),
-                                ),
-                              ),
-                              // Tab(
-                              //   child: CustomSmallText(
-                              //     text: "Reservations",
-                              //     size: 15.sp,
-                              //     color: Color(0xff0047C3),
-                              //   ),
-                              // ),
-                              Tab(
-                                child: CustomSmallText(
-                                  text: "Trips",
-                                  size: 15.sp,
-                                  color: Color(0xff0047C3),
-                                ),
-                              ),
-                            ],
-                          ),
+                  )),
+              SliverToBoxAdapter(
+                child: Obx(
+                  () => Container(
+                    height: controller.boxHeight.value,
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: size.height * 0.02,
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.05),
+                            child: TabBarView(
+                              controller: controller.tabController,
+                              children: [
+                                _chargeTab(),
+                                // _reservationsTab(),
+                                _tripsTab(),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              )),
-          SliverToBoxAdapter(
-            child: Obx(
-              () => Container(
-                height: controller.boxHeight.value,
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: size.height * 0.02,
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                        child: TabBarView(
-                          controller: controller.tabController,
-                          children: [
-                            _chargeTab(),
-                            // _reservationsTab(),
-                            _tripsTab(),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
               ),
-            ),
-          ),
-        ]),
+            ]),
       ),
     );
   }
