@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Controller/trips_screen_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
@@ -12,6 +15,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../View/Homepage/homepage.dart';
 import 'chargePage_controller.dart';
@@ -22,6 +26,24 @@ class HomePageController extends GetxController {
   RxString done = 'do'.obs;
   RxInt activeIndex = 0.obs;
   RxInt reload = 0.obs;
+
+  //NEW HELP PAGE STARTS
+  CarouselController? carouselController;
+  RxDouble currentIndex = 0.0.obs;
+  String phnNumber = "+8801751051339";
+  RxList carouselText = [
+    "GOEC super charging station Provides High ROI",
+    "operate your charging station from anywhere in the world without human intervention.",
+    "For a future-focused business, capitalize on the growing EV market."
+  ].obs;
+  RxList carouselImage = [
+    "assets/images/carouselOne.png",
+    "assets/images/carouselTwo.png",
+    "assets/images/carouselThree.png",
+  ].obs;
+  //NEW HELP PAGE ENDS
+
+
   final GlobalKey<ScaffoldState> drawerKey = GlobalKey();
   PageController pageController = PageController();
   PanelController panelController = PanelController();
@@ -96,4 +118,45 @@ class HomePageController extends GetxController {
 
     showBottomSheetWhenClickedOnMarker(res, this);
   }
+
+  //NEW HELP PAGE STARTS
+  Future<void> openWhatsApp() async {
+    var url = "https://wa.me/${phnNumber}";
+    if (await launch(url)) {
+      print("launching $url");
+      if (Platform.isAndroid) {
+        await launch(url);
+      } else if (Platform.isIOS) {
+        await launch(url);
+      }
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  Future<void> openPhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    if (Platform.isAndroid) {
+      await launchUrl(launchUri);
+    } else if (Platform.isIOS) {
+      await launchUrl(launchUri);
+    }
+  }
+
+  Future<void> openMail(String mail) async {
+    var email = 'mailto:${mail}?subject=Subject&body=Body';
+    if (await launch(email)) {
+      if (Platform.isAndroid) {
+        await launch(email);
+      } else if (Platform.isIOS) {
+        await launch(email);
+      }
+    } else {
+      throw 'Could not launch $email';
+    }
+  }
+  //NEW HELP PAGE ENDS
 }

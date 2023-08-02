@@ -22,6 +22,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../Singletones/common_functions.dart';
 import '../../Utils/routes.dart';
+import 'help_page_alive.dart';
 
 class HomePageScreen extends GetView<HomePageController> {
   HomePageScreen({Key? key}) : super(key: key);
@@ -43,52 +44,62 @@ class HomePageScreen extends GetView<HomePageController> {
         children: [
           MapScreen(),
           ChargeScreen(),
+          MapScreen(),
           WalletScreen(),
-          //HelpScreen()
-          TripsScreen(),
+          HelpPageAlive()
+          //TripsScreen(),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        child: Container(
-          alignment: Alignment.center,
-          height: 120,
-          width: 50,
-          decoration: BoxDecoration(
-            color: Color(0xff00FFB3),
-            borderRadius: BorderRadius.circular(79),
-          ),
-          child: SvgPicture.asset(
-            'assets/svg/qr_scan.svg',
-            width: 25,
-            height: 25,
-          ),
-        ),
-        onPressed: () {
-          // showBottomSheetWhenClickedOnMarker(null, controller);
-          Get.toNamed(Routes.qrScanPageRoute);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.transparent,
+      //   splashColor: Colors.transparent,
+      //   child: Container(
+      //     alignment: Alignment.center,
+      //     height: 120,
+      //     width: 50,
+      //     decoration: BoxDecoration(
+      //       color: Color(0xff00FFB3),
+      //       borderRadius: BorderRadius.circular(79),
+      //     ),
+      //     child: SvgPicture.asset(
+      //       'assets/svg/qr_scan.svg',
+      //       width: 25,
+      //       height: 25,
+      //     ),
+      //   ),
+      //   onPressed: () {
+      //     // showBottomSheetWhenClickedOnMarker(null, controller);
+      //     Get.toNamed(Routes.qrScanPageRoute);
+      //   },
+      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Obx(
         () => AnimatedBottomNavigationBar(
             icons: [
               CustomIcon.map,
-              CustomIcon.bolt,
-              CustomIcon.account_balance_wallet,
-              CustomIcon.mode_of_travel,
+              CustomIcon.notifications,
+              CustomIcon.gray_g,
+              CustomIcon.wallet,
+
+              //CustomIcon.bolt,
+              //CustomIcon.account_balance_wallet,
+              CustomIcon.support_agent,
             ],
             activeIndex: controller.activeIndex.value,
             height: size.height * .085,
             activeColor: Color(0xff0047C3),
             inactiveColor: Color(0xffBDBDBD),
-            gapLocation: GapLocation.center,
+            gapLocation: GapLocation.none,
             notchSmoothness: NotchSmoothness.defaultEdge,
             onTap: (index) {
-              controller.activeIndex.value = index;
-              controller.pageController.animateToPage(index,
-                  curve: Curves.ease, duration: Duration(milliseconds: 600));
+              if (index != 2) {
+                controller.activeIndex.value = index;
+                controller.pageController.animateToPage(index,
+                    curve: Curves.ease, duration: Duration(milliseconds: 600));
+              } else {
+                //showBottomSheetWhenClickedOnMarker(null, controller);
+                Get.toNamed(Routes.qrScanPageRoute);
+              }
             }
             //other params
             ),
