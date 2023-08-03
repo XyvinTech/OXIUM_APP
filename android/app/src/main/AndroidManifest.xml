@@ -25,7 +25,7 @@
         </intent>
     </queries>
    <application
-        android:label="GOEC"
+        android:label="ECGO"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

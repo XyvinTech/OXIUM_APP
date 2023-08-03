@@ -4,7 +4,11 @@ project(runner LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
+<<<<<<< HEAD
 set(BINARY_NAME "GOEC")
+=======
+set(BINARY_NAME "ECGO")
+>>>>>>> 81ac3d8 (laucnhed to appstore ios)
 # The unique GTK application identifier for this application. See:
 # https://wiki.gnome.org/HowDoI/ChooseApplicationID
 set(APPLICATION_ID "com.goecworld.goec")

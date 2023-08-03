@@ -16,7 +16,7 @@ class NotificationService {
 
   NotificationService._internal() {}
 
-  void init() async {
+   init() async {
     final InitializationSettings initializationSettings =
         InitializationSettings(
       android: _androidInitializationSettings,

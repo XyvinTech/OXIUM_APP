@@ -521,7 +521,10 @@ class CommonFunctions {
       }
       return BookingModel.fromJson(res.body['result']);
     } else {
-      if (!res.body['success']) kBookingModel.status = 'X';
+      if (res.body['message'] == "Booking not allowed") {
+        showError('Failed to connect with charger. Please try again later!');
+        kBookingModel.status = 'F';
+      } else if (!res.body['success']) kBookingModel.status = 'X';
       return kBookingModel;
     }
   }

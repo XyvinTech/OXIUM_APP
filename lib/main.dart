@@ -55,9 +55,10 @@ import 'Utils/firebase_notifications.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  await Injector().inject();  
   await FireBaseNotification().init();
-  await Injector().inject();
-  NotificationService().init();
+  await NotificationService().init();
   // Workmanager().initialize(
   //     callbackDispatcher, // The top level function, aka callbackDispatcher
   //     isInDebugMode:
