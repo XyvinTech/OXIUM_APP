@@ -163,3 +163,17 @@ getTimeDifference({required String startTime, required String endtime}) {
   int minutes = ((difference / (1000 * 60)) % 60).floor();
   return [hours, minutes];
 }
+
+
+
+  String extractPhoneNumber(String phoneNumber) {
+    RegExp regex = RegExp(r'(\+|)[0-9]+');
+
+    String extractedNumber = "";
+    Match match = regex.firstMatch(phoneNumber);
+    if (match != null) {
+      extractedNumber = match.group(0);
+    }
+
+    return extractedNumber;
+  }
