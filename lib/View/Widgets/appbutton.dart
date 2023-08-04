@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/constants.dart';
 
 //app button
@@ -204,6 +205,47 @@ class SignUpButton extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+//MapScreen Positioned Button
+class PositionedButton extends StatelessWidget {
+  final String svgUrl;
+  final Color svgColor;
+
+  final Function onTap;
+  final Color bgColor;
+
+  const PositionedButton({
+    super.key,
+    required this.svgUrl,
+    required this.svgColor,
+    required this.bgColor,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: () => onTap,
+        child: Container(
+            padding: EdgeInsets.all(size.width * .037),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: bgColor,
+                boxShadow: [
+                  BoxShadow(blurRadius: 10, color: Colors.grey.shade400)
+                ]),
+            child: SvgPicture.asset(
+              svgUrl,
+              color: svgColor,
+              height: 22,
+              width: 22,
+            )),
       ),
     );
   }

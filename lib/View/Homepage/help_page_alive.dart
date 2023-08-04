@@ -36,14 +36,14 @@ class _HelpPageAliveState extends State<HelpPageAlive>
                 horizontal: size.width * .062, vertical: size.height * .02),
             child: Row(
               children: [
-                InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                        padding: EdgeInsets.all(5),
-                        child:
-                            SvgPicture.asset('assets/svg/arrow_back_ios.svg'))),
+                // InkWell(
+                //     onTap: () {
+                //       Get.back();
+                //     },
+                //     child: Container(
+                //         padding: EdgeInsets.all(5),
+                //         child:
+                //             SvgPicture.asset('assets/svg/arrow_back_ios.svg'))),
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
@@ -54,7 +54,7 @@ class _HelpPageAliveState extends State<HelpPageAlive>
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                width(24.w)
+                //width(24.w)
               ],
             ),
           ),

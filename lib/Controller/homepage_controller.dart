@@ -17,6 +17,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../Model/notificationModel.dart';
 import '../View/Homepage/homepage.dart';
 import 'chargePage_controller.dart';
 
@@ -43,6 +44,9 @@ class HomePageController extends GetxController {
   ].obs;
   //NEW HELP PAGE ENDS
 
+  //NEW NOTIFICATION PAGE STARTS
+  RxList<NotificationModel> modelList = RxList([]);
+  // ENDS
 
   final GlobalKey<ScaffoldState> drawerKey = GlobalKey();
   PageController pageController = PageController();
