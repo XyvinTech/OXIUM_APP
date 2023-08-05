@@ -155,7 +155,9 @@ class _MapScreenState extends State<MapScreen>
                                       ]),
                                 ),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(Routes.favouritePageRoute);
+                                  },
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 5.0),
                                     child: SvgPicture.asset(
