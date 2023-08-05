@@ -20,9 +20,12 @@ import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../Singletones/app_data.dart';
 import '../../Singletones/common_functions.dart';
 import '../../Utils/routes.dart';
 import 'help_page_alive.dart';
+import 'notification_page_alive.dart';
+import 'notification_screen.dart';
 
 class HomePageScreen extends GetView<HomePageController> {
   HomePageScreen({Key? key}) : super(key: key);
@@ -33,78 +36,78 @@ class HomePageScreen extends GetView<HomePageController> {
       size = MediaQuery.of(context).size;
       // Injector().injectImages(context);
     }
-
-    return Scaffold(
-      key: controller.drawerKey,
-      backgroundColor: kDefaultHomePageBackgroundColor,
-      drawer: CustomDrawer(context),
-      body: PageView(
-        controller: controller.pageController,
-        physics: NeverScrollableScrollPhysics(),
-        children: [
-          MapScreen(),
-          ChargeScreen(),
-          MapScreen(),
-          WalletScreen(),
-          HelpPageAlive()
-          //TripsScreen(),
-        ],
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.transparent,
-      //   splashColor: Colors.transparent,
-      //   child: Container(
-      //     alignment: Alignment.center,
-      //     height: 120,
-      //     width: 50,
-      //     decoration: BoxDecoration(
-      //       color: Color(0xff00FFB3),
-      //       borderRadius: BorderRadius.circular(79),
-      //     ),
-      //     child: SvgPicture.asset(
-      //       'assets/svg/qr_scan.svg',
-      //       width: 25,
-      //       height: 25,
-      //     ),
-      //   ),
-      //   onPressed: () {
-      //     // showBottomSheetWhenClickedOnMarker(null, controller);
-      //     Get.toNamed(Routes.qrScanPageRoute);
-      //   },
-      // ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Obx(
-        () => AnimatedBottomNavigationBar(
-            icons: [
-              CustomIcon.map,
-              CustomIcon.notifications,
-              CustomIcon.gray_g,
-              CustomIcon.wallet,
-
-              //CustomIcon.bolt,
-              //CustomIcon.account_balance_wallet,
-              CustomIcon.support_agent,
-            ],
-            activeIndex: controller.activeIndex.value,
-            height: size.height * .085,
-            activeColor: Color(0xff0047C3),
-            inactiveColor: Color(0xffBDBDBD),
-            gapLocation: GapLocation.none,
-            notchSmoothness: NotchSmoothness.defaultEdge,
-            onTap: (index) {
-              if (index != 2) {
-                controller.activeIndex.value = index;
-                controller.pageController.animateToPage(index,
-                    curve: Curves.ease, duration: Duration(milliseconds: 600));
-              } else {
-                //showBottomSheetWhenClickedOnMarker(null, controller);
-                Get.toNamed(Routes.qrScanPageRoute);
-              }
-            }
-            //other params
+    //bool isLoggedIn = appData.userModel.value.username.isNotEmpty;
+    bool isLoggedIn = true;
+    return isLoggedIn
+        ? Scaffold(
+            key: controller.drawerKey,
+            backgroundColor: kDefaultHomePageBackgroundColor,
+            drawer: CustomDrawer(context),
+            body: PageView(
+              controller: controller.pageController,
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                MapScreen(),
+                NotiPageAlive(),
+                ChargeScreen(),
+                WalletScreen(),
+                HelpPageAlive()
+                //TripsScreen(),
+              ],
             ),
-      ),
-    );
+            // floatingActionButton: FloatingActionButton(
+            //   backgroundColor: Colors.transparent,
+            //   splashColor: Colors.transparent,
+            //   child: Container(
+            //     alignment: Alignment.center,
+            //     height: 120,
+            //     width: 50,
+            //     decoration: BoxDecoration(
+            //       color: Color(0xff00FFB3),
+            //       borderRadius: BorderRadius.circular(79),
+            //     ),
+            //     child: SvgPicture.asset(
+            //       'assets/svg/qr_scan.svg',
+            //       width: 25,
+            //       height: 25,
+            //     ),
+            //   ),
+            //   onPressed: () {
+            //     // showBottomSheetWhenClickedOnMarker(null, controller);
+            //     Get.toNamed(Routes.qrScanPageRoute);
+            //   },
+            // ),
+            //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar: Obx(
+              () => AnimatedBottomNavigationBar(
+                  icons: [
+                    CustomIcon.map,
+                    CustomIcon.notifications,
+                    CustomIcon.gray_g,
+                    CustomIcon.wallet,
+                    CustomIcon.support_agent,
+                  ],
+                  activeIndex: controller.activeIndex.value,
+                  height: size.height * .085,
+                  activeColor: Color(0xff0047C3),
+                  inactiveColor: Color(0xffBDBDBD),
+                  gapLocation: GapLocation.none,
+                  notchSmoothness: NotchSmoothness.defaultEdge,
+                  onTap: (index) {
+                    controller.activeIndex.value = index;
+                    controller.pageController.animateToPage(index,
+                        curve: Curves.ease,
+                        duration: Duration(milliseconds: 600));
+                  }
+                  //other params
+                  ),
+            ),
+          )
+        : Scaffold(
+            key: controller.drawerKey,
+            drawer: CustomDrawer(context),
+            body: MapScreen(),
+          );
   }
 }
 
