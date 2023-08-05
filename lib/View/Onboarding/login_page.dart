@@ -119,7 +119,7 @@ class LoginPage extends GetView<LoginPageController> {
                               },
                               child: RichText(
                                 text: TextSpan(
-                                  text: ' Terms &',
+                                  text: 'Terms &',
                                   style: kAppBottomTextSpanTextStyle2,
                                 ),
                               ),
