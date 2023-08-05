@@ -164,16 +164,14 @@ getTimeDifference({required String startTime, required String endtime}) {
   return [hours, minutes];
 }
 
+String extractPhoneNumber(String phoneNumber) {
+  RegExp regex = RegExp(r'(\+|)[0-9]+');
 
-
-  String extractPhoneNumber(String phoneNumber) {
-    RegExp regex = RegExp(r'(\+|)[0-9]+');
-
-    String extractedNumber = "";
-    Match match = regex.firstMatch(phoneNumber);
-    if (match != null) {
-      extractedNumber = match.group(0);
-    }
-
-    return extractedNumber;
+  String extractedNumber = "";
+  Match match = regex.firstMatch(phoneNumber) as Match; //typecasted as it was showing error
+  if (match != null) {
+    extractedNumber = match.group(0)!;
   }
+
+  return extractedNumber;
+}

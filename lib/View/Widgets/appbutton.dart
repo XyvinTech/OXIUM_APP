@@ -231,7 +231,7 @@ class PositionedButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () => onTap,
+        onTap: () => onTap(),
         child: Container(
             padding: EdgeInsets.all(size.width * .037),
             decoration: BoxDecoration(

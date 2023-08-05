@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +12,7 @@ import '../../Singletones/map_functions.dart';
 import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
+import '../Onboarding/onboarding_cards.dart';
 import '../Widgets/appbutton.dart';
 import '../Widgets/customText.dart';
 
@@ -230,7 +232,7 @@ class _MapScreenState extends State<MapScreen>
               //               'assets/svg/location_searching.svg')),
               //     )),
               Positioned(
-                bottom: size.height * .03,
+                bottom: size.height * .04,
                 right: size.width * .03,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -239,30 +241,58 @@ class _MapScreenState extends State<MapScreen>
                       svgUrl: 'assets/svg/tune.svg',
                       svgColor: Colors.grey.shade700,
                       bgColor: Colors.white,
-                      onTap: () {},
+                      onTap: controller.onFilterTap,
                     ),
                     PositionedButton(
                         svgUrl: 'assets/svg/location_searching.svg',
                         svgColor: Colors.grey.shade700,
                         bgColor: Colors.white,
-                        onTap: () {}),
+                        onTap: controller.onLocationTap),
                     PositionedButton(
                       svgUrl: 'assets/svg/qr_scan.svg',
                       svgColor: Colors.white,
                       bgColor: kOnboardingColors,
-                      onTap: () {},
+                      onTap: controller.onQrScan,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        color: Colors.white,
-                        height: size.height * 0.17,
-                        width: size.width * 0.85,
-                      ),
-                    )
+                    // Padding(
+                    //   padding: EdgeInsets.all(10),
+                    //   child: CarouselSlider(
+                    //     items: cards,
+                    //     options: CarouselOptions(
+                    //       enableInfiniteScroll: false,
+                    //       enlargeCenterPage: true,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
+              // Positioned(
+              //     bottom: size.height * .03,
+              //     right: size.width * .03,
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(8.0),
+              //       child: PageView(
+              //           controller: controller.pageController,
+              //           children: [
+              //             Container(
+              //               height: size.height * 0.2,
+              //               width: size.width * 0.85,
+              //               decoration: BoxDecoration(
+              //                 borderRadius: BorderRadius.circular(20),
+              //                 color: Colors.white,
+              //               ),
+              //             ),
+              //             Container(
+              //               height: size.height * 0.2,
+              //               width: size.width * 0.85,
+              //               decoration: BoxDecoration(
+              //                 borderRadius: BorderRadius.circular(20),
+              //                 color: Colors.white,
+              //               ),
+              //             ),
+              //           ]),
+              //     ))
               // Positioned(
               //     bottom: size.height * .03,
               //     right: size.width * .03,
@@ -290,4 +320,23 @@ class _MapScreenState extends State<MapScreen>
           )),
     );
   }
+
+  List<Widget> cards = [
+    Container(
+      height: size.height * 0.2,
+      width: size.width * 0.85,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+      ),
+    ),
+    Container(
+      height: size.height * 0.2,
+      width: size.width * 0.85,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+      ),
+    ),
+  ];
 }

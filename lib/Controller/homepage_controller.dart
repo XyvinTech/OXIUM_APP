@@ -18,6 +18,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Model/notificationModel.dart';
+import '../Utils/routes.dart';
 import '../View/Homepage/homepage.dart';
 import 'chargePage_controller.dart';
 
@@ -47,6 +48,10 @@ class HomePageController extends GetxController {
   //NEW NOTIFICATION PAGE STARTS
   RxList<NotificationModel> modelList = RxList([]);
   // ENDS
+
+  //Mapscreen Starts
+  PageController cardController = PageController();
+  //Ends
 
   final GlobalKey<ScaffoldState> drawerKey = GlobalKey();
   PageController pageController = PageController();
@@ -163,4 +168,26 @@ class HomePageController extends GetxController {
     }
   }
   //NEW HELP PAGE ENDS
+
+  //MapScreeen Functions Starts
+  onFilterTap() {
+    Get.toNamed(Routes.filterPageRoute,
+        arguments: station_marker_list);
+  }
+
+  onLocationTap() async {
+    var res = await MapFunctions().getCurrentPosition();
+    if (res != null) MapFunctions().curPos = res;
+
+    MapFunctions().animateToNewPosition(
+        LatLng(
+          MapFunctions().curPos.latitude,
+          MapFunctions().curPos.longitude,
+        ),
+        bearing: 0);
+  }
+
+  onQrScan() {
+    Get.toNamed(Routes.qrScanPageRoute);
+  }
 }

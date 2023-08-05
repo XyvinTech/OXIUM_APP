@@ -21,6 +21,7 @@ class LoginPageController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxString textfield = "".obs;
   RxString country = "91".obs;
+  
 
   void nameTextfieldColorChange() {
     enablenameTextfield.value = true;
