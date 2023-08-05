@@ -107,6 +107,7 @@ class LoginPage extends GetView<LoginPageController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               'By selecting get started, you are agreeing to the ',

@@ -6,6 +6,8 @@ import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../Utils/routes.dart';
 
@@ -21,7 +23,6 @@ class LoginPageController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxString textfield = "".obs;
   RxString country = "91".obs;
-  
 
   void nameTextfieldColorChange() {
     enablenameTextfield.value = true;
@@ -78,18 +79,10 @@ class LoginPageController extends GetxController {
   }
 
   onTermsCondition() {
-    Get.bottomSheet(BottomSheet(
-        onClosing: () {},
-        builder: ((context) {
-          return Text("Terms & Conditions");
-        })));
+    launchUrlString('https://goecworld.com/terms-and-conditions');
   }
 
   onPrivacyPolicy() {
-    Get.bottomSheet(BottomSheet(
-        onClosing: () {},
-        builder: ((context) {
-          return Text("Privacy Policy");
-        })));
+    launchUrlString('https://goecworld.com/privacy-policy');
   }
 }
