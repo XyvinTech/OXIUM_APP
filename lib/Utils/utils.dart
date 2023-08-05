@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:freelancer_app/Model/evPortsModel.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:validators/validators.dart';
 
 import '../Singletones/app_data.dart';
@@ -164,16 +166,32 @@ getTimeDifference({required String startTime, required String endtime}) {
   return [hours, minutes];
 }
 
+String extractPhoneNumber(String phoneNumber) {
+  String result = phoneNumber.replaceAll(new RegExp(r'[^0-9]'), '');
+  return "+$result";
+}
 
-
-  String extractPhoneNumber(String phoneNumber) {
-    RegExp regex = RegExp(r'(\+|)[0-9]+');
-
-    String extractedNumber = "";
-    Match match = regex.firstMatch(phoneNumber);
-    if (match != null) {
-      extractedNumber = match.group(0);
+Future<bool> getStoragePermission() async {
+  DeviceInfoPlugin plugin = DeviceInfoPlugin();
+  AndroidDeviceInfo android = await plugin.androidInfo;
+  if (android.version.sdkInt < 33) {
+    if (await Permission.storage.request().isGranted) {
+      return true;
+    } else if (await Permission.storage.request().isPermanentlyDenied) {
+      await openAppSettings();
+      return false;
+    } else if (await Permission.audio.request().isDenied) {
+      return false;
     }
-
-    return extractedNumber;
+  } else {
+    if (await Permission.photos.request().isGranted) {
+      return true;
+    } else if (await Permission.photos.request().isPermanentlyDenied) {
+      await openAppSettings();
+      return false;
+    } else if (await Permission.photos.request().isDenied) {
+      return false;
+    }
   }
+  return false;
+}
