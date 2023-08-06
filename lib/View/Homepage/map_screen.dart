@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
@@ -230,38 +231,49 @@ class _MapScreenState extends State<MapScreen>
               //               'assets/svg/location_searching.svg')),
               //     )),
               Positioned(
-                bottom: size.height * .01,
-                right: size.width * .03,
+                bottom: size.height * .0,
+                // right: size.width * .03,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    PositionedButton(
-                      svgUrl: 'assets/svg/tune.svg',
-                      svgColor: Colors.grey.shade700,
-                      bgColor: Colors.white,
-                      onTap: controller.onFilterTap,
-                    ),
-                    PositionedButton(
-                        svgUrl: 'assets/svg/location_searching.svg',
-                        svgColor: Colors.grey.shade700,
-                        bgColor: Colors.white,
-                        onTap: controller.onLocationTap),
-                    PositionedButton(
-                      svgUrl: 'assets/svg/qr_scan.svg',
-                      svgColor: Colors.white,
-                      bgColor: kOnboardingColors,
-                      onTap: controller.onQrScan,
+                    Padding(
+                      padding: EdgeInsets.only(right: 8.w),
+                      child: Column(
+                        children: [
+                          PositionedButton(
+                            svgUrl: 'assets/svg/tune.svg',
+                            svgColor: Colors.grey.shade700,
+                            bgColor: Colors.white,
+                            onTap: controller.onFilterTap,
+                          ),
+                          PositionedButton(
+                              svgUrl: 'assets/svg/location_searching.svg',
+                              svgColor: Colors.grey.shade700,
+                              bgColor: Colors.white,
+                              onTap: controller.onLocationTap),
+                          PositionedButton(
+                            svgUrl: 'assets/svg/qr_scan.svg',
+                            svgColor: Colors.white,
+                            bgColor: kOnboardingColors,
+                            onTap: controller.onQrScan,
+                          ),
+                        ],
+                      ),
                     ),
                     Container(
-                      height: size.height * 0.3,
+                      // height: size.height * 0.3,
                       width: size.width,
-                      color: Colors.transparent,
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      color: Colors.amber,
                       child: CarouselSlider(
                         items: cards,
                         options: CarouselOptions(
-                          enlargeFactor: 0,
+                          height: 170.h,
+                          enlargeFactor: 0.2,
                           enableInfiniteScroll: false,
                           enlargeCenterPage: true,
+                          padEnds: true,
+                          onPageChanged: (index, reason) {},
                         ),
                       ),
                     )
@@ -324,7 +336,7 @@ class _MapScreenState extends State<MapScreen>
 
   List<Widget> cards = [
     Container(
-      margin: EdgeInsets.only(right: 10),
+      margin: EdgeInsets.only(right: 20),
       height: size.height * 0.2,
       width: size.width * 0.85,
       decoration: BoxDecoration(
