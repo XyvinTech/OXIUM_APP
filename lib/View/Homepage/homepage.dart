@@ -35,8 +35,8 @@ class HomePageScreen extends GetView<HomePageController> {
       // Injector().injectImages(context);
     }
     //bool isLoggedIn = appData.userModel.value.username.isNotEmpty;
-    bool isLoggedIn = true;
-    return isLoggedIn
+
+    return appData.userModel.value.username.isNotEmpty
         ? Scaffold(
             key: controller.drawerKey,
             backgroundColor: kDefaultHomePageBackgroundColor,
@@ -169,15 +169,109 @@ showBottomSheetWhenClickedOnMarker(
                 color: Color(0xffD9D9D9)),
           ),
           height(size.height * .05),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+          //   child: Row(
+          //     children: [
+          //       //TODO: Replace the CachedNetworkImage with Image.asset() below
+          //       // CachedNetworkImage(imageUrl: imageUrl)
+          //       Expanded(
+          //         flex: 3,
+          //         // child: Image.asset('assets/svg/cafe_image.png'),
+          //         child: ClipRRect(
+          //             borderRadius: BorderRadius.circular(15),
+          //             child: Container(
+          //               color: Colors.grey,
+          //               height: 90.w,
+          //               // width: 90.w,
+          //               child: cachedNetworkImage(model.image),
+          //             )),
+          //       ),
+
+          //       width(size.width * .035),
+          //       Expanded(
+          //         flex: 7,
+          //         child: Column(
+          //           mainAxisAlignment: MainAxisAlignment.start,
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: [
+          //             Container(
+          //               height: size.height * .023,
+          //               width: size.width * .12,
+          //               decoration: BoxDecoration(
+          //                   borderRadius: BorderRadius.circular(10),
+          //                   color: Color(0xffFFE1C7)),
+          //               child: Row(
+          //                   mainAxisAlignment: MainAxisAlignment.center,
+          //                   children: [
+          //                     Icon(
+          //                       Icons.star,
+          //                       color: Color(0xffF2994A),
+          //                       size: 15,
+          //                     ),
+          //                     CustomText(
+          //                         text: model.rating,
+          //                         size: 12,
+          //                         color: Color(0xffF2994A)),
+          //                   ]),
+          //             ),
+          //             Row(
+          //               crossAxisAlignment: CrossAxisAlignment.end,
+          //               children: [
+          //                 CustomText(
+          //                     text: model.name,
+          //                     color: Color(0xff4F4F4F),
+          //                     fontWeight: FontWeight.bold),
+          //                 width(size.width * .017),
+          //                 if (distance != 0)
+          //                   CustomText(
+          //                       text: '${distance} km Away',
+          //                       color: Color(0xff828282),
+          //                       fontWeight: FontWeight.normal,
+          //                       size: 12),
+          //               ],
+          //             ),
+          //             height(8.h),
+          //             GridView.builder(
+          //               shrinkWrap: true,
+          //               physics: NeverScrollableScrollPhysics(),
+          //               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //                   crossAxisCount: 3, childAspectRatio: 4.7),
+          //               itemCount: amenities.length,
+          //               itemBuilder: (context, index) {
+          //                 return Row(
+          //                   children: [
+          //                     SvgPicture.asset(
+          //                         'assets/svg/${amenities[index]}.svg'),
+          //                     width(size.width * .01),
+          //                     Expanded(
+          //                       child: CustomText(
+          //                           text: amenities[index].toTitleCase(),
+          //                           color: Color(0xff828282),
+          //                           fontWeight: FontWeight.normal,
+          //                           size: 12),
+          //                     ),
+          //                   ],
+          //                 );
+          //               },
+          //             ),
+          //             height(8.h),
+          //             CustomText(
+          //                 text: model.location_name,
+          //                 size: 12,
+          //                 color: Color(0xff4F4F4F))
+          //           ],
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+            padding: EdgeInsets.symmetric(horizontal: size.width * .06),
             child: Row(
               children: [
-                //TODO: Replace the CachedNetworkImage with Image.asset() below
-                // CachedNetworkImage(imageUrl: imageUrl)
                 Expanded(
                   flex: 3,
-                  // child: Image.asset('assets/svg/cafe_image.png'),
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
@@ -187,7 +281,6 @@ showBottomSheetWhenClickedOnMarker(
                         child: cachedNetworkImage(model.image),
                       )),
                 ),
-
                 width(size.width * .035),
                 Expanded(
                   flex: 7,
@@ -197,7 +290,7 @@ showBottomSheetWhenClickedOnMarker(
                     children: [
                       Container(
                         height: size.height * .023,
-                        width: size.width * .12,
+                        width: size.width * .14,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Color(0xffFFE1C7)),
@@ -210,7 +303,10 @@ showBottomSheetWhenClickedOnMarker(
                                 size: 15,
                               ),
                               CustomText(
-                                  text: model.rating,
+                                  text: model.rating.isEmpty
+                                      ? '0'
+                                      : double.parse(model.rating)
+                                          .toStringAsFixed(2),
                                   size: 12,
                                   color: Color(0xffF2994A)),
                             ]),
@@ -218,54 +314,81 @@ showBottomSheetWhenClickedOnMarker(
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          CustomText(
-                              text: model.name,
-                              color: Color(0xff4F4F4F),
-                              fontWeight: FontWeight.bold),
+                          Expanded(
+                            child: CustomText(
+                                text: model.name,
+                                overflow: TextOverflow.ellipsis,
+                                color: Color(0xff4F4F4F),
+                                fontWeight: FontWeight.bold),
+                          ),
                           width(size.width * .017),
-                          if (distance != 0)
-                            CustomText(
-                                text: '${distance} km Away',
-                                color: Color(0xff828282),
-                                fontWeight: FontWeight.normal,
-                                size: 12),
                         ],
                       ),
-                      height(8.h),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3, childAspectRatio: 4.7),
-                        itemCount: amenities.length,
-                        itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              SvgPicture.asset(
-                                  'assets/svg/${amenities[index]}.svg'),
-                              width(size.width * .01),
-                              Expanded(
-                                child: CustomText(
-                                    text: amenities[index].toTitleCase(),
-                                    color: Color(0xff828282),
-                                    fontWeight: FontWeight.normal,
-                                    size: 12),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                      height(8.h),
                       CustomText(
-                          text: model.location_name,
-                          size: 12,
-                          color: Color(0xff4F4F4F))
+                          text: '${distance} km away',
+                          color: Color(0xff828282),
+                          fontWeight: FontWeight.normal,
+                          size: 12),
+                      if (amenities.isNotEmpty && amenities[0].isNotEmpty) ...[
+                        height(8.h),
+                        GridView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3, childAspectRatio: 4.7),
+                          itemCount: amenities.length,
+                          itemBuilder: (context, index) {
+                            return Row(
+                              children: [
+                                SvgPicture.asset(
+                                    'assets/svg/${amenities[index]}.svg'),
+                                width(size.width * .01),
+                                Expanded(
+                                  child: CustomText(
+                                      text: amenities[index].toTitleCase(),
+                                      color: Color(0xff828282),
+                                      fontWeight: FontWeight.normal,
+                                      size: 12),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                        height(8.h),
+                      ],
                     ],
                   ),
-                )
+                ),
+                // InkWell(
+                //   onTap: () {
+                //     //TODO: call api for adding as favorite or removing from favorite
+                //     // controller.changeFavoriteStatus();
+
+                //   },
+                //   child: Container(
+                //     alignment: Alignment.center,
+                //     margin: EdgeInsets.symmetric(
+                //         horizontal: size.width * .01),
+                //     padding: EdgeInsets.all(size.width * .02),
+                //     decoration: BoxDecoration(
+                //         shape: BoxShape.circle,
+                //         border: Border.all(color: Color(0xffBDBDBD))),
+                //     child: Obx(
+                //       () => SvgPicture.asset(
+                //         model.isFavorite
+                //             ? 'assets/svg/favorite1.svg'
+                //             : 'assets/svg/favorite.svg',
+                //         width: 15.w,
+                //         fit: BoxFit.fill,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
+
           height(size.height * .05),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .04),

@@ -6,6 +6,8 @@ import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_place/google_place.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:validators/validators.dart';
 
 import '../Singletones/common_functions.dart';
@@ -136,5 +138,17 @@ class CalistaCafePageController extends GetxController {
       await getChargeStationDetails(model.value.id.toString());
     }
     hideLoading();
+  }
+
+  launchOnGoogleMap() {
+    launchUrlString(
+        'https://www.google.com/maps/dir/?api=1&destination=${model.value.lattitude},${model.value.longitude}',
+        mode: LaunchMode.externalApplication);
+  }
+
+  shareStationLocation() {
+    Share.share(
+        'Check out the ${model.value.name} chargestation by clicking the following link:\n https://www.google.com/maps/dir/?api=1&destination=${model.value.lattitude},${model.value.longitude}',
+        subject: 'Checkout ${model.value.name} station!');
   }
 }

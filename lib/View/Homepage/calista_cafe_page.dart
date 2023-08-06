@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../../Singletones/dialogs.dart';
 import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../Widgets/cached_network_image.dart';
@@ -23,7 +24,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: kwhite,
       appBar: AppBar(
@@ -128,44 +128,40 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                       fontWeight: FontWeight.normal,
                                       size: 12),
                                 ),
-                                height(8.h),
-                                Obx(
-                                  () => GridView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 3,
-                                            childAspectRatio: 4.7),
-                                    itemCount: controller.amenities.length,
-                                    itemBuilder: (context, index) {
-                                      return Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                              'assets/svg/${controller.amenities[index]}.svg'),
-                                          width(size.width * .01),
-                                          Expanded(
-                                            child: CustomText(
-                                                text: controller
-                                                    .amenities[index]
-                                                    .toTitleCase(),
-                                                color: Color(0xff828282),
-                                                fontWeight: FontWeight.normal,
-                                                size: 12),
-                                          ),
-                                        ],
-                                      );
-                                    },
+                                if (controller.amenities.isNotEmpty &&
+                                    controller.amenities[0].isNotEmpty) ...[
+                                  height(8.h),
+                                  Obx(
+                                    () => GridView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 3,
+                                              childAspectRatio: 4.7),
+                                      itemCount: controller.amenities.length,
+                                      itemBuilder: (context, index) {
+                                        return Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                                'assets/svg/${controller.amenities[index]}.svg'),
+                                            width(size.width * .01),
+                                            Expanded(
+                                              child: CustomText(
+                                                  text: controller
+                                                      .amenities[index]
+                                                      .toTitleCase(),
+                                                  color: Color(0xff828282),
+                                                  fontWeight: FontWeight.normal,
+                                                  size: 12),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                                height(8.h),
-                                Obx(
-                                  () => CustomText(
-                                      text:
-                                          controller.model.value.location_name,
-                                      size: 12,
-                                      color: Color(0xff4F4F4F)),
-                                )
+                                  height(8.h),
+                                ],
                               ],
                             ),
                           ),
@@ -196,36 +192,61 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                         ],
                       ),
                     ),
-                    height(size.height * .05),
+                    height(size.height * .03),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: size.width * .06),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            onTap: () {
-                              controller.getDirections(false);
-                            },
-                            child: Container(
-                              height: size.height * .04,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * .075),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Color(0xff2F80ED)),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset('assets/svg/direction.svg'),
-                                  width(size.width * .01),
-                                  CustomText(
-                                      text: 'Directions',
-                                      size: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xffF2F2F2)),
-                                ],
-                              ),
+                          SvgPicture.asset('assets/svg/location_on_blue.svg'),
+                          width(5.w),
+                          Expanded(
+                            flex: 3,
+                            child: Obx(
+                              () => CustomText(
+                                  text: controller.model.value.location_name,
+                                  size: 12,
+                                  color: Color(0xff4F4F4F)),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    // controller.getDirections(false);
+                                    controller.launchOnGoogleMap();
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(10.h),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Color(0xff2F80ED)),
+                                    child: SvgPicture.asset(
+                                        'assets/svg/direction.svg'),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    // controller.getDirections(false);
+                                    controller.shareStationLocation();
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(10.h),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.transparent,
+                                        border: Border.all(color: Colors.grey)),
+                                    child: SvgPicture.asset(
+                                        'assets/svg/share.svg'),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -272,7 +293,13 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                     ],
                   ),
                 ),
-                height(size.height * .02),
+                height(size.height * .03),
+                CustomText(
+                    text: 'Select a charger to start charging',
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w600,
+                    size: 13),
+                height(size.height * .03),
                 Obx(
                   () => ListView.builder(
                       shrinkWrap: true,
@@ -285,160 +312,80 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                             controller.model.value.Chargers[index].ocppStatus ==
                                 'Connected';
                         return Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: size.width * .04,
-                              vertical: size.height * .01),
-                          child: ExpandablePanel(
-                              collapsed: ExpandableButton(
-                                  child: _chargerCard(
-                                title: charger.charger_name,
-                                subTitle: charger.outputType +
-                                    ' ' +
-                                    charger.capacity +
-                                    ' KwH',
-                                evPorts: charger.evports,
-                                index: index,
-                                isConnected: isConnected,
-                              )),
-                              expanded: _chargerCardExpanded(
-                                title: charger.charger_name,
-                                subTitle: charger.outputType +
-                                    ' ' +
-                                    charger.capacity +
-                                    ' KwH',
-                                evPorts: charger.evports,
-                                index: index,
-                                isConnected: isConnected,
-                              )),
-                        );
+                            // height: 500.h,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: size.width * .04,
+                                vertical: size.height * .01),
+                            child: _chargerCardExpanded(
+                              title: charger.charger_name,
+                              subTitle: charger.outputType +
+                                  ' ' +
+                                  charger.capacity +
+                                  ' KwH',
+                              evPorts: charger.evports,
+                              index: index,
+                              isConnected: isConnected,
+                            ));
                       }),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: size.height * .04),
-                  child: navigationCard(),
-                ),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(vertical: size.height * .04),
+                //   child: navigationCard(),
+                // ),
                 height(size.height * .025),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.width * .04),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomBigText(
-                        text: 'View Customer Reviews',
-                        color: Color(0xff4f4f4f),
+                      InkWell(
+                        onTap: () {
+                          //TODO: open review write dialog
+                          controller.selectedRating.value = 0;
+                          controller.reviewController.text = '';
+                          Get.dialog(Dialogs().writeReviewDialog(controller));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30.w, vertical: 10.h),
+                          decoration: BoxDecoration(
+                              color: Color(0xff2F80ED),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Text('Write Review',
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              )),
+                        ),
                       ),
                       InkWell(
                         onTap: () {
                           Get.toNamed(Routes.reviewPageRoute, arguments: [
-                            controller.model.value.rating,
+                            controller.model.value.rating.substring(0, 4),
                             controller.model.value.id
                           ]);
                         },
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 15.w),
-                          child: CustomText(
-                              fontWeight: FontWeight.bold,
-                              text: 'View',
+                        child: Row(
+                          children: [
+                            CustomText(
+                                fontWeight: FontWeight.bold,
+                                text: 'View Review',
+                                color: Color(0xff0047C3),
+                                size: 16),
+                            width(10.w),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20,
                               color: Color(0xff0047C3),
-                              size: 14),
+                            )
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-                //   height(size.height * .022),
-                //   Padding(
-                //     padding: EdgeInsets.symmetric(horizontal: size.width * .04),
-                //     child: Row(
-                //       crossAxisAlignment: CrossAxisAlignment.center,
-                //       children: [
-                //         Expanded(
-                //           flex: 2,
-                //           child: Align(
-                //             alignment: Alignment.center,
-                //             child: Column(
-                //               crossAxisAlignment: CrossAxisAlignment.start,
-                //               mainAxisAlignment: MainAxisAlignment.center,
-                //               children: [
-                //                 Container(
-                //                   // height: size.height * .023,
-                //                   padding: EdgeInsets.symmetric(
-                //                     vertical: size.height * .005,
-                //                     horizontal: size.width * .02,
-                //                   ),
-                //                   width: size.width * .17,
-                //                   decoration: BoxDecoration(
-                //                       borderRadius: BorderRadius.circular(10),
-                //                       color: Color(0xffFFE1C7)),
-                //                   child: Row(
-                //                       mainAxisAlignment: MainAxisAlignment.center,
-                //                       children: [
-                //                         Icon(
-                //                           Icons.star,
-                //                           color: Color(0xffF2994A),
-                //                           size: 17,
-                //                         ),
-                //                         CustomText(
-                //                             text: '4.6',
-                //                             size: 15,
-                //                             fontWeight: FontWeight.bold,
-                //                             color: Color(0xffF2994A)),
-                //                       ]),
-                //                 ),
-                //                 height(size.height * .006),
-                //                 CustomText(text: '24 Reviews', color: Colors.grey)
-                //               ],
-                //             ),
-                //           ),
-                //         ),
-                //         Container(
-                //           width: size.width * .005,
-                //           height: size.height * .1,
-                //           decoration: BoxDecoration(
-                //               borderRadius: BorderRadius.circular(8),
-                //               color: Colors.grey.shade300),
-                //         ),
-                //         Expanded(
-                //             flex: 3,
-                //             child: Padding(
-                //               padding: EdgeInsets.symmetric(
-                //                   horizontal: size.width * .09),
-                //               child: Column(children: [
-                //                 reviewProgressBar('5', .3),
-                //                 reviewProgressBar('4', .7),
-                //                 reviewProgressBar('3', .5),
-                //                 reviewProgressBar('2', .8),
-                //                 reviewProgressBar('1', .1),
-                //               ]),
-                //             ))
-                //       ],
-                //     ),
-                //   ),
-                //   height(size.height * .04),
-                //   InkWell(
-                //     onTap: () {
-                //       //TODO: open review write dialog
-                //       controller.selectedRating.value = 0;
-                //       controller.reviewController.text = '';
-                //       Get.dialog(_dialougebox());
-                //     },
-                //     child: Text('Write Review',
-                //         style: GoogleFonts.poppins(
-                //             color: Color(0xff0047C3),
-                //             fontSize: 16.sp,
-                //             fontWeight: FontWeight.w600,
-                //             decoration: TextDecoration.underline)),
-                //   ),
-                //   height(size.height * .02),
-                //   ListView.builder(
-                //     shrinkWrap: true,
-                //     itemCount: 4,
-                //     physics: NeverScrollableScrollPhysics(),
-                //     itemBuilder: ((context, index) {
-                //       return customerReviewCard();
-                //     }),
-                //   ),
-                //   height(size.height * .2),
+                height(50.h)
               ],
             ),
           ),
@@ -504,84 +451,134 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     else
       status = kUnavailable;
     if (!isConnected) status = kUnavailable;
-    kLog(status);
-    return Align(
-      alignment: Alignment.center,
-      child: InkWell(
-        onTap: () {
-          if (status == kAvailable) controller.changeCharger(index, index1);
-        },
-        child: Container(
-          height: 50.h,
-          width: size.width * 0.4,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: isSelected && status == kAvailable
-                  ? Color(0xff6FCF97).withOpacity(.28)
-                  : status == kBusy
-                      ? Color(0xffE37A2D).withOpacity(.2)
-                      : status == kFaulted
-                          ? Color.fromARGB(255, 249, 59, 45).withOpacity(.2)
-                          : Colors.transparent,
-              border: Border.all(
-                width: 1.3,
-                color: isSelected
-                    ? Color(0xff6FCF97)
-                    : status == kBusy
-                        ? Color(0xffE37A2D)
-                        : status == kFaulted
-                            ? Color.fromARGB(255, 249, 59, 45)
-                            : status == kUnavailable
-                                ? Color(0xff959595)
-                                : Color(0xff0047C3).withOpacity(.6),
-              )),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
-            child: Row(
-              children: [
-                Container(
-                  height: 10.h,
-                  width: 10.h,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: status == kBusy
-                          ? Color(0xffE37A2D)
-                          : status == kFaulted
-                              ? Color.fromARGB(255, 249, 59, 45)
-                              : status == kUnavailable
-                                  ? Color(0xff959595)
-                                  : Color(0xff219653)),
-                ),
-                width(7.w),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/svg/${evport.connectorType.toLowerCase().trim()}.svg",
-                      color: isSelected
-                          ? Color(0xff4f4f4f)
+
+    return InkWell(
+      onTap: () {
+        if (status == kAvailable) controller.changeCharger(index, index1);
+      },
+      child: Container(
+        height: 65.h,
+        // width: size.width * 0.4,
+        margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: isSelected && status == kAvailable
+                ? Color(0xff6FCF97).withOpacity(.28)
+                : status == kBusy
+                    ? Color(0xffE37A2D).withOpacity(.2)
+                    : status == kFaulted
+                        ? Color.fromARGB(255, 249, 59, 45).withOpacity(.2)
+                        : Colors.white,
+            boxShadow: [BoxShadow(blurRadius: 7, color: Colors.grey.shade300)],
+            border: !isSelected
+                ? null
+                : Border.all(
+                    width: 1.3,
+                    color: isSelected
+                        ? Color(0xff6FCF97)
+                        : status == kBusy
+                            ? Color(0xffE37A2D)
+                            : status == kFaulted
+                                ? Color.fromARGB(255, 249, 59, 45)
+                                : status == kUnavailable
+                                    ? Color(0xff959595)
+                                    : Color(0xff0047C3).withOpacity(.6),
+                  )),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Row(
+            children: [
+              // Container(
+              //   height: 10.h,
+              //   width: 10.h,
+              //   decoration: BoxDecoration(
+              //       shape: BoxShape.circle,
+              //       color: status == kBusy
+              //           ? Color(0xffE37A2D)
+              //           : status == kFaulted
+              //               ? Color.fromARGB(255, 249, 59, 45)
+              //               : status == kUnavailable
+              //                   ? Color(0xff959595)
+              //                   : Color(0xff219653)),
+              // ),
+              width(7.w),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/svg/${evport.connectorType.toLowerCase().trim()}.svg",
+                    width: 25.w,
+                    // color: isSelected
+                    //     ? Color(0xff4f4f4f)
+                    //     : status == kBusy
+                    //         ? Color(0xffE333333)
+                    //         : status == kUnavailable || status == kFaulted
+                    //             ? Color(0xff959595)
+                    //             : Color(0xff0047C3),
+                  ),
+                ],
+              ),
+              width(12.5.w),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomBigText(
+                    text: 'Connector ${index1 + 1}',
+                    size: 14.sp,
+                    color: Color(0xff333333),
+                    // color: isSelected
+                    //     ? Color(0xff333333)
+                    //     : status == kUnavailable || status == kFaulted
+                    //         ? Color(0xff959595)
+                    //         : Color(0xff0047C3),
+                  ),
+                  CustomSmallText(
+                    text: evport.connectorType.isEmpty
+                        ? 'Null'
+                        : evport.connectorType,
+                    size: 12.sp,
+                    color: Color(0xff333333),
+                    // color: isSelected
+                    //     ? Color(0xff333333)
+                    //     : status == kUnavailable || status == kFaulted
+                    //         ? Color(0xff959595)
+                    //         : Color(0xff0047C3),
+                  ),
+                ],
+              ),
+              Spacer(),
+              Container(
+                height: 10.w,
+                width: 10.w,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isConnected
+                      ? status == kAvailable
+                          ? Color(0xff219653)
                           : status == kBusy
-                              ? Color(0xffE333333)
-                              : status == kUnavailable || status == kFaulted
-                                  ? Color(0xff959595)
-                                  : Color(0xff0047C3),
-                    ),
-                  ],
+                              ? Color(0xffE37A2D)
+                              : status == kFaulted
+                                  ? Color.fromARGB(255, 249, 59, 45)
+                                  : Color(0xff828282)
+                      : Color(0xff828282),
                 ),
-                width(12.5.w),
-                CustomBigText(
-                  text: evport.connectorType.isEmpty
-                      ? 'Null'
-                      : evport.connectorType,
-                  size: 14.sp,
-                  color: isSelected
-                      ? Color(0xff333333)
-                      : status == kUnavailable || status == kFaulted
-                          ? Color(0xff959595)
-                          : Color(0xff0047C3),
-                ),
-              ],
-            ),
+              ),
+              width(5.w),
+              CustomBigText(
+                text: status,
+                size: 12,
+                color: isConnected
+                    ? status == kAvailable
+                        ? Color(0xff219653)
+                        : status == kBusy
+                            ? Color(0xffE37A2D)
+                            : status == kFaulted
+                                ? Color.fromARGB(255, 249, 59, 45)
+                                : Color(0xff828282)
+                    : Color(0xff828282),
+              ),
+            ],
           ),
         ),
       ),
@@ -600,28 +597,19 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     int available = res[1];
     String trailing = res[0];
     ///////END LOGIC CODES///////
-
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
-        alignment: Alignment.center,
-        height: 100.h +
-            85.h *
-                (controller.model.value.Chargers[index].evports.length / 2.0)
-                    .ceil(),
-        decoration: BoxDecoration(
-          color: kwhite,
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(
-            width: 1.5,
-            color: Color(0xffBFD6FF).withOpacity(0.6),
-          ),
-        ),
-        child: Column(
-          children: [
-            ExpandableButton(
-              child: Container(
+    kLog(controller.model.value.Chargers[index].evports.length.toString());
+    return Container(
+      // color: Colors.amber,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
+          alignment: Alignment.center,
+          height: 70.h +
+              77.h * (controller.model.value.Chargers[index].evports.length),
+          child: Column(
+            children: [
+              Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: size.width * 0.04,
                 ),
@@ -630,122 +618,70 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: size.height * 0.0075),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
                         children: [
-                          Obx(
-                            () => CustomBigText(
+                          CustomBigText(
                               text: title,
-                              size: 13,
-                              color: index == controller.selectedCharger.value
-                                  ? Color(0xff0047C3)
-                                  : Color(0xff4f4f4f),
-                            ),
-                          ),
-                          height(size.height * 0.004),
-                          CustomSmallText(
-                            text: subTitle,
-                            size: 12,
+                              size: 16,
+                              color:
+                                  // index == controller.selectedCharger.value ?
+                                  Color(0xff0047C3)
+                              // : Color(0xff4f4f4f),
+                              ),
+                          width(5.w),
+                          Container(
+                            padding: EdgeInsets.all(2.w),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: CustomText(
+                                text: subTitle,
+                                size: 11.5,
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
                     ),
-                    Container(
-                      child: Row(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            height: size.height * 0.03,
-                            width: size.width * 0.25,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: available > 0
-                                  ? Color(0xff219653).withOpacity(0.24)
-                                  : trailing == kBusy
-                                      ? kBusyColor
-                                      : trailing == kFaulted
-                                          ? Color.fromARGB(255, 249, 59, 45)
-                                              .withOpacity(.2)
-                                          : Color(0xffEAEAEA),
-                            ),
-                            child: CustomBigText(
-                              text: trailing,
-                              size: 12,
-                              color: available > 0
-                                  ? Color(0xff219653)
-                                  : trailing == kBusy
-                                      ? Color(0xffE37A2D)
-                                      : trailing == kFaulted
-                                          ? Color.fromARGB(255, 249, 59, 45)
-                                          : Color(0xff333333),
-                            ),
-                          ),
-                          width(size.width * 0.06),
-                          SvgPicture.asset("assets/svg/arrow_upward_ios.svg")
-                        ],
-                      ),
+                    CustomSmallText(
+                      text:
+                          '₹ ${controller.model.value.Chargers[index].tariff} /KwH',
+                      size: 12,
                     ),
                   ],
                 ),
               ),
-            ),
-            height(size.height * 0.01),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
-              child: Container(
-                height: size.height * 0.001,
-                width: size.width,
-                color: Color(0xffE0E0E0),
+              height(size.height * 0.01),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
+                  child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: evPorts.length,
+                      scrollDirection: Axis.vertical,
+                      // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      //   childAspectRatio: 3.2,
+                      //   crossAxisCount: 2,
+                      //   mainAxisSpacing: size.width * .01,
+                      //   crossAxisSpacing: size.height * .01,
+                      // ),
+                      itemBuilder: (context, index_grid) {
+                        return Obx(() {
+                          return connectors(
+                            isSelected:
+                                index == controller.selectedCharger.value &&
+                                    controller.selectedType.value == index_grid,
+                            index: index,
+                            index1: index_grid,
+                            evport: evPorts[index_grid],
+                            isConnected: isConnected,
+                          );
+                        });
+                      }),
+                ),
               ),
-            ),
-            height(size.height * 0.015),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomSmallText(
-                    text: 'Tariff',
-                    size: 12,
-                  ),
-                  CustomSmallText(
-                    text:
-                        '₹ ${controller.model.value.Chargers[index].tariff} /KwH',
-                    size: 12,
-                  ),
-                ],
-              ),
-            ),
-            height(size.height * 0.015),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
-                child: GridView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: evPorts.length,
-                    scrollDirection: Axis.vertical,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 3.2,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: size.width * .01,
-                      crossAxisSpacing: size.height * .01,
-                    ),
-                    itemBuilder: (context, index_grid) {
-                      return Obx(() {
-                        return connectors(
-                          isSelected:
-                              index == controller.selectedCharger.value &&
-                                  controller.selectedType.value == index_grid,
-                          index: index,
-                          index1: index_grid,
-                          evport: evPorts[index_grid],
-                          isConnected: isConnected,
-                        );
-                      });
-                    }),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
