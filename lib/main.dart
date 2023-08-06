@@ -13,44 +13,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'Utils/app_pages.dart';
 import 'Utils/firebase_notifications.dart';
 
-// @pragma(
-//     'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
-// void callbackDispatcher() {
-//   Workmanager().executeTask((task, inputData) async {
-//     Logger().e('hi');
-//     int i = 0;
-//     final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-//         FlutterLocalNotificationsPlugin();
-//     final AndroidInitializationSettings _androidInitializationSettings =
-//         const AndroidInitializationSettings('@mipmap/ic_launcher');
-//     final InitializationSettings initializationSettings =
-//         InitializationSettings(
-//       android: _androidInitializationSettings,
-//     );
-//     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
-//     // var androidPlatformChannelSpecifics;
-//     Timer.periodic(Duration(seconds: 10), (timer) {
-//       Logger().e('timer');
-//       var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-//           'progress_channel',
-//           'progress channel',
-//           channelDescription: 'progress channel description',
-//           channelShowBadge: false,
-//           importance: Importance.max,
-//           priority: Priority.high,
-//           onlyAlertOnce: true,
-//           showProgress: true,
-//           maxProgress: 10,
-//           progress: i++);
-//       var platformChannelSpecifics =
-//           NotificationDetails(android: androidPlatformChannelSpecifics);
-//       _flutterLocalNotificationsPlugin.show(1, 'progress notification title',
-//           'progress notification body', platformChannelSpecifics,
-//           payload: 'item x');
-//     });
-//     return Future.value(true);
-//   });
-// }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,24 +21,6 @@ Future<void> main() async {
   await Injector().inject();  
   await FireBaseNotification().init();
   await NotificationService().init();
-  // Workmanager().initialize(
-  //     callbackDispatcher, // The top level function, aka callbackDispatcher
-  //     isInDebugMode:
-  //         true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
-  //     );
-  // Workmanager().registerOneOffTask("task-identifier", "simpleTask",
-  //     inputData: {'data': 'hello'});
-  // int s = 0;
-  // Timer.periodic(Duration(seconds: 1), (timer) {
-  //   if (s > 100) {
-  //     NotificationService().cancelLocalNotification(0);
-  //     NotificationService().showCompletionNotification();
-  //     timer.cancel();
-  //   } else {
-  //     NotificationService().createLocalNotification(100, s, 0);
-  //     s++;
-  //   }
-  // });
   runApp(const MyApp());
 }
 

@@ -108,22 +108,25 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Obx(
-                                      () => CustomText(
-                                          text: controller.model.value.name,
-                                          color: Color(0xff4F4F4F),
-                                          fontWeight: FontWeight.bold),
+                                    Expanded(
+                                      child: Obx(
+                                        () => CustomText(
+                                            text: controller.model.value.name,
+                                            overflow: TextOverflow.ellipsis,
+                                            color: Color(0xff4F4F4F),
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                     width(size.width * .017),
-                                    Obx(
-                                      () => CustomText(
-                                          text:
-                                              '${controller.distance.value} km away',
-                                          color: Color(0xff828282),
-                                          fontWeight: FontWeight.normal,
-                                          size: 12),
-                                    ),
                                   ],
+                                ),
+                                Obx(
+                                  () => CustomText(
+                                      text:
+                                          '${controller.distance.value} km away',
+                                      color: Color(0xff828282),
+                                      fontWeight: FontWeight.normal,
+                                      size: 12),
                                 ),
                                 height(8.h),
                                 Obx(
@@ -165,7 +168,31 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                 )
                               ],
                             ),
-                          )
+                          ),
+                          InkWell(
+                            onTap: () {
+                              //TODO: call api for adding as favorite or removing from favorite
+                              controller.changeFavoriteStatus();
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: size.width * .01),
+                              padding: EdgeInsets.all(size.width * .02),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Color(0xffBDBDBD))),
+                              child: Obx(
+                                () => SvgPicture.asset(
+                                  controller.model.value.isFavorite
+                                      ? 'assets/svg/favorite1.svg'
+                                      : 'assets/svg/favorite.svg',
+                                  width: 15.w,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -201,35 +228,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                               ),
                             ),
                           ),
-                          Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  //TODO: call api for adding as favorite or removing from favorite
-                                  controller.changeFavoriteStatus();
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: size.width * .01),
-                                  padding: EdgeInsets.all(size.width * .02),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border:
-                                          Border.all(color: Color(0xffBDBDBD))),
-                                  child: Obx(
-                                    () => SvgPicture.asset(
-                                      controller.model.value.isFavorite
-                                          ? 'assets/svg/favorite1.svg'
-                                          : 'assets/svg/favorite.svg',
-                                      width: 15.w,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
                         ],
                       ),
                     ),

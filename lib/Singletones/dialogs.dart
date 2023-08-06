@@ -34,7 +34,7 @@ class Dialogs {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.w)),
           content: Container(
             padding: EdgeInsets.all(20.w),
-            height: 370.h,
+            height: 490.h,
             width: 348.w,
             decoration: BoxDecoration(),
             child: Column(
@@ -62,6 +62,33 @@ class Dialogs {
                   ],
                 ),
                 Divider(),
+                height(15.h),
+                Container(
+                  height: 80.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xffEDF4FF),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomSmallText(
+                        text: 'Charger Name',
+                        size: 13,
+                      ),
+                      CustomText(
+                          text: '${_bookingModel.chargerName}',
+                          color: Color(0xff4f4f4f),
+                          size: 15,
+                          fontWeight: FontWeight.bold),
+                    ],
+                  ),
+                ),
+
+                height(20.h),
                 Container(
                   height: 80.h,
                   // width: 80.w,
@@ -114,6 +141,7 @@ class Dialogs {
                     ],
                   ),
                 ),
+
                 height(20.h),
                 Container(
                   height: 80.h,

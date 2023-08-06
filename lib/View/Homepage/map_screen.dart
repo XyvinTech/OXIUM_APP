@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Singletones/dialogs.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -72,7 +73,6 @@ class _MapScreenState extends State<MapScreen>
                         // MapFunctions().getCurrentPosition();
                       },
                       onTap: (value) {
-                        print(value);
                         // MapFunctions().addMyPositionMarker(MapFunctions().curPos,
                         //     MapFunctions().markers_homepage);
                         // MapFunctions().addMarkerHomePage(
