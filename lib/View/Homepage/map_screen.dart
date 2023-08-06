@@ -1,10 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
-import 'package:freelancer_app/Singletones/app_data.dart';
-import 'package:freelancer_app/Singletones/dialogs.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,9 +11,7 @@ import '../../Singletones/map_functions.dart';
 import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
-import '../Onboarding/onboarding_cards.dart';
 import '../Widgets/appbutton.dart';
-import '../Widgets/customText.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -234,7 +230,7 @@ class _MapScreenState extends State<MapScreen>
               //               'assets/svg/location_searching.svg')),
               //     )),
               Positioned(
-                bottom: size.height * .04,
+                bottom: size.height * .01,
                 right: size.width * .03,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -256,16 +252,19 @@ class _MapScreenState extends State<MapScreen>
                       bgColor: kOnboardingColors,
                       onTap: controller.onQrScan,
                     ),
-                    // Padding(
-                    //   padding: EdgeInsets.all(10),
-                    //   child: CarouselSlider(
-                    //     items: cards,
-                    //     options: CarouselOptions(
-                    //       enableInfiniteScroll: false,
-                    //       enlargeCenterPage: true,
-                    //     ),
-                    //   ),
-                    // ),
+                    Container(
+                      height: size.height * 0.3,
+                      width: size.width,
+                      color: Colors.transparent,
+                      child: CarouselSlider(
+                        items: cards,
+                        options: CarouselOptions(
+                          enlargeFactor: 0,
+                          enableInfiniteScroll: false,
+                          enlargeCenterPage: true,
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -325,19 +324,20 @@ class _MapScreenState extends State<MapScreen>
 
   List<Widget> cards = [
     Container(
+      margin: EdgeInsets.only(right: 10),
       height: size.height * 0.2,
       width: size.width * 0.85,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.black,
       ),
     ),
     Container(
       height: size.height * 0.2,
       width: size.width * 0.85,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.green,
       ),
     ),
   ];
