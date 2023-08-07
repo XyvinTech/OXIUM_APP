@@ -62,11 +62,12 @@ class FavouriteScreen extends GetView<FavouritePageController> {
                       itemBuilder: (_, index) {
                         FavoriteModel model = controller.model_list[index];
                         String distance =
-                            MapFunctions.distanceBetweenCoordinates(
-                                    model.lattitude,
-                                    model.longitude,
-                                    MapFunctions().curPos.latitude,
-                                    MapFunctions().curPos.longitude)
+                            (MapFunctions.distanceBetweenCoordinates(
+                                        model.lattitude,
+                                        model.longitude,
+                                        MapFunctions().curPos.latitude,
+                                        MapFunctions().curPos.longitude) /
+                                    1000.0)
                                 .toStringAsFixed(2);
                         return InkWell(
                           onTap: () {

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-   <string>This app needs access to location when in the background or forground.</string>
+   <string>Your location helps us to show you our nearest chargestations around your area to ensure you can charge your ev from those chargestations.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires access to the photo library.</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
@@ -54,9 +54,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs camera access to scan QR codes</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs access to location when in the background.</string>
+	<string>Your location helps us to show you our nearest chargestations around your area to ensure you can charge your ev from those chargestations.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open.</string>
+	<string>Your location helps us to show you our nearest chargestations around your area to ensure you can charge your ev from those chargestations.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

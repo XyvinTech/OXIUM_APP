@@ -9,27 +9,11 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" /> <!-- For Images-->
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEOS" /> <!-- For video-->
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" /> <!-- For Audio-->
-
-    <!-- <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/> -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-                           <!-- Provide required visibility configuration for API level 30 and above -->
-    <queries>
-            If your app checks for SMS support
-        <intent>
-            <action android:name="android.intent.action.VIEW" android:exported="true" />
-            <data android:scheme="sms" />
-        </intent>
-            If your app checks for call support
-        <intent>
-            <action android:name="android.intent.action.VIEW" android:exported="true" />
-            <data android:scheme="tel" />
-        </intent>
-    </queries>
+     
    <application
         android:label="ECGO"
         android:name="${applicationName}"
@@ -64,30 +48,6 @@
             android:value="2" />
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs"/>
-        <!-- ADDED FOR TELEPHONY -->
-        <receiver android:name="com.shounakmulay.telephony.sms.IncomingSmsReceiver"
-		    android:permission="android.permission.BROADCAST_SMS" android:exported="true">
-		    <intent-filter>
-		    <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-		    </intent-filter>
-		</receiver>
-                <!-- LATER ADDED CODE -->
-        <!-- <receiver
-            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
-            android:exported="true"
-            tools:replace="android:exported">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver> -->
-        <!-- <service
-            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationService"
-            android:exported="true" 
-            /> -->
-        <!-- LATER ADD ENDED  -->
+
     </application>
 </manifest>
