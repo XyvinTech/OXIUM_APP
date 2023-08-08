@@ -16,12 +16,11 @@ class NotificationService {
 
   NotificationService._internal() {}
 
-   init() async {
+  init() async {
     final InitializationSettings initializationSettings =
         InitializationSettings(
-      android: _androidInitializationSettings,
-      iOS: DarwinInitializationSettings()
-    );
+            android: _androidInitializationSettings,
+            iOS: DarwinInitializationSettings());
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
@@ -38,8 +37,14 @@ class NotificationService {
         ongoing: true,
         maxProgress: max,
         progress: progress);
-    var platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
+    var iosPlatformChannelSpecifics = DarwinNotificationDetails(
+      presentAlert: false,
+      presentBadge: false,
+      presentSound: false,
+    );
+    var platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iosPlatformChannelSpecifics);
     _flutterLocalNotificationsPlugin.show(notification_id,
         'Charging in progress', '$progress% charged', platformChannelSpecifics,
         payload: 'item x');
