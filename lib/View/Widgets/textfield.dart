@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
@@ -93,6 +94,59 @@ class AppTextField extends GetView<LoginPageController> {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class DateTimeField extends GetView<LoginPageController> {
+  final String hintText;
+  final Widget icon;
+  final TextInputType keyboardtype;
+  final TextEditingController Controller;
+  final void Function(String) onChanged;
+  final void Function()? onTap;
+  final Color color;
+  DateTimeField(
+      {Key? key,
+      required this.hintText,
+      required this.icon,
+      required this.keyboardtype,
+      required this.Controller,
+      required this.onChanged,
+      required this.color,
+      this.onTap})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    _showDatePicker() {
+      showDateRangePicker(
+          initialEntryMode: DatePickerEntryMode.input,
+          routeSettings: CupertinoPage(child: Container()),
+          firstDate: DateTime.now(),
+          context: context,
+          lastDate: DateTime(2025));
+    }
+
+    size = MediaQuery.of(context).size;
+    return Container(
+      padding: EdgeInsets.only(
+        left: size.width * 0.07,
+        right: size.width * 0.07,
+      ),
+      height: size.height * 0.08,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(
+          width: 2,
+          color: color,
+        ),
+      ),
+      child: CupertinoTextField(
+        //onTap: _showDatePicker(),
+        suffix: GestureDetector(onTap: _showDatePicker, child: icon),
+        placeholder: hintText,
       ),
     );
   }

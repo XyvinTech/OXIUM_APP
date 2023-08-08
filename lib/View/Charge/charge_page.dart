@@ -9,6 +9,7 @@ import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Model/chargeTransactionModel.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/Utils/utils.dart';
+import 'package:freelancer_app/View/Charge/charge_history_filter.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
@@ -17,6 +18,7 @@ import 'package:get/get.dart';
 
 import '../../Singletones/app_data.dart';
 import '../../Utils/routes.dart';
+import '../Widgets/textfield.dart';
 
 class ChargeScreen extends StatefulWidget {
   @override
@@ -197,7 +199,7 @@ class _ChargeScreenState extends State<ChargeScreen>
                                                 height: size.height * 0.008,
                                               ),
                                               CustomSmallText(
-                                                text: "KMS Driven",
+                                                text: "Total Session",
                                                 fontWeight: FontWeight.w500,
                                                 size: 14.sp,
                                               ),
@@ -214,7 +216,7 @@ class _ChargeScreenState extends State<ChargeScreen>
                                           right: size.width * 0.055,
                                         ),
                                         child: AppButton(
-                                          text: "Reserve Charger",
+                                          text: "Start Charging",
                                           sizeheight: size.height * 0.07,
                                           onTap: () {
                                             HomePageController homeController =
@@ -254,9 +256,9 @@ class _ChargeScreenState extends State<ChargeScreen>
                             width: size.width * 0.25,
                             color: Color(0xffD9D9D9),
                           ),
-                          SizedBox(
-                            height: size.height * 0.005,
-                          ),
+                          // SizedBox(
+                          //   height: size.height * 0.005,
+                          // ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: size.width * 0.055),
@@ -271,16 +273,16 @@ class _ChargeScreenState extends State<ChargeScreen>
                                 onTap: (index) {
                                   controller.IsTabIndex.value = index;
                                 },
-                                indicator: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(42),
-                                  color: Color(0xffDEEAFF),
-                                ),
+                                // indicator: BoxDecoration(
+                                //   borderRadius: BorderRadius.circular(42),
+                                //   color: Color.fromARGB(255, 255, 255, 255),
+                                // ),
                                 tabs: [
                                   Tab(
                                     child: CustomSmallText(
-                                      text: "Charge",
+                                      text: "Charging History",
                                       size: 15.sp,
-                                      color: Color(0xff0047C3),
+                                      color: Color.fromARGB(255, 63, 63, 63),
                                     ),
                                   ),
                                   // Tab(
@@ -290,13 +292,13 @@ class _ChargeScreenState extends State<ChargeScreen>
                                   //     color: Color(0xff0047C3),
                                   //   ),
                                   // ),
-                                  Tab(
-                                    child: CustomSmallText(
-                                      text: "Trips",
-                                      size: 15.sp,
-                                      color: Color(0xff0047C3),
-                                    ),
-                                  ),
+                                  // Tab(
+                                  //   child: CustomSmallText(
+                                  //     text: "Trips",
+                                  //     size: 15.sp,
+                                  //     color: Color(0xff0047C3),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -312,9 +314,9 @@ class _ChargeScreenState extends State<ChargeScreen>
                     color: Colors.white,
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
+                        // SizedBox(
+                        //   height: size.height * 0.002,
+                        // ),
                         Expanded(
                           child: Padding(
                             padding: EdgeInsets.symmetric(
@@ -324,7 +326,7 @@ class _ChargeScreenState extends State<ChargeScreen>
                               children: [
                                 _chargeTab(),
                                 // _reservationsTab(),
-                                _tripsTab(),
+                                //_tripsTab(),
                               ],
                             ),
                           ),
@@ -335,6 +337,16 @@ class _ChargeScreenState extends State<ChargeScreen>
                 ),
               ),
             ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.to(ChargeHistoryFilter());
+          },
+          backgroundColor: kOnboardingColors,
+          child: Icon(
+            IconData(0xf068, fontFamily: 'MaterialIcons'),
+            color: kwhite,
+          ),
+        ),
       ),
     );
   }
@@ -344,70 +356,72 @@ class _ChargeScreenState extends State<ChargeScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        InkWell(
-          onTap: () {
-            Get.toNamed(Routes.qrScanPageRoute);
-          },
-          child: Container(
-            height: size.height * 0.12,
-            width: size.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0xff333333),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: size.width * 0.04,
-                    // top: size.height * 0.02,
-                    // bottom: size.height * 0.02,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomBigText(
-                        text: "Scan and Charge",
-                        size: 17.sp,
-                        color: kwhite,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      SizedBox(
-                        height: size.height * 0.017,
-                      ),
-                      CustomSmallText(
-                        text: "Scan and charge to avail new",
-                        size: 10.sp,
-                        color: kwhite,
-                      ),
-                      CustomSmallText(
-                        text: "offers and rewards",
-                        size: 11.sp,
-                        color: kwhite,
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 11.h),
-                  child: SvgPicture.asset("assets/svg/G2.svg"),
-                )
-              ],
-            ),
-          ),
-        ),
-        SizedBox(
-          height: size.height * 0.02,
-        ),
-        CustomBigText(
-          text: "Charging History",
-          fontWeight: FontWeight.w500,
-          size: 12.sp,
-          color: Color(0xff4F4F4F),
-        ),
+        // InkWell(
+        //   onTap: () {
+        //     Get.toNamed(Routes.qrScanPageRoute);
+        //   },
+        //   child: Container(
+        //     height: size.height * 0.12,
+        //     width: size.width,
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(20),
+        //       color: Color(0xff333333),
+        //     ),
+        //     child: Row(
+        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //       crossAxisAlignment: CrossAxisAlignment.end,
+        //       children: [
+        //         Padding(
+        //           padding: EdgeInsets.only(
+        //             left: size.width * 0.04,
+        //             // top: size.height * 0.02,
+        //             // bottom: size.height * 0.02,
+        //           ),
+        //           child: Column(
+        //             crossAxisAlignment: CrossAxisAlignment.start,
+        //             mainAxisAlignment: MainAxisAlignment.center,
+        //             children: [
+        //               CustomBigText(
+        //                 text: "Scan and Charge",
+        //                 size: 17.sp,
+        //                 color: kwhite,
+        //                 fontWeight: FontWeight.bold,
+        //               ),
+        //               SizedBox(
+        //                 height: size.height * 0.017,
+        //               ),
+        //               CustomSmallText(
+        //                 text: "Scan and charge to avail new",
+        //                 size: 10.sp,
+        //                 color: kwhite,
+        //               ),
+        //               CustomSmallText(
+        //                 text: "offers and rewards",
+        //                 size: 11.sp,
+        //                 color: kwhite,
+        //               )
+        //             ],
+        //           ),
+        //         ),
+        //         Padding(
+        //           padding: EdgeInsets.only(top: 11.h),
+        //           child: SvgPicture.asset("assets/svg/G2.svg"),
+        //         )
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        // SizedBox(
+        //   height: size.height * 0.02,
+        // ),
+        // Center(
+        //   child: CustomBigText(
+        //     text: "Charging History",
+        //     fontWeight: FontWeight.w500,
+        //     size: 14.sp,
+        //     color: Color.fromARGB(255, 59, 59, 59),
+        //   ),
+        // ),
         SizedBox(
           height: size.height * 0.025,
         ),
@@ -421,7 +435,7 @@ class _ChargeScreenState extends State<ChargeScreen>
                   return _chargeHistoryCard(controller.model_list[index]);
                 }),
           ),
-        )
+        ),
       ],
     );
   }
@@ -444,97 +458,106 @@ class _ChargeScreenState extends State<ChargeScreen>
       },
       child: Padding(
         padding: EdgeInsets.only(bottom: 10.h),
-        child: Container(
-          padding: EdgeInsets.only(
-            left: size.width * 0.03,
-            top: size.height * 0.015,
-            bottom: size.height * 0.015,
-            right: size.width * 0.03,
-          ),
-          height: size.height * 0.1,
-          width: size.width,
-          decoration: BoxDecoration(
-            color: kwhite,
-            border: Border.all(
-              color: Color(0xffBDBDBD),
-              width: 0.4,
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    //TODO: use cached network image here
-                    cachedNetworkImage(model.image, width: size.width * .13),
-                    SizedBox(
-                      width: size.width * 0.03,
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.only(top: size.height * 0.012),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CustomSmallText(
-                                    text: model.stationName,
-                                    size: 10,
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.007,
-                                  ),
-                                  CustomSmallText(
-                                    text: model.stationAddress,
-                                    size: 12,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(
+                left: size.width * 0.03,
+                top: size.height * 0.015,
+                bottom: size.height * 0.015,
+                right: size.width * 0.03,
               ),
-              Row(
+              height: size.height * 0.1,
+              width: size.width,
+              decoration: BoxDecoration(
+                color: kwhite,
+                // border: Border.all(
+                //   color: Color(0xffBDBDBD),
+                //   width: 0.4,
+                // ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: size.height * 0.004),
-                    child: Column(
+                  Expanded(
+                    child: Row(
                       children: [
-                        CustomSmallText(
-                          text: "$hour H $minute MIN",
-                          size: 12,
-                        ),
+                        //TODO: use cached network image here
+                        cachedNetworkImage(model.image,
+                            width: size.width * .13),
                         SizedBox(
-                          height: size.height * 0.007,
+                          width: size.width * 0.03,
                         ),
-                        CustomBigText(
-                          text: "Cr. ${model.amount.toStringAsFixed(2)} ",
-                          size: 16,
-                          color: Color(0xff4F4F4F),
-                        ),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(top: size.height * 0.012),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CustomSmallText(
+                                        text: model.stationName,
+                                        size: 10,
+                                      ),
+                                      SizedBox(
+                                        height: size.height * 0.007,
+                                      ),
+                                      CustomSmallText(
+                                        text: model.stationAddress,
+                                        size: 12,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: size.width * 0.05,
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: size.height * 0.03,
-                    color: Color(0xffBDBDBD),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: size.height * 0.004),
+                        child: Column(
+                          children: [
+                            CustomSmallText(
+                              text: "$hour H $minute MIN",
+                              size: 12,
+                            ),
+                            SizedBox(
+                              height: size.height * 0.007,
+                            ),
+                            CustomBigText(
+                              text: "Cr. ${model.amount.toStringAsFixed(2)} ",
+                              size: 16,
+                              color: Color(0xff4F4F4F),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.05,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: size.height * 0.03,
+                        color: Color(0xffBDBDBD),
+                      )
+                    ],
                   )
                 ],
-              )
-            ],
-          ),
+              ),
+            ),
+            Divider(
+              thickness: 1.5,
+            )
+          ],
         ),
       ),
     );
@@ -1497,4 +1520,63 @@ class _ChargeScreenState extends State<ChargeScreen>
   //     ],
   //   );
   // }
+}
+
+// ignore: must_be_immutable
+class ChargeHistoryFilter extends StatelessWidget {
+  ChargeHistoryFilter({super.key});
+  TextEditingController dateController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    _showDatePicker() {
+      showDateRangePicker(
+          context: context,
+          firstDate: DateTime.now(),
+          lastDate: DateTime(2025));
+    }
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: CustomBigText(
+            text: "Filter",
+            color: const Color.fromARGB(255, 43, 43, 43),
+          ),
+          centerTitle: true,
+          backgroundColor: kwhite,
+          elevation: 0.2,
+          leading: IconButton(
+            onPressed: () => Get.back(),
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(height: size.height * 0.05),
+                CustomBigText(
+                  text: 'Payment Time',
+                  size: 15,
+                ),
+                SizedBox(height: size.height * 0.05),
+                DateTimeField(
+                    Controller: dateController,
+                    keyboardtype: TextInputType.datetime,
+                    onChanged: (String) {},
+                    color: Colors.grey,
+                    hintText: 'dd/mm/yyyy',
+                    icon: Icon(
+                      Icons.calendar_month,
+                      color: Colors.grey,
+                    )),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

@@ -21,8 +21,9 @@ class CustomIcon {
   static const String? _kFontPkg = null;
 
   static const IconData support_agent = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData group_9024 = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData notifications = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData gray_g = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData wallet = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData map = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
+

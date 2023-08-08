@@ -81,7 +81,7 @@ class HomePageScreen extends GetView<HomePageController> {
                   icons: [
                     CustomIcon.map,
                     CustomIcon.notifications,
-                    CustomIcon.gray_g,
+                    CustomIcon.group_9024,
                     CustomIcon.wallet,
                     CustomIcon.support_agent,
                   ],
