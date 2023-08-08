@@ -32,7 +32,7 @@ class HomePageController extends GetxController {
   //NEW HELP PAGE STARTS
   CarouselController? carouselController;
   RxDouble currentIndex = 0.0.obs;
-  String phnNumber = "+8801751051339";
+  String phnNumber = "+919778687615";
   RxList carouselText = [
     "GOEC super charging station Provides High ROI",
     "operate your charging station from anywhere in the world without human intervention.",

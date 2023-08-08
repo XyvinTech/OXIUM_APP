@@ -177,7 +177,7 @@ class _HelpPageAliveState extends State<HelpPageAlive>
             padding: EdgeInsets.symmetric(horizontal: size.width * .062),
             child:
                 _contractCard("Talk to Customer care", Icons.call, "null", () {
-              controller.openPhoneCall("+8801738347723");
+              controller.openPhoneCall("+919778687615");
             }),
           ),
           height(size.height * 0.02),
@@ -204,25 +204,25 @@ class _HelpPageAliveState extends State<HelpPageAlive>
               // } else if (Platform.isIOS) {
               //   controller.openMail("mahmudulhasan5008@gmail.com");
               // }
-              controller.openMail("mahmudulhasan5008@gmail.com");
+              controller.openMail("care@goecworld.com");
             }),
           ),
           height(size.height * 0.025),
           Expanded(
             child: Container(),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: size.width * 0.2,
-                right: size.width * 0.13,
-                bottom: size.height * 0.05),
-            child: CustomText(
-              color: Color(0xff4f4f4f),
-              size: 12,
-              text:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ',
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //       left: size.width * 0.2,
+          //       right: size.width * 0.13,
+          //       bottom: size.height * 0.05),
+          //   child: CustomText(
+          //     color: Color(0xff4f4f4f),
+          //     size: 12,
+          //     text:
+          //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ',
+          //   ),
+          // ),
         ],
       ),
     ));
