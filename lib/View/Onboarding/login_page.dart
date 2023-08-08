@@ -109,9 +109,11 @@ class LoginPage extends GetView<LoginPageController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'By selecting get started, you are agreeing to the ',
-                              style: kAppBottomTextSpanTextStyle1,
+                            Expanded(
+                              child: Text(
+                                'By selecting get started, you are agreeing to the ',
+                                style: kAppBottomTextSpanTextStyle1,
+                              ),
                             ),
                             GestureDetector(
                               onTap: () {

@@ -89,6 +89,7 @@ class HomePageController extends GetxController {
     // MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
     // MapFunctions().animateToNewPosition(LatLng(28.670988, 77.2794488));
     if (pos != null) {
+      print(pos);
       await getNearestChargestations(pos);
       MapFunctions().addMyPositionMarker(pos, MapFunctions().markers_homepage);
     }
@@ -171,8 +172,7 @@ class HomePageController extends GetxController {
 
   //MapScreeen Functions Starts
   onFilterTap() {
-    Get.toNamed(Routes.filterPageRoute,
-        arguments: station_marker_list);
+    Get.toNamed(Routes.filterPageRoute, arguments: station_marker_list);
   }
 
   onLocationTap() async {

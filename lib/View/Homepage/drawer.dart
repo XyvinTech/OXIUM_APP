@@ -68,8 +68,10 @@ Widget CustomDrawer(BuildContext context) {
                       ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: isLoggedIn
-                        ? Obx(() =>
-                            cachedNetworkImage(appData.userModel.value.image))
+                        ? Obx(() => cachedNetworkImage(
+                            appData.userModel.value.image,
+                            fit: BoxFit.cover,
+                            width: double.infinity))
                         : Container(
                             height: 5,
                             child: Image.asset(

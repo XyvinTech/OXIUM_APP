@@ -76,7 +76,9 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                             borderRadius: BorderRadius.circular(100),
                             child: Obx(
                               () => cachedNetworkImage(
-                                  appData.userModel.value.image),
+                                  appData.userModel.value.image,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover),
                             ),
                           )
                           // Image.asset('assets/images/profile_pic.png'),

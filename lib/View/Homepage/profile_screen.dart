@@ -107,7 +107,9 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                                 borderRadius: BorderRadius.circular(100),
                                 child: Obx(
                                   () => cachedNetworkImage(
-                                      appData.userModel.value.image),
+                                      appData.userModel.value.image,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity),
                                 ),
                               )
                               // Image.asset('assets/images/profile_pic.png'),

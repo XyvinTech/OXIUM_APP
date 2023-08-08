@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-Widget cachedNetworkImage(String imageUrl, {double? width}) {
+Widget cachedNetworkImage(String imageUrl, {double? width,BoxFit? fit}) {
   return CachedNetworkImage(
     imageUrl: imageUrl,
-    fit: BoxFit.fill,
+    fit: fit??BoxFit.fill,
     width: width,
     progressIndicatorBuilder: (context, url, downloadProgress) => Align(
         alignment: Alignment.center,

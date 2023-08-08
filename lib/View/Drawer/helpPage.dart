@@ -201,18 +201,18 @@ class HelpScreen extends GetView<HelpPageController> {
           Expanded(
             child: Container(),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: size.width * 0.2,
-                right: size.width * 0.13,
-                bottom: size.height * 0.05),
-            child: CustomText(
-              color: Color(0xff4f4f4f),
-              size: 12,
-              text:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ',
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //       left: size.width * 0.2,
+          //       right: size.width * 0.13,
+          //       bottom: size.height * 0.05),
+          //   child: CustomText(
+          //     color: Color(0xff4f4f4f),
+          //     size: 12,
+          //     text:
+          //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ',
+          //   ),
+          // ),
         ],
       ),
     ));
