@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -339,7 +340,7 @@ class _ChargeScreenState extends State<ChargeScreen>
             ]),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Get.to(ChargeHistoryFilter());
+            Get.to(ChargeHistoryFilter(isWallet: false,));
           },
           backgroundColor: kOnboardingColors,
           child: Icon(
@@ -1523,60 +1524,64 @@ class _ChargeScreenState extends State<ChargeScreen>
 }
 
 // ignore: must_be_immutable
-class ChargeHistoryFilter extends StatelessWidget {
-  ChargeHistoryFilter({super.key});
-  TextEditingController dateController = TextEditingController();
+// class ChargeHistoryFilter extends StatelessWidget {
+//   ChargeHistoryFilter({super.key});
+//   TextEditingController dateController1 = TextEditingController();
+//   TextEditingController dateController2 = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    _showDatePicker() {
-      showDateRangePicker(
-          context: context,
-          firstDate: DateTime.now(),
-          lastDate: DateTime(2025));
-    }
+//   @override
+//   Widget build(BuildContext context) {
+//     _showDatePicker() {
+//       showDateRangePicker(
+//           context: context,
+//           firstDate: DateTime.now(),
+//           lastDate: DateTime(2025));
+//     }
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: CustomBigText(
-            text: "Filter",
-            color: const Color.fromARGB(255, 43, 43, 43),
-          ),
-          centerTitle: true,
-          backgroundColor: kwhite,
-          elevation: 0.2,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: Icon(Icons.arrow_back_ios),
-          ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Center(
-            child: Column(
-              children: [
-                SizedBox(height: size.height * 0.05),
-                CustomBigText(
-                  text: 'Payment Time',
-                  size: 15,
-                ),
-                SizedBox(height: size.height * 0.05),
-                DateTimeField(
-                    Controller: dateController,
-                    keyboardtype: TextInputType.datetime,
-                    onChanged: (String) {},
-                    color: Colors.grey,
-                    hintText: 'dd/mm/yyyy',
-                    icon: Icon(
-                      Icons.calendar_month,
-                      color: Colors.grey,
-                    )),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+    
+
+//     return SafeArea(
+//       child: Scaffold(
+//         appBar: AppBar(
+//           title: CustomBigText(
+//             text: "Filter",
+//             color: const Color.fromARGB(255, 43, 43, 43),
+//           ),
+//           centerTitle: true,
+//           backgroundColor: kwhite,
+//           elevation: 0.2,
+//           leading: IconButton(
+//             onPressed: () => Get.back(),
+//             icon: Icon(Icons.arrow_back_ios),
+//           ),
+//         ),
+//         body: Padding(
+//           padding: const EdgeInsets.all(10),
+//           child: Center(
+//             child: Column(
+//               children: [
+//                 SizedBox(height: size.height * 0.05),
+//                 CustomBigText(
+//                   text: 'Payment Time',
+//                   size: 15,
+//                 ),
+//                 SizedBox(height: size.height * 0.05),
+                
+//                 DateTimeField(
+//                     dateController: dateController1,
+//                     keyboardtype: TextInputType.datetime,
+//                     onChanged: (String) {},
+//                     color: Colors.grey,
+//                     hintText: 'dd/mm/yyyy',
+//                     icon: Icon(
+//                       Icons.calendar_month,
+//                       color: Colors.grey,
+//                     )),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

@@ -220,12 +220,26 @@ final TextStyle kAppBigTextStyle = TextStyle(
   color: Color(0xff828282),
 );
 
+final TextStyle kAppSuperBigTextStyle = TextStyle(
+  fontFamily: "Poppins",
+  fontSize: 30.sp,
+  fontWeight: FontWeight.w600,
+  color: Colors.white,
+);
+
 final TextStyle kAppSmallTextStyle = TextStyle(
   fontFamily: "Poppins",
   fontSize: 12,
   fontWeight: FontWeight.w400,
   color: Color(0xff828282),
 );
+final TextStyle kAppSuperSmallTextStyle = TextStyle(
+  fontFamily: "Poppins",
+  fontSize: 10,
+  fontWeight: FontWeight.w400,
+  color: Color(0xff828282),
+);
+
 final TextStyle kApphintTextStyle = TextStyle(
   fontFamily: "Poppins",
   fontSize: 14,
