@@ -300,15 +300,11 @@ class _WalletScreenState extends State<WalletScreen>
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.to(ChargeHistoryFilter(isWallet: true));
-        },
-        backgroundColor: kOnboardingColors,
-        child: Icon(
-          IconData(0xf068, fontFamily: 'MaterialIcons'),
-          color: kwhite,
-        ),
-      ),
+          onPressed: () {
+            Get.to(ChargeHistoryFilter(isWallet: true));
+          },
+          backgroundColor: kOnboardingColors,
+          child: SvgPicture.asset('assets/svg/filter_alt.svg')),
     );
   }
 

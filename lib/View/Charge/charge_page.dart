@@ -343,10 +343,7 @@ class _ChargeScreenState extends State<ChargeScreen>
             Get.to(ChargeHistoryFilter(isWallet: false,));
           },
           backgroundColor: kOnboardingColors,
-          child: Icon(
-            IconData(0xf068, fontFamily: 'MaterialIcons'),
-            color: kwhite,
-          ),
+          child: SvgPicture.asset('assets/svg/filter_alt.svg')
         ),
       ),
     );
