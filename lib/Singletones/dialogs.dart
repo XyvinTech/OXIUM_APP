@@ -435,6 +435,7 @@ class Dialogs {
   wallet_transaction_popup({
     required OrderModel model,
   }) {
+    kLog(model.status);
     String title = '';
     Color color = Colors.transparent;
     if (model.status == 'P') {
@@ -451,13 +452,14 @@ class Dialogs {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       contentPadding: EdgeInsets.all(0),
       content: Container(
-        height: size.height * 0.63,
-        width: size.width * 0.8,
+        // height: size.height * 0.63,
+        width: size.width * 0.9,
         decoration: BoxDecoration(
             // borderRadius: BorderRadius.circular(20),
             ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
               padding: EdgeInsets.only(
@@ -632,7 +634,8 @@ class Dialogs {
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  height(25.h),
                 ],
               ),
             ),
@@ -663,8 +666,6 @@ class Dialogs {
             child: CustomText(text: 'Connect port please')),
         barrierDismissible: true);
   }
-
-
 
   Widget writeReviewDialog(CalistaCafePageController controller) {
     return AlertDialog(
@@ -703,16 +704,11 @@ class Dialogs {
                               padding: EdgeInsets.symmetric(horizontal: 10.w),
                               child: GestureDetector(
                                 onTap: () {
-                                  controller
-                                      .selectedRating.value = index + 1;
+                                  controller.selectedRating.value = index + 1;
                                 },
                                 child: SvgPicture.asset(
-                                  controller
-                                                  .selectedRating.value ==
-                                              0 ||
-                                          controller
-                                                      .selectedRating.value -
-                                                  1 <
+                                  controller.selectedRating.value == 0 ||
+                                          controller.selectedRating.value - 1 <
                                               index
                                       ? "assets/svg/star_rate.svg"
                                       : "assets/svg/star_rate3.svg",
@@ -726,8 +722,7 @@ class Dialogs {
               TextFormField(
                 minLines: 7,
                 maxLines: 7,
-                controller:
-                    controller.reviewController,
+                controller: controller.reviewController,
                 keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                     hintText: "Leave Your Feedback here",
@@ -747,8 +742,7 @@ class Dialogs {
               _button(
                   button: "Leave feedback",
                   onTap: () async {
-                    bool status = await controller
-                        .postReviewForChargeStation();
+                    bool status = await controller.postReviewForChargeStation();
                     if (status) Get.dialog(_responseDialougebox());
                   }),
               height(20.h),
@@ -764,7 +758,8 @@ class Dialogs {
           )),
     );
   }
-    Widget _button({required String button, required void Function() onTap}) {
+
+  Widget _button({required String button, required void Function() onTap}) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -866,6 +861,4 @@ class Dialogs {
       ),
     );
   }
-
-
 }

@@ -667,7 +667,7 @@ class CommonFunctions {
 
   Future<List<OrderModel>> getWalletTransactions(
       String page, String size) async {
-    var res = await CallAPI().getData('paymentDetails?', {
+    var res = await CallAPI().getData('paymentDetails', {
       'page': page,
       'size': size,
     });
@@ -714,7 +714,7 @@ class CommonFunctions {
       'size': size
     });
     kLog(res.statusCode.toString() + 'charge transaction status code');
-
+    kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<ChargeTransactionModel> list = [];
       res.body['result']['content'].forEach((element) {
