@@ -112,20 +112,21 @@ class LoginPage extends GetView<LoginPageController> {
                             Expanded(
                               child: Text(
                                 'By selecting get started, you are agreeing to the ',
+                                textAlign: TextAlign.center,
                                 style: kAppBottomTextSpanTextStyle1,
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                controller.onTermsCondition();
-                              },
-                              child: RichText(
-                                text: TextSpan(
-                                  text: 'Terms &',
-                                  style: kAppBottomTextSpanTextStyle2,
-                                ),
-                              ),
-                            ),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     controller.onTermsCondition();
+                            //   },
+                            //   child: RichText(
+                            //     text: TextSpan(
+                            //       text: '',
+                            //       style: kAppBottomTextSpanTextStyle2,
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                         Row(
@@ -137,7 +138,7 @@ class LoginPage extends GetView<LoginPageController> {
                               },
                               child: RichText(
                                 text: TextSpan(
-                                  text: 'Conditions',
+                                  text: 'Terms & Conditions',
                                   style: kAppBottomTextSpanTextStyle2,
                                 ),
                               ),
