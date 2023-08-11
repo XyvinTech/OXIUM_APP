@@ -1,4 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
@@ -15,14 +16,16 @@ class ChargeHistoryFilter extends StatelessWidget {
   TextEditingController dateController1 = TextEditingController();
   TextEditingController dateController2 = TextEditingController();
 
+  //RxBool isSelected = false.obs;
+
   @override
   Widget build(BuildContext context) {
-    _showDatePicker() {
-      showDateRangePicker(
-          context: context,
-          firstDate: DateTime.now(),
-          lastDate: DateTime(2025));
-    }
+    // _showDatePicker() {
+    //   showDateRangePicker(
+    //       context: context,
+    //       firstDate: DateTime.now(),
+    //       lastDate: DateTime(2025));
+    // }
 
     return SafeArea(
       child: Scaffold(
@@ -44,7 +47,7 @@ class ChargeHistoryFilter extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                SizedBox(height: size.height * 0.05),
+                SizedBox(height: size.height * 0.03),
                 CustomBigText(
                   text: 'Payment Time',
                   size: 15,
@@ -74,14 +77,46 @@ class ChargeHistoryFilter extends StatelessWidget {
                       Icons.calendar_month,
                       color: Colors.grey,
                     )),
-                SizedBox(height: size.height * 0.02),
+                SizedBox(height: size.height * 0.03),
                 Visibility(
-                  visible: isWallet,
-                  child: Container(
-                    height: 300,
-                    width: 300,
-                  ),
-                ),
+                    visible: isWallet,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        children: [
+                          CustomBigText(text: "Payment Mode"),
+                          SizedBox(
+                            height: size.height * 0.02,
+                          ),
+                          FittedBox(
+                            child: Row(
+                              children: [
+                                ChipOptions(name: "Admin Topup"),
+                                ChipOptions(name: "Wallet Topup")
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              ChipOptions(name: "Charging Transactions"),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.05),
+                          CustomBigText(text: "Payment Status"),
+                          SizedBox(height: size.height * 0.02),
+                          FittedBox(
+                            child: Row(
+                              children: [
+                                ChipOptions(name: "Completed"),
+                                ChipOptions(name: "Pending"),
+                                ChipOptions(name: "Failed"),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                SizedBox(height: size.height * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -157,13 +192,13 @@ class DateTimeField extends GetView<LoginPageController> {
 
     size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Container(
         padding: EdgeInsets.only(
           left: size.width * 0.07,
           right: size.width * 0.07,
         ),
-        height: size.height * 0.08,
+        height: size.height * 0.07,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           border: Border.all(width: 2, color: color),
@@ -264,5 +299,45 @@ class CustomDateTimePicekr extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class ChipOptions extends StatelessWidget {
+  final String name;
+  const ChipOptions({super.key, required this.name});
+
+  @override
+  Widget build(BuildContext context) {
+    RxBool isSelected = false.obs;
+    return Obx(() => Padding(
+          padding: const EdgeInsets.all(5),
+          child: InputChip(
+            labelPadding: EdgeInsets.only(
+              left: isSelected.value ? 20 : 30,
+              top: 5,
+              bottom: 5,
+            ),
+            deleteIcon: isSelected.value
+                ? Icon(
+                    Icons.clear,
+                    color: kOnboardingColors,
+                  )
+                : Center(),
+            onDeleted: () => null,
+            side:
+                BorderSide(width: 2, color: Color.fromARGB(255, 203, 232, 255)),
+            label: CustomBigText(
+              text: name,
+              size: 16,
+              color: kOnboardingColors,
+            ),
+            selected: isSelected.value,
+            onSelected: (value) => isSelected.value = value,
+            selectedColor: Color.fromARGB(255, 203, 232, 255),
+            backgroundColor: Colors.transparent,
+            showCheckmark: false,
+            disabledColor: Colors.white,
+          ),
+        ));
   }
 }
