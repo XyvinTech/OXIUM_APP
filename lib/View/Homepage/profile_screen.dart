@@ -5,6 +5,7 @@ import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Utils/SharedPreferenceUtils.dart';
 import 'package:freelancer_app/Utils/firebase_notifications.dart';
 import 'package:freelancer_app/Utils/routes.dart';
+import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:get/get.dart';
 
 import '../../Utils/toastUtils.dart';
@@ -57,7 +58,9 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                               borderRadius: BorderRadius.circular(10)),
                           itemBuilder: (context) => [
                             PopupMenuItem(
-                              onTap: () {},
+                              onTap: () {
+                              
+                              },
                               value: 2,
                               child: Row(
                                 children: [
@@ -179,6 +182,21 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                       size: 17,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff828282)),
+                ),
+                height(size.height * .05),
+                CustomText(text: "Invoice Details:", color: Colors.grey),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xffd2eee4),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: CustomBigText(
+                      text: "Included",
+                      size: 16,
+                      color: Color(0xff219653),
+                    ),
+                  ),
                 ),
                 height(size.height * .1),
                 Padding(
