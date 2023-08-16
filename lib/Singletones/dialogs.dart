@@ -614,7 +614,7 @@ class Dialogs {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             CustomBigText(
-                              text: "${model.amount}",
+                              text: "${model.amount.toStringAsFixed(2)}",
                               color: color,
                               size: 24,
                               fontWeight: FontWeight.w500,
@@ -634,7 +634,9 @@ class Dialogs {
                     child: InkWell(
                       onTap: () {
                         //TODO: on download invoice
-                        CommonFunctions().downloadBookingInvoice(644);
+                        CommonFunctions()
+                            .downloadBookingInvoice(model.bookingId);
+                        kLog(model.bookingId.toString());
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
