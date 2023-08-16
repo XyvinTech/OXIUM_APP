@@ -39,6 +39,7 @@ class ReviewPage extends GetView<ReviewPageController> {
         ),
         body: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               height(size.height * .01),
               // Padding(
@@ -137,7 +138,8 @@ class ReviewPage extends GetView<ReviewPageController> {
                   controller.calistaCafePageController.selectedRating.value = 0;
                   controller.calistaCafePageController.reviewController.text =
                       '';
-                  Get.dialog(Dialogs().writeReviewDialog(controller.calistaCafePageController));
+                  Get.dialog(Dialogs()
+                      .writeReviewDialog(controller.calistaCafePageController));
                 },
                 child: Text('Write Review',
                     style: GoogleFonts.poppins(
@@ -157,7 +159,7 @@ class ReviewPage extends GetView<ReviewPageController> {
                   }),
                 ),
               ),
-              height(size.height * .2),
+              height(size.height * .05),
             ],
           ),
         ));
@@ -247,5 +249,4 @@ class ReviewPage extends GetView<ReviewPageController> {
       ]),
     );
   }
-
 }

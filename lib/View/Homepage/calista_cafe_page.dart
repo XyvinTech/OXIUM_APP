@@ -362,7 +362,8 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       InkWell(
                         onTap: () {
                           Get.toNamed(Routes.reviewPageRoute, arguments: [
-                            controller.model.value.rating.substring(0, 4),
+                            double.parse(controller.model.value.rating)
+                                .toStringAsFixed(2),
                             controller.model.value.id
                           ]);
                         },
@@ -872,17 +873,19 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   }
 
   Widget _responseDialougebox() {
+    kLog('value');
     return AlertDialog(
       backgroundColor: kwhite,
       contentPadding: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.w)),
       content: Container(
         padding: EdgeInsets.all(20.w),
-        height: 265.h,
+        // height: 300.h,
         width: 348.w,
         decoration: BoxDecoration(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               height: 80.h,
@@ -894,6 +897,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
                     height: 40.h,
