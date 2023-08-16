@@ -237,10 +237,11 @@ class FireBaseNotification {
   }
 
   init() async {
-   await requestPermission();
+    await requestPermission();
     var initializationSettingsAndroid = AndroidInitializationSettings('logo');
-    var initSetttings =
-        InitializationSettings(android: initializationSettingsAndroid,iOS: DarwinInitializationSettings());
+    var initSetttings = InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: DarwinInitializationSettings());
     await flutterLocalNotificationsPlugin.initialize(
       initSetttings,
       onDidReceiveBackgroundNotificationResponse:
@@ -264,8 +265,9 @@ class FireBaseNotification {
       "AAAAiPMmfg0:APA91bGMbmhLdnHEWcIAyj8kLqm6hwLS6DvSG2vZCXCWSb8CLRCndGgFNjaXNKUT91tmyOOP_ajypoxS9MGi5YD1JaxZvkcNHgArnK-SrFFtqV-iAKoYHCeVE7FWS40DUdMQJwapu8m8";
 
   requestPermission() async {
-        PermissionStatus status =
+    PermissionStatus status =
         await Permission.appTrackingTransparency.request();
+    kLog(status.toString());
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: false,
