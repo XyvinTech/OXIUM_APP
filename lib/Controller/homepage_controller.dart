@@ -9,6 +9,7 @@ import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Utils/debouncer.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';
+import 'package:freelancer_app/Utils/local_notifications.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
@@ -99,10 +100,9 @@ class HomePageController extends GetxController {
   }
 
   onClose() {
-    super.onClose();
-    // MapFunctions().controller.dispose();
-    // MapFunctions().dirMapController.dispose();
+    print('app killed from charging page');
     MapFunctions().dispose();
+    super.onClose();
   }
 
   getNearestChargestations(Position pos) async {

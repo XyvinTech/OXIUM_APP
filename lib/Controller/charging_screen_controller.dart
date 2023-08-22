@@ -49,6 +49,7 @@ class ChargingScreenController extends GetxController {
     super.onClose();
     _timer?.cancel();
     NotificationService().cancelLocalNotification(1);
+
   }
 
   toConnected() {
