@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:freelancer_app/Model/bookingModel.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
@@ -21,12 +22,13 @@ class SplashScreenController extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
+    
     appData.token = await getString('token') ?? appData.token;
     appData.userModel.value.username = await getString('username') ?? '';
 
-    appData.userModel.value.username = '9778203391';
-    appData.token =
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5Nzc4MjAzMzkxIiwic2NvcGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpc3MiOiJodHRwOi8vZXpib3QuY29tIiwiaWF0IjoxNjkwODc5NDMyLCJleHAiOjE3MjI0MTU0MzJ9.ietGzHoA6IZklUiPuBF1oWpwxya46Hb76To9ZVWL1Ik';
+    // appData.userModel.value.username = '9778203391';
+    // appData.token =
+    //     'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5Nzc4MjAzMzkxIiwic2NvcGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpc3MiOiJodHRwOi8vZXpib3QuY29tIiwiaWF0IjoxNjkwODc5NDMyLCJleHAiOjE3MjI0MTU0MzJ9.ietGzHoA6IZklUiPuBF1oWpwxya46Hb76To9ZVWL1Ik';
     kLog('username: ' + appData.userModel.value.username);
     kLog(appData.token);
     var res = await CommonFunctions().getUserProfile();

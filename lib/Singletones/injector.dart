@@ -5,13 +5,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/constants.dart';
 
-  class Injector {
-    //make it singleTone class
-    static final Injector _singleton = Injector._internal();
-    factory Injector() {
-      return _singleton;
-    }
-    Injector._internal();
+import '../Utils/utils.dart';
+
+class Injector {
+  //make it singleTone class
+  static final Injector _singleton = Injector._internal();
+  factory Injector() {
+    return _singleton;
+  }
+  Injector._internal();
 
 //  THIS METHOD IS FOR INJECTING THE STARTUP ASSETS OR ANY OTHER KIND OF DEPENDENIES
   inject() async {}
@@ -24,7 +26,7 @@ import 'package:freelancer_app/constants.dart';
       //     ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, element), null);
     });
     _asset_png_list.forEach((element) async {
-      await precacheImage(AssetImage(element),context);
+      await precacheImage(AssetImage(element), context);
     });
   }
 

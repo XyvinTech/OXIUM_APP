@@ -85,6 +85,7 @@ dependencies:
   workmanager: ^0.5.1
   logger: ^1.4.0
   share_plus: ^7.1.0
+  app_tracking_transparency: ^2.0.4
   
 
 
