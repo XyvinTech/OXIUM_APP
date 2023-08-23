@@ -227,6 +227,7 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                     FireBaseNotification().unsubscribeFirebaseNotification();
                     appData.token = '';
                     appData.userModel.value = kUserModel;
+                    appData.userModel.value.username = '';
                     Get.offAllNamed(Routes.loginpageRoute);
                   },
                   child: Container(

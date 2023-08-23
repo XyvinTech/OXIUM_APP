@@ -147,17 +147,17 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     ),
                   ),
                   // Spacer(),
-                  InkWell(
-                    onTap: () {
-                      controller.updateUserProfile();
-                    },
-                    child: Container(
-                      height: size.height * .067,
-                      width: size.width * .65,
-                      margin: EdgeInsets.only(top: size.height * .16),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          color: Color(0xff2F80ED).withOpacity(1)),
+                  Container(
+                    height: size.height * .067,
+                    width: size.width * .65,
+                    margin: EdgeInsets.only(top: size.height * .16),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: Color(0xff2F80ED).withOpacity(1)),
+                    child: InkWell(
+                      onTap: () {
+                        controller.updateUserProfile();
+                      },
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
