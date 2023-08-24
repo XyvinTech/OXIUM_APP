@@ -30,12 +30,7 @@ class HomePageScreen extends GetView<HomePageController> {
 
   @override
   Widget build(BuildContext context) {
-    if (size.height == 0) {
       size = MediaQuery.of(context).size;
-      // Injector().injectImages(context);
-    }
-    //bool isLoggedIn = appData.userModel.value.username.isNotEmpty;
-
     return appData.userModel.value.username.isNotEmpty
         ? Scaffold(
             key: controller.drawerKey,

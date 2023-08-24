@@ -221,8 +221,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:freelancer_app/Utils/routes.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 
 import '../Singletones/app_data.dart';
 import '../constants.dart';
@@ -236,10 +238,11 @@ class FireBaseNotification {
   }
 
   init() async {
-    requestPermission();
+    await requestPermission();
     var initializationSettingsAndroid = AndroidInitializationSettings('logo');
-    var initSetttings =
-        InitializationSettings(android: initializationSettingsAndroid,iOS: DarwinInitializationSettings());
+    var initSetttings = InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: DarwinInitializationSettings());
     await flutterLocalNotificationsPlugin.initialize(
       initSetttings,
       onDidReceiveBackgroundNotificationResponse:
@@ -262,7 +265,7 @@ class FireBaseNotification {
   String serverKey =
       "AAAAiPMmfg0:APA91bGMbmhLdnHEWcIAyj8kLqm6hwLS6DvSG2vZCXCWSb8CLRCndGgFNjaXNKUT91tmyOOP_ajypoxS9MGi5YD1JaxZvkcNHgArnK-SrFFtqV-iAKoYHCeVE7FWS40DUdMQJwapu8m8";
 
-  void requestPermission() async {
+  requestPermission() async {
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: false,

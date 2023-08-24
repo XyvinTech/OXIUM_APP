@@ -419,7 +419,7 @@ class _WalletScreenState extends State<WalletScreen>
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     CustomBigText(
-                      text: "${model.amount}",
+                      text: "${model.amount.toStringAsFixed(2)}",
                       size: 20.sp,
                       color: color,
                     ),

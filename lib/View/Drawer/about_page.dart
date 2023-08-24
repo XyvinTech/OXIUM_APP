@@ -71,18 +71,19 @@ class AboutScreen extends StatelessWidget {
             height(22.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: CustomSmallText(
-                      text:
-                          "We are a future-centric company that is an amalgamation of a skilled workforce, industry experts who have the experience, knowledge, and a commitment to the revolution in the EV industry. Our platform brings together people, possibilities, technology and integrates that with our expertise into a systematic network designed to deliver optimized solutions through India.",
-                      size: 13,
-                      color: Color(0xff1B1B1B),
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                ],
+              child: Text(
+                "We are a future-centric company that is an amalgamation of a skilled workforce, industry experts who have the experience, knowledge, and a commitment to the revolution in the EV industry. Our platform brings together people, possibilities, technology and integrates that with our expertise into a systematic network designed to deliver optimized solutions through India.",
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 13, color: Color(0xff1B1B1B)),
+              ),
+            ),
+            height(10.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Text(
+                "Steered forward with the experience & vision of the management, we are redefining ourselves to match the future needs of a sustainable world through GOEC, a commitment to a cleaner and greener environment, and a complete solution for the electric vehicle industry with a diverse focus on manufacturing, infrastructure, and technology.",
+                style: TextStyle(fontSize: 13, color: Color(0xff1B1B1B)),
+                textAlign: TextAlign.justify,
               ),
             ),
             height(10.h),
@@ -91,28 +92,12 @@ class AboutScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: CustomSmallText(
-                      text:
-                          "Steered forward with the experience & vision of the management, we are redefining ourselves to match the future needs of a sustainable world through GOEC, a commitment to a cleaner and greener environment, and a complete solution for the electric vehicle industry with a diverse focus on manufacturing, infrastructure, and technology.",
-                      size: 13,
-                      color: Color(0xff1B1B1B),
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            height(10.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: CustomSmallText(
-                      text:
-                          "GOEC is transforming the future of electric automobiles through a strategic and collective network of Electric Vehicle (EV) charging stations across India.",
-                      size: 13,
-                      color: Color(0xff1B1B1B),
+                    child: Text(
+                      "GOEC is transforming the future of electric automobiles through a strategic and collective network of Electric Vehicle (EV) charging stations across India.",
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Color(0xff1B1B1B),
+                      ),
                       textAlign: TextAlign.justify,
                     ),
                   ),

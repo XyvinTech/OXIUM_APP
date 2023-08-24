@@ -538,14 +538,19 @@ class Dialogs {
                       )
                     ],
                   ),
-                  height(size.height * .04),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomSmallText(text: 'Order ID'),
-                      CustomBigText(text: model.pgOrderId),
-                    ],
-                  ),
+                  if (model.pgOrderId.isNotEmpty) ...[
+                    height(size.height * .04),
+                    Container(
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomSmallText(text: 'Order ID'),
+                          CustomBigText(text: model.pgOrderId),
+                        ],
+                      ),
+                    ),
+                  ],
                   height(size.height * .04),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -604,11 +609,21 @@ class Dialogs {
                           size: 12,
                         ),
                         height(size.height * 0.004),
-                        CustomBigText(
-                          text: "${model.amount}",
-                          color: color,
-                          size: 24,
-                          fontWeight: FontWeight.w500,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomBigText(
+                              text: "${model.amount.toStringAsFixed(2)}",
+                              color: color,
+                              size: 24,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            CustomSmallText(
+                              text: " Coins",
+                              size: 12,
+                            ),
+                          ],
                         )
                       ],
                     ),
@@ -619,7 +634,9 @@ class Dialogs {
                     child: InkWell(
                       onTap: () {
                         //TODO: on download invoice
-                        CommonFunctions().downloadBookingInvoice(644);
+                        CommonFunctions()
+                            .downloadBookingInvoice(model.bookingId);
+                        kLog(model.bookingId.toString());
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -787,11 +804,13 @@ class Dialogs {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.w)),
       content: Container(
         padding: EdgeInsets.all(20.w),
-        height: 265.h,
+        // height: 265.h,
         width: 348.w,
         decoration: BoxDecoration(),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               height: 80.h,
@@ -801,6 +820,7 @@ class Dialogs {
                 color: Color(0xffEBF8F1),
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -828,6 +848,7 @@ class Dialogs {
             CustomBigText(
               text: "Thank you for your response",
               size: 20.sp,
+              align: TextAlign.center,
               color: Color(0xff4F4F4F),
             ),
             height(10.h),

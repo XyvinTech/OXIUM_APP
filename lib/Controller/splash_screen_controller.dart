@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:freelancer_app/Model/bookingModel.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
 import '../Singletones/app_data.dart';
 import '../Singletones/common_functions.dart';
 import '../Utils/SharedPreferenceUtils.dart';
+import '../Utils/local_notifications.dart';
 import '../Utils/routes.dart';
 
 class SplashScreenController extends GetxController {
@@ -18,6 +22,7 @@ class SplashScreenController extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
+    
     appData.token = await getString('token') ?? appData.token;
     appData.userModel.value.username = await getString('username') ?? '';
 

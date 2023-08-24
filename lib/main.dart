@@ -17,8 +17,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  await Injector().inject();  
+  await Injector().inject();
   await FireBaseNotification().init();
+
   await NotificationService().init();
   runApp(const MyApp());
 }

@@ -41,6 +41,7 @@ class NotificationService {
       presentAlert: false,
       presentBadge: false,
       presentSound: false,
+      interruptionLevel: InterruptionLevel.passive,
     );
     var platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
@@ -52,6 +53,7 @@ class NotificationService {
 
   cancelLocalNotification(int id) {
     _flutterLocalNotificationsPlugin.cancel(id);
+    _flutterLocalNotificationsPlugin.cancelAll();
   }
 
   Future<void> showProgressNotification(int progress) async {
