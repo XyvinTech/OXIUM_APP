@@ -143,36 +143,36 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                   CustomText(
                       text: "Invoice Details (Optional)", color: Colors.grey),
                   // Spacer(),
-                  InkWell(
-                    onTap: () {
-                      controller.updateUserProfile();
-                    },
-                    child: Container(
-                      height: size.height * .067,
-                      width: size.width * .65,
-                      margin: EdgeInsets.only(top: size.height * .16),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          color: Color(0xff2F80ED).withOpacity(1)),
+                  Container(
+                    height: size.height * .067,
+                    width: size.width * .65,
+                    margin: EdgeInsets.only(top: size.height * .16),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: Color(0xff2F80ED).withOpacity(1)),
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(() => AddInvoiceDetails());
+                      },
                       child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomText(
-                                text: "Add/Edit Invoice Details",
-                                color: Colors.grey,
-                                size: 13),
-                            SizedBox(
-                              width: size.width * 0.2,
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 12,
-                            )
-                          ],
-                        ),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CustomText(
+                              text: "Add/Edit Invoice Details",
+                              color: Colors.grey,
+                              size: 13),
+                          SizedBox(
+                            width: size.width * 0.2,
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 12,
+                          )
+                        ],
                       ),
                     ),
                   ),
+
                   height(size.height * .02),
                   CustomText(
                       text:
@@ -205,6 +205,7 @@ class AddInvoiceDetails extends GetView<EditProfileScreenController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: kscaffoldBackgroundColor,
         appBar: AppBar(
           title: CustomBigText(
             text: 'Invoice dEtails',
@@ -322,8 +323,6 @@ Widget EditTextField({
                     focusedBorderColor = Colors.red,
                     borderColor = Colors.red
                   },
-                  
-
               },
               onChanged: (value) => {
                 if (value == "")
