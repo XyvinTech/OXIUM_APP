@@ -24,6 +24,7 @@ final Color ktransparent = Colors.transparent;
 final Color kOnboardingColors = Color(0xff0047C3);
 final Color ktextFieldColor = Color(0xffEEEEEE);
 final Color kscaffoldBackgroundColor = Color(0xFFF5F5F5);
+final Color kscaffoldBackgroundColor2 = Color(0xfff0f1f6);
 final Color kDefaultHomePageBackgroundColor = Color(0xffF0F1F6);
 final Color kBusyColor = Color(0xffF9E4D5);
 final Color kBusyBorderColor = Color(0xffE37A2D);

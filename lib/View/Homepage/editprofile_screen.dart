@@ -144,12 +144,13 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                       text: "Invoice Details (Optional)", color: Colors.grey),
                   // Spacer(),
                   Container(
-                    height: size.height * .067,
-                    width: size.width * .65,
-                    margin: EdgeInsets.only(top: size.height * .16),
+                    height: size.height * .07,
+                    width: size.width * .85,
+                    margin: EdgeInsets.only(top: size.height * .016),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
-                        color: Color(0xff2F80ED).withOpacity(1)),
+                        border: Border.all(width: 0.5, color: Colors.grey),
+                        color: Colors.transparent),
                     child: InkWell(
                       onTap: () {
                         Get.to(() => AddInvoiceDetails());
@@ -160,9 +161,9 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                           CustomText(
                               text: "Add/Edit Invoice Details",
                               color: Colors.grey,
-                              size: 13),
+                              size: 15),
                           SizedBox(
-                            width: size.width * 0.2,
+                            width: size.width * 0.1,
                           ),
                           Icon(
                             Icons.arrow_forward_ios,
@@ -205,34 +206,46 @@ class AddInvoiceDetails extends GetView<EditProfileScreenController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: kscaffoldBackgroundColor,
-        appBar: AppBar(
-          title: CustomBigText(
-            text: 'Invoice dEtails',
-            size: 15,
-          ),
-          centerTitle: true,
-          backgroundColor: kwhite,
-          elevation: 0,
-          leading: IconButton(
-              onPressed: () => Get.back(), icon: Icon(Icons.arrow_back_ios)),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  controller.onClear();
-                },
-                child: CustomBigText(
-                  text: "Clear",
-                  size: 15,
-                  color: kOnboardingColors,
-                ))
-          ],
-        ),
+        backgroundColor: kscaffoldBackgroundColor2,
         body: SingleChildScrollView(
           child: Center(
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: size.width * .062,
+                          vertical: size.height * .03),
+                      child: Row(
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  child: SvgPicture.asset(
+                                      'assets/svg/arrow_back_ios.svg'))),
+                          Expanded(
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  child: CustomText(
+                                      text: 'Edit Profile',
+                                      size: 15,
+                                      color: Color(0xff828282),
+                                      fontWeight: FontWeight.bold))),
+                          TextButton(
+                              onPressed: () {
+                                controller.onClear();
+                              },
+                              child: CustomBigText(
+                                text: "Clear",
+                                size: 15,
+                                color: kOnboardingColors,
+                              )),
+                          //width(24)
+                        ],
+                      )),
                   height(size.height * 0.02),
                   EditTextField(
                     size: size,
