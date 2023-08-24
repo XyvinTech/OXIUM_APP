@@ -1,4 +1,5 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -213,6 +214,7 @@ class GetOtpSheet extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(left: 25.0),
                       child: CheckboxListTile(
+                        activeColor: Color(0xff0047C3),
                         title: CustomSmallText(
                             text: 'Click to agree to TC & Privacy Policy'),
                         value: checked.value,

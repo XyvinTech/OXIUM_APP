@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +18,12 @@ class EditProfileScreenController extends GetxController {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phnNumberController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController companyNameController = TextEditingController();
+  final TextEditingController cityNameController = TextEditingController();
+  final TextEditingController postalCodeController = TextEditingController();
+  final TextEditingController stateNameController = TextEditingController();
+  final TextEditingController countryNameController = TextEditingController();
+  final TextEditingController gstNoController = TextEditingController();
 
   @override
   void onInit() {
@@ -33,9 +41,20 @@ class EditProfileScreenController extends GetxController {
         emailController.text, '+' + country.value + phnNumberController.text);
     hideLoading();
     if (res) {
-      showSuccess('Successfully updated profile!');
+      //showSuccess('Successfully updated profile!');
+
       await CommonFunctions().getUserProfile();
       Get.back();
+      Get.snackbar("", "",
+          colorText: Color(0xff6fcf97),
+          icon: Center(
+            child: SvgPicture.asset("assets/svg/successful.svg"),
+          ),
+          titleText: CustomBigText(
+            text: "Profile Details Saved",
+            color: Colors.white,
+          ),
+          backgroundColor: Color(0xff6fcf97));
     }
   }
 
@@ -54,5 +73,15 @@ class EditProfileScreenController extends GetxController {
     } else {
       showError('No image choosed!');
     }
+  }
+
+  onClear() {
+    companyNameController.clear();
+    phnNumberController.clear();
+    cityNameController.clear();
+    postalCodeController.clear();
+    stateNameController.clear();
+    countryNameController.clear();
+    gstNoController.clear();
   }
 }

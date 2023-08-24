@@ -6,6 +6,7 @@ import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../Utils/utils.dart';
 import 'onboarding_cards.dart';
 
 class LoginPage extends GetView<LoginPageController> {
@@ -91,7 +92,7 @@ class LoginPage extends GetView<LoginPageController> {
                     isIcon: true,
                     text: "Get Started",
                     textColor: Colors.white,
-                    onTap: () {
+                    onTap: () async {
                       Get.toNamed(Routes.enternumberpageRoute);
                     },
                   ),
