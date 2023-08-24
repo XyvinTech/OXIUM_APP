@@ -198,10 +198,3 @@ Future<bool> getStoragePermission() async {
   return false;
 }
 
-// Future<bool> requestTransparancyPermission() async {
-//   TrackingStatus status =
-//       await AppTrackingTransparency.requestTrackingAuthorization();
-//   print(status);
-//   kLog(status.toString());
-//   return true;
-// }
