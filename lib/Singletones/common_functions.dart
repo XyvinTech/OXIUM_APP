@@ -729,7 +729,7 @@ class CommonFunctions {
   downloadBookingInvoice(int bookingId) async {
     await CallAPI().download('downloadpdfinvoice?bookingId=$bookingId',
         'booking_invoice_$bookingId');
-  }
+  } 
 
   Future<List<FavoriteModel>> getFavorites() async {
     var res = await CallAPI().getData('favoritestations', {
