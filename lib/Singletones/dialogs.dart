@@ -441,11 +441,11 @@ class Dialogs {
     if (model.status == 'P') {
       title = 'Success';
       color = Color(0xff219653);
-    } else if (model.status == 'I') {
+    } else if (model.statusUpdateBy == 'M' && model.status == 'I') {
       title = 'Pending';
       color = Color(0xffDF8600);
     } else {
-      title == 'Failed';
+      title = 'Failed';
       color = Color(0xffDC2525);
     }
     Get.dialog(AlertDialog(

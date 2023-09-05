@@ -59,7 +59,7 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                           itemBuilder: (context) => [
                             PopupMenuItem(
                               onTap: () {
-                              
+                                controller.deleteProfile();
                               },
                               value: 2,
                               child: Row(

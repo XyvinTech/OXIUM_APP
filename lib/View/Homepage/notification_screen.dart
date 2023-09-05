@@ -75,8 +75,8 @@ class NotificationScreen extends GetView<NotificationScreenController> {
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: CachedNetworkImage(
-                                      imageUrl: controller
-                                    .modelList[index].imageUrl,
+                                      imageUrl:
+                                          controller.modelList[index].imageUrl,
                                       height: 200.h,
                                       width: double.infinity,
                                       fit: BoxFit.fill,

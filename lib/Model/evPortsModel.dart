@@ -18,7 +18,7 @@ class EvPortModel {
       identificationNumber: json['identificationNumber'] ?? '',
       ocppStatus: json['ocppStatus'] ?? '',
       connectorType: json['connectorType'] ?? '',
-      energyKWh: json['energyKWh'] ?? '',
+      energyKWh: json['energyKWh'] ?? 0,
     );
   }
 

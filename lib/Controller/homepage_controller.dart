@@ -22,6 +22,7 @@ import '../Model/notificationModel.dart';
 import '../Utils/routes.dart';
 import '../View/Homepage/homepage.dart';
 import 'chargePage_controller.dart';
+import 'notification_screen_controller.dart';
 
 class HomePageController extends GetxController {
   RxDouble height = 80.0.obs;
@@ -47,7 +48,7 @@ class HomePageController extends GetxController {
   //NEW HELP PAGE ENDS
 
   //NEW NOTIFICATION PAGE STARTS
-  RxList<NotificationModel> modelList = RxList([]);
+  // RxList<NotificationModel> modelList = RxList([]);
   // ENDS
 
   //Mapscreen Starts
@@ -62,6 +63,8 @@ class HomePageController extends GetxController {
   final tripsScreenController = Get.put(TripsScreenController());
   final WalletPageController walletPageController =
       Get.put(WalletPageController());
+  final NotificationScreenController notificationController =
+      Get.put(NotificationScreenController());
   List<StationMarkerModel> station_marker_list = [];
   Debouncer debouncer = Debouncer(milliseconds: 3000);
 
