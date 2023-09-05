@@ -18,7 +18,6 @@ Future<void> main() async {
 
   await Injector().inject();
   await FireBaseNotification().init();
-
   await NotificationService().init();
   runApp(const MyApp());
 }

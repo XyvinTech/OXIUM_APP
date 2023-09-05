@@ -6,6 +6,7 @@ import 'package:freelancer_app/View/Widgets/phonenumtext_field.dart';
 import 'package:get/get.dart';
 
 import '../../Singletones/app_data.dart';
+import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/cached_network_image.dart';
@@ -154,7 +155,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                         color: Colors.transparent),
                     child: InkWell(
                       onTap: () {
-                        Get.to(() => AddInvoiceDetails());
+                        Get.toNamed(Routes.addInvoicePageRoute);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

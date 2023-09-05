@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:freelancer_app/Model/bookingModel.dart';
+import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class SplashScreenController extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
-    
+
     appData.token = await getString('token') ?? appData.token;
     appData.userModel.value.username = await getString('username') ?? '';
 
@@ -36,7 +37,11 @@ class SplashScreenController extends GetxController {
       Get.offAllNamed(Routes.loginpageRoute);
     } else {
       BookingModel _bookingModel = await CommonFunctions().getActiveBooking();
+      print(_bookingModel.toJson());
       if (_bookingModel.bookingId != -1) {
+        ChargingStatusModel _status = await CommonFunctions()
+            .getChargingStatus("${_bookingModel.bookingId}");
+        print(_status.toJson());
         appData.qr =
             '0-${_bookingModel.chargerName}-${_bookingModel.chargingpoint}-${_bookingModel.bookedvia}';
         Get.offAllNamed(Routes.chargingPageRoute,
