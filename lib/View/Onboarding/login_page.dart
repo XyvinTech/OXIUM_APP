@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Utils/firebase_notifications.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Widgets/appbar.dart';
 import 'package:freelancer_app/View/Widgets/appbutton.dart';
@@ -93,6 +96,9 @@ class LoginPage extends GetView<LoginPageController> {
                     text: "Get Started",
                     textColor: Colors.white,
                     onTap: () async {
+                      await FireBaseNotification().setNotificationId();
+                      await Clipboard.setData(
+                          ClipboardData(text: appData.notification_token));
                       Get.toNamed(Routes.enternumberpageRoute);
                     },
                   ),
