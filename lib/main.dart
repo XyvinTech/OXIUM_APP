@@ -12,7 +12,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'Utils/app_pages.dart';
 import 'Utils/firebase_notifications.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

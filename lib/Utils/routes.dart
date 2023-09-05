@@ -36,6 +36,7 @@ class Routes {
   static String filterPageRoute = '/filter';
   static String profilePageRoute = '/profile';
   static String editProfilePageRoute = '/editprofile';
+  static String addInvoicePageRoute = '/addinvoice';
   static String calistaCafePageRoute = '/calistacafe';
   static String reviewPageRoute = '/review';
   static String chargingPageRoute = '/charging';

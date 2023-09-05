@@ -46,6 +46,7 @@ import 'package:freelancer_app/View/WalletPage/topup_page.dart';
 import 'package:freelancer_app/View/WalletPage/walletpage.dart';
 import 'package:get/get.dart';
 
+import '../Bindings/addInvoice_page_binding.dart';
 import '../Bindings/directions_screen_binding.dart';
 import '../Bindings/editprofile_screen_binding.dart';
 import '../Bindings/explore_trip_screen_binding.dart';
@@ -58,6 +59,7 @@ import '../Bindings/search_places_binding.dart';
 import '../Bindings/search_screen_binding.dart';
 import '../Bindings/tripspage_binding.dart';
 import '../View/Charge/bookaslot_page.dart';
+import '../View/Homepage/addInvoice_page.dart';
 import '../View/Homepage/editprofile_screen.dart';
 import '../View/Homepage/filter_screen.dart';
 import '../View/Homepage/notification_screen.dart';
@@ -183,6 +185,13 @@ abstract class AppPages {
       name: Routes.editProfilePageRoute,
       binding: EditProfileScreenBinding(),
       page: () => EditProfileScreen(),
+    ),
+
+    //Invoice
+    GetPage(
+      name: Routes.addInvoicePageRoute,
+      binding: AddInvoicePageBinding(),
+      page: () => AddInvoiceDetails(),
     ),
 
     GetPage(

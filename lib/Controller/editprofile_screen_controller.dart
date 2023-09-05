@@ -75,13 +75,5 @@ class EditProfileScreenController extends GetxController {
     }
   }
 
-  onClear() {
-    companyNameController.clear();
-    phnNumberController.clear();
-    cityNameController.clear();
-    postalCodeController.clear();
-    stateNameController.clear();
-    countryNameController.clear();
-    gstNoController.clear();
-  }
+  
 }
