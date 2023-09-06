@@ -27,7 +27,8 @@ class AddInvoiceDetails extends GetView<AddInvoiceDetailsController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Obx(() => Container(
-                      padding: EdgeInsets.all(0.0 * controller.reload.value))),
+                      padding:
+                          EdgeInsets.all(0.0 + 0 * controller.reload.value))),
                   Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: size.width * .062,
@@ -88,58 +89,6 @@ class AddInvoiceDetails extends GetView<AddInvoiceDetailsController> {
                   ),
                   //height(size.height * 0.01),
                   Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: size.width * .08,
-                          vertical: size.height * 0.008),
-                      child: Obx(
-                        () => Container(
-                          width: size.width + 0 * controller.reload.value,
-                          height: size.height * 0.073,
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.r),
-                              border: Border.all(
-                                width: 1,
-                                color: Color.fromARGB(255, 158, 158, 158),
-                              )),
-                          child: DropdownButton<String>(
-                            value: controller.selectedState,
-                            hint: Text(
-                              'State',
-                              style: GoogleFonts.poppins(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.normal,
-                                color: Color.fromARGB(255, 155, 154, 154),
-                              ),
-                            ),
-                            style: GoogleFonts.poppins(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff4F4F4F),
-                            ),
-                            dropdownColor: kwhite,
-                            isExpanded: true,
-                            elevation: 0,
-                            underline: SizedBox(),
-                            items: controller.states
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                child: Text(value),
-                                value: value,
-                              );
-                            }).toList(),
-                            icon: SvgPicture.asset(
-                                "assets/svg/arrow_downward_ios.svg"),
-                            onChanged: (String? value) {
-                              controller.onChangeStateGetCityList(value);
-                            },
-                            borderRadius: BorderRadius.circular(20.r),
-                          ),
-                        ),
-                      )),
-
-                  Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: size.width * .08,
                         vertical: size.height * 0.008),
@@ -191,6 +140,58 @@ class AddInvoiceDetails extends GetView<AddInvoiceDetailsController> {
                       ),
                     ),
                   ),
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: size.width * .08,
+                          vertical: size.height * 0.008),
+                      child: Obx(
+                        () => Container(
+                          width: size.width + 0 * controller.reload.value,
+                          height: size.height * 0.073,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.r),
+                              border: Border.all(
+                                width: 1,
+                                color: Color.fromARGB(255, 158, 158, 158),
+                              )),
+                          child: DropdownButton<String>(
+                            value: controller.selectedState,
+                            hint: Text(
+                              'State',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.normal,
+                                color: Color.fromARGB(255, 155, 154, 154),
+                              ),
+                            ),
+                            style: GoogleFonts.poppins(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff4F4F4F),
+                            ),
+                            dropdownColor: kwhite,
+                            isExpanded: true,
+                            elevation: 0,
+                            underline: SizedBox(),
+                            items: controller.states
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                child: Text(value),
+                                value: value,
+                              );
+                            }).toList(),
+                            icon: SvgPicture.asset(
+                                "assets/svg/arrow_downward_ios.svg"),
+                            onChanged: (String? value) {
+                              controller.onChangeStateGetCityList(value);
+                            },
+                            borderRadius: BorderRadius.circular(20.r),
+                          ),
+                        ),
+                      )),
+
                   // EditTextField(
                   //   size: size,
                   //   controller: controller.stateNameController,

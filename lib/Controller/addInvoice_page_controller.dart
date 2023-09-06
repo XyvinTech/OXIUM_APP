@@ -18,8 +18,8 @@ class AddInvoiceDetailsController extends GetxController {
   final TextEditingController countryNameController = TextEditingController();
   final TextEditingController gstNoController = TextEditingController();
 
-  RxDouble reload = 0.0.obs;
-  RxInt reloads = 0.obs;
+  RxInt reload = 0.obs;
+  //RxInt reloads = 0.obs;
   RxDouble currentIndex = 0.0.obs;
   String phnNumber = "+8801751051339";
   RxString country = "91".obs;
@@ -43,7 +43,7 @@ class AddInvoiceDetailsController extends GetxController {
     data.forEach((key, value) {
       states.add(key);
     });
-    reloads++;
+    reload++;
   }
 
   onChangeStateGetCityList(String? value) {
@@ -56,12 +56,12 @@ class AddInvoiceDetailsController extends GetxController {
     });
     selectedCity = null;
     stateCitys.value = list.toSet().toList();
-    reloads++;
+    reload++;
   }
 
   onChangeCity(String? value) {
     selectedCity = value;
-    reloads++;
+    reload++;
   }
 
   onSave() {
@@ -79,5 +79,6 @@ class AddInvoiceDetailsController extends GetxController {
     stateNameController.clear();
     countryNameController.clear();
     gstNoController.clear();
+    reload++;
   }
 }

@@ -146,8 +146,8 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                       text: "Invoice Details (Optional)", color: Colors.grey),
                   // Spacer(),
                   Container(
-                    height: size.height * .07,
-                    width: size.width * .85,
+                    height: size.height * .08,
+                    width: size.width * .83,
                     margin: EdgeInsets.only(top: size.height * .016),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
@@ -165,7 +165,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                               color: Colors.grey,
                               size: 15),
                           SizedBox(
-                            width: size.width * 0.1,
+                            width: size.width * 0.25,
                           ),
                           Icon(
                             Icons.arrow_forward_ios,
