@@ -27,18 +27,13 @@ class EnterNumberPage extends GetView<LoginPageController> {
       backgroundColor: kwhite,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.09),
-        child: GestureDetector(
-          onTap: () {
-            controller.onSkip();
-          },
-          child: CustomAppBar(
-            text: "Skip",
-            icon: Icon(
-              Icons.arrow_forward,
-              color: Colors.white,
+        child: CustomAppBar(
+            // text: "Skip",
+            // icon: Icon(
+            //   Icons.arrow_forward,
+            //   color: Colors.white,
+            // ),
             ),
-          ),
-        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -201,7 +196,6 @@ class EnterNumberPage extends GetView<LoginPageController> {
                       //send OTP button
                       StartedButton(
                         color: Color(0xff0047C3),
-                      
                         text: "Send OTP",
                         textColor: Color(
                           0xffF2F2F2,

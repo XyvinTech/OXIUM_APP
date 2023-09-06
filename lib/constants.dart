@@ -47,6 +47,8 @@ final String kUnavailable = 'Unavailable';
 final String kFaulted = 'Faulted';
 final String kBusy = 'Busy';
 
+late BuildContext kContext;
+
 final Position kPosition = Position(
     longitude: 78.9629,
     latitude: 20.5937,
@@ -72,6 +74,7 @@ final VehicleModel kVehicleModel = VehicleModel(
     numberOfPorts: 0,
     evPort: []);
 final UserModel kUserModel = UserModel(
+    id: -1,
     username: '',
     phone: '',
     email: '',

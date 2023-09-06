@@ -294,6 +294,15 @@ class CommonFunctions {
     }
   }
 
+  Future<bool> deleteUser() async {
+    var res = await CallAPI().deleteData({}, 'appuser/id=${appData.userModel.value.id}');
+    if (res.statusCode == 200 && res.body != null && res.body['status'] != null && res.body['success']) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<int> getRFIDPrice() async {
     var res = await CallAPI().getData('rfidprice', {
       "username": appData.userModel.value.username,
@@ -729,7 +738,7 @@ class CommonFunctions {
   downloadBookingInvoice(int bookingId) async {
     await CallAPI().download('downloadpdfinvoice?bookingId=$bookingId',
         'booking_invoice_$bookingId');
-  } 
+  }
 
   Future<List<FavoriteModel>> getFavorites() async {
     var res = await CallAPI().getData('favoritestations', {

@@ -133,7 +133,7 @@ class CallAPI {
       ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
         return http.Response('Error', 408);
       });
-      log('post request end');
+      log('delete request end');
       var body;
       // if (res.statusCode == 200) {
 
@@ -143,7 +143,7 @@ class CallAPI {
     } on Exception catch (e) {
       log(e.toString());
       hideLoading();
-      showError('Failed to get data');
+      showError('Failed to delete!');
       // TODO:
     }
     return ResponseModel(statusCode: 404, body: null);

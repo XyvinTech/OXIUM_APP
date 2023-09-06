@@ -96,9 +96,9 @@ class LoginPage extends GetView<LoginPageController> {
                     text: "Get Started",
                     textColor: Colors.white,
                     onTap: () async {
-                      await FireBaseNotification().setNotificationId();
-                      await Clipboard.setData(
-                          ClipboardData(text: appData.notification_token));
+                      // await FireBaseNotification().setNotificationId();
+                      // await Clipboard.setData(
+                      //     ClipboardData(text: appData.notification_token));
                       Get.toNamed(Routes.enternumberpageRoute);
                     },
                   ),

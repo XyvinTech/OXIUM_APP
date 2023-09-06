@@ -17,7 +17,7 @@ class HelpPageController extends GetxController {
   ].obs;
   CarouselController? carouselController;
   RxDouble currentIndex = 0.0.obs;
-  String phnNumber = "+8801751051339";
+  String phnNumber = "+919778687615";
 
   Future<void> openWhatsApp() async {
     var url = "https://wa.me/${phnNumber}";

@@ -3,6 +3,7 @@ import 'package:freelancer_app/constants.dart';
 
 class UserModel {
   String username;
+  final int id;
   final String name;
   final String image;
   final String email;
@@ -15,6 +16,7 @@ class UserModel {
   final VehicleModel defaultVehicle;
 
   UserModel({
+    required this.id,
     required this.username,
     required this.phone,
     required this.email,
@@ -30,6 +32,7 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
+      id: json['id'],
       username: json['username'],
       name: json['Name'] ?? '',
       phone: json['phone'] ?? '',
@@ -47,6 +50,7 @@ class UserModel {
   }
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "username": username,
         "name": name,
         "image": image,

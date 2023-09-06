@@ -50,6 +50,10 @@ class LoginPageController extends GetxController {
 
   Future<bool> login() async {
     showLoading(kLoading);
+    if (phoneController.text.isEmpty) {
+      EasyLoading.showInfo('Please enter phone number');
+      return false;
+    }
     bool res = await CommonFunctions().login(phoneController.text);
     hideLoading();
     if (res) {

@@ -60,14 +60,15 @@ class _NotiPageAliveState extends State<NotiPageAlive>
               )),
           Expanded(
             child: Obx(
-              () => controller.modelList.isEmpty
+              () => controller.notificationController.modelList.isEmpty
                   ? Align(
                       alignment: Alignment.center,
                       child: CustomText(text: 'Notification is empty'),
                     )
                   : ListView.builder(
                       shrinkWrap: true,
-                      itemCount: controller.modelList.length,
+                      itemCount:
+                          controller.notificationController.modelList.length,
                       itemBuilder: (context, index) {
                         return Container(
                             // height: size.height * .3,
@@ -81,18 +82,33 @@ class _NotiPageAliveState extends State<NotiPageAlive>
                                 color: Colors.white),
                             child: Column(
                               children: [
-                                if (controller
+                                if (controller.notificationController
                                     .modelList[index].imageUrl.isNotEmpty)
                                   ClipRRect(
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(8),
                                         topRight: Radius.circular(8)),
                                     child: CachedNetworkImage(
-                                      imageUrl:
-                                          controller.modelList[index].imageUrl,
+                                      imageUrl: controller
+                                          .notificationController
+                                          .modelList[index]
+                                          .imageUrl,
                                       height: 200.h,
                                       width: double.infinity,
                                       fit: BoxFit.fill,
+                                      progressIndicatorBuilder: (context, url,
+                                              downloadProgress) =>
+                                          Align(
+                                              alignment: Alignment.center,
+                                              child: CircularProgressIndicator(
+                                                value:
+                                                    downloadProgress.progress,
+                                                color: Colors.blue,
+                                              )),
+                                      errorWidget: (context, url, error) =>
+                                          Align(
+                                              alignment: Alignment.center,
+                                              child: Icon(Icons.error)),
                                     ),
                                   ),
                                 Padding(
@@ -116,14 +132,18 @@ class _NotiPageAliveState extends State<NotiPageAlive>
                                             children: [
                                               CustomText(
                                                   text: controller
-                                                      .modelList[index].title,
+                                                      .notificationController
+                                                      .modelList[index]
+                                                      .title,
                                                   size: 13,
                                                   fontWeight: FontWeight.bold,
                                                   color: Color(0xff4F4F4F)),
                                               height(size.height * .02),
                                               CustomText(
                                                   text: controller
-                                                      .modelList[index].body,
+                                                      .notificationController
+                                                      .modelList[index]
+                                                      .body,
                                                   // text: '',
                                                   size: 12,
                                                   fontWeight: FontWeight.normal,
@@ -139,6 +159,7 @@ class _NotiPageAliveState extends State<NotiPageAlive>
                                                               'dd.mm.yyyy')
                                                           .format(DateTime.parse(
                                                                   controller
+                                                                      .notificationController
                                                                       .modelList[
                                                                           index]
                                                                       .timestamp)
@@ -150,6 +171,7 @@ class _NotiPageAliveState extends State<NotiPageAlive>
                                                           .add_jm()
                                                           .format(DateTime.parse(
                                                                   controller
+                                                                      .notificationController
                                                                       .modelList[
                                                                           index]
                                                                       .timestamp)

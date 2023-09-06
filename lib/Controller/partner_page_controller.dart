@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class PartnerPageController extends GetxController {
   CarouselController? carouselController;
   RxDouble currentIndex = 0.0.obs;
-  String phnNumber = "+8801751051339";
+  String phnNumber = "+919778687615";
   RxString country = "91".obs;
   RxString countryName = "Country".obs;
   RxString textfield = "".obs;
