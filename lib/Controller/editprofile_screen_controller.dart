@@ -11,6 +11,8 @@ import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../Singletones/dialogs.dart';
+
 class EditProfileScreenController extends GetxController {
   RxString country = "91".obs;
   RxString textfield = "".obs;
@@ -45,16 +47,7 @@ class EditProfileScreenController extends GetxController {
 
       await CommonFunctions().getUserProfile();
       Get.back();
-      Get.snackbar("", "",
-          colorText: Color(0xff6fcf97),
-          icon: Center(
-            child: SvgPicture.asset("assets/svg/successful.svg"),
-          ),
-          titleText: CustomBigText(
-            text: "Profile Details Saved",
-            color: Colors.white,
-          ),
-          backgroundColor: Color(0xff6fcf97));
+      saveSnack('Profile Details Updated');
     }
   }
 
@@ -74,6 +67,4 @@ class EditProfileScreenController extends GetxController {
       showError('No image choosed!');
     }
   }
-
-  
 }

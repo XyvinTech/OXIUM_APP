@@ -201,7 +201,7 @@ class GetOtpSheet extends StatelessWidget {
                           Get.snackbar("No Number", "Enter your phone no!");
                         } else if (checked.value == false) {
                           Get.snackbar(
-                              "Agree to TC & PP", "Please tick th echeckbox!");
+                              "Agree to TC & PP", "Please tick the echeckbox!");
                         } else {
                           Get.back();
                           Get.bottomSheet(EnterOtpSheet());
@@ -215,8 +215,26 @@ class GetOtpSheet extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 25.0),
                       child: CheckboxListTile(
                         activeColor: Color(0xff0047C3),
-                        title: CustomSmallText(
-                            text: 'Click to agree to TC & Privacy Policy'),
+                        title: Row(
+                          children: [
+                            CustomSmallText(text: 'Click to agree to '),
+                            InkWell(
+                              onTap: () {},
+                              child: CustomSmallText(
+                                text: 'T&C ',
+                                color: kblue,
+                              ),
+                            ),
+                            CustomSmallText(text: 'and '),
+                            InkWell(
+                              onTap: () {},
+                              child: CustomSmallText(
+                                text: 'Privacy Policy',
+                                color: kblue,
+                              ),
+                            )
+                          ],
+                        ),
                         value: checked.value,
                         onChanged: (value) {
                           checked.value = value!;

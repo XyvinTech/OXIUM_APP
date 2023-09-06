@@ -883,3 +883,29 @@ class Dialogs {
     );
   }
 }
+
+
+saveSnack(String message){
+  return Get.snackbar("", "",
+        titleText: Container(),
+        messageText: Center(
+            child: Container(
+                padding: const EdgeInsets.only(bottom: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.transparent),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: SvgPicture.asset("assets/svg/successful.svg"),
+                    ),
+                    width(15),
+                    CustomBigText(
+                      text: message,
+                      color: Colors.white,
+                    ),
+                  ],
+                ))),
+        backgroundColor: Color(0xff6fcf97));
+}

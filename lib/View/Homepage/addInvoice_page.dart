@@ -1,7 +1,9 @@
 //Add Invoice Details Page
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../Controller/addInvoice_page_controller.dart';
 import '../../Utils/toastUtils.dart';
@@ -72,11 +74,12 @@ class AddInvoiceDetails extends GetView<AddInvoiceDetailsController> {
                       hintText: "Phone Number",
                       controller1: controller.phnNumberController),
                   //height(size.height * 0.002),
-                  EditTextField(
-                    size: size,
-                    controller: controller.cityNameController,
-                    hintText: 'City',
-                  ),
+
+                  // EditTextField(
+                  //   size: size,
+                  //   controller: controller.cityNameController,
+                  //   hintText: 'City',
+                  // ),
                   //height(size.height * 0.01),
                   EditTextField(
                     size: size,
@@ -84,11 +87,115 @@ class AddInvoiceDetails extends GetView<AddInvoiceDetailsController> {
                     hintText: 'Postal Code',
                   ),
                   //height(size.height * 0.01),
-                  EditTextField(
-                    size: size,
-                    controller: controller.stateNameController,
-                    hintText: 'State',
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: size.width * .08,
+                          vertical: size.height * 0.008),
+                      child: Obx(
+                        () => Container(
+                          width: size.width + 0 * controller.reload.value,
+                          height: size.height * 0.073,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.r),
+                              border: Border.all(
+                                width: 1,
+                                color: Color.fromARGB(255, 158, 158, 158),
+                              )),
+                          child: DropdownButton<String>(
+                            value: controller.selectedState,
+                            hint: Text(
+                              'State',
+                              style: GoogleFonts.poppins(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.normal,
+                                color: Color.fromARGB(255, 155, 154, 154),
+                              ),
+                            ),
+                            style: GoogleFonts.poppins(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff4F4F4F),
+                            ),
+                            dropdownColor: kwhite,
+                            isExpanded: true,
+                            elevation: 0,
+                            underline: SizedBox(),
+                            items: controller.states
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                child: Text(value),
+                                value: value,
+                              );
+                            }).toList(),
+                            icon: SvgPicture.asset(
+                                "assets/svg/arrow_downward_ios.svg"),
+                            onChanged: (String? value) {
+                              controller.onChangeStateGetCityList(value);
+                            },
+                            borderRadius: BorderRadius.circular(20.r),
+                          ),
+                        ),
+                      )),
+
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: size.width * .08,
+                        vertical: size.height * 0.008),
+                    child: Obx(
+                      () => Container(
+                        width: size.height + 0 * controller.reload.value,
+                        height: size.height * 0.073,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.r),
+                            border: Border.all(
+                              width: 1,
+                              color: Color.fromARGB(255, 158, 158, 158),
+                            )),
+                        child: DropdownButton<String>(
+                          value: controller.selectedCity,
+                          hint: Text(
+                            'City',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.normal,
+                              color: Color.fromARGB(255, 155, 154, 154),
+                            ),
+                          ),
+                          style: GoogleFonts.poppins(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff4F4F4F),
+                          ),
+                          dropdownColor: kwhite,
+                          isExpanded: true,
+                          elevation: 0,
+                          underline: SizedBox(),
+                          items: controller.stateCitys
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              child: Text(value),
+                              value: value,
+                            );
+                          }).toList(),
+                          icon: SvgPicture.asset(
+                              "assets/svg/arrow_downward_ios.svg"),
+                          onChanged: (String? val) {
+                            controller.onChangeCity(val);
+                          },
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                      ),
+                    ),
                   ),
+                  // EditTextField(
+                  //   size: size,
+                  //   controller: controller.stateNameController,
+                  //   hintText: 'State',
+                  // ),
                   //height(size.height * 0.01),
                   EditTextField(
                     size: size,

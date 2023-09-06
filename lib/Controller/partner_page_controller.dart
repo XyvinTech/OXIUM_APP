@@ -17,6 +17,7 @@ class PartnerPageController extends GetxController {
   String? selectedCity = null;
   Map<String, dynamic> data = {};
 
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
