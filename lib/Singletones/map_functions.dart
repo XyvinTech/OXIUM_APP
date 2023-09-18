@@ -299,6 +299,8 @@ class MapFunctions {
     required HomePageController controller,
     required String status,
   }) {
+    kLog(status);
+    kLog(status.contains('Connected').toString());
     markers_homepage.add(Marker(
         onTap: () async {
           MapFunctions().isFocused = false;
@@ -308,11 +310,11 @@ class MapFunctions {
           });
         },
         markerId: MarkerId(id),
-        icon: BitmapDescriptor.fromBytes(status == 'disConnected'
-            ? bytesGray!
-            : isBusy
-                ? bytesGreen!
-                : bytesBlue!),
+        icon: BitmapDescriptor.fromBytes(status.contains('Connected') && isBusy
+            ? bytesGreen!
+            : status.contains(',Connected')
+                ? bytesBlue!
+                : bytesGray!),
         position: latLng,
         anchor: Offset(.5, .5)));
   }

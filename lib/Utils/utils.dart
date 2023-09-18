@@ -76,7 +76,8 @@ List<dynamic> calculateAvailabiliy(
       total = evPorts.length;
   String trailing = '';
   evPorts.forEach((element) {
-    if (element.ocppStatus == kAvailable)
+    kLog(element.ocppStatus);
+    if (element.ocppStatus == kAvailable || element.ocppStatus.isEmpty)
       available++;
     else if (element.ocppStatus == 'Charging')
       busy++;
@@ -197,4 +198,3 @@ Future<bool> getStoragePermission() async {
   }
   return false;
 }
-

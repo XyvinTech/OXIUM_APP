@@ -21,7 +21,17 @@ class CallAPI {
   CallAPI._internal();
 
   int timeOutSec = 15;
-  String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
+  //DEV:
+  String _host = 'http://10.0.2.2:8080';
+  String _get_host = '10.0.2.2:8080';
+  String _url = 'http://10.0.2.2:8080/api/app/';
+  String _get_middle_point = '/api/app/';
+  
+  //***PROD: ALSO MAKE HTTP TO HTTPS Uri.https ***\
+  //String _host = 'https://cms.goecworld.com';
+  //String _get_host = 'cms.goecworld.com';
+  // String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
+  // String _get_middle_point = '/Chargetron/api/app/';
 
 /////////POST DATA/////////////////
   Future<ResponseModel> postData(
@@ -58,10 +68,10 @@ class CallAPI {
     log('GET + $endPoint');
     try {
       http.Response res = await http.get(
-        Uri.https(
+        Uri.http(
             // '35.154.49.246',
-            url != null ? url.split('/')[2] : 'cms.goecworld.com',
-            url != null ? url.split('/')[3] : '/Chargetron/api/app/' + endPoint,
+            url != null ? url.split('/')[2] : _get_host,
+            url != null ? url.split('/')[3] : _get_middle_point + endPoint,
             params),
         headers: {
           'Content-type': 'application/json',
@@ -155,7 +165,7 @@ class CallAPI {
     http.Response res = await http.patch(
       Uri.http(
           // '35.154.49.246',
-          'https://cms.goecworld.com/',
+          _host,
           'Chargetron/api/app/' + endPoint,
           params),
       headers: {

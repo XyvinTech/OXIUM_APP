@@ -39,355 +39,370 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20))),
-                  child: Column(children: [
-                    height(size.height * .01),
-                    height(size.height * .015),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width * .06),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Obx(
-                                  () => Container(
-                                    color: Colors.grey,
-                                    height: 90.w,
-                                    // width: 90.w,
-                                    child: cachedNetworkImage(
-                                        controller.model.value.image),
+          RefreshIndicator(
+            displacement: 250,
+            backgroundColor: Colors.yellow,
+            color: Colors.red,
+            strokeWidth: 3,
+            triggerMode: RefreshIndicatorTriggerMode.onEdge,
+            onRefresh: () async {
+              await controller.getChargeStationDetails(
+                  controller.model.value.id.toString());
+            },
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20))),
+                    child: Column(children: [
+                      height(size.height * .01),
+                      height(size.height * .015),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * .06),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Obx(
+                                    () => Container(
+                                      color: Colors.grey,
+                                      height: 90.w,
+                                      // width: 90.w,
+                                      child: cachedNetworkImage(
+                                          controller.model.value.image),
+                                    ),
+                                  )),
+                            ),
+                            width(size.width * .035),
+                            Expanded(
+                              flex: 7,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: size.height * .023,
+                                    width: size.width * .14,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Color(0xffFFE1C7)),
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.star,
+                                            color: Color(0xffF2994A),
+                                            size: 15,
+                                          ),
+                                          Obx(
+                                            () => CustomText(
+                                                text: controller.model.value
+                                                        .rating.isEmpty
+                                                    ? '0'
+                                                    : double.parse(controller
+                                                            .model.value.rating)
+                                                        .toStringAsFixed(2),
+                                                size: 12,
+                                                color: Color(0xffF2994A)),
+                                          ),
+                                        ]),
                                   ),
-                                )),
-                          ),
-                          width(size.width * .035),
-                          Expanded(
-                            flex: 7,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: size.height * .023,
-                                  width: size.width * .14,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Color(0xffFFE1C7)),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Color(0xffF2994A),
-                                          size: 15,
-                                        ),
-                                        Obx(
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Expanded(
+                                        child: Obx(
                                           () => CustomText(
-                                              text: controller.model.value
-                                                      .rating.isEmpty
-                                                  ? '0'
-                                                  : double.parse(controller
-                                                          .model.value.rating)
-                                                      .toStringAsFixed(2),
-                                              size: 12,
-                                              color: Color(0xffF2994A)),
+                                              text: controller.model.value.name,
+                                              overflow: TextOverflow.ellipsis,
+                                              color: Color(0xff4F4F4F),
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                      ]),
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Expanded(
-                                      child: Obx(
-                                        () => CustomText(
-                                            text: controller.model.value.name,
-                                            overflow: TextOverflow.ellipsis,
-                                            color: Color(0xff4F4F4F),
-                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      width(size.width * .017),
+                                    ],
+                                  ),
+                                  Obx(
+                                    () => CustomText(
+                                        text:
+                                            '${controller.distance.value} km away',
+                                        color: Color(0xff828282),
+                                        fontWeight: FontWeight.normal,
+                                        size: 12),
+                                  ),
+                                  if (controller.amenities.isNotEmpty &&
+                                      controller.amenities[0].isNotEmpty) ...[
+                                    height(8.h),
+                                    Obx(
+                                      () => GridView.builder(
+                                        physics: NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 3,
+                                                childAspectRatio: 4.7),
+                                        itemCount: controller.amenities.length,
+                                        itemBuilder: (context, index) {
+                                          return Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  'assets/svg/${controller.amenities[index]}.svg'),
+                                              width(size.width * .01),
+                                              Expanded(
+                                                child: CustomText(
+                                                    text: controller
+                                                        .amenities[index]
+                                                        .toTitleCase(),
+                                                    color: Color(0xff828282),
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    size: 12),
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       ),
                                     ),
-                                    width(size.width * .017),
+                                    height(8.h),
                                   ],
-                                ),
-                                Obx(
-                                  () => CustomText(
-                                      text:
-                                          '${controller.distance.value} km away',
-                                      color: Color(0xff828282),
-                                      fontWeight: FontWeight.normal,
-                                      size: 12),
-                                ),
-                                if (controller.amenities.isNotEmpty &&
-                                    controller.amenities[0].isNotEmpty) ...[
-                                  height(8.h),
-                                  Obx(
-                                    () => GridView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 3,
-                                              childAspectRatio: 4.7),
-                                      itemCount: controller.amenities.length,
-                                      itemBuilder: (context, index) {
-                                        return Row(
-                                          children: [
-                                            SvgPicture.asset(
-                                                'assets/svg/${controller.amenities[index]}.svg'),
-                                            width(size.width * .01),
-                                            Expanded(
-                                              child: CustomText(
-                                                  text: controller
-                                                      .amenities[index]
-                                                      .toTitleCase(),
-                                                  color: Color(0xff828282),
-                                                  fontWeight: FontWeight.normal,
-                                                  size: 12),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  height(8.h),
                                 ],
-                              ],
+                              ),
                             ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              //TODO: call api for adding as favorite or removing from favorite
-                              controller.changeFavoriteStatus();
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: size.width * .01),
-                              padding: EdgeInsets.all(size.width * .02),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Color(0xffBDBDBD))),
-                              child: Obx(
-                                () => SvgPicture.asset(
-                                  controller.model.value.isFavorite
-                                      ? 'assets/svg/favorite1.svg'
-                                      : 'assets/svg/favorite.svg',
-                                  width: 15.w,
-                                  fit: BoxFit.fill,
+                            InkWell(
+                              onTap: () {
+                                //TODO: call api for adding as favorite or removing from favorite
+                                controller.changeFavoriteStatus();
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: size.width * .01),
+                                padding: EdgeInsets.all(size.width * .02),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border:
+                                        Border.all(color: Color(0xffBDBDBD))),
+                                child: Obx(
+                                  () => SvgPicture.asset(
+                                    controller.model.value.isFavorite
+                                        ? 'assets/svg/favorite1.svg'
+                                        : 'assets/svg/favorite.svg',
+                                    width: 15.w,
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    height(size.height * .03),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width * .06),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SvgPicture.asset('assets/svg/location_on_blue.svg'),
-                          width(5.w),
-                          Expanded(
-                            flex: 3,
-                            child: Obx(
-                              () => CustomText(
-                                  text: controller.model.value.location_name,
-                                  size: 12,
-                                  color: Color(0xff4F4F4F)),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    // controller.getDirections(false);
-                                    controller.launchOnGoogleMap();
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.all(10.h),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Color(0xff2F80ED)),
-                                    child: SvgPicture.asset(
-                                        'assets/svg/direction.svg'),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    // controller.getDirections(false);
-                                    controller.shareStationLocation();
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.all(10.h),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(color: Colors.grey)),
-                                    child: SvgPicture.asset(
-                                        'assets/svg/share.svg'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ]),
-                ),
-                height(size.height * 0.04),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * .06),
-                  child: Row(
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 10.h,
-                            width: 10.h,
-                            decoration: BoxDecoration(
-                                color: controller.isOpen.value
-                                    ? Color(0xff219653)
-                                    : Color.fromARGB(255, 195, 56, 56),
-                                shape: BoxShape.circle),
-                          ),
-                          width(size.width * .02),
-                          CustomText(
-                              text: controller.isOpen.value
-                                  ? 'Open Now'
-                                  : 'Closed Now',
-                              color: controller.isOpen.value
-                                  ? Color(0xff219653)
-                                  : Color.fromARGB(255, 195, 56, 56),
-                              size: 13,
-                              fontWeight: FontWeight.w600)
-                        ],
-                      ),
-                      Spacer(),
-                      CustomText(
-                          text:
-                              '${convertToPmFormat(controller.model.value.startTime)} to ${convertToPmFormat(
-                            controller.model.value.stopTime,
-                          )}',
-                          color: Color(0xffa9a9a9),
-                          size: 14)
-                    ],
-                  ),
-                ),
-                height(size.height * .03),
-                CustomText(
-                    text: 'Select a charger to start charging',
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w600,
-                    size: 13),
-                height(size.height * .03),
-                Obx(
-                  () => ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controller.model.value.Chargers.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        ChargerModel charger =
-                            controller.model.value.Chargers[index];
-                        bool isConnected =
-                            controller.model.value.Chargers[index].ocppStatus ==
-                                'Connected';
-                        return Container(
-                            // height: 500.h,
-                            margin: EdgeInsets.symmetric(
-                                horizontal: size.width * .04,
-                                vertical: size.height * .01),
-                            child: _chargerCardExpanded(
-                              title: charger.charger_name,
-                              subTitle: charger.outputType +
-                                  ' ' +
-                                  charger.capacity +
-                                  ' KwH',
-                              evPorts: charger.evports,
-                              index: index,
-                              isConnected: isConnected,
-                            ));
-                      }),
-                ),
-                // Padding(
-                //   padding: EdgeInsets.symmetric(vertical: size.height * .04),
-                //   child: navigationCard(),
-                // ),
-                height(size.height * .025),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width * .04),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          //TODO: open review write dialog
-                          controller.selectedRating.value = 0;
-                          controller.reviewController.text = '';
-                          Get.dialog(Dialogs().writeReviewDialog(controller));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 30.w, vertical: 10.h),
-                          decoration: BoxDecoration(
-                              color: Color(0xff2F80ED),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Text('Write Review',
-                              style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                              )),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(Routes.reviewPageRoute, arguments: [
-                            double.parse(controller.model.value.rating)
-                                .toStringAsFixed(2),
-                            controller.model.value.id
-                          ]);
-                        },
-                        child: Row(
-                          children: [
-                            CustomText(
-                                fontWeight: FontWeight.bold,
-                                text: 'View Review',
-                                color: Color(0xff0047C3),
-                                size: 16),
-                            width(10.w),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 20,
-                              color: Color(0xff0047C3),
-                            )
                           ],
                         ),
                       ),
-                    ],
+                      height(size.height * .03),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * .06),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SvgPicture.asset('assets/svg/location_on_blue.svg'),
+                            width(5.w),
+                            Expanded(
+                              flex: 3,
+                              child: Obx(
+                                () => CustomText(
+                                    text: controller.model.value.location_name,
+                                    size: 12,
+                                    color: Color(0xff4F4F4F)),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      // controller.getDirections(false);
+                                      controller.launchOnGoogleMap();
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(10.h),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Color(0xff2F80ED)),
+                                      child: SvgPicture.asset(
+                                          'assets/svg/direction.svg'),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      // controller.getDirections(false);
+                                      controller.shareStationLocation();
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(10.h),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.transparent,
+                                          border:
+                                              Border.all(color: Colors.grey)),
+                                      child: SvgPicture.asset(
+                                          'assets/svg/share.svg'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ]),
                   ),
-                ),
-                height(50.h)
-              ],
+                  height(size.height * 0.04),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .06),
+                    child: Row(
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              height: 10.h,
+                              width: 10.h,
+                              decoration: BoxDecoration(
+                                  color: controller.isOpen.value
+                                      ? Color(0xff219653)
+                                      : Color.fromARGB(255, 195, 56, 56),
+                                  shape: BoxShape.circle),
+                            ),
+                            width(size.width * .02),
+                            CustomText(
+                                text: controller.isOpen.value
+                                    ? 'Open Now'
+                                    : 'Closed Now',
+                                color: controller.isOpen.value
+                                    ? Color(0xff219653)
+                                    : Color.fromARGB(255, 195, 56, 56),
+                                size: 13,
+                                fontWeight: FontWeight.w600)
+                          ],
+                        ),
+                        Spacer(),
+                        CustomText(
+                            text:
+                                '${convertToPmFormat(controller.model.value.startTime)} to ${convertToPmFormat(
+                              controller.model.value.stopTime,
+                            )}',
+                            color: Color(0xffa9a9a9),
+                            size: 14)
+                      ],
+                    ),
+                  ),
+                  height(size.height * .03),
+                  CustomText(
+                      text: 'Select a charger to start charging',
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w600,
+                      size: 13),
+                  height(size.height * .03),
+                  Obx(
+                    () => ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.model.value.Chargers.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          ChargerModel charger =
+                              controller.model.value.Chargers[index];
+                          bool isConnected = controller
+                                  .model.value.Chargers[index].ocppStatus ==
+                              'Connected';
+                          return Container(
+                              // height: 500.h,
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: size.width * .04,
+                                  vertical: size.height * .01),
+                              child: _chargerCardExpanded(
+                                title: charger.charger_name,
+                                subTitle: charger.outputType +
+                                    ' ' +
+                                    charger.capacity +
+                                    ' KwH',
+                                evPorts: charger.evports,
+                                index: index,
+                                isConnected: isConnected,
+                              ));
+                        }),
+                  ),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(vertical: size.height * .04),
+                  //   child: navigationCard(),
+                  // ),
+                  height(size.height * .025),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            //TODO: open review write dialog
+                            controller.selectedRating.value = 0;
+                            controller.reviewController.text = '';
+                            Get.dialog(Dialogs().writeReviewDialog(controller));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30.w, vertical: 10.h),
+                            decoration: BoxDecoration(
+                                color: Color(0xff2F80ED),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Text('Write Review',
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(Routes.reviewPageRoute, arguments: [
+                              double.parse(controller.model.value.rating)
+                                  .toStringAsFixed(2),
+                              controller.model.value.id
+                            ]);
+                          },
+                          child: Row(
+                            children: [
+                              CustomText(
+                                  fontWeight: FontWeight.bold,
+                                  text: 'View Review',
+                                  color: Color(0xff0047C3),
+                                  size: 16),
+                              width(10.w),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 20,
+                                color: Color(0xff0047C3),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  height(50.h)
+                ],
+              ),
             ),
           ),
           Obx(
@@ -442,8 +457,15 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required int index1,
     required bool isConnected,
   }) {
+    //////////LOGIC CODES////////
+    List res = calculateAvailabiliy([evport], isConnected);
+    int available = res[1];
+    String trailing = res[0];
+    ///////END LOGIC CODES///////
     String status;
-    if (evport.ocppStatus == kAvailable)
+    if (!isConnected)
+      status = kUnavailable;
+    else if (evport.ocppStatus == kAvailable || evport.ocppStatus.isEmpty)
       status = kAvailable;
     else if (evport.ocppStatus == 'Charging')
       status = kBusy;
@@ -593,12 +615,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required int index,
     required bool isConnected,
   }) {
-    //////////LOGIC CODES////////
-    List res = calculateAvailabiliy(evPorts, isConnected);
-    int available = res[1];
-    String trailing = res[0];
-    ///////END LOGIC CODES///////
-    kLog(controller.model.value.Chargers[index].evports.length.toString());
     return Container(
       // color: Colors.amber,
       child: Padding(

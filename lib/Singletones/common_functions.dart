@@ -241,11 +241,13 @@ class CommonFunctions {
     var res = await CallAPI().getData('appuser', {
       "username": appData.userModel.value.username,
     });
+    kLog(res.statusCode.toString());
     if (res.statusCode == 200 && res.body['result'] != null) {
       kLog(appData.token);
       kLog(res.body.toString());
       return appData.userModel.value = UserModel.fromJson(res.body['result']);
     } else {
+      kUserModel.username = '';
       return kUserModel;
     }
   }
@@ -257,6 +259,7 @@ class CommonFunctions {
       "name": name,
       "email": email,
     }, 'appuser');
+    kLog(res.statusCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
     } else {
@@ -295,8 +298,12 @@ class CommonFunctions {
   }
 
   Future<bool> deleteUser() async {
-    var res = await CallAPI().deleteData({}, 'appuser/id=${appData.userModel.value.id}');
-    if (res.statusCode == 200 && res.body != null && res.body['status'] != null && res.body['success']) {
+    var res = await CallAPI()
+        .deleteData({}, 'appuser/id=${appData.userModel.value.id}');
+    if (res.statusCode == 200 &&
+        res.body != null &&
+        res.body['status'] != null &&
+        res.body['success']) {
       return true;
     } else {
       return false;
@@ -617,7 +624,7 @@ class CommonFunctions {
     });
     kLog(res.statusCode.toString());
     kLog(res.body.toString());
-    if (res.statusCode == 500) {
+    if (res.statusCode != 200) {
       ChargingStatusModel model = kChargingStatusModel;
       model.status = 'E';
       return kChargingStatusModel;
