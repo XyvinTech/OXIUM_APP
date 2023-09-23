@@ -743,6 +743,7 @@ class CommonFunctions {
   }
 
   downloadBookingInvoice(int bookingId) async {
+    kLog(bookingId.toString());
     await CallAPI().download('downloadpdfinvoice?bookingId=$bookingId',
         'booking_invoice_$bookingId');
   }
