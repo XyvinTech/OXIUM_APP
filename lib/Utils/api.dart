@@ -26,10 +26,10 @@ class CallAPI {
   String _get_host = '10.0.2.2:8080';
   String _url = 'http://10.0.2.2:8080/api/app/';
   String _get_middle_point = '/api/app/';
-  
+
   //***PROD: ALSO MAKE HTTP TO HTTPS Uri.https ***\
-  //String _host = 'https://cms.goecworld.com';
-  //String _get_host = 'cms.goecworld.com';
+  // String _host = 'https://cms.goecworld.com';
+  // String _get_host = 'cms.goecworld.com';
   // String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
   // String _get_middle_point = '/Chargetron/api/app/';
 
@@ -64,14 +64,15 @@ class CallAPI {
 ////////GET DATA/////////////////
   Future<ResponseModel> getData(String endPoint, Map<String, dynamic>? params,
       {String? url}) async {
+        
     var body;
     log('GET + $endPoint');
     try {
       http.Response res = await http.get(
         Uri.http(
             // '35.154.49.246',
-            url != null ? url.split('/')[2] : _get_host,
-            url != null ? url.split('/')[3] : _get_middle_point + endPoint,
+            _get_host,
+            _get_middle_point + endPoint,
             params),
         headers: {
           'Content-type': 'application/json',
