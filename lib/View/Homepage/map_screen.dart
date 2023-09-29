@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -70,6 +71,15 @@ class _MapScreenState extends State<MapScreen>
                         // MapFunctions().getCurrentPosition();
                       },
                       onTap: (value) {
+                        controller.getNearestChargestations(Position(
+                            longitude: value.longitude,
+                            latitude: value.latitude,
+                            timestamp: DateTime.now(),
+                            accuracy: 0,
+                            altitude: 0,
+                            heading: 0,
+                            speed: 0,
+                            speedAccuracy: 0));
                         // MapFunctions().addMyPositionMarker(MapFunctions().curPos,
                         //     MapFunctions().markers_homepage);
                         // MapFunctions().addMarkerHomePage(

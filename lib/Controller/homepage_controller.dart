@@ -109,10 +109,10 @@ class HomePageController extends GetxController {
   }
 
   getNearestChargestations(Position pos) async {
-    showLoading(kLoading);
+    showLoading('Fetching nearby charge stations.\nPlease wait...');
     station_marker_list = await CommonFunctions().getNearestChargstations(pos);
     hideLoading();
-
+    MapFunctions().markers_homepage.clear();
     station_marker_list.forEach((element) {
       MapFunctions().addMarkerHomePage(
           id: element.id.toString(),

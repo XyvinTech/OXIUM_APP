@@ -116,10 +116,13 @@ class _WalletScreenState extends State<WalletScreen>
                                           style: kAppBigTextStyle,
                                         ),
                                         SizedBox(height: size.height * 0.005),
-                                        Text(
-                                          appData.userModel.value.balanceAmount
-                                              .toStringAsFixed(2),
-                                          style: kAppSuperBigTextStyle,
+                                        Obx(
+                                          () => Text(
+                                            appData
+                                                .userModel.value.balanceAmount
+                                                .toStringAsFixed(2),
+                                            style: kAppSuperBigTextStyle,
+                                          ),
                                         ),
                                         SizedBox(height: size.height * 0.005),
                                         Text(
