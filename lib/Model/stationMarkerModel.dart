@@ -26,7 +26,7 @@ class StationMarkerModel {
       id: json['id'],
       lattitude: json['lattitude'] ?? 0,
       longitude: json['longitude'] ?? 0,
-      isBusy: json['Busy'] ?? false,
+      isBusy: json['isBusy'] ?? false,
       amenities: json['amenities'] ?? '',
       charger_status: json.containsKey('filter')
           ? json['filter']['charger_status'] ?? ''
@@ -45,7 +45,7 @@ class StationMarkerModel {
         "id": id,
         "lattitude": lattitude,
         "longitude": longitude,
-        "Busy": isBusy,
+        "isBusy": isBusy,
         "amenities": amenities,
         "filter": {
           "charger_status": charger_status,
