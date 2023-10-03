@@ -67,6 +67,7 @@ class PaymentFeedbackScreen extends GetView<FeedBackPageController> {
                                                     index
                                             ? "assets/svg/star_rate.svg"
                                             : "assets/svg/star_rate3.svg",
+                                       
                                       ),
                                     ),
                                   )),
