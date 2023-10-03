@@ -22,16 +22,16 @@ class CallAPI {
 
   int timeOutSec = 15;
   //DEV:
-  String _host = 'http://10.0.2.2:8080';
-  String _get_host = '10.0.2.2:8080';
-  String _url = 'http://10.0.2.2:8080/api/app/';
-  String _get_middle_point = '/api/app/';
+  // String _host = 'http://10.0.2.2:8080';
+  // String _get_host = '10.0.2.2:8080';
+  // String _url = 'http://10.0.2.2:8080/api/app/';
+  // String _get_middle_point = '/api/app/';
   
   //***PROD: ALSO MAKE HTTP TO HTTPS Uri.https ***\
-  //String _host = 'https://cms.goecworld.com';
-  //String _get_host = 'cms.goecworld.com';
-  // String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
-  // String _get_middle_point = '/Chargetron/api/app/';
+  String _host = 'https://cms.goecworld.com';
+  String _get_host = 'cms.goecworld.com';
+  String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
+  String _get_middle_point = '/Chargetron/api/app/';
 
 /////////POST DATA/////////////////
   Future<ResponseModel> postData(
