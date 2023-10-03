@@ -731,8 +731,8 @@ class Dialogs {
                                             controller.selectedRating.value -
                                                     1 <
                                                 index
-                                        ? "assets/svg/emojis/${index + 1}gray.svg"
-                                        : "assets/svg/emojis/${index + 1}yellow.svg",
+                                        ? "assets/svg/emojis/gray${index + 1}.svg"
+                                        : "assets/svg/emojis/yellow${index + 1}.svg",
                                     height: 35.w,
                                     // width: 40.w,
                                   ),

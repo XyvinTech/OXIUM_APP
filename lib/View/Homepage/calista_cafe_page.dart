@@ -966,7 +966,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
