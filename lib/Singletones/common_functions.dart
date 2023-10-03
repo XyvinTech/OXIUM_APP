@@ -14,6 +14,7 @@ import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Utils/SharedPreferenceUtils.dart';
 import 'package:freelancer_app/Utils/api.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/constants.dart';
@@ -248,6 +249,10 @@ class CommonFunctions {
       return appData.userModel.value = UserModel.fromJson(res.body['result']);
     } else {
       kUserModel.username = '';
+      if (res.statusCode == 500) {
+        clearData();
+        appData.token = '';
+      }
       return kUserModel;
     }
   }
@@ -743,6 +748,7 @@ class CommonFunctions {
   }
 
   downloadBookingInvoice(int bookingId) async {
+    kLog(bookingId.toString());
     await CallAPI().download('downloadpdfinvoice?bookingId=$bookingId',
         'booking_invoice_$bookingId');
   }

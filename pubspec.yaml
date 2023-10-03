@@ -126,6 +126,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - assets/svg/emojis/
     - assets/lotty/
     - assets/
   #   - images/a_dot_ham.jpeg

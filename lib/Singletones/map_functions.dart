@@ -310,7 +310,7 @@ class MapFunctions {
           });
         },
         markerId: MarkerId(id),
-        icon: BitmapDescriptor.fromBytes(status.contains('Connected') && isBusy
+        icon: BitmapDescriptor.fromBytes(status.contains(',Connected') && isBusy
             ? bytesGreen!
             : status.contains(',Connected')
                 ? bytesBlue!

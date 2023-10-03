@@ -353,7 +353,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                             ),
                                             CustomBigText(
                                               text:
-                                                  "${controller.status_model.value.unit} kWh",
+                                                  "${controller.status_model.value.unit.toStringAsFixed(2)} kWh",
                                               size: 16.sp,
                                               color: Color(0xff0047C3),
                                             ),

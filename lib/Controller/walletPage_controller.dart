@@ -67,4 +67,10 @@ class WalletPageController extends GetxController {
         order_id: order_id,
         descirption: 'Top up your account');
   }
+
+  getUserProfile() async {
+    showLoading('Checking Balance...');
+    await CommonFunctions().getUserProfile();
+    hideLoading();
+  }
 }

@@ -715,27 +715,34 @@ class Dialogs {
                 padding: EdgeInsets.only(left: 10.w),
                 child: Obx(
                   () => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: List.generate(
                         5,
                         (index) => Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              padding: EdgeInsets.symmetric(horizontal: 0.w),
                               child: GestureDetector(
                                 onTap: () {
                                   controller.selectedRating.value = index + 1;
                                 },
-                                child: SvgPicture.asset(
-                                  controller.selectedRating.value == 0 ||
-                                          controller.selectedRating.value - 1 <
-                                              index
-                                      ? "assets/svg/star_rate.svg"
-                                      : "assets/svg/star_rate3.svg",
+                                child: Container(
+                                  color: Colors.amber,
+                                  child: SvgPicture.asset(
+                                    controller.selectedRating.value == 0 ||
+                                            controller.selectedRating.value -
+                                                    1 <
+                                                index
+                                        ? "assets/svg/emojis/gray${index + 1}.svg"
+                                        : "assets/svg/emojis/yellow${index + 1}.svg",
+                                    height: 35.w,
+                                    // width: 40.w,
+                                  ),
                                 ),
                               ),
                             )),
                   ),
                 ),
               ),
-              height(25.h),
+              height(20.h),
               TextFormField(
                 minLines: 7,
                 maxLines: 7,

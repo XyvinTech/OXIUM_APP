@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
@@ -93,7 +94,11 @@ class _WalletScreenState extends State<WalletScreen>
                         Positioned(
                           left: size.width * 0.05,
                           top: size.height * 0.145,
-                          child: Container(
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.getUserProfile();
+                            },
+                            child: Container(
                               height: size.height * 0.14,
                               width: size.width * 0.9,
                               padding: EdgeInsets.all(20),
@@ -116,10 +121,13 @@ class _WalletScreenState extends State<WalletScreen>
                                           style: kAppBigTextStyle,
                                         ),
                                         SizedBox(height: size.height * 0.005),
-                                        Text(
-                                          appData.userModel.value.balanceAmount
-                                              .toStringAsFixed(2),
-                                          style: kAppSuperBigTextStyle,
+                                        Obx(
+                                          () => Text(
+                                            appData
+                                                .userModel.value.balanceAmount
+                                                .toStringAsFixed(2),
+                                            style: kAppSuperBigTextStyle,
+                                          ),
                                         ),
                                         SizedBox(height: size.height * 0.005),
                                         Text(
@@ -131,7 +139,9 @@ class _WalletScreenState extends State<WalletScreen>
                                   ),
                                   Image.asset("assets/images/new_wallet.png"),
                                 ],
-                              )),
+                              ),
+                            ),
+                          ),
                         ),
                         // Positioned(
                         //     right: size.width * 0.11,

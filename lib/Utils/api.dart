@@ -64,14 +64,15 @@ class CallAPI {
 ////////GET DATA/////////////////
   Future<ResponseModel> getData(String endPoint, Map<String, dynamic>? params,
       {String? url}) async {
+        
     var body;
     log('GET + $endPoint');
     try {
       http.Response res = await http.get(
         Uri.http(
             // '35.154.49.246',
-            url != null ? url.split('/')[2] : _get_host,
-            url != null ? url.split('/')[3] : _get_middle_point + endPoint,
+            _get_host,
+            _get_middle_point + endPoint,
             params),
         headers: {
           'Content-type': 'application/json',
