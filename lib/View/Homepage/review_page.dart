@@ -138,8 +138,13 @@ class ReviewPage extends GetView<ReviewPageController> {
                   controller.calistaCafePageController.selectedRating.value = 0;
                   controller.calistaCafePageController.reviewController.text =
                       '';
-                  Get.dialog(Dialogs()
-                      .writeReviewDialog(controller.calistaCafePageController));
+                  // Get.dialog(Dialogs()
+                  //     .writeReviewDialog(controller.calistaCafePageController));
+                  Get.toNamed(Routes.paymentfeedbackPageRoute, arguments: [
+                    controller.calistaCafePageController.model.value.id
+                        .toString(),
+                    kChargingStatusModel
+                  ]);
                 },
                 child: Text('Write Review',
                     style: GoogleFonts.poppins(

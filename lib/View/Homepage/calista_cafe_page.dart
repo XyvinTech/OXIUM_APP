@@ -357,7 +357,13 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                             //TODO: open review write dialog
                             controller.selectedRating.value = 0;
                             controller.reviewController.text = '';
-                            Get.dialog(Dialogs().writeReviewDialog(controller));
+                            // Get.dialog(Dialogs().writeReviewDialog(controller));
+                            // Get.toNamed(Routes.thankfeedbackPageRoute);
+                            Get.toNamed(Routes.paymentfeedbackPageRoute,
+                                arguments: [
+                                  controller.model.value.id.toString(),
+                                  kChargingStatusModel,
+                                ]);
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(

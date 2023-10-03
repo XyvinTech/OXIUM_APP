@@ -80,13 +80,14 @@ class ThankForFeedbackScreen extends GetView<FeedBackPageController> {
                               (index) => Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 10.w),
-                                    child: SvgPicture.asset(
+                                    child: Image.asset(
                                       controller.selectedRating.value == 0 ||
                                               controller.selectedRating.value -
                                                       1 <
                                                   index
-                                          ? "assets/svg/star_rate.svg"
-                                          : "assets/svg/star_rate3.svg",
+                                          ? "assets/images/emojis/gray${index + 1}.png"
+                                          : "assets/images/emojis/yellow${index + 1}.png",
+                                      height: 35.w,
                                     ),
                                   )),
                         ),

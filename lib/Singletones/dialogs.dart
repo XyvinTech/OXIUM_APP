@@ -715,27 +715,23 @@ class Dialogs {
                 padding: EdgeInsets.only(left: 10.w),
                 child: Obx(
                   () => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: List.generate(
                         5,
                         (index) => Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 0.w),
+                              padding: EdgeInsets.symmetric(horizontal: 5.w),
                               child: GestureDetector(
                                 onTap: () {
                                   controller.selectedRating.value = index + 1;
                                 },
-                                child: Container(
-                                  color: Colors.amber,
-                                  child: SvgPicture.asset(
-                                    controller.selectedRating.value == 0 ||
-                                            controller.selectedRating.value -
-                                                    1 <
-                                                index
-                                        ? "assets/svg/emojis/gray${index + 1}.svg"
-                                        : "assets/svg/emojis/yellow${index + 1}.svg",
-                                    height: 35.w,
-                                    // width: 40.w,
-                                  ),
+                                child: Image.asset(
+                                  controller.selectedRating.value == 0 ||
+                                          controller.selectedRating.value - 1 <
+                                              index
+                                      ? "assets/images/emojis/gray${index + 1}.png"
+                                      : "assets/images/emojis/yellow${index + 1}.png",
+                                  height: 35.w,
+                                  // width: 40.w,
                                 ),
                               ),
                             )),

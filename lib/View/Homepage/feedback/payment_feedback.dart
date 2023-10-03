@@ -21,6 +21,32 @@ class PaymentFeedbackScreen extends GetView<FeedBackPageController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 20.h),
+                child: Row(
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                            padding: EdgeInsets.all(5.w),
+                            child: SvgPicture.asset(
+                                'assets/svg/arrow_back_ios.svg'))),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: CustomBigText(
+                            text: 'Feedbacks',
+                            size: 16.sp,
+                            color: Color(0xff828282),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    width(24.w)
+                  ],
+                ),
+              ),
               height(20.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -59,15 +85,15 @@ class PaymentFeedbackScreen extends GetView<FeedBackPageController> {
                                         controller.selectedRating.value =
                                             index + 1;
                                       },
-                                      child: SvgPicture.asset(
+                                      child: Image.asset(
                                         controller.selectedRating.value == 0 ||
                                                 controller.selectedRating
                                                             .value -
                                                         1 <
                                                     index
-                                            ? "assets/svg/star_rate.svg"
-                                            : "assets/svg/star_rate3.svg",
-                                       
+                                            ? "assets/images/emojis/gray${index + 1}.png"
+                                            : "assets/images/emojis/yellow${index + 1}.png",
+                                        width: 35.w,
                                       ),
                                     ),
                                   )),
@@ -148,6 +174,11 @@ class PaymentFeedbackScreen extends GetView<FeedBackPageController> {
                           minLines: 11,
                           maxLines: 11,
                           keyboardType: TextInputType.multiline,
+                          style: GoogleFonts.poppins(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.41,
+                              color: Colors.black),
                           decoration: InputDecoration(
                               hintText: "Leave Your Feedback here",
                               border: OutlineInputBorder(

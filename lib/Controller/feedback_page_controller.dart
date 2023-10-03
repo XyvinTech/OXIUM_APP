@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:get/get.dart';
@@ -39,7 +40,13 @@ class FeedBackPageController extends GetxController {
   }
 
   Future<bool> postReviewForChargeStation(context) async {
+    if (selectedRating.value < 1) {
+      EasyLoading.showInfo('Please select your experience rating');
+      return false;
+    }
+
     showLoading(kLoading);
+    kLog(stationId);
     bool status = await CommonFunctions().postReviewForChargeStation(
         int.parse(stationId), selectedRating.value, feedbackController.text);
     hideLoading();
@@ -51,6 +58,6 @@ class FeedBackPageController extends GetxController {
   }
 
   backToMaps() {
-    Get.offAndToNamed(Routes.homePageRoute);
+    Get.offAllNamed(Routes.homePageRoute);
   }
 }
