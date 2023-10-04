@@ -728,7 +728,7 @@ class CommonFunctions {
   }
 
   Future<List<ChargeTransactionModel>> getChargeTransactions(
-      String page, String size) async {
+      String page, String size,) async {
     var res = await CallAPI().getData('bookinglist', {
       'username': appData.userModel.value.username,
       'page': page,

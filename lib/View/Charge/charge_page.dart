@@ -339,12 +339,13 @@ class _ChargeScreenState extends State<ChargeScreen>
               ),
             ]),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Get.to(ChargeHistoryFilter(isWallet: false,));
-          },
-          backgroundColor: kOnboardingColors,
-          child: SvgPicture.asset('assets/svg/filter_alt.svg')
-        ),
+            onPressed: () {
+              Get.to(() => ChargeHistoryFilter(
+                    isWallet: false,
+                  ));
+            },
+            backgroundColor: kOnboardingColors,
+            child: SvgPicture.asset('assets/svg/filter_alt.svg')),
       ),
     );
   }

@@ -20,6 +20,8 @@ class ChargeScreenController extends GetxController
   RxDouble boxHeight = (0.0).obs;
   ScrollController scrollController = ScrollController();
   int page = 0, totalElements = 0;
+  TextEditingController startDate = TextEditingController();
+  TextEditingController endDate = TextEditingController();
 
   @override
   void onInit() {
@@ -93,5 +95,10 @@ class ChargeScreenController extends GetxController
     boxHeight.value = size.height * .28 +
         (size.height * .11) *
             (tabController.index == 0 ? model_list.length : 40.0);
+  }
+
+  clearFilter() {
+    startDate.clear();
+    endDate.clear();
   }
 }

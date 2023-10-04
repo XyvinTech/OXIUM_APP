@@ -2,19 +2,21 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:freelancer_app/Controller/chargePage_controller.dart';
+import 'package:freelancer_app/Controller/filter_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../Controller/loginpage_controller.dart';
 import '../Widgets/appbutton.dart';
 
 // ignore: must_be_immutable
-class ChargeHistoryFilter extends StatelessWidget {
+class ChargeHistoryFilter extends GetView<ChargeScreenController> {
   final bool isWallet;
   ChargeHistoryFilter({super.key, required this.isWallet});
-  TextEditingController dateController1 = TextEditingController();
-  TextEditingController dateController2 = TextEditingController();
 
   //RxBool isSelected = false.obs;
 
@@ -29,6 +31,7 @@ class ChargeHistoryFilter extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: kscaffoldBackgroundColor,
         appBar: AppBar(
           title: CustomBigText(
             text: "Filter",
@@ -36,7 +39,7 @@ class ChargeHistoryFilter extends StatelessWidget {
           ),
           centerTitle: true,
           backgroundColor: kwhite,
-          elevation: 0.2,
+          elevation: 00,
           leading: IconButton(
             onPressed: () => Get.back(),
             icon: Icon(Icons.arrow_back_ios),
@@ -44,120 +47,119 @@ class ChargeHistoryFilter extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.all(10),
-          child: Center(
-            child: Column(
-              children: [
-                SizedBox(height: size.height * 0.03),
-                CustomBigText(
-                  text: 'Payment Time',
-                  size: 15,
-                ),
-                SizedBox(height: size.height * 0.02),
-                DateTimeField(
-                    dateController: dateController1,
-                    keyboardtype: TextInputType.none,
-                    onChanged: (String) {},
+          child: Column(
+            children: [
+              SizedBox(height: size.height * 0.03),
+              CustomBigText(
+                text: 'Payment Time',
+                size: 15,
+              ),
+              SizedBox(height: size.height * 0.02),
+              DateTimeField(
+                  dateController: controller.startDate,
+                  keyboardtype: TextInputType.none,
+                  onChanged: (String) {},
+                  color: Colors.grey,
+                  hintText: 'dd/mm/yyyy',
+                  icon: Icon(
+                    Icons.calendar_month,
                     color: Colors.grey,
-                    hintText: 'dd/mm/yyyy',
-                    icon: Icon(
-                      Icons.calendar_month,
-                      color: Colors.grey,
-                    )),
-                CustomBigText(
-                  text: 'to',
-                  size: 14,
-                ),
-                DateTimeField(
-                    dateController: dateController1,
-                    keyboardtype: TextInputType.none,
-                    onChanged: (String) {},
+                  )),
+              CustomBigText(
+                text: 'to',
+                size: 14,
+              ),
+              DateTimeField(
+                  dateController: controller.endDate,
+                  keyboardtype: TextInputType.none,
+                  onChanged: (String) {},
+                  color: Colors.grey,
+                  hintText: 'dd/mm/yyyy',
+                  icon: Icon(
+                    Icons.calendar_month,
                     color: Colors.grey,
-                    hintText: 'dd/mm/yyyy',
-                    icon: Icon(
-                      Icons.calendar_month,
-                      color: Colors.grey,
-                    )),
-                SizedBox(height: size.height * 0.03),
-                Visibility(
-                    visible: isWallet,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        children: [
-                          CustomBigText(text: "Payment Mode"),
-                          SizedBox(
-                            height: size.height * 0.02,
-                          ),
-                          FittedBox(
-                            child: Row(
-                              children: [
-                                ChipOptions(name: "Admin Topup"),
-                                ChipOptions(name: "Wallet Topup")
-                              ],
-                            ),
-                          ),
-                          Row(
+                  )),
+              SizedBox(height: size.height * 0.03),
+              Visibility(
+                  visible: isWallet,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      children: [
+                        CustomBigText(text: "Payment Mode"),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        FittedBox(
+                          child: Row(
                             children: [
-                              ChipOptions(name: "Charging Transactions"),
+                              ChipOptions(name: "Admin Topup"),
+                              ChipOptions(name: "Wallet Topup")
                             ],
                           ),
-                          SizedBox(height: size.height * 0.05),
-                          CustomBigText(text: "Payment Status"),
-                          SizedBox(height: size.height * 0.02),
-                          FittedBox(
-                            child: Row(
-                              children: [
-                                ChipOptions(name: "Completed"),
-                                ChipOptions(name: "Pending"),
-                                ChipOptions(name: "Failed"),
-                              ],
-                            ),
+                        ),
+                        Row(
+                          children: [
+                            ChipOptions(name: "Charging Transactions"),
+                          ],
+                        ),
+                        SizedBox(height: size.height * 0.05),
+                        CustomBigText(text: "Payment Status"),
+                        SizedBox(height: size.height * 0.02),
+                        FittedBox(
+                          child: Row(
+                            children: [
+                              ChipOptions(name: "Completed"),
+                              ChipOptions(name: "Pending"),
+                              ChipOptions(name: "Failed"),
+                            ],
                           ),
-                        ],
-                      ),
-                    )),
-                SizedBox(height: size.height * 0.08),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.02, right: size.width * 0.02),
-                      child: Container(
-                        height: size.height * 0.06,
-                        width: size.width * 0.4,
-                        child: StartedButton(
-                          color: Colors.white,
-                          text: "Clear Filer",
-                          textColor: kOnboardingColors,
-                          isIcon: false,
-                          onTap: () {
-                            Get.back();
-                          },
                         ),
+                      ],
+                    ),
+                  )),
+              SizedBox(height: size.height * 0.08),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: size.width * 0.02, right: size.width * 0.02),
+                    child: Container(
+                      height: size.height * 0.06,
+                      width: size.width * 0.4,
+                      child: StartedButton(
+                        color: Colors.white,
+                        text: "Clear Filer",
+                        textColor: kOnboardingColors,
+                        isIcon: false,
+                        onTap: () {
+                          // Get.back();
+                          controller.clearFilter();
+                        },
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 0.02, right: size.width * 0.02),
-                      child: Container(
-                        height: size.height * 0.06,
-                        width: size.width * 0.4,
-                        child: StartedButton(
-                          color: kOnboardingColors,
-                          text: "Apply",
-                          textColor: Colors.white,
-                          isIcon: false,
-                          onTap: () {
-                            Get.back();
-                          },
-                        ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: size.width * 0.02, right: size.width * 0.02),
+                    child: Container(
+                      height: size.height * 0.06,
+                      width: size.width * 0.4,
+                      child: StartedButton(
+                        color: kOnboardingColors,
+                        text: "Apply",
+                        textColor: Colors.white,
+                        isIcon: false,
+                        onTap: () {
+                          Get.back();
+                        },
                       ),
                     ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       ),
@@ -187,7 +189,9 @@ class DateTimeField extends GetView<LoginPageController> {
   @override
   Widget build(BuildContext context) {
     _showDatePicker() {
-      Get.dialog(CustomDateTimePicekr());
+      Get.dialog(CustomDateTimePicekr(
+        controller: dateController,
+      ));
     }
 
     size = MediaQuery.of(context).size;
@@ -222,7 +226,9 @@ class DateTimeField extends GetView<LoginPageController> {
 
 // Date Picker
 class CustomDateTimePicekr extends StatelessWidget {
-  const CustomDateTimePicekr({super.key});
+  const CustomDateTimePicekr({super.key, required this.controller});
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -237,64 +243,66 @@ class CustomDateTimePicekr extends StatelessWidget {
           height: size.height * 0.5,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(20)),
-          child: Expanded(
-            child: Column(
-              children: [
-                CalendarDatePicker2(
-                  config: CalendarDatePicker2Config(
-                      calendarViewMode: DatePickerMode.day,
-                      selectedDayHighlightColor: kOnboardingColors,
-                      selectedRangeHighlightColor: kOnboardingColors,
-                      selectedRangeDayTextStyle:
-                          TextStyle(color: kOnboardingColors),
-                      selectedYearTextStyle: TextStyle(color: Colors.white),
-                      weekdayLabelTextStyle:
-                          TextStyle(color: kOnboardingColors),
-                      weekdayLabels: days,
-                      selectedDayTextStyle: TextStyle(color: Colors.white)),
-                  value: _rangeDatePickerValueWithDefaultValue,
-                  onValueChanged: (dates) =>
-                      _rangeDatePickerValueWithDefaultValue = dates,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Container(
-                        height: size.height * 0.06,
-                        width: size.width * 0.35,
-                        child: StartedButton(
-                          color: Colors.grey.shade300,
-                          text: "Cancel",
-                          textColor: Colors.black,
-                          isIcon: false,
-                          onTap: () {
-                            Get.back();
-                          },
-                        ),
+          child: Column(
+            children: [
+              CalendarDatePicker2(
+                config: CalendarDatePicker2Config(
+                    calendarViewMode: DatePickerMode.day,
+                    selectedDayHighlightColor: kOnboardingColors,
+                    selectedRangeHighlightColor: kOnboardingColors,
+                    selectedRangeDayTextStyle:
+                        TextStyle(color: kOnboardingColors),
+                    selectedYearTextStyle: TextStyle(color: Colors.white),
+                    weekdayLabelTextStyle: TextStyle(color: kOnboardingColors),
+                    weekdayLabels: days,
+                    selectedDayTextStyle: TextStyle(color: Colors.white)),
+                value: _rangeDatePickerValueWithDefaultValue,
+                onValueChanged: (dates) =>
+                    _rangeDatePickerValueWithDefaultValue = dates,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.w, right: 0),
+                    child: Container(
+                      height: size.height * 0.06,
+                      width: size.width * 0.35,
+                      child: StartedButton(
+                        color: Colors.grey.shade300,
+                        text: "Cancel",
+                        textColor: Colors.black,
+                        isIcon: false,
+                        onTap: () {
+                          Get.back();
+                        },
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Container(
-                        height: size.height * 0.06,
-                        width: size.width * 0.35,
-                        child: StartedButton(
-                          color: kOnboardingColors,
-                          text: "Apply",
-                          textColor: Colors.white,
-                          isIcon: false,
-                          onTap: () {
-                            Get.back();
-                          },
-                        ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 0, right: 20.w),
+                    child: Container(
+                      height: size.height * 0.06,
+                      width: size.width * 0.35,
+                      child: StartedButton(
+                        color: kOnboardingColors,
+                        text: "Apply",
+                        textColor: Colors.white,
+                        isIcon: false,
+                        onTap: () {
+                          if (_rangeDatePickerValueWithDefaultValue.isNotEmpty)
+                            controller.text = DateFormat('dd/MM/yyyy').format(
+                                _rangeDatePickerValueWithDefaultValue.first!);
+                          ;
+
+                          Get.back();
+                        },
                       ),
                     ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       ),
