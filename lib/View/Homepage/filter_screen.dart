@@ -172,7 +172,9 @@ class FilterScreen extends GetView<FilterScreenController> {
                                               controller.selectedParent.value ==
                                                   4)
                                             SvgPicture.asset(
-                                                'assets/svg/${title.toLowerCase()}.svg'),
+                                              'assets/svg/${title.toLowerCase()}.svg',
+                                              color: Colors.grey.shade800,
+                                            ),
                                           width(size.width * .03),
                                           CustomText(
                                               text: title,

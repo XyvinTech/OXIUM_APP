@@ -38,9 +38,18 @@ class FilterScreenController extends GetxController {
           station_marker_List.forEach((station) {
             capacity = station.charger_capacity.replaceAll(',', 'KwH,');
             //if any of the station contains filter value then add it. avoid illegal contains
-            if (i == 0 &&
-                    station.charger_status.toLowerCase().contains(title) ||
-                i == 1 && station.ac_dc.toLowerCase().contains(title) ||
+            if (i == 0) {
+              if (element.title == 'Busy' && station.isBusy) {
+                list.add(station);
+              } else if (element.title == 'Available' &&
+                  !station.isBusy &&
+                  station.charger_status == 'Connected') {
+                list.add(station);
+              } else if (element.title == 'Faulty' &&
+                  station.charger_status != 'Connected') {
+                list.add(station);
+              }
+            } else if (i == 1 && station.ac_dc.toLowerCase().contains(title) ||
                 i == 2 && station.charger_type.toLowerCase().contains(title) ||
                 i == 3 && capacity.toLowerCase().contains(title) ||
                 i == 4 && station.amenities.toLowerCase().contains(title)) {
@@ -84,7 +93,7 @@ class FilterScreenController extends GetxController {
           id: element.id.toString(),
           latLng: LatLng(element.lattitude, element.longitude),
           isBusy: element.isBusy,
-          status:  element.charger_status.trim(),
+          status: element.charger_status.trim(),
           controller: _controller);
     });
     _controller.reload++;
