@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/chargePage_controller.dart';
 import 'package:freelancer_app/Controller/filter_screen_controller.dart';
+import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -14,9 +15,9 @@ import '../../Controller/loginpage_controller.dart';
 import '../Widgets/appbutton.dart';
 
 // ignore: must_be_immutable
-class ChargeHistoryFilter extends GetView<ChargeScreenController> {
+class WalletHistoryFilterPage extends GetView<WalletPageController> {
   final bool isWallet;
-  ChargeHistoryFilter({super.key, required this.isWallet});
+  WalletHistoryFilterPage({super.key, required this.isWallet});
 
   //RxBool isSelected = false.obs;
 
@@ -80,44 +81,94 @@ class ChargeHistoryFilter extends GetView<ChargeScreenController> {
                     color: Colors.grey,
                   )),
               SizedBox(height: size.height * 0.03),
-              Visibility(
-                  visible: isWallet,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      children: [
-                        CustomBigText(text: "Payment Mode"),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
-                        FittedBox(
-                          child: Row(
-                            children: [
-                              ChipOptions(name: "Admin Topup"),
-                              ChipOptions(name: "Wallet Topup")
-                            ],
-                          ),
-                        ),
-                        Row(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  children: [
+                    CustomBigText(text: "Payment Mode"),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    FittedBox(
+                      child: Obx(
+                        () => Row(
                           children: [
-                            ChipOptions(name: "Charging Transactions"),
+                            ChipOptions(
+                              name: "Admin Topup",
+                              isSelected:
+                                  controller.payment_mode.contains('CMS'),
+                              fun: (value) {
+                                controller.addRemoveOptionToMode('CMS', value);
+                              },
+                            ),
+                            ChipOptions(
+                              name: "Wallet Topup",
+                              isSelected: controller.payment_mode.contains('M'),
+                              fun: (value) {
+                                controller.addRemoveOptionToMode('M', value);
+                              },
+                            )
                           ],
                         ),
-                        SizedBox(height: size.height * 0.05),
-                        CustomBigText(text: "Payment Status"),
-                        SizedBox(height: size.height * 0.02),
-                        FittedBox(
-                          child: Row(
-                            children: [
-                              ChipOptions(name: "Completed"),
-                              ChipOptions(name: "Pending"),
-                              ChipOptions(name: "Failed"),
-                            ],
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  )),
+                    // Row(
+                    //   children: [
+                    //     ChipOptions(name: "Charging Transactions"),
+                    //   ],
+                    // ),
+
+                    GetBuilder<WalletPageController>(builder: (snapshot) {
+                      return Visibility(
+                        visible: controller.payment_mode.contains('M'),
+                        child: Column(
+                          children: [
+                            SizedBox(height: size.height * 0.05),
+                            CustomBigText(text: "Payment Status"),
+                            SizedBox(height: size.height * 0.02),
+                            FittedBox(
+                              child: Obx(
+                                () => Row(
+                                  children: [
+                                    ChipOptions(
+                                        name: "Completed",
+                                        isSelected: controller.payment_status
+                                            .contains('P'),
+                                        fun: (value) {
+                                          controller
+                                              .addRemoveOptionToStatus('P');
+                                        }),
+                                    ChipOptions(
+                                      name: "Pending",
+                                      isSelected: controller.payment_status
+                                          .contains('I'),
+                                      fun: (value) {
+                                        controller.addRemoveOptionToStatus('I');
+                                      },
+                                    ),
+                                    ChipOptions(
+                                      name: "Failed",
+                                      isSelected: controller.isFailed.value,
+                                      fun: (value) {
+                                        // if (!controller.payment_status
+                                        //     .contains('I'))
+                                        //   controller
+                                        //       .addRemoveOptionToStatus('I');
+                                        controller.isFailed.value =
+                                            !controller.isFailed.value;
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    })
+                  ],
+                ),
+              ),
               SizedBox(height: size.height * 0.08),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -312,40 +363,53 @@ class CustomDateTimePicekr extends StatelessWidget {
 
 class ChipOptions extends StatelessWidget {
   final String name;
-  const ChipOptions({super.key, required this.name});
+  final Function(bool value) fun;
+  final bool isSelected;
+  ChipOptions(
+      {super.key,
+      required this.name,
+      required this.fun,
+      required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
-    RxBool isSelected = false.obs;
-    return Obx(() => Padding(
-          padding: const EdgeInsets.all(5),
-          child: InputChip(
-            labelPadding: EdgeInsets.only(
-              left: isSelected.value ? 20 : 30,
-              top: 5,
-              bottom: 5,
-            ),
-            deleteIcon: isSelected.value
-                ? Icon(
-                    Icons.clear,
-                    color: kOnboardingColors,
-                  )
-                : Center(),
-            onDeleted: () => null,
-            side:
-                BorderSide(width: 2, color: Color.fromARGB(255, 203, 232, 255)),
-            label: CustomBigText(
-              text: name,
-              size: 16,
-              color: kOnboardingColors,
-            ),
-            selected: isSelected.value,
-            onSelected: (value) => isSelected.value = value,
-            selectedColor: Color.fromARGB(255, 203, 232, 255),
-            backgroundColor: Colors.transparent,
-            showCheckmark: false,
-            disabledColor: Colors.white,
-          ),
-        ));
+    // RxBool isSelected = false.obs;
+
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: InputChip(
+        labelPadding: EdgeInsets.only(
+          left: isSelected ? 20 : 30,
+          top: 5,
+          bottom: 5,
+        ),
+        deleteIcon: isSelected
+            ? Icon(
+                Icons.clear,
+                color: kOnboardingColors,
+              )
+            : Container(
+                height: 0,
+                width: 0,
+              ),
+        onDeleted: () {
+          fun(false);
+        },
+        side: BorderSide(width: 2, color: Color.fromARGB(255, 203, 232, 255)),
+        label: CustomBigText(
+          text: name,
+          size: 16,
+          color: kOnboardingColors,
+        ),
+        selected: isSelected,
+        onSelected: (value) {
+          fun(value);
+        },
+        selectedColor: Color.fromARGB(255, 203, 232, 255),
+        backgroundColor: Colors.transparent,
+        showCheckmark: false,
+        disabledColor: Colors.white,
+      ),
+    );
   }
 }

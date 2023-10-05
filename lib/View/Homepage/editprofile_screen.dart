@@ -141,52 +141,53 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     controller: controller.emailController,
                     hintText: 'janedoe@example.com',
                   ),
-                  height(size.height * .03),
-                  CustomText(
-                      text: "Invoice Details (Optional)", color: Colors.grey),
-                  // Spacer(),
-                  Container(
-                    height: size.height * .08,
-                    width: size.width * .83,
-                    margin: EdgeInsets.only(top: size.height * .016),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        border: Border.all(width: 0.5, color: Colors.grey),
-                        color: Colors.transparent),
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed(Routes.addInvoicePageRoute);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomText(
-                              text: "Add/Edit Invoice Details",
-                              color: Colors.grey,
-                              size: 15),
-                          SizedBox(
-                            width: size.width * 0.25,
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 12,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
 
-                  height(size.height * .02),
-                  CustomText(
-                      text:
-                          "B2B Customers who requirea GST Invoice, Please Update",
-                      color: Colors.grey,
-                      size: 12),
-                  CustomText(
-                      text: "Billing Details in Profile",
-                      color: Colors.grey,
-                      size: 12),
-                  height(size.height * .06),
+                  height(size.height * .2),
+                  // CustomText(
+                  //     text: "Invoice Details (Optional)", color: Colors.grey),
+                  // // Spacer(),
+                  // Container(
+                  //   height: size.height * .08,
+                  //   width: size.width * .83,
+                  //   margin: EdgeInsets.only(top: size.height * .016),
+                  //   decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(40),
+                  //       border: Border.all(width: 0.5, color: Colors.grey),
+                  //       color: Colors.transparent),
+                  //   child: InkWell(
+                  //     onTap: () {
+                  //       Get.toNamed(Routes.addInvoicePageRoute);
+                  //     },
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         CustomText(
+                  //             text: "Add/Edit Invoice Details",
+                  //             color: Colors.grey,
+                  //             size: 15),
+                  //         SizedBox(
+                  //           width: size.width * 0.25,
+                  //         ),
+                  //         Icon(
+                  //           Icons.arrow_forward_ios,
+                  //           size: 12,
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+
+                  // height(size.height * .02),
+                  // CustomText(
+                  //     text:
+                  //         "B2B Customers who requirea GST Invoice, Please Update",
+                  //     color: Colors.grey,
+                  //     size: 12),
+                  // CustomText(
+                  //     text: "Billing Details in Profile",
+                  //     color: Colors.grey,
+                  //     size: 12),
+                  // height(size.height * .06),
                   SaveButton(
                     onTaop: controller.updateUserProfile,
                   ),

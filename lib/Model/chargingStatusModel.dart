@@ -14,6 +14,9 @@ class ChargingStatusModel {
   final String Chargingstatus;
   final double tariff;
   final double taxamount;
+  final String Capacity;
+  final String OutputType;
+  final String ConnectorType;
 
   ChargingStatusModel({
     required this.Connector,
@@ -31,6 +34,9 @@ class ChargingStatusModel {
     required this.Chargingstatus,
     required this.tariff,
     required this.taxamount,
+    required this.Capacity,
+    required this.OutputType,
+    required this.ConnectorType,
   });
   factory ChargingStatusModel.fromJson(Map<String, dynamic> json) {
     return ChargingStatusModel(
@@ -49,6 +55,9 @@ class ChargingStatusModel {
       Chargingstatus: json['Chargingstatus'] ?? '',
       tariff: json['tariff'] ?? 0,
       taxamount: json['taxamount'] ?? 0,
+      Capacity: json['Capacity'] ?? '',
+      OutputType: json['OutputType'] ?? '',
+      ConnectorType: json['ConnectorType'] ?? '',
     );
   }
   Map<String, dynamic> toJson() => {
@@ -67,5 +76,8 @@ class ChargingStatusModel {
         "Chargingstatus": Chargingstatus,
         "tariff": tariff,
         "taxamount": taxamount,
+        "Capacity": Capacity,
+        "OutputType": OutputType,
+        "ConnectorType": ConnectorType,
       };
 }

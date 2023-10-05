@@ -686,11 +686,15 @@ class CommonFunctions {
     }
   }
 
-  Future<List<OrderModel>> getWalletTransactions(
-      String page, String size) async {
+  Future<List<OrderModel>> getWalletTransactions(String page, String size,
+      String startdate, String enddate, String mode, String status) async {
     var res = await CallAPI().getData('paymentDetails', {
       'page': page,
       'size': size,
+      if (startdate.isNotEmpty) 'startdate': startdate,
+      if (enddate.isNotEmpty) 'enddate': enddate,
+      if (mode.isNotEmpty) 'paymentModes': mode,
+      if (status.isNotEmpty) 'statuses': status,
     });
     kLog(res.statusCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
@@ -728,14 +732,14 @@ class CommonFunctions {
   }
 
   Future<List<ChargeTransactionModel>> getChargeTransactions(
-      String page, String size,) async {
+      String page, String size, String startdate, String enddate) async {
     var res = await CallAPI().getData('bookinglist', {
       'username': appData.userModel.value.username,
       'page': page,
-      'size': size
+      'size': size,
+      if (startdate.isNotEmpty) 'startdate': startdate,
+      if (enddate.isNotEmpty) 'enddate': enddate,
     });
-    kLog(res.statusCode.toString() + 'charge transaction status code');
-    kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<ChargeTransactionModel> list = [];
       res.body['result']['content'].forEach((element) {

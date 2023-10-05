@@ -280,7 +280,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                   children: [
                                     CustomBigText(
                                       text:
-                                          "${controller.booking_model.value.outputType} ${controller.booking_model.value.capacity} KwH",
+                                          "${controller.status_model.value.OutputType} ${controller.status_model.value.Capacity} KwH",
                                       size: 14.sp,
                                       color: Color(0xff4F4F4F),
                                     ),
@@ -288,14 +288,14 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       children: [
                                         CustomBigText(
                                           text:
-                                              "${controller.booking_model.value.connectorType}",
+                                              "${controller.status_model.value.ConnectorType}",
                                           size: 14.sp,
                                           color: Color(0xff4F4F4F),
                                         ),
                                         SizedBox(width: 14.w),
                                         SvgPicture.asset(
                                             height: 24.h,
-                                            "assets/svg/${controller.booking_model.value.connectorType.toLowerCase()}.svg")
+                                            "assets/svg/${controller.status_model.value.ConnectorType.toLowerCase()}.svg")
                                       ],
                                     )
                                   ],

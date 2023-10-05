@@ -1,12 +1,15 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargeTransactionModel.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../Singletones/dialogs.dart';
 
@@ -22,6 +25,7 @@ class ChargeScreenController extends GetxController
   int page = 0, totalElements = 0;
   TextEditingController startDate = TextEditingController();
   TextEditingController endDate = TextEditingController();
+  bool lock = false;
 
   @override
   void onInit() {
@@ -68,8 +72,17 @@ class ChargeScreenController extends GetxController
 
   getChargeTransactions() async {
     showLoading(kLoading);
-    model_list.value =
-        await CommonFunctions().getChargeTransactions('$page', '${10}');
+    String start = '';
+    String end = '';
+    if (startDate.text.isNotEmpty && endDate.text.isNotEmpty) {
+      start = DateFormat('dd-MMM-yyyy')
+          .format(DateFormat('dd/MM/yyyy').parse(startDate.text));
+      end = DateFormat('dd-MMM-yyyy')
+          .format(DateFormat('dd/MM/yyyy').parse(endDate.text));
+    }
+
+    model_list.value = await CommonFunctions()
+        .getChargeTransactions('$page', '${10}', start, end);
     hideLoading();
     setBoxHeight();
   }
@@ -97,8 +110,23 @@ class ChargeScreenController extends GetxController
             (tabController.index == 0 ? model_list.length : 40.0);
   }
 
-  clearFilter() {
+  clearFilter() async {
     startDate.clear();
     endDate.clear();
+    await getChargeTransactions();
+  }
+
+  applyFilter() async {
+    if (lock) return;
+    if (startDate.text.isEmpty || endDate.text.isEmpty) {
+      EasyLoading.showInfo('Please select Start and End date.');
+      return;
+    }
+    lock = true;
+    page = 0;
+    totalElements = 0;
+    await getChargeTransactions();
+    Get.back();
+    lock = false;
   }
 }

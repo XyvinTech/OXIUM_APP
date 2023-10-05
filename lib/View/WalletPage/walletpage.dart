@@ -9,6 +9,7 @@ import 'package:freelancer_app/Singletones/dialogs.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/WalletPage/topup_page.dart';
+import 'package:freelancer_app/View/WalletPage/wallet_filter_page.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -212,7 +213,7 @@ class _WalletScreenState extends State<WalletScreen>
                           right: size.width * .02,
                           child: InkWell(
                             onTap: () {
-                              Get.to(() => PopUpPage());
+                              Get.to(PopUpPage());
                             },
                             child: _walletCard(
                                 title: "Top-Up",
@@ -311,7 +312,10 @@ class _WalletScreenState extends State<WalletScreen>
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Get.to(ChargeHistoryFilter(isWallet: true));
+            // Get.to(WalletHistoryFilterPage(
+            //   isWallet: true,
+            // ));
+            Get.to(() => WalletHistoryFilterPage(isWallet: true));
           },
           backgroundColor: kOnboardingColors,
           child: SvgPicture.asset('assets/svg/filter_alt.svg')),

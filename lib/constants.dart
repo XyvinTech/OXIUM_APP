@@ -162,6 +162,9 @@ final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
     status: '',
     tariff: 0,
     Chargingstatus: '',
+    Capacity: '',
+    OutputType: '',
+    ConnectorType: '',
     taxamount: 0);
 
 final ReviewModel kReviewModel = ReviewModel(
