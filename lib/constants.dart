@@ -162,7 +162,7 @@ final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
     status: '',
     tariff: 0,
     Chargingstatus: '',
-    Capacity: '',
+    Capacity: 0,
     OutputType: '',
     ConnectorType: '',
     taxamount: 0);

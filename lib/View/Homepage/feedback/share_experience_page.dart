@@ -172,7 +172,7 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                   Row(
                     children: [
                       CustomBigText(
-                        text: energy,
+                        text: double.parse(energy).toStringAsFixed(2),
                         size: 24.sp,
                         color: Color(0xff4F4F4F),
                       ),

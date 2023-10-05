@@ -38,19 +38,19 @@ class SplashScreenController extends GetxController {
     if (res.username.isEmpty) {
       Get.offAllNamed(Routes.loginpageRoute);
     } else {
-      BookingModel _bookingModel = await CommonFunctions().getActiveBooking();
-      print(_bookingModel.toJson());
-      if (_bookingModel.bookingId != -1) {
-        ChargingStatusModel _status = await CommonFunctions()
-            .getChargingStatus("${_bookingModel.bookingId}");
-        print(_status.toJson());
-        appData.qr =
-            '0-${_bookingModel.chargerName}-${_bookingModel.chargingpoint}-${_bookingModel.bookedvia}';
-        Get.offAllNamed(Routes.chargingPageRoute,
-            arguments: [appData.qr, _bookingModel]);
-      } else {
-        Get.offAllNamed(Routes.homePageRoute);
-      }
+      // BookingModel _bookingModel = await CommonFunctions().getActiveBooking();
+      // print(_bookingModel.toJson());
+      // if (_bookingModel.bookingId != -1) {
+      //   ChargingStatusModel _status = await CommonFunctions()
+      //       .getChargingStatus("${_bookingModel.bookingId}");
+      //   print(_status.toJson());
+      //   appData.qr =
+      //       '0-${_bookingModel.chargerName}-${_bookingModel.chargingpoint}-${_bookingModel.bookedvia}';
+      //   Get.offAllNamed(Routes.chargingPageRoute,
+      //       arguments: [appData.qr, _bookingModel]);
+      // } else {
+      Get.offAllNamed(Routes.homePageRoute);
+      // }
     }
   }
 }

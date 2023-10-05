@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/Utils/local_notifications.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
@@ -48,8 +50,7 @@ class ChargingScreenController extends GetxController {
   onClose() {
     super.onClose();
     _timer?.cancel();
-    NotificationService().cancelLocalNotification(1);
-
+    // NotificationService().cancelLocalNotification(1);
   }
 
   toConnected() {
@@ -109,56 +110,95 @@ class ChargingScreenController extends GetxController {
   }
 
   Future getChargingStatus(int bookingId) async {
-    _timer = Timer.periodic(Duration(seconds: 7), (timer) async {
-      status_model.value =
-          await CommonFunctions().getChargingStatus(bookingId.toString());
-      kLog(status_model.value.toJson().toString());
+    // _timer = Timer.periodic(Duration(seconds: 7), (timer) async {
+    status_model.value =
+        await CommonFunctions().getChargingStatus(bookingId.toString());
+    status_model.value.unit *= 1000.0;
+    _repeatCall();
+    // if (status_model.value.Chargingstatus == 'I' && !Get.isDialogOpen!) {
+    //   Dialogs().connectPortTipDialog();
+    // } else if (status_model.value.Chargingstatus != 'I' &&
+    //     Get.isDialogOpen!) {
+    //   Get.back();
+    // }
+    status_model.value.Capacity = booking_model.value.capacity;
+    status_model.value.OutputType = booking_model.value.outputType;
+    status_model.value.ConnectorType = booking_model.value.connectorType;
+    Timer? _timer;
+    String time = '';
+////INIT WEBSOCKET FROM HERE
+    SocketRepo().initSocket(
+        bookingId: bookingId,
+        fun: (message) {
+          _timer?.cancel();
+          if (message['status'] == 'C') {
+            status_model.value.status = 'C';
+          } else {
+            status_model.value = ChargingStatusModel.fromJson(message);
+          }
+          status_model.value.Capacity = booking_model.value.capacity;
+          status_model.value.OutputType = booking_model.value.outputType;
+          status_model.value.ConnectorType = booking_model.value.connectorType;
+          status_model.value.amount =
+              (booking_model.value.tariff) * status_model.value.unit;
+          status_model.value.taxamount =
+              (booking_model.value.taxes) * status_model.value.unit;
+          kLog(status_model.value.toJson().toString());
+          _repeatCall();
+// This timer is for if there is no update within the interval then close the session by checking /bookingStatus api
+          if (status_model.value.status == 'R' ||
+              status_model.value.status == 'I')
+            _timer = Timer.periodic(
+                Duration(
+                    seconds: time.isEmpty
+                        ? 60
+                        : DateTime.parse(status_model.value.lastupdated)
+                            .difference(DateTime.parse(time))
+                            .inSeconds), (timer) async {
+              status_model.value = await CommonFunctions()
+                  .getChargingStatus(bookingId.toString());
+              _repeatCall();
+              if (status_model.value.status != 'R') _timer?.cancel();
+            });
+          time = status_model.value.lastupdated;
+        });
+    // });
+  }
 
-      // if (status_model.value.Chargingstatus == 'I' && !Get.isDialogOpen!) {
-      //   Dialogs().connectPortTipDialog();
-      // } else if (status_model.value.Chargingstatus != 'I' &&
-      //     Get.isDialogOpen!) {
-      //   Get.back();
-      // }
+  _repeatCall() async {
+    if (status_model.value.status == 'I') {
+      toInitiating();
+    } else if (status_model.value.status == 'R') {
+      //IF CHARGING STARTED
+      if (chargingStatus.value != 'progress' &&
+          chargingStatus.value != 'finishing') {
+        toConnected();
+        print(status_model.value.startTime);
 
-      if (status_model.value.status == 'S' ||
-          status_model.value.status == 'R' &&
-              status_model.value.Chargingstatus == 'I') {
-        toInitiating();
-      } else if (status_model.value.status == 'R' &&
-          status_model.value.Chargingstatus == 'R') {
-        //IF CHARGING STARTED
-        if (chargingStatus.value != 'progress' &&
-            chargingStatus.value != 'finishing') {
-          toConnected();
-          print(status_model.value.startTime);
-
-          Future.delayed(Duration(seconds: 1), () => toProgress());
-        } else if (chargingStatus.value == 'progress') {
-          time.value = getTimeDifference(
-              startTime: status_model.value.startTime,
-              endtime: status_model.value.lastupdated);
-          NotificationService()
-              .createLocalNotification(100, status_model.value.SOC, 1);
-        }
-      } else if (status_model.value.status == 'R' &&
-          chargingStatus.value == 'C') {
-        toCompleted();
-        _timer?.cancel();
-        NotificationService().cancelLocalNotification(1);
-      } else if (status_model.value.status.isNotEmpty &&
-          status_model.value.status == 'E') {
-        toDisconnected();
-        _timer?.cancel();
-        NotificationService().cancelLocalNotification(1);
-      } else if (status_model.value.status.isEmpty) {
-        toReconnect();
-      } else {
-        toFinished();
-        _timer?.cancel();
-        NotificationService().cancelLocalNotification(1);
+        Future.delayed(Duration(seconds: 1), () => toProgress());
+      } else if (chargingStatus.value == 'progress') {
+        time.value = getTimeDifference(
+            startTime: status_model.value.startTime,
+            endtime: status_model.value.lastupdated);
+        NotificationService()
+            .createLocalNotification(100, status_model.value.SOC, 1);
       }
-    });
+    } else if (status_model.value.status == 'C') {
+      toCompleted();
+      _timer?.cancel();
+      NotificationService().cancelLocalNotification(1);
+    } else if (status_model.value.status.isNotEmpty &&
+        status_model.value.status == 'E') {
+      toDisconnected();
+      _timer?.cancel();
+      NotificationService().cancelLocalNotification(1);
+    } else if (status_model.value.status.isEmpty) {
+      toReconnect();
+    } else {
+      toFinished();
+      SocketRepo().closeSocket();
+      NotificationService().cancelLocalNotification(1);
+    }
   }
 
   onClickFinished() {

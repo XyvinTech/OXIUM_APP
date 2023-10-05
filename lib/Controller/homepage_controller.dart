@@ -7,6 +7,7 @@ import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
+import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/Utils/debouncer.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';
 import 'package:freelancer_app/Utils/local_notifications.dart';
@@ -18,7 +19,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../Model/bookingModel.dart';
+import '../Model/chargingStatusModel.dart';
 import '../Model/notificationModel.dart';
+import '../Singletones/app_data.dart';
 import '../Utils/routes.dart';
 import '../View/Homepage/homepage.dart';
 import 'chargePage_controller.dart';
@@ -30,6 +34,7 @@ class HomePageController extends GetxController {
   RxString done = 'do'.obs;
   RxInt activeIndex = 0.obs;
   RxInt reload = 0.obs;
+  RxBool isCharging = false.obs;
 
   //NEW HELP PAGE STARTS
   CarouselController? carouselController;
@@ -105,11 +110,14 @@ class HomePageController extends GetxController {
   onClose() {
     print('app killed from charging page');
     MapFunctions().dispose();
+    NotificationService().cancelLocalNotification(1);
     super.onClose();
+    SocketRepo().closeSocket();
   }
 
   getNearestChargestations(Position pos) async {
     showLoading('Fetching nearby charge stations.\nPlease wait...');
+    await getActiveBooking(false);
     station_marker_list = await CommonFunctions().getNearestChargstations(pos);
     hideLoading();
     MapFunctions().markers_homepage.clear();
@@ -122,6 +130,25 @@ class HomePageController extends GetxController {
           // element.charger_status.trim() != 'Connected' || element.isBusy,
           controller: this);
     });
+  }
+
+  getActiveBooking(bool isClickOnCard) async {
+    BookingModel _bookingModel = await CommonFunctions().getActiveBooking();
+    print(_bookingModel.toJson());
+    if (_bookingModel.bookingId != -1) {
+      ChargingStatusModel _status = await CommonFunctions()
+          .getChargingStatus("${_bookingModel.bookingId}");
+      print(_status.toJson());
+      isCharging.value = true;
+      if (!isClickOnCard) return;
+      appData.qr =
+          '0-${_bookingModel.chargerName}-${_bookingModel.chargingpoint}-${_bookingModel.bookedvia}';
+      Get.toNamed(Routes.chargingPageRoute,
+          arguments: [appData.qr, _bookingModel]);
+    } else {
+      isCharging.value = false;
+      // Get.offAllNamed(Routes.homePageRoute);
+    }
   }
 
   getChargeStationDetails(String stationId) async {

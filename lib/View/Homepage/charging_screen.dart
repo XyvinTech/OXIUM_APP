@@ -27,11 +27,34 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                     padding: EdgeInsets.only(left: 21.w, right: 21.w),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 29.h,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * .0,
+                              vertical: size.height * .02),
+                          child: Row(
+                            children: [
+                              InkWell(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: Container(
+                                      padding: EdgeInsets.all(5),
+                                      child: SvgPicture.asset(
+                                          'assets/svg/arrow_back_ios.svg'))),
+                              Expanded(
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      child: CustomText(
+                                          text: 'Charging Session',
+                                          size: 18,
+                                          color: Color(0xff4F4F4F),
+                                          fontWeight: FontWeight.bold))),
+                              width(24)
+                            ],
+                          ),
                         ),
                         Container(
-                          height: 411.h,
+                          height: 400.h,
                           width: double.infinity,
                           padding: EdgeInsets.only(top: 39.h, bottom: 42.h),
                           decoration: BoxDecoration(
@@ -293,9 +316,11 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                           color: Color(0xff4F4F4F),
                                         ),
                                         SizedBox(width: 14.w),
-                                        SvgPicture.asset(
-                                            height: 24.h,
-                                            "assets/svg/${controller.status_model.value.ConnectorType.toLowerCase()}.svg")
+                                        if (controller.status_model.value
+                                            .ConnectorType.isNotEmpty)
+                                          SvgPicture.asset(
+                                              height: 24.h,
+                                              "assets/svg/${controller.status_model.value.ConnectorType.toLowerCase()}.svg")
                                       ],
                                     )
                                   ],

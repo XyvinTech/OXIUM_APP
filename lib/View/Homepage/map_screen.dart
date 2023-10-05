@@ -5,8 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
+import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Singletones/map_functions.dart';
@@ -240,6 +242,46 @@ class _MapScreenState extends State<MapScreen>
               //           child: SvgPicture.asset(
               //               'assets/svg/location_searching.svg')),
               //     )),
+              Obx(
+                () => Visibility(
+                  visible: controller.isCharging.value,
+                  child: Positioned(
+                      top: 80.h,
+                      left: 10.w,
+                      right: 10.w,
+                      child: InkWell(
+                        onTap: () {
+                          controller.getActiveBooking(true);
+                        },
+                        child: Container(
+                          // width: MediaQuery.of(context).size.width * .9,
+                          height: 60.h,
+                          decoration: BoxDecoration(
+                              color: Color(0xff2D9CDB),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            child: Row(children: [
+                              SvgPicture.asset('assets/svg/bolt_small.svg'),
+                              width(20.w),
+                              Text(
+                                'Charging in Progress',
+                                style: GoogleFonts.montserrat().copyWith(
+                                    fontSize: 15.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Spacer(),
+                              Icon(
+                                (Icons.arrow_forward_ios),
+                                color: Colors.white,
+                              )
+                            ]),
+                          ),
+                        ),
+                      )),
+                ),
+              ),
               Positioned(
                 bottom: size.height * .01,
                 right: size.width * .03,
