@@ -1,307 +1,372 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
+import 'package:freelancer_app/Model/orderModel.dart';
+import 'package:freelancer_app/Singletones/dialogs.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/WalletPage/topup_page.dart';
+import 'package:freelancer_app/View/WalletPage/wallet_filter_page.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
-class WalletScreen extends GetView<WalletPageController> {
+import '../../Singletones/app_data.dart';
+import '../Charge/charge_history_filter.dart';
+
+class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
 
   @override
+  State<WalletScreen> createState() => _WalletScreenState();
+}
+
+class _WalletScreenState extends State<WalletScreen>
+    with AutomaticKeepAliveClientMixin {
+  WalletPageController controller = Get.find();
+  @override
+  bool get wantKeepAlive => true;
+  @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: Color(0xffF5F9FF),
-          body: CustomScrollView(
-            shrinkWrap: true,
-            slivers: [
-              SliverAppBar(
-                floating: true,
-                pinned: true,
-                backgroundColor: kwhite,
-                expandedHeight: size.height * 0.66,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Container(
-                            height: size.height * 0.58,
-                            width: size.width,
-                            color: Color(0xffF5F9FF),
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: size.height * 0.46,
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.bottomLeft,
-                                          end: Alignment.topRight,
-                                          colors: [
-                                        Color(0xff202020),
-                                        Color(0xff4F4F4F),
-                                      ])),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: SvgPicture.asset(
-                                            "assets/svg/g1.svg"),
-                                      ),
-                                    ],
-                                  ),
+    kLog((size.height * 0.16).toString());
+    kLog(135.h.toString());
+    return Scaffold(
+      backgroundColor: Color(0xffF5F9FF),
+      body: Container(
+        height: size.height,
+        width: size.width,
+        child: CustomScrollView(
+          controller: controller.scrollController,
+          shrinkWrap: true,
+          slivers: [
+            SliverAppBar(
+              floating: true,
+              pinned: true,
+              backgroundColor: kwhite,
+              expandedHeight: size.height * 0.562 + 0 * controller.reload.value,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Column(
+                  children: [
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          height: size.height * 0.58,
+                          width: size.width,
+                          color: Color(0xffF5F9FF),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: size.height * 0.46,
+                                width: size.width,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.bottomLeft,
+                                        end: Alignment.topRight,
+                                        colors: [
+                                      // Color(0xff202020),
+                                      // Color(0xff202020),
+                                      Color.fromARGB(255, 46, 46, 46),
+                                      Color.fromARGB(255, 46, 46, 46),
+                                    ])),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          Positioned(
-                            left: size.width * 0.44,
-                            top: size.height * 0.04,
+                        ),
+                        Positioned(
+                          left: size.width * 0.44,
+                          top: size.height * 0.02,
+                          child: SafeArea(
                             child: CustomBigText(
                               text: "Wallet",
                               color: Color(0xffF2F2F2),
                               size: 18,
                             ),
                           ),
-                          Positioned(
-                            left: size.width * 0.11,
-                            top: size.height * 0.12,
-                            child: SvgPicture.asset("assets/svg/goeclogo.svg"),
-                          ),
-                          Positioned(
-                            right: size.width * 0.11,
-                            top: size.height * 0.11,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                CustomBigText(
-                                  text: "324",
-                                  size: 18,
-                                  color: Color(0xffF2F2F2),
-                                ),
-                                height(size.height * 0.003),
-                                CustomSmallText(
-                                  text: "No of Charges",
-                                )
-                              ],
+                        ),
+                        Positioned(
+                          left: size.width * 0.05,
+                          top: size.height * 0.145,
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.getUserProfile();
+                            },
+                            child: Container(
+                              height: size.height * 0.14,
+                              width: size.width * 0.9,
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 54, 54, 54),
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  FittedBox(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Balance Coins',
+                                          style: kAppBigTextStyle,
+                                        ),
+                                        SizedBox(height: size.height * 0.005),
+                                        Obx(
+                                          () => Text(
+                                            appData
+                                                .userModel.value.balanceAmount
+                                                .toStringAsFixed(2),
+                                            style: kAppSuperBigTextStyle,
+                                          ),
+                                        ),
+                                        SizedBox(height: size.height * 0.005),
+                                        Text(
+                                          "₹ 1 = 1 Coins",
+                                          style: kAppSmallTextStyle,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Image.asset("assets/images/new_wallet.png"),
+                                ],
+                              ),
                             ),
                           ),
-                          Positioned(
-                            right: size.width * 0.11,
-                            top: size.height * 0.23,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                CustomBigText(
-                                  text: "21 Jun 2022",
-                                  size: 18,
-                                  color: Color(0xffF2F2F2),
-                                ),
-                                height(size.height * 0.003),
-                                CustomSmallText(
-                                  text: "Expiry date",
-                                )
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            left: size.width * 0.11,
-                            top: size.height * 0.23,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomSmallText(
-                                  text: "Balance Credits",
-                                ),
-                                height(size.height * 0.003),
-                                CustomBigText(
-                                  text: "₹ 12556",
-                                  size: 26,
-                                  color: Color(0xff00FFB3),
-                                )
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            bottom: size.height * 0.025,
-                            left: size.width * 0.04,
-                            child: InkWell(
-                              onTap: () {
-                                Get.to(() => PopUpPage());
-                              },
-                              child: _walletCard(
-                                  title: "TopUp",
-                                  assets: "assets/svg/circledoller.svg",
-                                  color: Color(0xff0047C3),
-                                  shadowColor:
-                                      Color(0xff000000).withOpacity(.33),
-                                  textColor: Color(0xff00FFB3)),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: size.height * 0.025,
-                            right: size.width * 0.04,
+                        ),
+                        // Positioned(
+                        //     right: size.width * 0.11,
+                        //     top: size.height * 0.11,
+                        //     child: CustomBigText(
+                        //       text: '₹ 1 = 1 Coins',
+                        //       color: Color(0xffF2F2F2),
+                        //     )
+                        //     // Column(
+                        //     //   crossAxisAlignment: CrossAxisAlignment.end,
+                        //     //   children: [
+                        //     //     CustomBigText(
+                        //     //       text:
+                        //     //           "${appData.userModel.value.total_sessions}",
+                        //     //       size: 18,
+                        //     //       color: Color(0xffF2F2F2),
+                        //     //     ),
+                        //     //     height(size.height * 0.003),
+                        //     //     CustomSmallText(
+                        //     //       text: "No of Charges",
+                        //     //     )
+                        //     //   ],
+                        //     // ),
+                        //     ),
+                        // Positioned(
+                        //   right: size.width * 0.11,
+                        //   top: size.height * 0.23,
+                        //   child: Column(
+                        //     crossAxisAlignment: CrossAxisAlignment.end,
+                        //     children: [
+                        //       CustomBigText(
+                        //         text:
+                        //             "${appData.userModel.value.total_sessions}",
+                        //         size: 18,
+                        //         color: Color(0xffF2F2F2),
+                        //       ),
+                        //       height(size.height * 0.003),
+                        //       CustomSmallText(
+                        //         text: "No of Charges",
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                        // Positioned(
+                        //   left: size.width * 0.11,
+                        //   top: size.height * 0.23,
+                        //   child: Column(
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: [
+                        //       CustomSmallText(
+                        //         text: "Balance Credits",
+                        //       ),
+                        //       height(size.height * 0.003),
+                        //       Obx(
+                        //         () => CustomBigText(
+                        //           text:
+                        //               "₹ ${appData.userModel.value.balanceAmount.toStringAsFixed(2)}",
+                        //           size: 26,
+                        //           color: Color(0xff00FFB3),
+                        //         ),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                        Positioned(
+                          bottom: size.height * 0.18,
+                          left: size.width * .02,
+                          right: size.width * .02,
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(PopUpPage());
+                            },
                             child: _walletCard(
-                                title: "Scan Code",
-                                assets: "assets/svg/qr_code.svg",
-                                color: kwhite,
-                                shadowColor: Color(0xff000000).withOpacity(.06),
-                                textColor: Color(0xff0047C3)),
+                                title: "Top-Up",
+                                //assets: "assets/svg/circledoller.svg",
+                                color: Color(0xff0047C3),
+                                textColor: Colors.white),
                           ),
-                        ],
+                        ),
+                        // Positioned(
+                        //   bottom: size.height * 0.025,
+                        //   right: size.width * 0.04,
+                        //   child: _walletCard(
+                        //       title: "Scan Code",
+                        //       assets: "assets/svg/qr_code.svg",
+                        //       color: kwhite,
+                        //       shadowColor: Color(0xff000000).withOpacity(.06),
+                        //       textColor: Color(0xff0047C3)),
+                        // ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(size.height * 0.1),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25)),
+                  width: double.infinity,
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      Container(
+                        height: size.height * 0.008,
+                        width: size.width * 0.34,
+                        decoration: BoxDecoration(
+                            color: Color(0xffE0E0E0),
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.015,
+                      ),
+                      CustomBigText(
+                        text: "Payments",
+                        size: 14,
+                        color: Color(0xff828282),
                       ),
                     ],
                   ),
                 ),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(size.height * 0.1),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Obx(
+                () => Container(
+                  color: Colors.white,
                   child: Container(
-                    color: Colors.white,
-                    width: double.infinity,
+                    height: controller.modelList.length * (138.h) +
+                        35.h -
+                        controller.page * 18.h,
                     child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      // crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: size.height * 0.01,
-                        ),
-                        Container(
-                          height: size.height * 0.008,
-                          width: size.width * 0.34,
-                          decoration: BoxDecoration(
-                              color: Color(0xffE0E0E0),
-                              borderRadius: BorderRadius.circular(10)),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.015,
-                        ),
-                        CustomBigText(
-                          text: "Payments",
-                          size: 14,
-                          color: Color(0xff828282),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
+                        Expanded(
+                          child: ListView.builder(
+                              itemCount: controller.modelList.length,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (_, index) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * .03,
+                                      vertical: 8.h),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Dialogs().wallet_transaction_popup(
+                                          model: controller.modelList[index]);
+                                    },
+                                    child: _creditCard(
+                                        model: controller.modelList[index]),
+                                  ),
+                                );
+                              }),
+                        )
                       ],
                     ),
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      height(size.height * 0.01),
-                      Container(
-                        height: 1000,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                // width: size.width * .92,
-                                padding:
-                                    EdgeInsets.only(top: size.height * .01),
-                                child: ListView.builder(
-                                    itemCount: 40,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (_, index) {
-                                      return Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: size.width * .03,
-                                            vertical: size.height * .01),
-                                        child: InkWell(
-                                          onTap: () {
-                                            Get.dialog(
-                                              _dialougebox(
-                                                title: "Calista Cafe",
-                                                amount: "-500",
-                                                amountColor: Color(0xffEB5757),
-                                              ),
-                                              // wallet credit dialogue
-
-                                              //            Get.dialog(
-                                              //   _dialougebox(
-                                              //     title: "Wallet Credit",
-                                              //     amount: "+500 Cr",
-                                              //     amountColor: Color(0xff27AE60),
-                                              //   ),
-                                              // );
-                                            );
-                                          },
-                                          child: _creditCard(
-                                              title: "Calista Cafe",
-                                              date: "12 Jun 2022",
-                                              time: "03:30 PM",
-                                              amount: "+500 Cr"),
-                                        ),
-                                      );
-                                    }),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          )),
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Get.to(WalletHistoryFilterPage(
+            //   isWallet: true,
+            // ));
+            Get.to(() => WalletHistoryFilterPage(isWallet: true));
+          },
+          backgroundColor: kOnboardingColors,
+          child: SvgPicture.asset('assets/svg/filter_alt.svg')),
     );
   }
 
   Widget _walletCard(
       {required String title,
-      required String assets,
+      //required String assets,
       required Color color,
-      required Color shadowColor,
       required Color textColor}) {
     return Container(
-      height: size.height * 0.2,
-      width: size.width * 0.4,
+      height: size.height * 0.07,
+      width: 50,
       decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(19),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 4),
-              blurRadius: 32,
-              spreadRadius: 0,
-              color: shadowColor,
-            ),
-          ]),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(assets),
-          height(size.height * 0.01),
-          CustomBigText(
-            text: title,
-            size: 14,
-            color: textColor,
-          )
-        ],
+        color: color,
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Center(
+        child: CustomBigText(
+          text: title,
+          size: 14,
+          color: textColor,
+        ),
       ),
     );
   }
 
   Widget _creditCard({
-    required String title,
-    required String date,
-    required String time,
-    required String amount,
+    required OrderModel model,
   }) {
+    String title = '';
+    Color color = Colors.transparent;
+    if (model.status == 'P') {
+      title = 'Success';
+      color = Color(0xff219653);
+    } else if (model.statusUpdateBy == 'M' && model.status == 'I') {
+      title = 'Pending';
+      color = Color(0xffDF8600);
+    } else {
+      title == 'Failed';
+      color = Color(0xffDC2525);
+    }
     return Container(
-      height: size.height * 0.08,
+      // height: size.height * 0.15,
+      height: 120.h,
+      padding: EdgeInsets.symmetric(
+          // vertical: size.height * .01,
+          vertical: 10.h,
+          horizontal: size.width * .03),
+      alignment: Alignment.center,
       decoration: BoxDecoration(
           color: kwhite,
           borderRadius: BorderRadius.circular(10),
@@ -312,261 +377,77 @@ class WalletScreen extends GetView<WalletPageController> {
                 spreadRadius: 0,
                 color: Color(0xff000000).withOpacity(.08))
           ]),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: size.height * 0.05,
-                  width: size.width * 0.12,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(
-                      "assets/images/coffee1.png",
+                CircleAvatar(
+                    child: SvgPicture.asset(model.statusUpdateBy == 'M'
+                        ? 'assets/svg/wallet_topup.svg'
+                        : 'assets/svg/admin_topup.svg')),
+                width(size.width * .02),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomSmallText(
+                      text: 'Credit',
+                      size: 10.sp,
                     ),
-                  ),
+                    CustomBigText(
+                      text: model.statusUpdateBy == 'M'
+                          ? 'Wallet Topup'
+                          : 'Admin Topup',
+                      letterspacing: -0.408,
+                      color: Color(0xff828282),
+                      size: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                width(size.width * 0.03),
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.015),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomSmallText(
-                        text: title,
-                        letterspacing: -0.408,
-                        size: 16,
-                      ),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            "assets/svg/calendar_month.svg",
-                            width: size.width * 0.045,
-                          ),
-                          width(size.width * 0.01),
-                          CustomSmallText(
-                            text: "${date} at ${time}",
-                            size: 12,
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                CustomBigText(
-                  text: amount,
-                  size: 16,
-                  color: Color(0xff27AE60),
-                ),
-                width(size.width * 0.03),
+                Spacer(),
                 SvgPicture.asset("assets/svg/arrow_forward_ios.svg")
               ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _dialougebox(
-      {required String title,
-      required String amount,
-      required Color amountColor}) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      contentPadding: EdgeInsets.all(0),
-      content: Container(
-        height: size.height * 0.4,
-        width: size.width * 0.8,
-        decoration: BoxDecoration(
-            // borderRadius: BorderRadius.circular(20),
             ),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  left: size.width * 0.04,
-                  right: size.width * 0.04,
-                  top: size.height * 0.02),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomBigText(
-                    text: "Payments",
-                    size: 14,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: SvgPicture.asset("assets/svg/close.svg"),
-                  ),
-                ],
-              ),
-            ),
-            height(size.height * 0.01),
-            Divider(
-              thickness: size.height * 0.002,
-              color: Color(0xffE0E0E0),
-            ),
-            height(size.height * 0.01),
-            Padding(
-              padding: EdgeInsets.only(
-                left: size.width * 0.04,
-                right: size.width * 0.04,
-              ),
-              child: Row(
-                children: [
-                  Image.asset(
-                    'assets/images/coffee1.png',
-                    width: size.width * 0.1,
-                  ),
-                  width(size.width * 0.04),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: size.height * 0.00),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomSmallText(
-                          text: title,
-                          letterspacing: -0.408,
-                          size: 16,
-                        ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              "assets/svg/calendar_month.svg",
-                              width: size.width * 0.045,
-                            ),
-                            width(size.width * 0.01),
-                            CustomSmallText(
-                              text: "12 Jun 2022 at 03:30 PM",
-                              size: 12,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            height(size.height * 0.04),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+          Expanded(
+            child: Row(
               children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: CustomSmallText(
-                    text: "Vehicle details",
-                    size: 12,
-                    color: Color(0xffBDBDBD),
-                  ),
+                width(size.width * .03),
+                SvgPicture.asset(
+                  "assets/svg/calendar_month.svg",
+                  width: size.width * 0.045,
                 ),
-                height(size.height * 0.002),
-                Padding(
-                  padding: EdgeInsets.only(left: size.width * 0.24),
-                  child: Row(
-                    children: [
-                      CustomBigText(
-                        text: "Jeep",
-                        size: 18,
-                      ),
-                      width(size.width * 0.02),
-                      CustomBigText(
-                        text: "RUBICON",
-                        size: 18,
-                        color: Color(0xff4F4F4F),
-                      )
-                    ],
-                  ),
+                CustomSmallText(
+                  text: getTimeFromTimeStamp(
+                      model.pgOrderGenTime, 'dd MMM yyyy hh:mm a'),
+                  size: 12.sp,
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: CustomSmallText(
-                    text: "Vehicle No : KL 07 A 223",
-                    size: 12,
-                  ),
-                )
-              ],
-            ),
-            height(size.height * 0.02),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                    vertical: size.height * 0.008,
-                    horizontal: size.width * 0.04),
-                height: size.height * 0.095,
-                decoration: BoxDecoration(
-                  color: kwhite,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Color(0xff219653),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Spacer(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: size.height * 0.025,
-                          width: size.width * 0.15,
-                          decoration: BoxDecoration(
-                            color: Color(0xffDEEAFF),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(
-                            child: CustomSmallText(
-                              text: "Energy",
-                              size: 12,
-                              color: Color(0xff0047C3),
-                            ),
-                          ),
-                        ),
-                        height(size.height * 0.004),
-                        Row(
-                          children: [
-                            CustomBigText(
-                              text: "356",
-                              size: 24,
-                              color: Color(0xff4F4F4F),
-                            ),
-                            width(size.width * 0.01),
-                            CustomSmallText(text: "kWh"),
-                          ],
-                        ),
-                      ],
+                    CustomBigText(
+                      text: "${model.amount.toStringAsFixed(2)}",
+                      size: 20.sp,
+                      color: color,
                     ),
-                    Column(
-                      children: [
-                        CustomSmallText(
-                          text: "Amount(in coins)",
-                          size: 12,
-                        ),
-                        height(size.height * 0.004),
-                        CustomBigText(
-                          text: amount,
-                          color: amountColor,
-                          size: 24,
-                          fontWeight: FontWeight.w500,
-                        )
-                      ],
+                    width(5.w),
+                    CustomSmallText(
+                      text: 'Coins',
+                      size: 12.sp,
                     )
                   ],
                 ),
-              ),
-            )
-          ],
-        ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

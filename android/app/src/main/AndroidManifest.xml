@@ -1,27 +1,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.freelancer_app">
+    package="com.goecworld.goec">
+
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--for android 13 and above-->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" /> <!-- For Images-->
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEOS" /> <!-- For video-->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" /> <!-- For Audio-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-                           <!-- Provide required visibility configuration for API level 30 and above -->
-    <queries>
-            <!-- If your app checks for SMS support -->
-        <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="sms" />
-        </intent>
-            <!-- If your app checks for call support -->
-        <intent>
-            <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="tel" />
-        </intent>
-    </queries>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+     
    <application
-        android:label="freelancer_app"
+        android:label="ECGO"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -52,12 +48,6 @@
             android:value="2" />
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs"/>
-        <!-- ADDED FOR TELEPHONY -->
-        <receiver android:name="com.shounakmulay.telephony.sms.IncomingSmsReceiver"
-		    android:permission="android.permission.BROADCAST_SMS" android:exported="true">
-		    <intent-filter>
-		    <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-		    </intent-filter>
-		</receiver>
+
     </application>
 </manifest>

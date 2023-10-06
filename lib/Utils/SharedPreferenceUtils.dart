@@ -4,7 +4,7 @@ SharedPreferences? prefs;
 
 Future<String?> saveString(String key, String value) async {
   if (prefs == null) prefs = await SharedPreferences.getInstance();
-  prefs?.setString(key, value);
+  await prefs?.setString(key, value);
   return value;
 }
 
@@ -37,8 +37,8 @@ Future<bool> getBool(String key) async {
   }
 }
 
- clearData() async {
+ Future<bool>clearData() async {
   if (prefs == null) prefs = await SharedPreferences.getInstance();
-  prefs?.clear();
-  return;
+  
+  return (await prefs?.clear())??false;
 }

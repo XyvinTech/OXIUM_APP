@@ -1,16 +1,12 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/help_page_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import '../../Utils/toastUtils.dart';
 import '../Widgets/customText.dart';
 
@@ -48,16 +44,17 @@ class HelpScreen extends GetView<HelpPageController> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                width(24)
+                width(24.w)
               ],
             ),
           ),
           height(size.height * 0.04),
           Obx(
             () => Container(
-              height: size.height * 0.33,
-              width: size.width,
-              color: Color(0xffF5F9FF),
+              // height: size.height * 0.33,
+              height: 285.h,
+              width: double.maxFinite,
+
               child: Column(
                 children: [
                   Padding(
@@ -65,48 +62,60 @@ class HelpScreen extends GetView<HelpPageController> {
                     child: CarouselSlider(
                       // onPageChanged: (index, reason) => _currentIndex = index,
 
-                      items: controller.carouselText
+                      items: controller.carouselImage
                           .map(
-                            (text) => Container(
-                              height: size.height * 0.25,
-                              width: size.width * 0.8,
+                            (img) => Container(
+                              padding: EdgeInsets.symmetric(horizontal: 37.w),
+                              // height: size.height * 0.25,
+                              // height: 300.h,
+                              // width: size.width * 0.8,
+                              width: 300.w,
                               decoration: BoxDecoration(
                                 color: kwhite,
                                 borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage(img), fit: BoxFit.cover),
                                 boxShadow: [
                                   BoxShadow(
                                     offset: Offset(0, 4),
                                     spreadRadius: 0,
-                                    blurRadius: 34,
+                                    blurRadius: 34.r,
                                     color: Color(0xff000000).withOpacity(0.06),
                                   ),
                                 ],
                               ),
                               child: Column(children: [
                                 Expanded(child: Container()),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: size.width * 0.05,
-                                      right: size.width * 0.01),
-                                  child: CustomText(
-                                      text: text,
-                                      size: 13,
-                                      color: Color(0xff828282)),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: CustomBigText(
+                                        text: controller.carouselText[
+                                            controller.currentIndex.toInt()],
+                                        size: 13.sp,
+                                        color: Color(0xff000000),
+                                        fontWeight: FontWeight.w500,
+                                        align: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
-                                  height: size.height * .03,
+                                  height: 15.h,
                                 ),
                               ]),
                             ),
                           )
                           .toList(),
                       options: CarouselOptions(
-                        height: size.height * 0.25,
+                        // height: size.height * 0.25,
+                        height: 220.h,
                         initialPage: 0,
-                        autoPlay: true,
+                        autoPlay: false,
                         reverse: false,
                         enlargeCenterPage: true,
-                        enableInfiniteScroll: true,
+                        enableInfiniteScroll: false,
                         scrollDirection: Axis.horizontal,
                         autoPlayInterval: Duration(seconds: 2),
                         autoPlayAnimationDuration: Duration(milliseconds: 2000),
@@ -115,7 +124,7 @@ class HelpScreen extends GetView<HelpPageController> {
                       ),
                     ),
                   ),
-                  height(size.height * 0.02),
+                  height(15.h),
                   // new DotsIndicator(
                   //   decorator: DotsDecorator(
 
@@ -136,10 +145,10 @@ class HelpScreen extends GetView<HelpPageController> {
                               .animateToPage(entry.key);
                         },
                         child: Container(
-                          width: 8.0,
-                          height: 8.0,
+                          width: 8.w,
+                          height: 8.h,
                           margin: EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 4.0),
+                              vertical: 8.h, horizontal: 4.w),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: (controller.currentIndex.value == entry.key
@@ -156,14 +165,16 @@ class HelpScreen extends GetView<HelpPageController> {
           height(size.height * 0.02),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .062),
-            child: _contractCard("Talk to Customer care", () {
+            child:
+                _contractCard("Talk to Customer care", Icons.call, "null", () {
               controller.openPhoneCall("+8801738347723");
             }),
           ),
           height(size.height * 0.02),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .062),
-            child: _contractCard("Chat on Whatsapp", () {
+            child: _contractCard(
+                "Chat on Whatsapp", null, "assets/images/whatsapp.png", () {
               // if (Platform.isAndroid) {
               //   controller.openWhatsApp();
               //   log("android whatsapp working");
@@ -176,7 +187,8 @@ class HelpScreen extends GetView<HelpPageController> {
           height(size.height * 0.02),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: size.width * .062),
-            child: _contractCard("Report an Issue", () {
+            child: _contractCard(
+                "Report an Issue", null, "assets/images/report_issue.png", () {
               // if (Platform.isAndroid) {
               //   controller.openMail("mahmudulhasan5008@gmail.com");
               // } else if (Platform.isIOS) {
@@ -189,24 +201,25 @@ class HelpScreen extends GetView<HelpPageController> {
           Expanded(
             child: Container(),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: size.width * 0.2,
-                right: size.width * 0.13,
-                bottom: size.height * 0.05),
-            child: CustomText(
-              color: Color(0xff4f4f4f),
-              size: 12,
-              text:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ',
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //       left: size.width * 0.2,
+          //       right: size.width * 0.13,
+          //       bottom: size.height * 0.05),
+          //   child: CustomText(
+          //     color: Color(0xff4f4f4f),
+          //     size: 12,
+          //     text:
+          //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ',
+          //   ),
+          // ),
         ],
       ),
     ));
   }
 
-  Widget _contractCard(String title, void Function()? ontap) {
+  Widget _contractCard(
+      String title, IconData? icon, String? image, void Function()? ontap) {
     return InkWell(
       onTap: ontap,
       child: Container(
@@ -228,11 +241,16 @@ class HelpScreen extends GetView<HelpPageController> {
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.call,
-                    size: 17,
-                    color: Color(0xff4F4F4F),
-                  ),
+                  icon != null
+                      ? Icon(
+                          icon,
+                          size: 17,
+                          color: Color(0xff4F4F4F),
+                        )
+                      : Center(
+                          child:
+                              Container(height: 22, child: Image.asset(image!)),
+                        ),
                   width(size.width * 0.05),
                   CustomBigText(
                     text: title,

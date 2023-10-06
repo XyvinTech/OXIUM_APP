@@ -1,4 +1,4 @@
-package com.example.freelancer_app
+package com.goecworld.goec
 
 import io.flutter.embedding.android.FlutterActivity
 

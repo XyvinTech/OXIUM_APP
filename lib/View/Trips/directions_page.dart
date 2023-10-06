@@ -11,6 +11,7 @@ import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/apptext.dart';
 import '../Widgets/rounded_container.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DirectionsScreen extends GetView<DirectionsScreenController> {
   const DirectionsScreen({super.key});
@@ -47,7 +48,7 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
                         print(value);
                         MapFunctions().setMapFitToPolyline(
                             MapFunctions().polylines,
-                            MapFunctions().dirMapController);
+                            MapFunctions().dirMapController!);
                         // MapFunctions().addMarkerHomePage(
                         //     name: value.latitude.toString(),
                         //     latLng: value,
@@ -280,7 +281,7 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.toNamed(Routes.navigationPageRoute, arguments: [
+                    Get.offNamed(Routes.navigationPageRoute, arguments: [
                       controller.directionsResult,
                       controller.source,
                       controller.destination
@@ -398,6 +399,7 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
               child: Padding(
                 padding: EdgeInsets.only(left: size.width * 0.04),
                 child: TextFormField(
+                  controller: controller.tripsNameController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     focusedBorder: InputBorder.none,
@@ -457,13 +459,16 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
                 children: [
                   SvgPicture.asset("assets/svg/line.svg"),
                   width(size.width * 0.03),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: size.height * 0.02),
-                    child: CustomBigText(
-                      text: controller.source.value.description ?? '',
-                      size: 14,
-                      color: Color(0xff4F4F4F),
-                      letterspacing: -0.408,
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: size.height * 0.02),
+                      child: CustomBigText(
+                        text: controller.source.value.description ?? '',
+                        size: 15.sp,
+                        textOverflow: TextOverflow.ellipsis,
+                        color: Color(0xff4F4F4F),
+                        letterspacing: -0.408,
+                      ),
                     ),
                   )
                 ],
@@ -489,13 +494,16 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
               ),
             ),
             height(size.height * 0.004),
-            Padding(
-              padding: EdgeInsets.only(left: size.width * 0.05),
-              child: CustomBigText(
-                text: controller.destination.value.description ?? '',
-                size: 14,
-                color: Color(0xff4F4F4F),
-                letterspacing: -0.408,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(left: size.width * 0.05),
+                child: CustomBigText(
+                  text: controller.destination.value.description ?? '',
+                  size: 15.sp,
+                  textOverflow: TextOverflow.ellipsis,
+                  color: Color(0xff4F4F4F),
+                  letterspacing: -0.408,
+                ),
               ),
             ),
             height(size.height * 0.04),
@@ -597,9 +605,12 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
                   width: size.width * 0.04,
                 ),
                 width(size.width * 0.01),
-                CustomBigText(
-                  text: "Trip 01",
-                  size: 16,
+                Expanded(
+                  child: CustomBigText(
+                    text: controller.tripsNameController.text,
+                    textOverflow: TextOverflow.ellipsis,
+                    size: 16,
+                  ),
                 )
               ],
             ),
@@ -648,13 +659,16 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
                 children: [
                   SvgPicture.asset("assets/svg/line.svg"),
                   width(size.width * 0.03),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: size.height * 0.02),
-                    child: CustomBigText(
-                      text: controller.source.value.description ?? '',
-                      size: 14,
-                      color: Color(0xff4F4F4F),
-                      letterspacing: -0.408,
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: size.height * 0.02),
+                      child: CustomBigText(
+                        text: controller.source.value.description ?? '',
+                        size: 15.sp,
+                        textOverflow: TextOverflow.ellipsis,
+                        color: Color(0xff4F4F4F),
+                        letterspacing: -0.408,
+                      ),
                     ),
                   )
                 ],
@@ -680,13 +694,16 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
               ),
             ),
             height(size.height * 0.004),
-            Padding(
-              padding: EdgeInsets.only(left: size.width * 0.05),
-              child: CustomBigText(
-                text: controller.destination.value.description ?? '',
-                size: 14,
-                color: Color(0xff4F4F4F),
-                letterspacing: -0.408,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(left: size.width * 0.05),
+                child: CustomBigText(
+                  text: controller.destination.value.description ?? '',
+                  textOverflow: TextOverflow.ellipsis,
+                  size: 15.sp,
+                  color: Color(0xff4F4F4F),
+                  letterspacing: -0.408,
+                ),
               ),
             ),
             height(size.height * 0.04),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:freelancer_app/constants.dart';
 
 class LoginCustomAppBar extends StatelessWidget {
@@ -44,19 +43,47 @@ class LoginCustomAppBar extends StatelessWidget {
   }
 }
 
+class OnboardingCustomAppBar extends StatelessWidget {
+  final String? text;
+  final Widget? icon;
+  const OnboardingCustomAppBar({super.key, this.text, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          children: [
+            Image.asset(
+              "assets/images/goeclogo2.png",
+              height: 80,
+              width: 120,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class CustomAppBar extends StatelessWidget {
   final String? text;
   final Widget? icon;
   final Color? color;
+  final Widget? logo;
   final void Function()? skiponTap;
   final void Function()? icononTap;
-  const CustomAppBar(
-      {super.key,
-      this.text,
-      this.icon,
-      this.color,
-      this.skiponTap,
-      this.icononTap});
+  const CustomAppBar({
+    super.key,
+    this.text,
+    this.icon,
+    this.color,
+    this.skiponTap,
+    this.icononTap,
+    this.logo,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -68,18 +95,19 @@ class CustomAppBar extends StatelessWidget {
         // top: size.height * .02
       ),
       // height: size.height * 0.09,
-      color: color ?? kOnboardingBackgroundColors,
+      color: color ?? kOnboardingColors,
       child: SafeArea(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
-                Image.asset(
-                  "assets/images/goeclogo.png",
-                  height: size.height * 0.065,
-                  width: size.width * 0.17,
-                ),
+                logo ??
+                    Image.asset(
+                      "assets/images/goeclogo.png",
+                      height: size.height * 0.065,
+                      width: size.width * 0.17,
+                    ),
               ],
             ),
             Row(
@@ -97,7 +125,7 @@ class CustomAppBar extends StatelessWidget {
                     padding: EdgeInsets.only(top: size.height * 0.004),
                     child: IconButton(
                       color: kwhite,
-                      onPressed: icononTap,
+                      onPressed: skiponTap,
                       icon: icon!,
                     ),
                   ),

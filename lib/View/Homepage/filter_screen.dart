@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../Controller/filter_screen_controller.dart';
+import '../../Singletones/app_data.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/customText.dart';
@@ -119,23 +119,23 @@ class FilterScreen extends GetView<FilterScreenController> {
                           Expanded(
                             child: Obx(
                               () => ListView.builder(
-                                  itemCount: controller
+                                  itemCount: appData
                                       .filterList[
                                           controller.selectedParent.value]
                                       .length,
                                   itemBuilder: (context, index) {
-                                    String title = controller
+                                    String title = appData
                                         .filterList[controller
                                             .selectedParent.value][index]
                                         .title;
                                     return InkWell(
                                       onTap: () {
-                                        controller
+                                        appData
                                                 .filterList[controller
                                                     .selectedParent
                                                     .value][index]
                                                 .isSelected =
-                                            !controller
+                                            !appData
                                                 .filterList[controller
                                                     .selectedParent
                                                     .value][index]
@@ -151,13 +151,13 @@ class FilterScreen extends GetView<FilterScreenController> {
                                               child: Checkbox(
                                                   activeColor:
                                                       Color(0xff0047C3),
-                                                  value: controller
+                                                  value: appData
                                                       .filterList[controller
                                                           .selectedParent
                                                           .value][index]
                                                       .isSelected,
                                                   onChanged: (value) {
-                                                    controller
+                                                    appData
                                                         .filterList[controller
                                                             .selectedParent
                                                             .value][index]
@@ -172,7 +172,9 @@ class FilterScreen extends GetView<FilterScreenController> {
                                               controller.selectedParent.value ==
                                                   4)
                                             SvgPicture.asset(
-                                                'assets/svg/${title}.svg'),
+                                              'assets/svg/${title.toLowerCase()}.svg',
+                                              color: Colors.grey.shade800,
+                                            ),
                                           width(size.width * .03),
                                           CustomText(
                                               text: title,
@@ -191,6 +193,7 @@ class FilterScreen extends GetView<FilterScreenController> {
                                 bottom: size.height * .05),
                             child: InkWell(
                               onTap: () {
+                                controller.applyFilter();
                                 Get.back();
                               },
                               child: Container(

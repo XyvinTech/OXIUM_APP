@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 //CustomBigText Widget
@@ -11,6 +12,10 @@ class CustomBigText extends StatelessWidget {
   final FontWeight? fontWeight;
   final String? fontFamily;
   final double? letterspacing;
+  final TextOverflow? textOverflow;
+
+  final TextAlign? align;
+
   const CustomBigText(
       {super.key,
       required this.text,
@@ -19,7 +24,9 @@ class CustomBigText extends StatelessWidget {
       this.fontWeight,
       this.ontap,
       this.fontFamily,
-      this.letterspacing});
+      this.letterspacing,
+      this.textOverflow,
+      this.align});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +35,12 @@ class CustomBigText extends StatelessWidget {
       child: Container(
         child: AutoSizeText(
           text,
+          textAlign: align ?? TextAlign.left,
           minFontSize: 10,
+          overflow: textOverflow,
           style: GoogleFonts.poppins(
             letterSpacing: letterspacing ?? null,
-            fontSize: size ?? 20,
+            fontSize: size ?? 20.sp,
             fontWeight: fontWeight ?? FontWeight.w600,
             color: color ?? Color(0xff828282),
             fontStyle: FontStyle.normal,
@@ -51,6 +60,7 @@ class CustomSmallText extends StatelessWidget {
   final FontWeight? fontWeight;
   final double? letterspacing;
   final TextAlign? textAlign;
+  final TextDecoration? decoration;
 
   const CustomSmallText(
       {super.key,
@@ -60,7 +70,8 @@ class CustomSmallText extends StatelessWidget {
       this.fontWeight,
       this.ontap,
       this.letterspacing,
-      this.textAlign});
+      this.textAlign,
+      this.decoration});
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +82,11 @@ class CustomSmallText extends StatelessWidget {
           text,
           textAlign: textAlign ?? null,
           minFontSize: 12,
+          overflow: TextOverflow.ellipsis,
           style: GoogleFonts.poppins(
+            decoration: decoration,
             letterSpacing: letterspacing ?? null,
-            fontSize: size ?? 14,
+            fontSize: size ?? 14.sp,
             fontWeight: fontWeight ?? FontWeight.w400,
             color: color ?? Color(0xff828282),
           ),

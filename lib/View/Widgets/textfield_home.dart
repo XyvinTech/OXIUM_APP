@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Utils/debouncer.dart';
 
@@ -14,7 +15,7 @@ class textField extends StatelessWidget {
     this.formKey,
     this.onChanged,
     this.suffix,
-    this.autofocus,
+    this.autofocus = false,
   });
   final Size size;
   final TextEditingController controller;
@@ -24,24 +25,24 @@ class textField extends StatelessWidget {
   final String Function(String?)? validator;
   final Function(String)? onChanged;
   final Widget? suffix;
-  bool? autofocus = false;
+  final bool autofocus;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
         key: formKey,
         controller: controller,
-        autofocus: autofocus!,
+        autofocus: autofocus,
         decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: suffix,
             suffixIconConstraints: BoxConstraints.loose(size),
-            hintStyle: TextStyle(fontSize: 16, color: Color(0xffBDBDBD)),
-            contentPadding:
-                EdgeInsets.only(left: size.width * .01, top: 0, bottom: 2),
+            hintStyle: TextStyle(fontSize: 16.sp, color: Color(0xffBDBDBD)),
             filled: true,
+            isDense: true,
+            contentPadding: EdgeInsets.only(bottom: 12.h, top: 14.h, left: 4.w),
             fillColor: Color.fromARGB(255, 255, 255, 255),
-            border: InputBorder.none,
+            border: OutlineInputBorder(),
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none),
         onChanged: (value) {

@@ -5,14 +5,19 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HelpPageController extends GetxController {
-  List<dynamic> carouselText = [
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-  ];
+  RxList carouselText = [
+    "GOEC super charging station Provides High ROI",
+    "operate your charging station from anywhere in the world without human intervention.",
+    "For a future-focused business, capitalize on the growing EV market."
+  ].obs;
+  RxList carouselImage = [
+    "assets/images/carouselOne.png",
+    "assets/images/carouselTwo.png",
+    "assets/images/carouselThree.png",
+  ].obs;
   CarouselController? carouselController;
   RxDouble currentIndex = 0.0.obs;
-  String phnNumber = "+8801751051339";
+  String phnNumber = "+919778687615";
 
   Future<void> openWhatsApp() async {
     var url = "https://wa.me/${phnNumber}";

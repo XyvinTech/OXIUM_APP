@@ -23,6 +23,7 @@ Widget rounded_container({
       ),
       child: CustomText(
         text: text ?? hintText,
+        overflow: TextOverflow.ellipsis,
         color: text != null ? Color(0xff828282) : Color(0xffBDBDBD),
       ),
     ),

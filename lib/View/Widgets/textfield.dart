@@ -1,5 +1,9 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/loginpage_controller.dart';
+import 'package:freelancer_app/View/Widgets/appbutton.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
@@ -45,7 +49,10 @@ class AppTextField extends GetView<LoginPageController> {
             height: size.height * 0.04,
             width: size.width * 0.05,
             // color: Colors.red,
-            child: icon,
+            child: Padding(
+              padding: EdgeInsets.only(top: 4.w),
+              child: icon,
+            ),
           ),
           SizedBox(
             width: size.width * 0.04,
@@ -61,12 +68,22 @@ class AppTextField extends GetView<LoginPageController> {
                   onChanged: onChanged,
                   onTap: onTap,
                   keyboardType: keyboardtype,
-                  maxLines: 1,
+                  // maxLines: 1,
+                  style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+
                   decoration: InputDecoration(
                     hintText: hintText,
+                    isDense: true,
+                    isCollapsed: false,
+                    contentPadding: EdgeInsets.only(top: 18.5.h, bottom: 0.h),
                     hintStyle: TextStyle(
                       fontFamily: "Poppins",
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: Color(0xff828282),
                     ),
@@ -83,3 +100,4 @@ class AppTextField extends GetView<LoginPageController> {
     );
   }
 }
+

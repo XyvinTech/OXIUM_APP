@@ -1,42 +1,66 @@
+import 'package:freelancer_app/Model/vehicleModel.dart';
+import 'package:freelancer_app/constants.dart';
+
 class UserModel {
+  String username;
   final int id;
-  String first_name;
-  String last_name;
-  final String phone;
-  String image;
+  final String name;
+  final String image;
   final String email;
+  final String phone;
   final String status;
-  final String created_at;
-  final String updated_at;
-  final String feature_preference;
-  String active_service;
+  final String rfid;
+  final int total_sessions;
+  final double total_units;
+  final double balanceAmount;
+  final VehicleModel defaultVehicle;
+
   UserModel({
     required this.id,
-    required this.first_name,
-    required this.last_name,
+    required this.username,
     required this.phone,
     required this.email,
     required this.image,
     required this.status,
-    required this.created_at,
-    required this.updated_at,
-    required this.active_service,
-    required this.feature_preference,
+    required this.name,
+    required this.total_sessions,
+    required this.total_units,
+    required this.rfid,
+    required this.balanceAmount,
+    required this.defaultVehicle,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'],
-      first_name: json['first_name'],
-      last_name: json['last_name'],
-      phone: json['phone'],
+      username: json['username'],
+      name: json['Name'] ?? '',
+      phone: json['phone'] ?? '',
       image: json['image'] ?? '',
       email: json['email'] ?? '',
-      feature_preference: json['feature_preference'] ?? '',
-      status: json['status'],
-      created_at: json['created_at'] ?? '',
-      updated_at: json['updated_at'] ?? '',
-      active_service: json['active_service'] ?? '',
+      rfid: json['rfid'] ?? '',
+      status: json['status'] ?? '',
+      total_sessions: json['total_sessions'] ?? 0,
+      total_units: json['total_units'].toDouble() ?? 0,
+      balanceAmount: json['balanceAmount'] ?? 0,
+      defaultVehicle: json['defaultVehicle'] != null
+          ? VehicleModel.fromjson(json['defaultVehicle'])
+          : kVehicleModel,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "username": username,
+        "name": name,
+        "image": image,
+        "phone": phone,
+        "email": email,
+        "rfid": rfid,
+        "status": status,
+        "total_sessions": total_sessions,
+        "total_units": total_units,
+        "balanceAmount": balanceAmount,
+        "defaultVehicle": defaultVehicle,
+      };
 }

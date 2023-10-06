@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
@@ -43,15 +47,18 @@ class NavigationScreen extends GetView<NavigationScreenController> {
                     },
                     onTap: (value) {
                       print(value);
-                      MapFunctions().setMapFitToPolyline(
-                          MapFunctions().polylines,
-                          MapFunctions().dirMapController);
+                      // MapFunctions().setMapFitToPolyline(
+                      //     MapFunctions().polylines,
+                      //     MapFunctions().dirMapController);
+                      MapFunctions()
+                          .animateForNavigation(MapFunctions().curPos);
+                      log(MapFunctions().curPos.toString());
                       // MapFunctions().addMarkerHomePage(
                       //     name: value.latitude.toString(),
                       //     latLng: value,
                       //     isGreen: false,
                       //     controller: controller);
-                      controller.reload++;
+                      MapFunctions().checkForUpdateSteps();
                     },
                   ),
                 ),
@@ -122,14 +129,9 @@ class NavigationScreen extends GetView<NavigationScreenController> {
                       ),
                     ],
                   ),
-                  // (controller.chargingCardExpanded.value)
-                  //     ? height(size.height * .03)
-                  //     : Spacer(
-                  //         flex: 1,
-                  //       ),
                   Expanded(
-                    flex: 1,
                     child: ListView.builder(
+                        padding: EdgeInsets.only(top: 20.h),
                         itemCount:
                             !controller.chargingCardExpanded.value ? 1 : 20,
                         shrinkWrap: true,
@@ -200,36 +202,56 @@ class NavigationScreen extends GetView<NavigationScreenController> {
 
   Widget stepWidget() {
     return Container(
-      height: size.height * .10,
+      // height: size.height * .10,
+      // width: size.width,
       decoration: BoxDecoration(color: Color(0xff2B2B2B)),
-      padding: EdgeInsets.symmetric(horizontal: size.width * .05),
+      padding: EdgeInsets.symmetric(
+          horizontal: size.width * .05, vertical: size.height * .01),
       child: Row(children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'After 300 m',
-              style: GoogleFonts.inter(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Colors.white.withOpacity(.6),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Obx(
+                () => Text(
+                  'After ${MapFunctions().stepDistance.value} m',
+                  style: GoogleFonts.inter(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white.withOpacity(.6),
+                  ),
+                ),
               ),
-            ),
-            Text(
-              'Take Right',
-              style: GoogleFonts.inter(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-              ),
-            )
-          ],
+              // height(3.h),
+              Container(
+                // color: Colors.amber,
+                width: size.width,
+                child: Obx(() =>
+                    Html(data: """${MapFunctions().maneuverText}""", style: {
+                      // "font":
+                      // GoogleFonts.inter(
+                      //   fontSize: 10,
+                      //   fontWeight: FontWeight.w700,
+                      //   color: Colors.white,
+                      // ),
+                      "body": Style(
+                          padding: HtmlPaddings.all(0) ,
+                          fontSize: FontSize.medium,
+                          alignment: Alignment.topLeft,
+                          color: Colors.white)
+                    })),
+              )
+            ],
+          ),
         ),
-        Spacer(),
-        SvgPicture.asset(
-          'assets/svg/alt_route.svg',
-          color: Colors.green,
+        // Spacer(),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: size.height * .02),
+          child: SvgPicture.asset(
+            'assets/svg/alt_route.svg',
+            color: Colors.green,
+          ),
         )
       ]),
     );
@@ -253,12 +275,14 @@ class NavigationScreen extends GetView<NavigationScreenController> {
                 color: Color(0xffAAAAAA),
               ),
             ),
-            Text(
-              '12 km Away',
-              style: GoogleFonts.inter(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff5c5c5c),
+            Obx(
+              () => Text(
+                '${MapFunctions().awayDistance.value / 1000.0} km Away',
+                style: GoogleFonts.inter(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff5c5c5c),
+                ),
               ),
             )
           ],

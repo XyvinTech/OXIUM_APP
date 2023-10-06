@@ -10,15 +10,16 @@ class Routes {
     return _singleton;
   }
   Routes._internal();
-  static String loginpageRoute = '/';
+  static String splashpageRoute = '/';
+  static String loginpageRoute = '/login';
   static String enternumberpageRoute = '/enternumber';
   static String enterotppageRoute = '/enterotp';
-  static String welcometoevRoute = '/welcometoev';
+  static String addNameEmailPageRoute = '/addnameemail';
   static String homePageRoute = '/homepage';
   static String addvehiclesRoute = '/addvehicles';
   static String vehicledetailspageRoute = '/personalvehicledetails';
-  static String myvehicleRoute = '/myvehicleRoute';
-  static String smartchargeRoute = '/smartcharge';
+  static String myvehicleRoute = '/myvehicles';
+  static String orderRfidPageRoute = '/orderrfid';
   static String rfidNumberRoute = '/rfidNumber';
   static String vehiclesearchPageRoute = '/vehiclesearch';
   static String bottomNavPageRoute = '/bottomNav';
@@ -26,7 +27,6 @@ class Routes {
 //
   //charge
   static String chargePageRoute = '/charge';
-  static String reservationPageRoute = '/reservation';
   static String bookASlotPageRoute = '/bookaslot';
 //
 //
@@ -36,14 +36,22 @@ class Routes {
   static String filterPageRoute = '/filter';
   static String profilePageRoute = '/profile';
   static String editProfilePageRoute = '/editprofile';
+  static String addInvoicePageRoute = '/addinvoice';
   static String calistaCafePageRoute = '/calistacafe';
+  static String reviewPageRoute = '/review';
   static String chargingPageRoute = '/charging';
+  static String qrScanPageRoute = '/qrscan';
+
+  static String shareExperiencePageRoute = '/shareExperience';
+  static String paymentfeedbackPageRoute = '/paymentfeedback';
+  static String thankfeedbackPageRoute = '/thankfeedback';
 
 //TRIPS
   static String tripsPageRoute = '/trips';
   static String searchPlacesPageRoute = '/searchplaces';
   static String directionsPageRoute = '/directions';
   static String navigationPageRoute = '/navigation';
+  static String exploreTripPageRoute = '/exploretrip';
   //
   //
   //
@@ -58,4 +66,6 @@ class Routes {
   static String helpPageRoute = '/help';
   static String partnerPageRoute = '/partner';
   static String aboutPageRoute = '/about';
+  static String drawerrfidNumberRoute = '/drawerrfidNumber';
+  static String favouritePageRoute = '/favourite';
 }

@@ -13,10 +13,12 @@ Widget CustomText({
   double minFontSize = 8,
   bool? isRoboto,
   bool? isUnderScore,
+  bool isItalic = false,
 }) {
   TextStyle style = isRoboto == null || !isRoboto
       ? TextStyle(
-          fontSize: size ?? 16,
+          fontStyle: isItalic ? FontStyle.italic : null,
+          fontSize: size ?? 16, 
           color: color ?? Colors.black,
           fontWeight: fontWeight ?? FontWeight.normal,
           letterSpacing: letterSpacing ?? null,

@@ -1,18 +1,20 @@
 import 'dart:async';
-import 'dart:developer';
+import 'dart:convert';
+import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
-import 'package:freelancer_app/Singletones/app_data.dart';
-import 'package:freelancer_app/View/Homepage/homepage.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
+import 'package:http/http.dart' as http;
 
 import '../Utils/routes.dart';
 
@@ -24,29 +26,53 @@ class MapFunctions {
   }
   MapFunctions._internal();
   //code starts from here
-
-  String token = '';
+  bool isFocused = true;
+  bool isIdle = false;
   late GoogleMapController controller;
-  late GoogleMapController dirMapController;
+  GoogleMapController? dirMapController;
   late StreamSubscription mapStream;
-  double zoom = 16;
-  Position? curPos = null;
+  StreamSubscription<CompassEvent>? headingListener;
+  late Timer mapTimer;
+  double zoom = 10;
+  Position curPos = kPosition;
+  RxString curPosName = ''.obs;
+  RxString curPosPlaceId = ''.obs;
   Set<Marker> markers_homepage = {};
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
   String polylineString = '';
   RxInt reload = 0.obs;
+  Rx<DirectionsResult> directionsResult = DirectionsResult().obs;
+  RxInt steps = 0.obs;
+  double heading = 0;
+  RxInt stepDistance = 0.obs;
+  RxInt awayDistance = 0.obs;
+  RxString maneuverText = ''.obs;
   Timer? timer;
-  Uint8List? bytesBlue, bytesGreen, navigationMarker, carMarker, myMarker;
+  Uint8List? bytesBlue,
+      bytesGreen,
+      bytesGray,
+      navigationMarker,
+      carMarker,
+      myMarker;
   String googleApiKey = "AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs";
   var googlePlace = GooglePlace('AIzaSyCGj0hRgN-cr02TaGzHjCY9QilpB5nsMAs');
 
-  Rx<CameraPosition> initialPosition = CameraPosition(
-          target: LatLng(37.42796133580664, -122.085749655962), zoom: 15)
-      .obs;
+  Rx<CameraPosition> initialPosition =
+      CameraPosition(target: LatLng(10.6732, 76.6413), zoom: 7.5, bearing: 0)
+          .obs;
+
+  void dispose() {
+    controller.dispose();
+    mapStream.cancel();
+    dirMapController?.dispose();
+    headingListener?.cancel();
+    mapTimer.cancel();
+  }
 
   void initCameraPosition(LatLng latLng) {
-    initialPosition.value = CameraPosition(target: latLng, zoom: zoom);
+    initialPosition.value =
+        CameraPosition(target: latLng, zoom: zoom, bearing: 0);
   }
 
   void setMapStyle(GoogleMapController controller) {
@@ -88,6 +114,25 @@ class MapFunctions {
       }
     ]
   },
+    {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        // "color": "#c9c9c9"
+        "color": "#519fed"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#9e9e9e"
+      }
+    ]
+  }
   ]
     ''');
   }
@@ -97,7 +142,7 @@ class MapFunctions {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        log('Location permissions are denied');
+        kLog('Location permissions are denied');
         return false;
       }
     }
@@ -109,65 +154,88 @@ class MapFunctions {
   }
 
   Future<Position?> getCurrentPosition() async {
+    isFocused = true;
     if (await checkLocationPermission())
       return await Geolocator.getCurrentPosition();
     return null;
   }
 
   Future<void> myPositionListener() async {
-    if ((await checkLocationPermission()))
+    kLog('listener');
+    if ((await checkLocationPermission())) {
+      startMapTimer();
+      getHeading();
       mapStream = await Geolocator.getPositionStream().listen((event) async {
-        // await animateToNewPosition(LatLng(event.latitude, event.longitude));
-        if (curPos == null)
-          ;
-        else if (event.latitude == curPos!.latitude &&
-            event.longitude == curPos!.longitude) return;
-        log(event.toString());
         curPos = event;
-
-        addCarMarker(event);
-        markers_homepage.add(Marker(
-            markerId: MarkerId('myMarker'),
-            // infoWindow: InfoWindow(title: name),
-            icon: BitmapDescriptor.fromBytes(MapFunctions().myMarker!),
-            position: LatLng(event.latitude, event.longitude),
-            rotation: event.heading,
-            anchor: Offset(.5, .5)));
-        reload++;
-        if (Get.currentRoute == Routes.navigationPageRoute) {
-          dirMapController.animateCamera(CameraUpdate.newCameraPosition(
-              CameraPosition(
-                  target: LatLng(event.latitude, event.longitude),
-                  zoom: zoom,
-                  bearing: event.heading)));
-        } else {
-          controller.animateCamera(CameraUpdate.newCameraPosition(
-              CameraPosition(
-                  target: LatLng(event.latitude, event.longitude),
-                  zoom: zoom,
-                  bearing: event.heading)));
-        }
+        updateMarkers(event);
       });
+    }
+  }
+
+  getHeading() {
+    headingListener = FlutterCompass.events?.listen((event) {
+      heading = event.heading ?? 0;
+    });
+  }
+
+  startMapTimer() {
+    mapTimer = Timer.periodic(Duration(milliseconds: 300), (timer) {
+      if (Get.currentRoute == Routes.navigationPageRoute) {
+        addCarMarker(curPos);
+        checkForUpdateSteps();
+      }
+      addMyPositionMarker(curPos, markers_homepage);
+      reload++;
+    });
+  }
+
+  updateMarkers(Position event) {
+    if (Get.currentRoute == Routes.navigationPageRoute) {
+      animateForNavigation(event);
+    } else if (isFocused) {
+      // controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      //   target: LatLng(event.latitude, event.longitude),
+      //   zoom: zoom,
+      //   // bearing: heading
+      //   bearing: 0,
+      // )));
+    }
   }
 
   addCarMarker(Position event) {
+    markers.removeWhere((element) => element.markerId == 'myCar');
     markers.add(Marker(
         markerId: MarkerId('myCar'),
         // infoWindow: InfoWindow(title: name),
         icon: BitmapDescriptor.fromBytes(MapFunctions().carMarker!),
         position: LatLng(event.latitude, event.longitude),
-        rotation: event.heading,
+        rotation: heading + 90,
         anchor: Offset(.5, .5)));
   }
 
-  Future<void> animateToNewPosition(LatLng latLng, {double? newZoom}) async {
+  addMyPositionMarker(Position event, Set<Marker> set) {
+    set.removeWhere((element) => element.markerId == MarkerId('myMarker'));
+    set.add(Marker(
+        markerId: MarkerId('myMarker'),
+        // infoWindow: InfoWindow(title: name),
+        icon: BitmapDescriptor.fromBytes(MapFunctions().myMarker!),
+        position: LatLng(event.latitude, event.longitude),
+        rotation: heading + 90,
+        anchor: Offset(.5, .5)));
+  }
+
+  Future<void> animateToNewPosition(LatLng latLng,
+      {double? newZoom, double bearing = 0}) async {
     await controller.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(target: latLng, zoom: newZoom ?? zoom),
+      CameraPosition(target: latLng, zoom: newZoom ?? zoom, bearing: bearing),
     ));
   }
 
-  void setMapFitToPolyline(Set<Polyline> p, GoogleMapController controller,
-      {bool isNavigation = false}) async {
+  void setMapFitToPolyline(
+    Set<Polyline> p,
+    GoogleMapController controller, {
+    bool isNavigation = false,
+  }) async {
     double minLat = p.first.points.first.latitude;
     double minLong = p.first.points.first.longitude;
     double maxLat = p.first.points.first.latitude;
@@ -181,79 +249,94 @@ class MapFunctions {
         if (point.longitude > maxLong) maxLong = point.longitude;
       });
     });
-    controller.animateCamera(CameraUpdate.newLatLngBounds(
+    await controller.moveCamera(CameraUpdate.newLatLngBounds(
         LatLngBounds(
             southwest: LatLng(minLat, minLong),
             northeast: LatLng(maxLat, maxLong)),
         30));
-    Future.delayed(Duration(milliseconds: 4000), () async {
-      ScreenCoordinate minScreen =
-          await controller.getScreenCoordinate(LatLng(minLat, minLong));
-      ScreenCoordinate maxScreen =
-          await controller.getScreenCoordinate(LatLng(maxLat, maxLong));
-      print(minScreen);
-      print(maxScreen);
-      print(size);
-      print(isNavigation);
-      if (isNavigation) {
-        controller.animateCamera(CameraUpdate.zoomBy(-.7));
-        Future.delayed(Duration(milliseconds: 500), () {
-          controller.animateCamera(CameraUpdate.scrollBy(0, -55));
-        });
-      } else {
-        await controller.animateCamera(CameraUpdate.zoomBy(
-            (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
-      }
-      // await controller.animateCamera(CameraUpdate.zoomBy(
-      //     (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
-      // if (isNavigation) controller.animateCamera(CameraUpdate.scrollBy(0, 20));
-    });
+    zoom = await dirMapController!.getZoomLevel();
+    var leg = directionsResult.value.routes!.first.legs!.first;
+    controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng((minLat + maxLat) / 2, (minLong + maxLong) / 2),
+        zoom: zoom - .5,
+        bearing: heading
+        // bearingBetween(
+        //         leg.startLocation!.latitude,
+        //         leg.startLocation!.longitude,
+        //         leg.endLocation!.latitude,
+        //         leg.endLocation!.longitude) -
+        //     90
+
+        )));
+    // Future.delayed(Duration(milliseconds: 4000), () async {
+    //   // ScreenCoordinate minScreen =
+    //   //     await controller.getScreenCoordinate(LatLng(minLat, minLong));
+    //   // ScreenCoordinate maxScreen =
+    //   //     await controller.getScreenCoordinate(LatLng(maxLat, maxLong));
+    //   // print(minScreen);
+    //   // print(maxScreen);
+    //   // print(size);
+    //   // print(isNavigation);
+    //   // if (isNavigation) {
+    //   //   controller.animateCamera(CameraUpdate.zoomBy(-.7));
+    //   //   Future.delayed(Duration(milliseconds: 500), () {
+    //   //     controller.animateCamera(CameraUpdate.scrollBy(0, -55));
+    //   //   });
+    //   // } else {
+    //   //   await controller.animateCamera(CameraUpdate.zoomBy(
+    //   //       (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
+    //   // }
+    //   // await controller.animateCamera(CameraUpdate.zoomBy(
+    //   //     (minScreen.y - maxScreen.y) > size.height * .50 ? -1.12 : 0));
+    //   // if (isNavigation) controller.animateCamera(CameraUpdate.scrollBy(0, 20));
+    // });
   }
 
   addMarkerHomePage({
-    required String name,
+    required String id,
     required LatLng latLng,
-    required bool isGreen,
+    required bool isBusy,
     required HomePageController controller,
+    required String status,
   }) {
+    kLog(status);
+    kLog(status.contains('Connected').toString());
     markers_homepage.add(Marker(
         onTap: () async {
-          //TODO: show bottom sheet when clicked on marker
+          MapFunctions().isFocused = false;
           await MapFunctions().animateToNewPosition(latLng);
-          //TODO: you should pass the model here to show on bottom sheet when clicked
           Future.delayed(Duration(milliseconds: 500), () {
-            showBottomSheetWhenClickedOnMarker(null, controller);
+            controller.getChargeStationDetails(id);
           });
         },
-        markerId: MarkerId(name),
-        // infoWindow: InfoWindow(title: name),
-        icon: BitmapDescriptor.fromBytes(isGreen ? bytesGreen! : bytesBlue!),
+        markerId: MarkerId(id),
+        icon: BitmapDescriptor.fromBytes(status.contains(',Connected') && isBusy
+            ? bytesGreen!
+            : status.contains(',Connected')
+                ? bytesBlue!
+                : bytesGray!),
         position: latLng,
         anchor: Offset(.5, .5)));
   }
 
   Future<List<AutocompletePrediction>?> searchPlaceByName(String place) async {
-    log('search by $place');
-
     try {
       var result = await googlePlace.autocomplete.get(
         place,
-        origin: LatLon(
-            MapFunctions().curPos!.latitude, MapFunctions().curPos!.longitude),
-        location: LatLon(
-            MapFunctions().curPos!.latitude, MapFunctions().curPos!.longitude),
+        origin: LatLon(curPos.latitude, curPos.longitude),
+        location: LatLon(curPos.latitude, curPos.longitude),
       );
       if (result != null && result.predictions != null) {
         result.predictions!.forEach((element) {
-          log(element.placeId.toString());
-          log(element.description.toString());
+          kLog(element.placeId.toString());
+          kLog(element.description.toString());
         });
       }
 
       return result?.predictions ?? [];
     } on Exception catch (e) {
       // TODO
-      log(e.toString());
+      kLog(e.toString());
     }
 
     return [];
@@ -262,7 +345,7 @@ class MapFunctions {
   Future<DetailsResponse?> getDetailsByPlaceId(String placeId) async {
     DetailsResponse? res = await googlePlace.details.get(placeId);
     if (res != null && res.status == 'OK') {
-      print(res.result!.geometry!.location!.lat);
+      // print(res.result!.geometry!.location!.lat);
       return res;
     }
     return null;
@@ -284,7 +367,7 @@ class MapFunctions {
 
   Future<DirectionsResult?> getDirections(
       AutocompletePrediction source, AutocompletePrediction destination) async {
-    log('get directions');
+    kLog('get directions');
     PolylinePoints polylinePoints = PolylinePoints();
     DirectionsService.init(googleApiKey);
     final directinosService = DirectionsService();
@@ -292,6 +375,7 @@ class MapFunctions {
     polylineString = '';
     polylines = {};
     markers = {};
+    //TODO: get the place id of source and destination if it is not available (if user choose my location)
 
     // '${pickup.lat},${pickup.lng}'
     final request = await DirectionsRequest(
@@ -305,7 +389,7 @@ class MapFunctions {
         if (status == DirectionsStatus.ok) {
           List<LatLng> polylineOne = [];
           polylineString = response.routes!.first.overviewPolyline!.points!;
-          log(polylineString);
+          kLog(polylineString);
           //DECODE POLYLINE
           polylineOne = polylinePoints
               .decodePolyline(polylineString)
@@ -318,8 +402,8 @@ class MapFunctions {
             lng: legs.first.startLocation!.longitude,
             bytes: navigationMarker,
           );
-          log(legs.first.endLocation.toString());
-          log(legs.first.startLocation.toString());
+          kLog(legs.first.endLocation.toString());
+          kLog(legs.first.startLocation.toString());
           addCircleOnSourceDest(
             name: 'destination',
             lat: legs.first.endLocation!.latitude,
@@ -337,13 +421,14 @@ class MapFunctions {
 
           polylineString = response.routes!.first.overviewPolyline!.points!;
           finalResponse = response;
+          MapFunctions().directionsResult.value = response;
           // animatePolyline(response.routes!.first.overviewPolyline!.points!);
         } else {
           // do something with error response
-          log('failed to get directions');
+          kLog('failed to get directions');
         }
       });
-      log('direction get complete');
+      kLog('direction get complete');
       return finalResponse;
     } on Exception {
       // TODO
@@ -372,5 +457,122 @@ class MapFunctions {
       ));
       reload++;
     });
+  }
+
+  Future<List<String>> getNameAndPlaceIdFromLatLng(
+      double lat, double lng) async {
+    var endpoint =
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$googleApiKey';
+    var response = await http.get(Uri.parse(endpoint));
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      if (json['results'].isNotEmpty) {
+        kLog(json['results'][0]['place_id'].toString());
+        return [
+          json['results'][0]['formatted_address'],
+          json['results'][0]['place_id'],
+        ];
+      }
+    }
+    return ['', ''];
+  }
+
+  Future<List<String>> getMyLocationNameAndPlaceId() async {
+    if (curPos.latitude == 0) await getCurrentPosition();
+    if (curPos.latitude == 0) return ['', ''];
+
+    var res =
+        await getNameAndPlaceIdFromLatLng(curPos.latitude, curPos.longitude);
+    curPosName.value = res[0];
+    curPosPlaceId.value = res[1];
+    return [curPosName.value, curPosPlaceId.value];
+  }
+
+  static double distanceBetweenCoordinates(
+      double lat1, double lon1, double lat2, double lon2) {
+    const double earthRadius = 6371000; // in meters
+
+    double dLat = (lat2 - lat1) * pi / 180;
+    double dLon = (lon2 - lon1) * pi / 180;
+
+    double a = sin(dLat / 2) * sin(dLat / 2) +
+        cos(lat1 * pi / 180) *
+            cos(lat2 * pi / 180) *
+            sin(dLon / 2) *
+            sin(dLon / 2);
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+    double d = earthRadius * c;
+
+    return d;
+  }
+
+  static bool areCoordinatesEqual(
+      double lat1, double lon1, double lat2, double lon2) {
+    double distance = distanceBetweenCoordinates(lat1, lon1, lat2, lon2);
+    double threshold = 50; // in meters, adjust as necessary
+    return distance < threshold;
+  }
+
+  List? stepList = [];
+  void checkForUpdateSteps() {
+    if (directionsResult.value.routes == null) return;
+    stepList = directionsResult.value.routes?.first.legs?.first.steps ?? [];
+    directionsResult.value.routes?.first.legs?.first.steps!.first.instructions;
+    kLog(stepList!.length.toString());
+    if (stepList != null && stepList!.isNotEmpty) {
+      if (steps.value == 0 ||
+          areCoordinatesEqual(
+              curPos.latitude,
+              curPos.longitude,
+              stepList![steps.value].startLocation!.latitude,
+              stepList![steps.value].startLocation!.longitude)) {
+        //If it's the steps end then update the step card and push to next step
+        stepDistance.value = stepList![steps.value].distance.value;
+
+        // kLog(steps.toString());
+        steps++;
+        steps.value = steps.value % (stepList!.length);
+        String text = stepList![steps.value].instructions;
+        // text = text.replaceAll('<b>', '').replaceAll('</b>', '');
+        if (text.isEmpty)
+          maneuverText.value = 'Go Straight';
+        else
+          maneuverText.value = text;
+
+        int sum = 0;
+        int? val;
+        // kLog('length of  steps ${stepList!.length}');
+        for (int i = steps.value; i < stepList!.length; i++) {
+          kLog('step: $i');
+          kLog(stepList![i].instructions.toString());
+          val = stepList![i].distance.value;
+          sum += val == null ? 0 : val;
+        }
+        awayDistance.value = sum;
+      }
+    }
+    // kLog(stepDistance.value.toString());
+    // kLog(awayDistance.value.toString());
+    // showSuccess('${stepDistance.value}  ${awayDistance.value}');
+  }
+
+  static double bearingBetween(
+      double lat1, double lon1, double lat2, double lon2) {
+    var degToRad = pi / 180.0;
+    var phi1 = lat1 * degToRad;
+    var phi2 = lat2 * degToRad;
+    var deltaTheta = (lon2 - lon1) * degToRad;
+    var theta = atan2(sin(deltaTheta) * cos(phi2),
+        cos(phi1) * sin(phi2) - sin(phi1) * cos(phi2) * cos(deltaTheta));
+    return (theta * 180.0 / pi);
+  }
+
+  animateForNavigation(Position event) {
+    dirMapController!.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+          target: LatLng(event.latitude, event.longitude),
+          zoom: 16,
+          bearing: heading),
+    ));
   }
 }

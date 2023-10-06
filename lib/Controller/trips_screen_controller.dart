@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:get/get.dart';
 import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_place/google_place.dart';
+
+import '../Utils/routes.dart';
 
 class TripsScreenController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -27,9 +28,25 @@ class TripsScreenController extends GetxController
     });
   }
 
+  getSource() {
+    Get.toNamed(Routes.searchPlacesPageRoute)!.then((value) {
+      if (value == null || value.isEmpty) return;
+      source.value = value[0];
+    });
+  }
+
+  getDestination() {
+    Get.toNamed(Routes.searchPlacesPageRoute)!.then((value) {
+      if (value == null || value.isEmpty) return;
+      destination.value = value[0];
+    });
+  }
+
   Future<void> getDirectionsPolyline() async {
     directionsResult.value =
         (await MapFunctions().getDirections(source.value, destination.value)) ??
             DirectionsResult();
+    Get.toNamed(Routes.directionsPageRoute,
+        arguments: [directionsResult, source, destination]);
   }
 }

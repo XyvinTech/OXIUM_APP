@@ -1,46 +1,55 @@
 import 'package:freelancer_app/Bindings/aboutpage_bindings.dart';
+import 'package:freelancer_app/Bindings/bookaslot_screen_binding.dart';
 import 'package:freelancer_app/Bindings/calista_cafePage_bindings.dart';
 import 'package:freelancer_app/Bindings/charge_screen_binding.dart';
 import 'package:freelancer_app/Bindings/charging_screen_binding.dart';
+import 'package:freelancer_app/Bindings/favourite_page_bindings.dart';
+import 'package:freelancer_app/Bindings/feedback_Screen_binding.dart';
 import 'package:freelancer_app/Bindings/help_page_bindings.dart';
 import 'package:freelancer_app/Bindings/homepage_binding.dart';
+import 'package:freelancer_app/Bindings/my_vehicles_screen_binding.dart';
 import 'package:freelancer_app/Bindings/otpNumber_screen_bindings.dart';
 import 'package:freelancer_app/Bindings/partner_page_binding.dart';
-import 'package:freelancer_app/Bindings/popupPage_bindings.dart';
-import 'package:freelancer_app/Bindings/reservation_screen_bindings.dart';
-import 'package:freelancer_app/Bindings/smartcharge_binding.dart';
-import 'package:freelancer_app/Bindings/vehicle_search_binding.dart';
+import 'package:freelancer_app/Bindings/qr_binding.dart';
+import 'package:freelancer_app/Bindings/review_page_binding.dart';
+import 'package:freelancer_app/Bindings/rfid_page_bindings.dart';
+import 'package:freelancer_app/Bindings/splash_screen_binding.dart';
 import 'package:freelancer_app/Bindings/vehicles_screen_binding.dart';
 import 'package:freelancer_app/Bindings/wallet_page_bindings.dart';
-
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/View/Charge/charge_page.dart';
-import 'package:freelancer_app/View/Charge/reservation_page.dart';
 import 'package:freelancer_app/View/Drawer/about_page.dart';
+import 'package:freelancer_app/View/Drawer/favourite_page.dart';
 import 'package:freelancer_app/View/Drawer/helpPage.dart';
 import 'package:freelancer_app/View/Drawer/partner_page.dart';
 import 'package:freelancer_app/View/Homepage/calista_cafe_page.dart';
 import 'package:freelancer_app/View/Homepage/charging_screen.dart';
-
-import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
-
+import 'package:freelancer_app/View/Homepage/feedback/payment_feedback.dart';
+import 'package:freelancer_app/View/Homepage/feedback/share_experience_page.dart';
+import 'package:freelancer_app/View/Homepage/feedback/thanks_for_feedback.dart';
 import 'package:freelancer_app/View/Homepage/homepage.dart';
+import 'package:freelancer_app/View/Homepage/qr_screen.dart';
+import 'package:freelancer_app/View/Homepage/review_page.dart';
+import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
 import 'package:freelancer_app/View/Onboarding/bottom_nav_page.dart';
-
 import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/enterotp_page.dart';
 import 'package:freelancer_app/View/Onboarding/login_page.dart';
 import 'package:freelancer_app/View/Onboarding/myvehicle_page.dart';
+import 'package:freelancer_app/View/Onboarding/order_rfid_page.dart';
 import 'package:freelancer_app/View/Onboarding/personal_vehicle_details_page.dart';
 import 'package:freelancer_app/View/Onboarding/rfidnumber_page.dart';
-import 'package:freelancer_app/View/Onboarding/smartchrage_page.dart';
+import 'package:freelancer_app/View/Onboarding/splash_screen.dart';
 import 'package:freelancer_app/View/Onboarding/vehiclesearch_page.dart';
 import 'package:freelancer_app/View/Onboarding/welcometoev_page.dart';
 import 'package:freelancer_app/View/WalletPage/topup_page.dart';
 import 'package:freelancer_app/View/WalletPage/walletpage.dart';
 import 'package:get/get.dart';
+
+import '../Bindings/addInvoice_page_binding.dart';
 import '../Bindings/directions_screen_binding.dart';
 import '../Bindings/editprofile_screen_binding.dart';
+import '../Bindings/explore_trip_screen_binding.dart';
 import '../Bindings/filter_screen_binding.dart';
 import '../Bindings/loginpage_binding.dart';
 import '../Bindings/navigation_screen_binding.dart';
@@ -49,12 +58,15 @@ import '../Bindings/profile_screen_binding.dart';
 import '../Bindings/search_places_binding.dart';
 import '../Bindings/search_screen_binding.dart';
 import '../Bindings/tripspage_binding.dart';
+import '../View/Charge/bookaslot_page.dart';
+import '../View/Homepage/addInvoice_page.dart';
 import '../View/Homepage/editprofile_screen.dart';
 import '../View/Homepage/filter_screen.dart';
 import '../View/Homepage/notification_screen.dart';
 import '../View/Homepage/profile_screen.dart';
 import '../View/Homepage/search_screen.dart';
 import '../View/Trips/directions_page.dart';
+import '../View/Trips/explore_trip_page.dart';
 import '../View/Trips/navigation_page.dart';
 import '../View/Trips/search_places_page.dart';
 import '../View/Trips/trips_page.dart';
@@ -64,6 +76,12 @@ abstract class AppPages {
     ///
     ///
     //ON BOARDING
+
+    GetPage(
+      name: Routes.splashpageRoute,
+      binding: SplashScreenBinding(),
+      page: () => SplashScreen(),
+    ),
     GetPage(
       name: Routes.loginpageRoute,
       binding: LoginPageBinding(),
@@ -80,7 +98,7 @@ abstract class AppPages {
       page: () => EnterOtpPage(),
     ),
     GetPage(
-      name: Routes.welcometoevRoute,
+      name: Routes.addNameEmailPageRoute,
       binding: LoginPageBinding(),
       page: () => WelcomeToEvPage(),
     ),
@@ -97,28 +115,33 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.myvehicleRoute,
-      binding: VehicleScreenBinding(),
+      binding: MyVehiclesBinding(),
       page: () => MyVehiclePage(),
     ),
     GetPage(
-      name: Routes.smartchargeRoute,
-      binding: SmartChargeBinding(),
-      page: () => SmartChargeScreen(),
+      name: Routes.orderRfidPageRoute,
+      binding: RfidPageBindings(),
+      page: () => OrderRFIDScreen(),
     ),
     GetPage(
       name: Routes.rfidNumberRoute,
-      binding: SmartChargeBinding(),
+      binding: RfidPageBindings(),
       page: () => RFIDnumberScreen(),
     ),
     GetPage(
       name: Routes.vehiclesearchPageRoute,
-      binding: VehicleSearchBinding(),
+      binding: VehicleScreenBinding(),
       page: () => VehicleSearchScreen(),
     ),
     GetPage(
       name: Routes.bottomNavPageRoute,
       binding: CalistaCafePageBindings(),
       page: () => BottomNavScreen(),
+    ),
+    GetPage(
+      name: Routes.reviewPageRoute,
+      binding: ReviewPageBindings(),
+      page: () => ReviewPage(),
     ),
 
     ///
@@ -128,11 +151,6 @@ abstract class AppPages {
       name: Routes.chargePageRoute,
       binding: ChargeScreenBinding(),
       page: () => ChargeScreen(),
-    ),
-    GetPage(
-      name: Routes.reservationPageRoute,
-      binding: ReservationScreenBindigs(),
-      page: () => ReservationScreen(),
     ),
 
     ///
@@ -169,10 +187,43 @@ abstract class AppPages {
       page: () => EditProfileScreen(),
     ),
 
+    //Invoice
+    GetPage(
+      name: Routes.addInvoicePageRoute,
+      binding: AddInvoicePageBinding(),
+      page: () => AddInvoiceDetails(),
+    ),
+
     GetPage(
       name: Routes.calistaCafePageRoute,
       binding: CalistaCafePageBindings(),
       page: () => CalistaCafeScreen(),
+    ),
+    GetPage(
+      name: Routes.bookASlotPageRoute,
+      binding: BookASlotScreenBinding(),
+      page: () => BookASlotScreen(),
+    ),
+    GetPage(
+      name: Routes.chargingPageRoute,
+      binding: ChargingScreenBinding(),
+      page: () => ChargingScreen(),
+    ),
+
+    GetPage(
+      name: Routes.shareExperiencePageRoute,
+      binding: FeedBackScreenBinding(),
+      page: () => ShareExperienceScreen(),
+    ),
+    GetPage(
+      name: Routes.paymentfeedbackPageRoute,
+      binding: FeedBackScreenBinding(),
+      page: () => PaymentFeedbackScreen(),
+    ),
+    GetPage(
+      name: Routes.thankfeedbackPageRoute,
+      binding: FeedBackScreenBinding(),
+      page: () => ThankForFeedbackScreen(),
     ),
 
     ///
@@ -207,6 +258,11 @@ abstract class AppPages {
       binding: NavigationScreenBinding(),
       page: () => NavigationScreen(),
     ),
+    GetPage(
+      name: Routes.exploreTripPageRoute,
+      binding: ExploreTripScreenBinding(),
+      page: () => ExploreTripScreen(),
+    ),
 
     //
     ///
@@ -220,7 +276,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.popupPageRoute,
-      binding: PopupPageBindigs(),
+      binding: WalletPageBindings(),
       page: () => PopUpPage(),
     ),
 
@@ -245,9 +301,21 @@ abstract class AppPages {
       page: () => AboutScreen(),
     ),
     GetPage(
+      name: Routes.favouritePageRoute,
+      binding: FavouritePageBingdings(),
+      page: () => FavouriteScreen(),
+    ),
+
+    /////
+    GetPage(
       name: Routes.chargingPageRoute,
       binding: ChargingScreenBinding(),
       page: () => ChargingScreen(),
+    ),
+    GetPage(
+      name: Routes.qrScanPageRoute,
+      binding: QrBinding(),
+      page: () => QrScreen(),
     )
   ];
 }
