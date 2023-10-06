@@ -128,6 +128,8 @@ class ChargingScreenController extends GetxController {
     Timer? _timer;
     String time = '';
 ////INIT WEBSOCKET FROM HERE
+
+    await Future.delayed(Duration(seconds: 5));
     SocketRepo().initSocket(
         bookingId: bookingId,
         fun: (message) {

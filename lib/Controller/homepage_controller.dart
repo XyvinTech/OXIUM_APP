@@ -119,9 +119,11 @@ class HomePageController extends GetxController {
     showLoading('Fetching nearby charge stations.\nPlease wait...');
     await getActiveBooking(false);
     station_marker_list = await CommonFunctions().getNearestChargstations(pos);
+
     hideLoading();
     MapFunctions().markers_homepage.clear();
     station_marker_list.forEach((element) {
+      print(element.charger_status.toString());
       MapFunctions().addMarkerHomePage(
           id: element.id.toString(),
           latLng: LatLng(element.lattitude, element.longitude),
