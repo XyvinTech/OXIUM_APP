@@ -10,6 +10,7 @@ import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
+import '../Singletones/dialogs.dart';
 import '../Utils/routes.dart';
 import '../Utils/utils.dart';
 
@@ -166,7 +167,22 @@ class ChargingScreenController extends GetxController {
   }
 
   _repeatCall() async {
+    //pop the dialog if status not I and dialog is opened.
+    if (Get.isDialogOpen == true &&
+        status_model.value.status != 'I' &&
+        chargingStatus.value == 'initiating') {
+      Get.back();
+    }
+    if (Get.isDialogOpen == true &&
+        chargingStatus.value == 'finishing' &&
+        chargingStatus.value != 'R') {
+      Get.back();
+    }
+    //Normal status check starts from here
     if (status_model.value.status == 'I') {
+      if (Get.isDialogOpen == false)
+        Dialogs().gunStatusAlert('Plug in the Connector',
+            'Please make sure the connector is plugged-in');
       toInitiating();
     } else if (status_model.value.status == 'R') {
       //IF CHARGING STARTED

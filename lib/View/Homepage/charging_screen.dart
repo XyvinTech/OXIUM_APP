@@ -12,6 +12,7 @@ import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
+import '../../Singletones/dialogs.dart';
 import 'ChargningAnimations/gradiant_circular_progressbar.dart';
 import 'ChargningAnimations/percentage_circular_progress_indicator.dart';
 
@@ -403,6 +404,9 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       controller.chargingStatus.value =
                                           'finishing';
                                     }
+                                    if (Get.isDialogOpen == false)
+                                      Dialogs().gunStatusAlert('Finishing up',
+                                          'Please wait till Charging session is finished to unplug the charger');
                                     controller.changeStatus(
                                         isStart: false,
                                         bookingId: controller
