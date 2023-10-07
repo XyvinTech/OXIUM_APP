@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Singletones/dialogs.dart';
 import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/Utils/local_notifications.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
@@ -125,8 +126,13 @@ class ChargingScreenController extends GetxController {
     status_model.value.Capacity = booking_model.value.capacity;
     status_model.value.OutputType = booking_model.value.outputType;
     status_model.value.ConnectorType = booking_model.value.connectorType;
+    status_model.value.amount =
+        (booking_model.value.tariff) * status_model.value.unit;
+    status_model.value.taxamount =
+        (booking_model.value.taxes) * status_model.value.unit;
     Timer? _timer;
     String time = '';
+    bool showLowBalanceOnlyOnce = true;
 ////INIT WEBSOCKET FROM HERE
 
     await Future.delayed(Duration(seconds: 5));
@@ -139,13 +145,17 @@ class ChargingScreenController extends GetxController {
           } else {
             status_model.value = ChargingStatusModel.fromJson(message);
           }
+          if (showLowBalanceOnlyOnce && status_model.value.balance < 50) {
+            showLowBalanceOnlyOnce = false;
+            Dialogs().notEnoughCreditPopUp(balance: status_model.value.balance);
+          }
           status_model.value.Capacity = booking_model.value.capacity;
           status_model.value.OutputType = booking_model.value.outputType;
           status_model.value.ConnectorType = booking_model.value.connectorType;
           status_model.value.amount =
-              (booking_model.value.tariff) * status_model.value.unit;
+              (booking_model.value.tariff) * status_model.value.unit / 1000.0;
           status_model.value.taxamount =
-              (booking_model.value.taxes) * status_model.value.unit;
+              (booking_model.value.taxes) * status_model.value.unit / 1000.0;
           kLog(status_model.value.toJson().toString());
           _repeatCall();
 // This timer is for if there is no update within the interval then close the session by checking /bookingStatus api
@@ -154,10 +164,11 @@ class ChargingScreenController extends GetxController {
             _timer = Timer.periodic(
                 Duration(
                     seconds: time.isEmpty
-                        ? 60
+                        ? 10
                         : DateTime.parse(status_model.value.lastupdated)
-                            .difference(DateTime.parse(time))
-                            .inSeconds), (timer) async {
+                                .difference(DateTime.parse(time))
+                                .inSeconds +
+                            10), (timer) async {
               status_model.value = await CommonFunctions()
                   .getChargingStatus(bookingId.toString());
               _repeatCall();

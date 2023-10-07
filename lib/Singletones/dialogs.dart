@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,6 +30,17 @@ class Dialogs {
   Dialogs._internal();
 
   tariffPopUp(BookingModel _bookingModel) {
+    RxInt second = 60.obs;
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      if (Get.isDialogOpen == false) {
+        timer.cancel();
+      }
+      second--;
+      if (second <= 0 && Get.isDialogOpen == true) {
+        Get.back();
+        timer.cancel();
+      }
+    });
     Get.dialog(
         AlertDialog(
           backgroundColor: kscaffoldBackgroundColor,
@@ -50,16 +63,24 @@ class Dialogs {
                         color: Color(0xff828282),
                         size: 15,
                         fontWeight: FontWeight.bold),
-                    IconButton(
-                      onPressed: () {
+                    InkWell(
+                      onTap: () {
                         Get.back();
                         if (Get.currentRoute == Routes.qrScanPageRoute) {
                           QrController _controller = Get.find();
                           _controller.qrViewController?.resumeCamera();
                         }
                       },
-                      icon: Icon(Icons.close),
-                      splashRadius: 20,
+                      child: Row(
+                        children: [
+                          Obx(() => Text(
+                                "${second.value}",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 13, fontWeight: FontWeight.bold),
+                              )),
+                          Icon(Icons.close),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -230,7 +251,7 @@ class Dialogs {
         barrierDismissible: false);
   }
 
-  notEnoughCreditPopUp() {
+  notEnoughCreditPopUp({double? balance}) {
     Get.dialog(
         AlertDialog(
             backgroundColor: kwhite,
@@ -284,14 +305,16 @@ class Dialogs {
                     ),
                     height(10.h),
                     CustomBigText(
-                      text: "Not Enough Credit\nto Charge",
+                      text: balance != null
+                          ? "Balance is getting low!\n 50 Coins left"
+                          : "Not Enough Credit\nto Charge",
                       size: 20.sp,
                       align: TextAlign.center,
                       color: Color(0xff4F4F4F),
                     ),
                     height(10.h),
                     CustomSmallText(
-                      text: "Recharge for a minimum of 200 Coins charging",
+                      text: "Recharge for a minimum of 100 Coins",
                       size: 13.sp,
                       textAlign: TextAlign.center,
                     ),

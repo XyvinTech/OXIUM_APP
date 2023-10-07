@@ -340,7 +340,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                     ),
                                     CustomSmallText(
                                       text:
-                                          '₹ ${controller.status_model.value.tariff} /KwH',
+                                          '₹ ${controller.booking_model.value.tariff} /KwH',
                                       size: 12,
                                     ),
                                   ],

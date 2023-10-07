@@ -165,7 +165,8 @@ final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
     Capacity: 0,
     OutputType: '',
     ConnectorType: '',
-    taxamount: 0);
+    taxamount: 0,
+    balance: 0);
 
 final ReviewModel kReviewModel = ReviewModel(
     stationId: -1,
