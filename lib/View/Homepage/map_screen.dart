@@ -326,7 +326,13 @@ class _MapScreenState extends State<MapScreen>
                             enableInfiniteScroll: false,
                             enlargeCenterPage: true,
                             padEnds: true,
-                            onPageChanged: (index, reason) {},
+                            onPageChanged: (index, reason) {
+                              MapFunctions().animateToNewPosition(LatLng(
+                                  controller
+                                      .station_marker_list[index].lattitude,
+                                  controller
+                                      .station_marker_list[index].longitude));
+                            },
                           ),
                         ),
                       ),
