@@ -113,9 +113,16 @@ class ChargingScreenController extends GetxController {
 
   Future getChargingStatus(int bookingId) async {
     // _timer = Timer.periodic(Duration(seconds: 7), (timer) async {
+
     status_model.value =
         await CommonFunctions().getChargingStatus(bookingId.toString());
-    status_model.value.unit *= 1000.0;
+    //Try untill the transaction table updated by charger.
+    while (status_model.value.tran_id == -1 &&
+        status_model.value.Connector != -1) {
+      status_model.value =
+          await CommonFunctions().getChargingStatus(bookingId.toString());
+      print('retry');
+    }
     _repeatCall();
     // if (status_model.value.Chargingstatus == 'I' && !Get.isDialogOpen!) {
     //   Dialogs().connectPortTipDialog();
@@ -138,7 +145,7 @@ class ChargingScreenController extends GetxController {
     await Future.delayed(Duration(seconds: 5));
     SocketRepo().initSocket(
         bookingId: bookingId,
-        transId: bookingId,
+        tranId: status_model.value.tran_id,
         fun: (message) {
           _timer?.cancel();
           if (message['status'] == 'C') {
@@ -154,9 +161,9 @@ class ChargingScreenController extends GetxController {
           status_model.value.OutputType = booking_model.value.outputType;
           status_model.value.ConnectorType = booking_model.value.connectorType;
           status_model.value.amount =
-              (booking_model.value.tariff) * status_model.value.unit / 1000.0;
+              (booking_model.value.tariff) * status_model.value.unit;
           status_model.value.taxamount =
-              (booking_model.value.taxes) * status_model.value.unit / 1000.0;
+              (booking_model.value.taxes) * status_model.value.unit;
           kLog(status_model.value.toJson().toString());
           _repeatCall();
 // This timer is for if there is no update within the interval then close the session by checking /bookingStatus api

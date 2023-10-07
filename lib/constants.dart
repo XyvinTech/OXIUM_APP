@@ -148,6 +148,7 @@ final BookingModel kBookingModel = BookingModel(
     tariff: 0);
 
 final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
+    tran_id: -1,
     Connector: -1,
     amount: 0,
     SOC: 0,

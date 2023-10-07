@@ -373,7 +373,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                           children: [
                                             CustomBigText(
                                               text:
-                                                  "₹${(controller.status_model.value.amount + controller.status_model.value.taxamount).toStringAsFixed(2)}",
+                                                  "₹${(controller.status_model.value.amount).toStringAsFixed(2)}",
                                               size: 16.sp,
                                               color: Color(0xff0047C3),
                                             ),

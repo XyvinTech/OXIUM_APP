@@ -634,6 +634,7 @@ class CommonFunctions {
     });
     kLog(res.statusCode.toString());
     kLog(res.body.toString());
+    print(res.body);
     if (res.statusCode != 200) {
       ChargingStatusModel model = kChargingStatusModel;
       model.status = 'E';

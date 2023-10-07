@@ -1,4 +1,5 @@
 class ChargingStatusModel {
+  final int tran_id;
   final int Connector;
   double amount;
   final int SOC;
@@ -20,6 +21,7 @@ class ChargingStatusModel {
   final double balance;
 
   ChargingStatusModel({
+    required this.tran_id,
     required this.Connector,
     required this.amount,
     required this.SOC,
@@ -42,6 +44,7 @@ class ChargingStatusModel {
   });
   factory ChargingStatusModel.fromJson(Map<String, dynamic> json) {
     return ChargingStatusModel(
+      tran_id: json['tran_id'] ?? -1,
       Connector: json['Connector'] ?? 0,
       amount: json['amount'] ?? 0,
       SOC: (json['SOC'] ?? 0).toInt(),
@@ -64,6 +67,7 @@ class ChargingStatusModel {
     );
   }
   Map<String, dynamic> toJson() => {
+        "tran_id": tran_id,
         "Connector": Connector,
         "amount": amount,
         "SOC": SOC,
