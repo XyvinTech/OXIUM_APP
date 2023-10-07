@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Singletones/dialogs.dart';
 import 'package:freelancer_app/Singletones/socketRepo.dart';
@@ -157,6 +159,7 @@ class ChargingScreenController extends GetxController {
             showLowBalanceOnlyOnce = false;
             Dialogs().notEnoughCreditPopUp(balance: status_model.value.balance);
           }
+          appData.userModel.value.balanceAmount = status_model.value.balance;
           status_model.value.Capacity = booking_model.value.capacity;
           status_model.value.OutputType = booking_model.value.outputType;
           status_model.value.ConnectorType = booking_model.value.connectorType;
