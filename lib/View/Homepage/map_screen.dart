@@ -284,7 +284,7 @@ class _MapScreenState extends State<MapScreen>
               ),
               Positioned(
                 bottom: size.height * .01,
-                right: size.width * .03,
+                right: size.width * .00,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -312,23 +312,25 @@ class _MapScreenState extends State<MapScreen>
                         ],
                       ),
                     ),
-                    // Container(
-                    //   // height: size.height * 0.3,
-                    //   width: size.width,
-                    //   padding: EdgeInsets.symmetric(vertical: 10.h),
-                    //   color: Colors.amber,
-                    //   child: CarouselSlider(
-                    //     items: cards,
-                    //     options: CarouselOptions(
-                    //       height: 170.h,
-                    //       enlargeFactor: 0.2,
-                    //       enableInfiniteScroll: false,
-                    //       enlargeCenterPage: true,
-                    //       padEnds: true,
-                    //       onPageChanged: (index, reason) {},
-                    //     ),
-                    //   ),
-                    // )
+                    Container(
+                      // height: size.height * 0.3,
+                      width: size.width,
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      // color: Colors.amber,
+                      child: Obx(
+                        () => CarouselSlider(
+                          items: controller.cards,
+                          options: CarouselOptions(
+                            height: 150.h,
+                            enlargeFactor: 0.2,
+                            enableInfiniteScroll: false,
+                            enlargeCenterPage: true,
+                            padEnds: true,
+                            onPageChanged: (index, reason) {},
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -385,24 +387,4 @@ class _MapScreenState extends State<MapScreen>
           )),
     );
   }
-
-  List<Widget> cards = [
-    Container(
-      margin: EdgeInsets.only(right: 20),
-      height: size.height * 0.2,
-      width: size.width * 0.85,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.black,
-      ),
-    ),
-    Container(
-      height: size.height * 0.2,
-      width: size.width * 0.85,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.green,
-      ),
-    ),
-  ];
 }

@@ -150,7 +150,7 @@ class ChargingScreenController extends GetxController {
           _timer?.cancel();
           if (message['status'] == 'C') {
             status_model.value.status = 'C';
-          } else {
+          } else if (message != null) {
             status_model.value = ChargingStatusModel.fromJson(message);
           }
           if (showLowBalanceOnlyOnce && status_model.value.balance < 50) {

@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/trips_screen_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
@@ -12,6 +14,8 @@ import 'package:freelancer_app/Utils/debouncer.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';
 import 'package:freelancer_app/Utils/local_notifications.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/Utils/utils.dart';
+import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -25,11 +29,13 @@ import '../Model/notificationModel.dart';
 import '../Singletones/app_data.dart';
 import '../Utils/routes.dart';
 import '../View/Homepage/homepage.dart';
+import '../View/Widgets/apptext.dart';
+import '../View/Widgets/cached_network_image.dart';
 import 'chargePage_controller.dart';
 import 'notification_screen_controller.dart';
 
 class HomePageController extends GetxController {
-  RxDouble height = 80.0.obs;
+  // RxDouble height = 80.0.obs;
   RxString name = ''.obs;
   RxString done = 'do'.obs;
   RxInt activeIndex = 0.obs;
@@ -72,6 +78,7 @@ class HomePageController extends GetxController {
       Get.put(NotificationScreenController());
   List<StationMarkerModel> station_marker_list = [];
   Debouncer debouncer = Debouncer(milliseconds: 3000);
+  RxList<Widget> cards = RxList();
 
   @override
   void onInit() async {
@@ -119,7 +126,7 @@ class HomePageController extends GetxController {
     showLoading('Fetching nearby charge stations.\nPlease wait...');
     await getActiveBooking(false);
     station_marker_list = await CommonFunctions().getNearestChargstations(pos);
-
+    _assignCardsToMapScreen();
     hideLoading();
     MapFunctions().markers_homepage.clear();
     station_marker_list.forEach((element) {
@@ -132,6 +139,199 @@ class HomePageController extends GetxController {
           // element.charger_status.trim() != 'Connected' || element.isBusy,
           controller: this);
     });
+  }
+
+  _assignCardsToMapScreen() {
+    cards.value = station_marker_list.map((e) {
+      double distance = 0;
+      if (MapFunctions().curPos != null) {
+        distance = (MapFunctions.distanceBetweenCoordinates(
+                    MapFunctions().curPos.latitude,
+                    MapFunctions().curPos.longitude,
+                    e.lattitude,
+                    e.longitude) /
+                1000.0)
+            .toPrecision(2);
+      }
+      List<String> amenities = e.amenities.split(',');
+      String available = e.charger_status.contains('Connected') &&
+              e.charger_status.length == 9 &&
+              e.isBusy
+          ? kBusy
+          : e.charger_status.contains('Connected') &&
+                  e.charger_status.length == 9
+              ? kAvailable
+              : kUnavailable;
+      return Container(
+          margin: EdgeInsets.only(right: 20),
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          height: size.height * 0.2,
+          width: size.width * 0.85,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .00),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 7,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: CustomText(
+                                        text: e.locationName,
+                                        overflow: TextOverflow.ellipsis,
+                                        color: Color(0xff4F4F4F),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  width(size.width * .017),
+                                ],
+                              ),
+                              CustomText(
+                                  text: '${distance} km away',
+                                  color: Color(0xff828282),
+                                  fontWeight: FontWeight.normal,
+                                  size: 12),
+                              if (amenities.isNotEmpty &&
+                                  amenities[0].isNotEmpty) ...[
+                                height(8.h),
+                                Container(
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      Row(
+                                          children: amenities
+                                              .map(
+                                                (e) => Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 10.w),
+                                                  child: SvgPicture.asset(
+                                                      'assets/svg/${e}.svg'),
+                                                ),
+                                              )
+                                              .toList()),
+                                      // width(10.w),
+                                      Container(
+                                        height: size.height * .023,
+                                        width: size.width * .14,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Color(0xffFFE1C7)),
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: Color(0xffF2994A),
+                                                size: 15,
+                                              ),
+                                              CustomText(
+                                                  text: e.rating
+                                                      .toStringAsFixed(2),
+                                                  size: 12,
+                                                  color: Color(0xffF2994A)),
+                                            ]),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                height(8.h),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: CustomText(
+                                          text: e.address,
+                                          overflow: TextOverflow.ellipsis,
+                                          color: Color(0xff4f4f4f),
+                                          fontWeight: FontWeight.normal,
+                                          size: 12),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // height(size.height * .05),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: e.charger_type
+                            .split(',')
+                            .map((e) => e.isEmpty
+                                ? SizedBox()
+                                : Align(
+                                    alignment: Alignment.center,
+                                    child: Container(
+                                      // height: 12,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 5.w, vertical: 2.w),
+                                      margin: EdgeInsets.only(right: 5.w),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color:
+                                            Color.fromRGBO(184, 210, 255, 0.6),
+                                      ),
+                                      child: Center(
+                                        child: CustomText(
+                                          text: e,
+                                          size: 10.sp,
+                                          color: Color(0xff0047C3),
+                                        ),
+                                      ),
+                                    ),
+                                  ))
+                            .toList(),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          available == kAvailable
+                              ? SvgPicture.asset(
+                                  'assets/svg/tick.svg',
+                                  color: Colors.green,
+                                )
+                              : Icon(
+                                  Icons.info_outline,
+                                  color: Colors.grey,
+                                  size: 20,
+                                ),
+                          width(size.width * .01),
+                          CustomText(
+                              text: '$available',
+                              overflow: TextOverflow.ellipsis,
+                              size: 12.sp,
+                              fontWeight: FontWeight.bold,
+                              color: available == kAvailable
+                                  ? Color(0xff219653)
+                                  : available == kBusy
+                                      ? Color.fromARGB(255, 221, 90, 90)
+                                      : Colors.grey.shade400),
+                        ],
+                      ),
+                    ],
+                  )
+                ]),
+          ));
+    }).toList();
   }
 
   getActiveBooking(bool isClickOnCard) async {

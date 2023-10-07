@@ -1,7 +1,10 @@
 class StationMarkerModel {
   final int id;
+  final String locationName;
+  final String address;
   final double lattitude;
   final double longitude;
+  final double rating;
   final bool isBusy;
   final String amenities;
   final String charger_status;
@@ -11,8 +14,11 @@ class StationMarkerModel {
 
   StationMarkerModel({
     required this.id,
+    required this.locationName,
     required this.lattitude,
     required this.longitude,
+    required this.rating,
+    required this.address,
     required this.isBusy,
     required this.amenities,
     required this.charger_status,
@@ -26,8 +32,11 @@ class StationMarkerModel {
       id: json['id'],
       lattitude: json['lattitude'] ?? 0,
       longitude: json['longitude'] ?? 0,
+      rating: json['rating'] ?? 0,
       isBusy: json['isBusy'] ?? false,
       amenities: json['amenities'] ?? '',
+      locationName: json['locationName'] ?? '',
+      address: json['address'] ?? '',
       charger_status: json.containsKey('filter')
           ? json['filter']['charger_status'] ?? ''
           : '',
@@ -47,6 +56,9 @@ class StationMarkerModel {
         "longitude": longitude,
         "isBusy": isBusy,
         "amenities": amenities,
+        "locationName": locationName,
+        "address": address,
+        "rating": rating,
         "filter": {
           "charger_status": charger_status,
           "outputType": ac_dc,

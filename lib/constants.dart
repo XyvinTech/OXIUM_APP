@@ -109,7 +109,10 @@ final StationMarkerModel kStationMarkerModel = StationMarkerModel(
     charger_status: '',
     ac_dc: '',
     charger_type: '',
-    charger_capacity: '');
+    charger_capacity: '',
+    locationName: '',
+    rating: 0,
+    address: '');
 
 final BookingModel kBookingModel = BookingModel(
     bookingId: -1,
