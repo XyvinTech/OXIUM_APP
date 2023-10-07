@@ -21,9 +21,9 @@ class SocketRepo {
   SocketRepo._internal();
   WebSocketChannel? channel;
   RxBool isCharging = false.obs;
-  initSocket({required int bookingId, required Function fun}) {
+  initSocket({required int bookingId,required int transId, required Function fun}) {
     final wsUrl =
-        Uri.parse('${CallAPI().socketHost}/mobileAppChargingStatus/$bookingId');
+        Uri.parse('${CallAPI().socketHost}/mobileAppChargingStatus/$bookingId/$transId');
     channel = WebSocketChannel.connect(wsUrl);
 
     channel?.stream.listen((message) {

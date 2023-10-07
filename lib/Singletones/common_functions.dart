@@ -1,5 +1,7 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 
+import 'dart:developer';
+
 import 'package:freelancer_app/Controller/notification_screen_controller.dart';
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
@@ -532,6 +534,7 @@ class CommonFunctions {
     );
     kLog(res.statusCode.toString());
     kLog(res.body.toString());
+    print(res.body);
     if (res.statusCode == 200 && res.body['success']) {
       //cancel booking if booking already exist issue arises and status == 'S'
       if (res.body['result']['status'] == 'S' &&

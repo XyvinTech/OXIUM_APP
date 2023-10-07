@@ -138,6 +138,7 @@ class ChargingScreenController extends GetxController {
     await Future.delayed(Duration(seconds: 5));
     SocketRepo().initSocket(
         bookingId: bookingId,
+        transId: bookingId,
         fun: (message) {
           _timer?.cancel();
           if (message['status'] == 'C') {
