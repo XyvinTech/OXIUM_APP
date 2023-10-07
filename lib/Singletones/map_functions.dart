@@ -255,7 +255,7 @@ class MapFunctions {
             northeast: LatLng(maxLat, maxLong)),
         30));
     zoom = await dirMapController!.getZoomLevel();
-    var leg = directionsResult.value.routes!.first.legs!.first;
+    // var leg = directionsResult.value.routes!.first.legs!.first;
     controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng((minLat + maxLat) / 2, (minLong + maxLong) / 2),
         zoom: zoom - .5,
@@ -298,16 +298,18 @@ class MapFunctions {
     required bool isBusy,
     required HomePageController controller,
     required String status,
+    required int carouselIndex,
   }) {
     kLog(status);
     kLog(status.contains('Connected').toString());
     markers_homepage.add(Marker(
         onTap: () async {
           MapFunctions().isFocused = false;
+          controller.carouselController.animateToPage(carouselIndex);
           await MapFunctions().animateToNewPosition(latLng);
-          Future.delayed(Duration(milliseconds: 500), () {
-            controller.getChargeStationDetails(id);
-          });
+          // Future.delayed(Duration(milliseconds: 500), () {
+          //   // controller.getChargeStationDetails(id);
+          // });
         },
         markerId: MarkerId(id),
         icon: BitmapDescriptor.fromBytes(

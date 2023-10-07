@@ -154,7 +154,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                           return Row(
                                             children: [
                                               SvgPicture.asset(
-                                                  'assets/svg/${controller.amenities[index]}.svg'),
+                                                  'assets/svg/${controller.amenities[index]}.svg',color: Colors.grey.shade500,),
                                               width(size.width * .01),
                                               Expanded(
                                                 child: CustomText(

@@ -731,7 +731,7 @@ class Dialogs {
                       onTap: () {
                         //TODO: on download invoice
                         CommonFunctions()
-                            .downloadBookingInvoice(model.bookingId);
+                            .downloadWalletInvoice(model.transactionId);
                         kLog(model.bookingId.toString());
                       },
                       child: Row(

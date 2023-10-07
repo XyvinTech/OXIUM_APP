@@ -763,6 +763,12 @@ class CommonFunctions {
         'booking_invoice_$bookingId');
   }
 
+  downloadWalletInvoice(int tranId) async {
+    kLog(tranId.toString());
+    await CallAPI()
+        .download('walletinvoice?tranId=$tranId', 'wallet_invoice_$tranId');
+  }
+
   Future<List<FavoriteModel>> getFavorites() async {
     var res = await CallAPI().getData('favoritestations', {
       'username': appData.userModel.value.username,

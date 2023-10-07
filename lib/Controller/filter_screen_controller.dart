@@ -86,6 +86,8 @@ class FilterScreenController extends GetxController {
     if (list.isEmpty && !isAtLeastOneSelected) {
       list = station_marker_List.toList();
     }
+    _controller.assignCardsToMapScreen(list);
+    int index = 0;
     list.forEach((element) {
       kLog(element.lattitude.toString());
       kLog(element.longitude.toString());
@@ -94,7 +96,9 @@ class FilterScreenController extends GetxController {
           latLng: LatLng(element.lattitude, element.longitude),
           isBusy: element.isBusy,
           status: element.charger_status.trim(),
-          controller: _controller);
+          controller: _controller,
+          carouselIndex: index);
+      index++;
     });
     _controller.reload++;
     list.clear();

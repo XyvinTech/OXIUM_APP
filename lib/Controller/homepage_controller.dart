@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/trips_screen_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
+import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
@@ -43,7 +44,7 @@ class HomePageController extends GetxController {
   RxBool isCharging = false.obs;
 
   //NEW HELP PAGE STARTS
-  CarouselController? carouselController;
+  CarouselController carouselController =CarouselController();
   RxDouble currentIndex = 0.0.obs;
   String phnNumber = "+919778687615";
   RxList carouselText = [
@@ -126,23 +127,27 @@ class HomePageController extends GetxController {
     showLoading('Fetching nearby charge stations.\nPlease wait...');
     await getActiveBooking(false);
     station_marker_list = await CommonFunctions().getNearestChargstations(pos);
-    _assignCardsToMapScreen();
+    assignCardsToMapScreen(station_marker_list);
     hideLoading();
     MapFunctions().markers_homepage.clear();
+    int index = 0;
     station_marker_list.forEach((element) {
       print(element.charger_status.toString());
       MapFunctions().addMarkerHomePage(
-          id: element.id.toString(),
-          latLng: LatLng(element.lattitude, element.longitude),
-          isBusy: element.isBusy,
-          status: element.charger_status.trim(),
-          // element.charger_status.trim() != 'Connected' || element.isBusy,
-          controller: this);
+        id: element.id.toString(),
+        latLng: LatLng(element.lattitude, element.longitude),
+        isBusy: element.isBusy,
+        status: element.charger_status.trim(),
+        // element.charger_status.trim() != 'Connected' || element.isBusy,
+        controller: this,
+        carouselIndex: index,
+      );
+      index++;
     });
   }
 
-  _assignCardsToMapScreen() {
-    cards.value = station_marker_list.map((e) {
+  assignCardsToMapScreen(List<StationMarkerModel> list) {
+    cards.value = list.map((e) {
       double distance = 0;
       if (MapFunctions().curPos != null) {
         distance = (MapFunctions.distanceBetweenCoordinates(
@@ -162,175 +167,182 @@ class HomePageController extends GetxController {
                   e.charger_status.length == 9
               ? kAvailable
               : kUnavailable;
-      return Container(
-          margin: EdgeInsets.only(right: 20),
-          padding: EdgeInsets.symmetric(vertical: 10.h),
-          height: size.height * 0.2,
-          width: size.width * 0.85,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width * .00),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 7,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Expanded(
-                                    child: CustomText(
-                                        text: e.locationName,
-                                        overflow: TextOverflow.ellipsis,
-                                        color: Color(0xff4F4F4F),
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  width(size.width * .017),
-                                ],
-                              ),
-                              CustomText(
-                                  text: '${distance} km away',
-                                  color: Color(0xff828282),
-                                  fontWeight: FontWeight.normal,
-                                  size: 12),
-                              if (amenities.isNotEmpty &&
-                                  amenities[0].isNotEmpty) ...[
-                                height(8.h),
-                                Container(
-                                  width: double.infinity,
-                                  child: Row(
-                                    children: [
-                                      Row(
-                                          children: amenities
-                                              .map(
-                                                (e) => Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 10.w),
-                                                  child: SvgPicture.asset(
-                                                      'assets/svg/${e}.svg'),
-                                                ),
-                                              )
-                                              .toList()),
-                                      // width(10.w),
-                                      Container(
-                                        height: size.height * .023,
-                                        width: size.width * .14,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Color(0xffFFE1C7)),
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                color: Color(0xffF2994A),
-                                                size: 15,
-                                              ),
-                                              CustomText(
-                                                  text: e.rating
-                                                      .toStringAsFixed(2),
-                                                  size: 12,
-                                                  color: Color(0xffF2994A)),
-                                            ]),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                height(8.h),
+      return GestureDetector(
+        onTap: () {
+          getChargeStationDetails(e.id.toString(), isCardTap: true);
+        },
+        child: Container(
+            margin: EdgeInsets.only(right: 20),
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            height: size.height * 0.2,
+            width: size.width * 0.85,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width * .00),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 7,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                                 Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Expanded(
                                       child: CustomText(
-                                          text: e.address,
+                                          text: e.locationName,
                                           overflow: TextOverflow.ellipsis,
-                                          color: Color(0xff4f4f4f),
-                                          fontWeight: FontWeight.normal,
-                                          size: 12),
+                                          color: Color(0xff4F4F4F),
+                                          fontWeight: FontWeight.bold),
                                     ),
+                                    width(size.width * .017),
                                   ],
                                 ),
-                              ],
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // height(size.height * .05),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: e.charger_type
-                            .split(',')
-                            .map((e) => e.isEmpty
-                                ? SizedBox()
-                                : Align(
-                                    alignment: Alignment.center,
-                                    child: Container(
-                                      // height: 12,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 5.w, vertical: 2.w),
-                                      margin: EdgeInsets.only(right: 5.w),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color:
-                                            Color.fromRGBO(184, 210, 255, 0.6),
-                                      ),
-                                      child: Center(
-                                        child: CustomText(
-                                          text: e,
-                                          size: 10.sp,
-                                          color: Color(0xff0047C3),
+                                CustomText(
+                                    text: '${distance} km away',
+                                    color: Color(0xff828282),
+                                    fontWeight: FontWeight.normal,
+                                    size: 12),
+                                if (amenities.isNotEmpty &&
+                                    amenities[0].isNotEmpty) ...[
+                                  height(8.h),
+                                  Container(
+                                    width: double.infinity,
+                                    child: Row(
+                                      children: [
+                                        Row(
+                                            children: amenities
+                                                .map(
+                                                  (e) => Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right: 10.w),
+                                                    child: SvgPicture.asset(
+                                                        'assets/svg/${e}.svg'),
+                                                  ),
+                                                )
+                                                .toList()),
+                                        // width(10.w),
+                                        Container(
+                                          height: size.height * .023,
+                                          width: size.width * .14,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: Color(0xffFFE1C7)),
+                                          child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Color(0xffF2994A),
+                                                  size: 15,
+                                                ),
+                                                CustomText(
+                                                    text: e.rating
+                                                        .toStringAsFixed(2),
+                                                    size: 12,
+                                                    color: Color(0xffF2994A)),
+                                              ]),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ))
-                            .toList(),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          available == kAvailable
-                              ? SvgPicture.asset(
-                                  'assets/svg/tick.svg',
-                                  color: Colors.green,
-                                )
-                              : Icon(
-                                  Icons.info_outline,
-                                  color: Colors.grey,
-                                  size: 20,
-                                ),
-                          width(size.width * .01),
-                          CustomText(
-                              text: '$available',
-                              overflow: TextOverflow.ellipsis,
-                              size: 12.sp,
-                              fontWeight: FontWeight.bold,
-                              color: available == kAvailable
-                                  ? Color(0xff219653)
-                                  : available == kBusy
-                                      ? Color.fromARGB(255, 221, 90, 90)
-                                      : Colors.grey.shade400),
+                                  ),
+                                  height(8.h),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: CustomText(
+                                            text: e.address,
+                                            overflow: TextOverflow.ellipsis,
+                                            color: Color(0xff4f4f4f),
+                                            fontWeight: FontWeight.normal,
+                                            size: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                    ],
-                  )
-                ]),
-          ));
+                    ),
+                    // height(size.height * .05),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: e.charger_type
+                              .split(',')
+                              .map((e) => e.isEmpty
+                                  ? SizedBox()
+                                  : Align(
+                                      alignment: Alignment.center,
+                                      child: Container(
+                                        // height: 12,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 5.w, vertical: 2.w),
+                                        margin: EdgeInsets.only(right: 5.w),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          color: Color.fromRGBO(
+                                              184, 210, 255, 0.6),
+                                        ),
+                                        child: Center(
+                                          child: CustomText(
+                                            text: e,
+                                            size: 10.sp,
+                                            color: Color(0xff0047C3),
+                                          ),
+                                        ),
+                                      ),
+                                    ))
+                              .toList(),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            available == kAvailable
+                                ? SvgPicture.asset(
+                                    'assets/svg/tick.svg',
+                                    color: Colors.green,
+                                  )
+                                : Icon(
+                                    Icons.info_outline,
+                                    color: Colors.grey,
+                                    size: 20,
+                                  ),
+                            width(size.width * .01),
+                            CustomText(
+                                text: '$available',
+                                overflow: TextOverflow.ellipsis,
+                                size: 12.sp,
+                                fontWeight: FontWeight.bold,
+                                color: available == kAvailable
+                                    ? Color(0xff219653)
+                                    : available == kBusy
+                                        ? Color.fromARGB(255, 221, 90, 90)
+                                        : Colors.grey.shade400),
+                          ],
+                        ),
+                      ],
+                    )
+                  ]),
+            )),
+      );
     }).toList();
   }
 
@@ -353,12 +365,15 @@ class HomePageController extends GetxController {
     }
   }
 
-  getChargeStationDetails(String stationId) async {
+  getChargeStationDetails(String stationId, {bool isCardTap = false}) async {
     showLoading(kLoading);
     var res = await CommonFunctions().getChargeStationDetails(stationId);
     hideLoading();
-
-    showBottomSheetWhenClickedOnMarker(res, this);
+    if (isCardTap) {
+      Get.toNamed(Routes.calistaCafePageRoute, arguments: res);
+    } else {
+      showBottomSheetWhenClickedOnMarker(res, this);
+    }
   }
 
   //NEW HELP PAGE STARTS

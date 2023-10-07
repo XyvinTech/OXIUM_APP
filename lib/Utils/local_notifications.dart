@@ -1,5 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:freelancer_app/constants.dart';
+
 
 class NotificationService {
   //Hanle displaying of notifications.

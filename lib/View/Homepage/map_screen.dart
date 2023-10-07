@@ -319,6 +319,7 @@ class _MapScreenState extends State<MapScreen>
                       // color: Colors.amber,
                       child: Obx(
                         () => CarouselSlider(
+                          carouselController: controller.carouselController ,
                           items: controller.cards,
                           options: CarouselOptions(
                             height: 150.h,

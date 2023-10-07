@@ -1,10 +1,8 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/chargePage_controller.dart';
-import 'package:freelancer_app/Controller/filter_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';

@@ -9,7 +9,7 @@ Future<String?> getDeviceId() async {
     var iosDeviceInfo = await deviceInfo.iosInfo;
     return iosDeviceInfo.identifierForVendor; // unique ID on iOS
   } else if (Platform.isAndroid) {
-    var androidDeviceInfo = await deviceInfo.androidInfo;
+    // var androidDeviceInfo = await deviceInfo.androidInfo;
     // return androidDeviceInfo.androidId; // unique ID on Android
   }
   return null;
