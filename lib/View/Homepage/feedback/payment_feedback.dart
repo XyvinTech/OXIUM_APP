@@ -199,6 +199,7 @@ class PaymentFeedbackScreen extends GetView<FeedBackPageController> {
                       _button(
                         button: "Submit",
                         onTap: () {
+                          FocusScope.of(context).unfocus();
                           controller.postReviewForChargeStation(context);
                         },
                       ),

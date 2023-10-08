@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:ffi';
 import 'dart:io';
 
@@ -174,12 +175,15 @@ class ChargingScreenController extends GetxController {
               status_model.value.status == 'I')
             _timer = Timer.periodic(
                 Duration(
-                    seconds: time.isEmpty
-                        ? 10
-                        : DateTime.parse(status_model.value.lastupdated)
-                                .difference(DateTime.parse(time))
-                                .inSeconds +
-                            10), (timer) async {
+                    seconds:
+                        //  time.isEmpty ?
+                        30
+                    // : DateTime.parse(status_model.value.lastupdated)
+                    //         .difference(DateTime.parse(time))
+                    //         .inSeconds +
+                    //     10
+                    ), (timer) async {
+              log('getting status from loop');
               status_model.value = await CommonFunctions()
                   .getChargingStatus(bookingId.toString());
               _repeatCall();
