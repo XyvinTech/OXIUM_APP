@@ -45,7 +45,7 @@ class ChargingStatusModel {
   factory ChargingStatusModel.fromJson(Map<String, dynamic> json) {
     return ChargingStatusModel(
       tran_id: json['tran_id'] ?? -1,
-      Connector: json['Connector'] ?? 0,
+      Connector: json['Connector'] ?? -1,
       amount: json['amount'] ?? 0,
       SOC: (json['SOC'] ?? 0).toInt(),
       Duration: json['Duration'] ?? 0,

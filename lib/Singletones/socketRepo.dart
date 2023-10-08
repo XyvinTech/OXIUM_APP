@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-
+import 'package:freelancer_app/constants.dart';
 import 'package:get/state_manager.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -24,8 +24,11 @@ class SocketRepo {
     channel = WebSocketChannel.connect(wsUrl);
 
     channel?.stream.listen((message) {
+      kLog(message);
       if (message !=
-          'Welcome! You are now connected to booking id: $bookingId.')
+              'Welcome! You are now connected to booking id: $bookingId.' &&
+          message !=
+              'Closing connection: Transaction is not active for bookingID: $bookingId')
         fun(jsonDecode(message));
       // channel?.sink.add('received!');
     }).onDone(() {});

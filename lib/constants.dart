@@ -267,8 +267,7 @@ final TextStyle kApphintTextStyle2 = TextStyle(
 );
 Logger logger = Logger();
 kLog(Object value) {
-  // log(value);
-  logger.w(value);
+  logger.d(value);
   // logger.t("Trace log");
 
   // logger.d("Debug log");

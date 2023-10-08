@@ -37,7 +37,6 @@ class ChargingScreenController extends GetxController {
     booking_model.value = Get.arguments != null
         ? Get.arguments[1] ?? kBookingModel
         : kBookingModel;
-    // saveToSharedPreferences();
     kLog(qr_or_app_data);
     List<String> seperator = qr_or_app_data.split('-');
     stationId = seperator[0];
@@ -49,56 +48,12 @@ class ChargingScreenController extends GetxController {
     } else {
       changeStatus(isStart: true, bookingId: booking_model.value.bookingId);
     }
-    // getChargingStatus(529);
   }
 
   onClose() {
     super.onClose();
     _timer?.cancel();
-    // NotificationService().cancelLocalNotification(1);
   }
-
-  toConnected() {
-    chargingStatus.value = "connected";
-  }
-
-  toFinished() {
-    chargingStatus.value = "finished";
-  }
-
-  toCompleted() {
-    chargingStatus.value = "completed";
-  }
-
-  toDisconnected() {
-    chargingStatus.value = "disconnected";
-  }
-
-  toProgress() {
-    chargingStatus.value = "progress";
-  }
-
-  toReconnect() {
-    chargingStatus.value = "";
-  }
-
-  toInitiating() {
-    chargingStatus.value = "initiating";
-  }
-
-  // Future createBooking() async {
-  //   toReconnect();
-  //   showLoading(kLoading);
-  //   BookingModel res = await CommonFunctions().createBooking(
-  //       chargerName: chargerName,
-  //       chargingPoint: chargingPoint,
-  //       userEvId: 366,
-  //       bookingVia: bookingVia);
-  //   hideLoading();
-  //   if (res.bookingId != -1) {
-  //     changeStatus(isStart: true, bookingId: res.bookingId);
-  //   }
-  // }
 
   Future changeStatus({required bool isStart, required int bookingId}) async {
     showLoading(kLoading);
@@ -117,22 +72,19 @@ class ChargingScreenController extends GetxController {
   Future getChargingStatus(int bookingId) async {
     // _timer = Timer.periodic(Duration(seconds: 7), (timer) async {
 
-    status_model.value =
+    ChargingStatusModel res =
         await CommonFunctions().getChargingStatus(bookingId.toString());
+    if (res.Connector != -1) status_model.value = res;
+    res = kChargingStatusModel;
     //Try untill the transaction table updated by charger.
     while (status_model.value.tran_id == -1 &&
         status_model.value.Connector != -1) {
-      status_model.value =
-          await CommonFunctions().getChargingStatus(bookingId.toString());
+      res = await CommonFunctions().getChargingStatus(bookingId.toString());
+      if (res.Connector != -1) status_model.value = res;
+      res = kChargingStatusModel;
       kLog('retry');
     }
     _repeatCall();
-    // if (status_model.value.Chargingstatus == 'I' && !Get.isDialogOpen!) {
-    //   Dialogs().connectPortTipDialog();
-    // } else if (status_model.value.Chargingstatus != 'I' &&
-    //     Get.isDialogOpen!) {
-    //   Get.back();
-    // }
     status_model.value.Capacity = booking_model.value.capacity;
     status_model.value.OutputType = booking_model.value.outputType;
     status_model.value.ConnectorType = booking_model.value.connectorType;
@@ -173,19 +125,11 @@ class ChargingScreenController extends GetxController {
 // This timer is for if there is no update within the interval then close the session by checking /bookingStatus api
           if (status_model.value.status == 'R' ||
               status_model.value.status == 'I')
-            _timer = Timer.periodic(
-                Duration(
-                    seconds:
-                        //  time.isEmpty ?
-                        30
-                    // : DateTime.parse(status_model.value.lastupdated)
-                    //         .difference(DateTime.parse(time))
-                    //         .inSeconds +
-                    //     10
-                    ), (timer) async {
-              log('getting status from loop');
-              status_model.value = await CommonFunctions()
+            _timer = Timer.periodic(Duration(seconds: 30), (timer) async {
+              kLog('getting status from loop');
+              var res = await CommonFunctions()
                   .getChargingStatus(bookingId.toString());
+              if (res.Connector != -1) status_model.value = res;
               _repeatCall();
               if (status_model.value.status != 'R') _timer?.cancel();
             });
@@ -217,7 +161,6 @@ class ChargingScreenController extends GetxController {
       if (chargingStatus.value != 'progress' &&
           chargingStatus.value != 'finishing') {
         toConnected();
-     
 
         Future.delayed(Duration(seconds: 1), () => toProgress());
       } else if (chargingStatus.value == 'progress') {
@@ -253,5 +196,33 @@ class ChargingScreenController extends GetxController {
   downloadInvoice() async {
     await CommonFunctions()
         .downloadBookingInvoice(booking_model.value.bookingId);
+  }
+
+  toConnected() {
+    chargingStatus.value = "connected";
+  }
+
+  toFinished() {
+    chargingStatus.value = "finished";
+  }
+
+  toCompleted() {
+    chargingStatus.value = "completed";
+  }
+
+  toDisconnected() {
+    chargingStatus.value = "disconnected";
+  }
+
+  toProgress() {
+    chargingStatus.value = "progress";
+  }
+
+  toReconnect() {
+    chargingStatus.value = "";
+  }
+
+  toInitiating() {
+    chargingStatus.value = "initiating";
   }
 }

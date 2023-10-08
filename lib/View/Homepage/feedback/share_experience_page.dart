@@ -66,7 +66,7 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                       () => _card(
                           energy: "${controller.status_model.value.unit}",
                           amount:
-                              "${(controller.status_model.value.amount + controller.status_model.value.taxamount).toStringAsFixed(2)}"),
+                              "${(controller.status_model.value.amount).toStringAsFixed(2)}"),
                     ),
                     height(50.h),
                   ],
