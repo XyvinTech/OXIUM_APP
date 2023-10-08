@@ -65,7 +65,6 @@ class PhoneNumberTextField extends GetView<EditProfileScreenController> {
                               favorite: ['IN', 'BD'],
                               showPhoneCode: true,
                               onSelect: (Country country) {
-                                print('Select country: ${country.displayName}');
                                 controller.country.value = country.phoneCode;
                               },
                             );
@@ -165,7 +164,6 @@ class PhoneNumberTextField2 extends GetView<PartnerPageController> {
                             favorite: ['IN', 'BD'],
                             showPhoneCode: true,
                             onSelect: (Country country) {
-                              print('Select country: ${country.displayName}');
                               controller.country.value = country.phoneCode;
                             },
                           );
@@ -274,8 +272,6 @@ class PhoneNumberTextFieldSlim extends GetView<EditProfileScreenController> {
                                     favorite: ['IN', 'BD'],
                                     showPhoneCode: true,
                                     onSelect: (Country country) {
-                                      print(
-                                          'Select country: ${country.displayName}');
                                       controller.country.value =
                                           country.phoneCode;
                                     },

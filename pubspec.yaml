@@ -83,11 +83,10 @@ dependencies:
   timeago:
   flutter_local_notifications:
   workmanager: ^0.5.1
-  logger: ^1.4.0
   share_plus: ^7.1.0
   app_tracking_transparency: ^2.0.4
   web_socket_channel: ^2.4.0
-  
+  logger: ^2.0.2+1
 
 
   #firebase
@@ -100,6 +99,7 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: 
   flutter_native_splash: ^2.3.1
+  
 
 flutter_icons:
   android: "launcher_icon"

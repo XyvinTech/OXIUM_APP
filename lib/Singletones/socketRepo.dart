@@ -24,11 +24,10 @@ class SocketRepo {
     channel = WebSocketChannel.connect(wsUrl);
 
     channel?.stream.listen((message) {
-      print(message);
       if (message !=
           'Welcome! You are now connected to booking id: $bookingId.')
         fun(jsonDecode(message));
-      channel?.sink.add('received!');
+      // channel?.sink.add('received!');
     }).onDone(() {});
   }
 

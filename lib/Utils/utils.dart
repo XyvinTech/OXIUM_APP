@@ -76,7 +76,7 @@ List<dynamic> calculateAvailabiliy(
       total = evPorts.length;
   String trailing = '';
   evPorts.forEach((element) {
-    kLog(element.ocppStatus);
+    // kLog(element.ocppStatus);
     if (element.ocppStatus == kAvailable || element.ocppStatus.isEmpty)
       available++;
     else if (element.ocppStatus == 'Charging')
@@ -107,7 +107,7 @@ String getTimeFromTimeStamp(String timestamp, String format) {
   if (timestamp.isEmpty) return '00:00 AM';
   DateTime dateTime = DateTime.parse(timestamp);
   String formattedString = DateFormat(format).format(dateTime);
-  // print(formattedString);
+  //formattedString);
   return formattedString;
 }
 

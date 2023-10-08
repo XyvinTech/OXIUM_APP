@@ -46,7 +46,7 @@ class CommonFunctions {
 
   Future<void> handlePaymentSuccess(PaymentSuccessResponse response) async {
     //TODO: call api here when it is success payment
-    print("////////////////////");
+
     kLog(response.paymentId.toString());
     kLog(response.orderId.toString());
     kLog(response.signature.toString());
@@ -65,21 +65,20 @@ class CommonFunctions {
 
   void handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
-    print("////////////////////");
+
 
     if (Get.currentRoute == Routes.rfidNumberRoute)
       showError(response.message!);
     else
       Dialogs().rechargePopUp(isSuccess: false);
 
-    print(response.error);
     closeRazorPay();
   }
 
   void handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet was selected
-    print("////////////////////");
-    print(response);
+
+    kLog(response);
   }
 
   void openRazorPay(
@@ -111,7 +110,7 @@ class CommonFunctions {
     String payment_id = Uuid().v4().substring(0, 20);
     var res = await CallAPI().postData(
         {"amount": amount * 100, "paymentId": payment_id}, 'payment/getorder');
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     _getOrderResponse = res.body;
     if (res.statusCode == 200)
       return res.body['result']['pgOrderId'];
@@ -128,10 +127,10 @@ class CommonFunctions {
     _getOrderResponse['result']['status'] = "P";
     if (Get.currentRoute == Routes.rfidNumberRoute)
       _getOrderResponse['result']['rfidAmountPaid'] = "Y";
-    print(_getOrderResponse);
+  
     var res = await CallAPI()
         .postData(_getOrderResponse['result'], 'payment/savePayment');
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     _getOrderResponse = null;
     if (res.statusCode == 200 && res.body['success']) {
       //TODO: what to do if RFID purchase successful
@@ -155,7 +154,7 @@ class CommonFunctions {
   Future<Map<String, dynamic>> getEvTemplates() async {
     ResponseModel res = await CallAPI().getData('evtemplates', {});
     if (res.statusCode == 200 && res.body['success']) {
-      print(res.body);
+
       Map list = res.body['result']['vehicleDetails'] ?? {};
       Map<String, dynamic> response = {};
       List<VehicleModel> brandVehicles = [];
@@ -196,7 +195,7 @@ class CommonFunctions {
       if (isDefault) "defaultVehicle": 'Y',
     }, 'ev');
     kLog(ev.id.toString());
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     return (res.statusCode == 200 && res.body['success']);
   }
@@ -211,7 +210,7 @@ class CommonFunctions {
   //     "evRegNumber": regNumber,
   //     "defaultVehicle": isDefault ? 'Y' : 'N',
   //   }, 'ev');
-  //   kLog(res.statusCode.toString());
+  //   //kLog(res.statusCode.toString())usCode.toString());
   //   kLog(res.body.toString());
   //   return (res.statusCode == 200 && res.body['success']);
   // }
@@ -244,9 +243,8 @@ class CommonFunctions {
     var res = await CallAPI().getData('appuser', {
       "username": appData.userModel.value.username,
     });
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['result'] != null) {
-      kLog(appData.token);
       kLog(res.body.toString());
       return appData.userModel.value = UserModel.fromJson(res.body['result']);
     } else {
@@ -266,7 +264,7 @@ class CommonFunctions {
       "name": name,
       "email": email,
     }, 'appuser');
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
     } else {
@@ -333,7 +331,7 @@ class CommonFunctions {
     var res = await CallAPI().getData('rfidbyusername', {
       "user": appData.userModel.value.username,
     });
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 &&
         res.body['success'] &&
@@ -369,7 +367,7 @@ class CommonFunctions {
       "lattitude": "${pos.latitude}",
       "longitude": "${pos.longitude}",
     });
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<StationMarkerModel> list = [];
@@ -387,7 +385,7 @@ class CommonFunctions {
     var res = await CallAPI().getData('chargersbystation', {
       "stationId": "$id",
     });
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return ChargeStationDetailsModel.fromJson(res.body['result']);
     } else {
@@ -400,7 +398,7 @@ class CommonFunctions {
     var res = await CallAPI().getData('stationsbyname', {
       'name': name,
     });
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<SearchStationrModel> list = [];
@@ -424,7 +422,7 @@ class CommonFunctions {
       },
       'review',
     );
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
@@ -461,7 +459,7 @@ class CommonFunctions {
       },
       'appuser',
     );
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
@@ -478,7 +476,7 @@ class CommonFunctions {
         "otp": otp,
       },
     );
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return await getToken(username, res.body['result'] ?? '');
@@ -499,7 +497,7 @@ class CommonFunctions {
       },
       'appuserauth',
     );
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return res;
@@ -532,9 +530,8 @@ class CommonFunctions {
       },
       'booking',
     );
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
-    print(res.body);
     if (res.statusCode == 200 && res.body['success']) {
       //cancel booking if booking already exist issue arises and status == 'S'
       if (res.body['result']['status'] == 'S' &&
@@ -572,7 +569,7 @@ class CommonFunctions {
         "username": appData.userModel.value.username,
       },
     );
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return BookingModel.fromJson(res.body['result']);
@@ -589,7 +586,7 @@ class CommonFunctions {
         "bookingId": bookingId,
       },
     );
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return BookingModel.fromJson(res.body['result']);
@@ -619,7 +616,7 @@ class CommonFunctions {
       },
       'changestatus',
     );
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
@@ -632,9 +629,8 @@ class CommonFunctions {
     var res = await CallAPI().getData('bookingstatus', {
       'bookingId': bookingId,
     });
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
-    print(res.body);
     if (res.statusCode != 200) {
       ChargingStatusModel model = kChargingStatusModel;
       model.status = 'E';
@@ -663,7 +659,7 @@ class CommonFunctions {
       );
     }
 
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
@@ -680,7 +676,7 @@ class CommonFunctions {
       'minRating': '1',
       'maxRating': '5',
     });
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<ReviewModel> list = [];
       res.body['result']['content'].forEach((element) {
@@ -702,7 +698,7 @@ class CommonFunctions {
       if (mode.isNotEmpty) 'paymentModes': mode,
       if (status.isNotEmpty) 'statuses': status,
     });
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<OrderModel> list = [];
       WalletPageController _walletPageController = Get.find();
@@ -723,7 +719,7 @@ class CommonFunctions {
       'size': size,
       'username': appData.userModel.value.username
     });
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<NotificationModel> list = [];
       NotificationScreenController _walletPageController = Get.find();
@@ -773,7 +769,7 @@ class CommonFunctions {
     var res = await CallAPI().getData('favoritestations', {
       'username': appData.userModel.value.username,
     });
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body.isNotEmpty && res.body['success']) {
       List<FavoriteModel> list = [];
       res.body['result'].forEach((element) {

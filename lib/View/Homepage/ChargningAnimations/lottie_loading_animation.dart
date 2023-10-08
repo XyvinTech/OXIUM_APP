@@ -26,7 +26,7 @@ class _LottieLoadingWidgetState extends State<LottieLoadingWidget>
 
   @override
   void dispose() {
-    kLog('lottie animaiton disposed');
+    // kLog('lottie animaiton disposed');
     _animationController.dispose();
     super.dispose();
   }

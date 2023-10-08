@@ -174,7 +174,7 @@ class EnterOtpSheet extends StatelessWidget {
                                 activeColor: Color(0xff0047C3).withOpacity(0.6),
                               ),
                               onChanged: (valu) {
-                                print(valu);
+                              
                               }),
                         ),
                         SizedBox(

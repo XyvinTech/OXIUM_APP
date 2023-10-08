@@ -13,7 +13,7 @@ class OrderRFIDScreen extends GetView<RfidPageController> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    print(size.width);
+  
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xffF3F5F9),

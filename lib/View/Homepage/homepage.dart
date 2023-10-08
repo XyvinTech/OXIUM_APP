@@ -154,7 +154,7 @@ showBottomSheetWhenClickedOnMarker(
             minHeight: size.height * .32,
             maxHeight: size.height * .80,
             onPanelSlide: (value) {
-              kLog(value.toString());
+              // kLog(value.toString());
             },
             onPanelClosed: () {},
 

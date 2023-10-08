@@ -36,7 +36,7 @@ class Injector {
 
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);
     // >> To get paths you need these 2 lines
-    print(manifestContent);
+
     List<String> imagePaths = manifestMap.keys
         .where((String key) => key.contains(isSVG ? '.svg' : '.png'))
         .toList();

@@ -895,7 +895,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   }
 
   Widget _responseDialougebox() {
-    kLog('value');
     return AlertDialog(
       backgroundColor: kwhite,
       contentPadding: EdgeInsets.all(0),

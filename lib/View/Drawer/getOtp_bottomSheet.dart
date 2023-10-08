@@ -88,8 +88,7 @@ class GetOtpSheet extends StatelessWidget {
                                   favorite: ['IN', 'BD'],
                                   showPhoneCode: true,
                                   onSelect: (Country country) {
-                                    print(
-                                        'Select country: ${country.displayName}');
+                                    
                                     countryCode.value = country.phoneCode;
                                   },
                                 );

@@ -124,7 +124,7 @@ class ChargingScreenController extends GetxController {
         status_model.value.Connector != -1) {
       status_model.value =
           await CommonFunctions().getChargingStatus(bookingId.toString());
-      print('retry');
+      kLog('retry');
     }
     _repeatCall();
     // if (status_model.value.Chargingstatus == 'I' && !Get.isDialogOpen!) {
@@ -217,7 +217,7 @@ class ChargingScreenController extends GetxController {
       if (chargingStatus.value != 'progress' &&
           chargingStatus.value != 'finishing') {
         toConnected();
-        print(status_model.value.startTime);
+     
 
         Future.delayed(Duration(seconds: 1), () => toProgress());
       } else if (chargingStatus.value == 'progress') {

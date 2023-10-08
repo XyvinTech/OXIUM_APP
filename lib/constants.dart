@@ -10,6 +10,7 @@ import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:logger/logger.dart';
 
 late Size size = Size(0, 0);
 double zoom = 15;
@@ -264,9 +265,21 @@ final TextStyle kApphintTextStyle2 = TextStyle(
   fontWeight: FontWeight.w400,
   color: Color.fromARGB(251, 105, 105, 105),
 );
+Logger logger = Logger();
+kLog(Object value) {
+  // log(value);
+  logger.w(value);
+  // logger.t("Trace log");
 
-kLog(String value) {
-  log(value);
+  // logger.d("Debug log");
+
+  // logger.i("Info log");
+
+  // logger.w("Warning log");
+
+  // logger.e("Error log", error: 'Test Error');
+
+  // logger.f("What a fatal log");
 }
 
 class Const {

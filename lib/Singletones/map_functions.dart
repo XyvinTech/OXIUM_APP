@@ -161,7 +161,6 @@ class MapFunctions {
   }
 
   Future<void> myPositionListener() async {
-    kLog('listener');
     if ((await checkLocationPermission())) {
       startMapTimer();
       getHeading();
@@ -273,10 +272,10 @@ class MapFunctions {
     //   //     await controller.getScreenCoordinate(LatLng(minLat, minLong));
     //   // ScreenCoordinate maxScreen =
     //   //     await controller.getScreenCoordinate(LatLng(maxLat, maxLong));
-    //   // print(minScreen);
-    //   // print(maxScreen);
-    //   // print(size);
-    //   // print(isNavigation);
+    //   //minScreen);
+    //   //maxScreen);
+    //   //size);
+    //   //isNavigation);
     //   // if (isNavigation) {
     //   //   controller.animateCamera(CameraUpdate.zoomBy(-.7));
     //   //   Future.delayed(Duration(milliseconds: 500), () {
@@ -300,8 +299,8 @@ class MapFunctions {
     required String status,
     required int carouselIndex,
   }) {
-    kLog(status);
-    kLog(status.contains('Connected').toString());
+    // kLog(status);
+    // kLog(status.contains('Connected').toString());
     markers_homepage.add(Marker(
         onTap: () async {
           MapFunctions().isFocused = false;
@@ -331,15 +330,15 @@ class MapFunctions {
       );
       if (result != null && result.predictions != null) {
         result.predictions!.forEach((element) {
-          kLog(element.placeId.toString());
-          kLog(element.description.toString());
+          // kLog(element.placeId.toString());
+          // kLog(element.description.toString());
         });
       }
 
       return result?.predictions ?? [];
     } on Exception catch (e) {
       // TODO
-      kLog(e.toString());
+      logger.e(e.toString());
     }
 
     return [];
@@ -348,7 +347,7 @@ class MapFunctions {
   Future<DetailsResponse?> getDetailsByPlaceId(String placeId) async {
     DetailsResponse? res = await googlePlace.details.get(placeId);
     if (res != null && res.status == 'OK') {
-      // print(res.result!.geometry!.location!.lat);
+      //res.result!.geometry!.location!.lat);
       return res;
     }
     return null;

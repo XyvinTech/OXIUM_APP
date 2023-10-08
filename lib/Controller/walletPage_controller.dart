@@ -48,7 +48,6 @@ class WalletPageController extends GetxController {
           scrollController.position.pixels > nextPageTrigger) {
         // loading = true;
         // fetchData();
-        kLog(modelList.length.toString());
         page++;
         isLoading = true;
         await getWalletTransactions();

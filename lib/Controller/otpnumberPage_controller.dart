@@ -51,7 +51,7 @@ class OtpNumberPageController extends GetxController {
   }
 
   verifyOTP() async {
-    kLog(otpController.text);
+    // kLog(otpController.text);
     if (otpController.text.length != 5) return;
     showLoading(kLoading);
     ResponseModel res =

@@ -38,7 +38,7 @@ class CallAPI {
   Future<ResponseModel> postData(
       Map<String, dynamic> data, String endPoint) async {
     try {
-      log('POST $endPoint');
+      kLog('POST $endPoint');
       http.Response res = await http.post(
         Uri.parse(_url + endPoint),
         body: jsonEncode(data),
@@ -52,10 +52,13 @@ class CallAPI {
       });
       log('post request end');
       var body;
-      if (res.statusCode == 200) body = json.decode(res.body);
+      if (res.statusCode == 200)
+        body = json.decode(res.body);
+      else
+        logger.e(res.statusCode);
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
-      log(e.toString());
+      logger.e(e.toString());
       hideLoading();
       // TODO
     }
@@ -84,11 +87,12 @@ class CallAPI {
       });
       if (res.statusCode == 200) {
         body = json.decode(res.body);
-      }
+      } else
+        logger.e(res.statusCode);
 
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
-      log(e.toString());
+      logger.e(e.toString());
       hideLoading();
       showError('Failed to get data');
       // TODO
@@ -117,10 +121,13 @@ class CallAPI {
       var body;
       kLog(res.statusCode.toString());
       kLog(res.body.toString());
-      if (res.statusCode == 200) body = json.decode(res.body);
+      if (res.statusCode == 200)
+        body = json.decode(res.body);
+      else
+        logger.e(res.statusCode);
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
-      log(e.toString());
+      logger.e(e.toString());
       hideLoading();
       showError('Failed to put data');
       // TODO
@@ -146,13 +153,14 @@ class CallAPI {
       });
       log('delete request end');
       var body;
-      // if (res.statusCode == 200) {
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+      } else
+        logger.e(res.statusCode);
 
-      // }
-      body = json.decode(res.body);
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
-      log(e.toString());
+      logger.e(e.toString());
       hideLoading();
       showError('Failed to delete!');
       // TODO:
@@ -178,9 +186,9 @@ class CallAPI {
       return http.Response('Error', 408);
     });
     var body;
-    // if (res.statusCode == 200) {
-
-    // } else {}
+    if (res.statusCode == 200) {
+    } else
+      logger.e(res.statusCode);
 
     body = json.decode(res.body);
     // log(body.toString());

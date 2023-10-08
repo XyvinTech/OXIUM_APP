@@ -106,7 +106,7 @@ class HomePageController extends GetxController {
     // MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
     // MapFunctions().animateToNewPosition(LatLng(28.670988, 77.2794488));
     if (pos != null) {
-      print(pos);
+
       await getNearestChargestations(pos);
       MapFunctions().addMyPositionMarker(pos, MapFunctions().markers_homepage);
     }
@@ -116,7 +116,6 @@ class HomePageController extends GetxController {
   }
 
   onClose() {
-    print('app killed from charging page');
     MapFunctions().dispose();
     NotificationService().cancelLocalNotification(1);
     super.onClose();
@@ -132,7 +131,7 @@ class HomePageController extends GetxController {
     MapFunctions().markers_homepage.clear();
     int index = 0;
     station_marker_list.forEach((element) {
-      print(element.charger_status.toString());
+  
       MapFunctions().addMarkerHomePage(
         id: element.id.toString(),
         latLng: LatLng(element.lattitude, element.longitude),
@@ -348,11 +347,11 @@ class HomePageController extends GetxController {
 
   getActiveBooking(bool isClickOnCard) async {
     BookingModel _bookingModel = await CommonFunctions().getActiveBooking();
-    print(_bookingModel.toJson());
+
     if (_bookingModel.bookingId != -1) {
       ChargingStatusModel _status = await CommonFunctions()
           .getChargingStatus("${_bookingModel.bookingId}");
-      print(_status.toJson());
+  
       isCharging.value = true;
       if (!isClickOnCard) return;
       appData.qr =
@@ -380,7 +379,7 @@ class HomePageController extends GetxController {
   Future<void> openWhatsApp() async {
     var url = "https://wa.me/${phnNumber}";
     if (await launch(url)) {
-      print("launching $url");
+  
       if (Platform.isAndroid) {
         await launch(url);
       } else if (Platform.isIOS) {
