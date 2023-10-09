@@ -18,11 +18,11 @@ class ChargeScreenController extends GetxController
   RxInt IsTabIndex = 0.obs;
   bool isLoading = false;
 
-  late TabController tabController;
+  // late TabController tabController;
   RxList<ChargeTransactionModel> model_list = RxList();
   RxDouble boxHeight = (0.0).obs;
   ScrollController scrollController = ScrollController();
-  int page = 0, totalElements = 0;
+  int page = 0;
   TextEditingController startDate = TextEditingController();
   TextEditingController endDate = TextEditingController();
   bool lock = false;
@@ -30,13 +30,13 @@ class ChargeScreenController extends GetxController
   @override
   void onInit() {
     // TODO: implement onInit
-    tabController = TabController(length: 1, vsync: this);
+    // tabController = TabController(length: 1, vsync: this);
     super.onInit();
-    tabController.addListener(() {
-      log('changed');
-      IsTabIndex.value = tabController.index;
-      setBoxHeight();
-    });
+    // tabController.addListener(() {
+    //   log('changed');
+    //   IsTabIndex.value = tabController.index;
+    //   setBoxHeight();
+    // });
     getChargeTransactions();
     _scrollListen();
   }
@@ -45,7 +45,6 @@ class ChargeScreenController extends GetxController
   void onClose() {
     // TODO: implement onClose
     super.onClose();
-    tabController.dispose();
     scrollController.dispose();
   }
 
@@ -56,12 +55,12 @@ class ChargeScreenController extends GetxController
       // log(nextPageTrigger.toString());
       // log(scrollController.position.pixels.toString());
 // _scrollController fetches the next paginated data when the current postion of the user on the screen has surpassed
-      if (model_list.length < totalElements &&
+
+      if (model_list.length < appData.totalElements &&
           !isLoading &&
           scrollController.position.pixels > nextPageTrigger) {
         // loading = true;
         // fetchData();
-        kLog(model_list.length.toString());
         page++;
         isLoading = true;
         await getChargeTransactions();
@@ -81,10 +80,12 @@ class ChargeScreenController extends GetxController
           .format(DateFormat('dd/MM/yyyy').parse(endDate.text));
     }
 
-    model_list.value = await CommonFunctions()
+    var res = await CommonFunctions()
         .getChargeTransactions('$page', '${10}', start, end);
     hideLoading();
-    setBoxHeight();
+    // setBoxHeight();
+
+    model_list.addAll(res);
   }
 
   getBooking(int bookingId, String stationName, String stationAddress) async {
@@ -105,9 +106,8 @@ class ChargeScreenController extends GetxController
   }
 
   setBoxHeight() {
-    boxHeight.value = size.height * .28 +
-        (size.height * .11) *
-            (tabController.index == 0 ? model_list.length : 40.0);
+    boxHeight.value =
+        size.height * .28 + (size.height * .11) * (model_list.length);
   }
 
   clearFilter() async {
@@ -124,7 +124,7 @@ class ChargeScreenController extends GetxController
     }
     lock = true;
     page = 0;
-    totalElements = 0;
+    appData.totalElements = 0;
     await getChargeTransactions();
     Get.back();
     lock = false;

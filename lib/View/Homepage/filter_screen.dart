@@ -115,10 +115,12 @@ class FilterScreen extends GetView<FilterScreenController> {
                       color: Color(0xffF5F9FF),
                       padding: EdgeInsets.only(top: size.height * .055),
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Expanded(
                             child: Obx(
                               () => ListView.builder(
+                                  shrinkWrap: true,
                                   itemCount: appData
                                       .filterList[
                                           controller.selectedParent.value]
@@ -186,7 +188,6 @@ class FilterScreen extends GetView<FilterScreenController> {
                                   }),
                             ),
                           ),
-                          Spacer(),
                           Padding(
                             padding: EdgeInsets.only(
                                 left: size.width * .045,

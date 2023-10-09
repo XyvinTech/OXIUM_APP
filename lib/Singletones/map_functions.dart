@@ -304,7 +304,9 @@ class MapFunctions {
     markers_homepage.add(Marker(
         onTap: () async {
           MapFunctions().isFocused = false;
-          controller.carouselController.animateToPage(carouselIndex);
+          kLog(carouselIndex);
+          controller.carouselController.value.animateToPage(carouselIndex);
+          kLog(latLng);
           await MapFunctions().animateToNewPosition(latLng);
           // Future.delayed(Duration(milliseconds: 500), () {
           //   // controller.getChargeStationDetails(id);

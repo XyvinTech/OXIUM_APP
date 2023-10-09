@@ -113,7 +113,10 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                     _button(
                       buttonName: "Leave a Feedback",
                       onTap: () {
-                        Get.toNamed(Routes.paymentfeedbackPageRoute);
+                        kLog(controller.seperator.join('-'));
+                        Get.toNamed(
+                          Routes.paymentfeedbackPageRoute,
+                        );
                       },
                     ),
                     height(20.h),

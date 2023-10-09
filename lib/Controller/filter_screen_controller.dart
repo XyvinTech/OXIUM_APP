@@ -33,10 +33,12 @@ class FilterScreenController extends GetxController {
       section.forEach((element) {
         if (element.isSelected) {
           isAtLeastOneSelected = true;
-          String title = element.title.toLowerCase();
+          String title = element.title.toLowerCase().replaceAll('kwh', '');
           String capacity;
           station_marker_List.forEach((station) {
-            capacity = station.charger_capacity.replaceAll(',', 'KwH,');
+            kLog(station.charger_capacity);
+            capacity = station.charger_capacity;
+            kLog(title);
             //if any of the station contains filter value then add it. avoid illegal contains
             if (i == 0) {
               if (element.title == 'Busy' && station.isBusy) {
@@ -53,8 +55,6 @@ class FilterScreenController extends GetxController {
                 i == 2 && station.charger_type.toLowerCase().contains(title) ||
                 i == 3 && capacity.toLowerCase().contains(title) ||
                 i == 4 && station.amenities.toLowerCase().contains(title)) {
-              kLog(station.lattitude.toString());
-              kLog(station.longitude.toString());
               list.add(station);
             }
           });
@@ -78,7 +78,6 @@ class FilterScreenController extends GetxController {
   }
 
   addToHomePageMarker(bool isAtLeastOneSelected) {
-    kLog(list.length.toString());
     HomePageController _controller = Get.find();
     MapFunctions()
         .markers_homepage
@@ -89,8 +88,6 @@ class FilterScreenController extends GetxController {
     _controller.assignCardsToMapScreen(list);
     int index = 0;
     list.forEach((element) {
-      kLog(element.lattitude.toString());
-      kLog(element.longitude.toString());
       MapFunctions().addMarkerHomePage(
           id: element.id.toString(),
           latLng: LatLng(element.lattitude, element.longitude),

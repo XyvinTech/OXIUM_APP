@@ -154,7 +154,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                           return Row(
                                             children: [
                                               SvgPicture.asset(
-                                                  'assets/svg/${controller.amenities[index]}.svg',color: Colors.grey.shade500,),
+                                                'assets/svg/${controller.amenities[index]}.svg',
+                                                color: Colors.grey.shade500,
+                                              ),
                                               width(size.width * .01),
                                               Expanded(
                                                 child: CustomText(
@@ -359,11 +361,10 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                             controller.reviewController.text = '';
                             // Get.dialog(Dialogs().writeReviewDialog(controller));
                             // Get.toNamed(Routes.thankfeedbackPageRoute);
-                            Get.toNamed(Routes.paymentfeedbackPageRoute,
-                                arguments: [
-                                  controller.model.value.id.toString(),
-                                  kChargingStatusModel,
-                                ]);
+                            Get.toNamed(
+                              Routes.paymentfeedbackPageRoute,
+                              arguments: controller.model.value.id,
+                            );
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(

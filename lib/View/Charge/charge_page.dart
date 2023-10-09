@@ -34,20 +34,20 @@ class _ChargeScreenState extends State<ChargeScreen>
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Color(0xffF5F9FF),
-        body: CustomScrollView(
+    return Scaffold(
+      backgroundColor: Color(0xffF5F9FF),
+      body: Container(
+        height: size.height,
+        width: size.width,
+        child: CustomScrollView(
             controller: controller.scrollController,
             shrinkWrap: true,
             slivers: [
               SliverAppBar(
-                  backgroundColor: Color(0xffF5F9FF),
-                  automaticallyImplyLeading: false,
-                  expandedHeight: size.height * 0.525,
-                  // collapsedHeight: size.height * 0.01,
                   floating: true,
                   pinned: true,
+                  backgroundColor: Color(0xffF5F9FF),
+                  expandedHeight: size.height * 0.525,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Column(
                       children: [
@@ -169,10 +169,16 @@ class _ChargeScreenState extends State<ChargeScreen>
                                         children: [
                                           Column(
                                             children: [
-                                              CustomBigText(
-                                                text: "500 kWh",
-                                                size: 17.sp,
-                                                color: Color(0xff0047C3),
+                                              Obx(
+                                                () => CustomBigText(
+                                                  text: appData.userModel.value
+                                                          .total_units
+                                                          .toStringAsFixed(2)
+                                                          .toString() +
+                                                      ' KwH',
+                                                  size: 17.sp,
+                                                  color: Color(0xff0047C3),
+                                                ),
                                               ),
                                               SizedBox(
                                                 height: size.height * 0.008,
@@ -191,10 +197,14 @@ class _ChargeScreenState extends State<ChargeScreen>
                                           ),
                                           Column(
                                             children: [
-                                              CustomBigText(
-                                                text: "2,340",
-                                                size: 17.sp,
-                                                color: Color(0xff0047C3),
+                                              Obx(
+                                                () => CustomBigText(
+                                                  text: appData.userModel.value
+                                                      .total_sessions
+                                                      .toString(),
+                                                  size: 17.sp,
+                                                  color: Color(0xff0047C3),
+                                                ),
                                               ),
                                               SizedBox(
                                                 height: size.height * 0.008,
@@ -265,42 +275,14 @@ class _ChargeScreenState extends State<ChargeScreen>
                                 horizontal: size.width * 0.055),
                             child: Container(
                               height: size.height * .06,
+                              width: double.infinity,
+                              alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(
                                   vertical: size.height * .01),
-                              child: TabBar(
-                                labelColor: kblue,
-                                controller: controller.tabController,
-                                indicatorColor: kwhite,
-                                onTap: (index) {
-                                  controller.IsTabIndex.value = index;
-                                },
-                                // indicator: BoxDecoration(
-                                //   borderRadius: BorderRadius.circular(42),
-                                //   color: Color.fromARGB(255, 255, 255, 255),
-                                // ),
-                                tabs: [
-                                  Tab(
-                                    child: CustomSmallText(
-                                      text: "Charging History",
-                                      size: 15.sp,
-                                      color: Color.fromARGB(255, 63, 63, 63),
-                                    ),
-                                  ),
-                                  // Tab(
-                                  //   child: CustomSmallText(
-                                  //     text: "Reservations",
-                                  //     size: 15.sp,
-                                  //     color: Color(0xff0047C3),
-                                  //   ),
-                                  // ),
-                                  // Tab(
-                                  //   child: CustomSmallText(
-                                  //     text: "Trips",
-                                  //     size: 15.sp,
-                                  //     color: Color(0xff0047C3),
-                                  //   ),
-                                  // ),
-                                ],
+                              child: CustomSmallText(
+                                text: "Charging History",
+                                size: 15.sp,
+                                color: Color.fromARGB(255, 63, 63, 63),
                               ),
                             ),
                           ),
@@ -311,42 +293,39 @@ class _ChargeScreenState extends State<ChargeScreen>
               SliverToBoxAdapter(
                 child: Obx(
                   () => Container(
-                    height: controller.boxHeight.value,
+                    // height: controller.boxHeight.value,
                     color: Colors.white,
-                    child: Column(
-                      children: [
-                        // SizedBox(
-                        //   height: size.height * 0.002,
-                        // ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.05),
-                            child: TabBarView(
-                              controller: controller.tabController,
-                              children: [
-                                _chargeTab(),
-                                // _reservationsTab(),
-                                //_tripsTab(),
-                              ],
-                            ),
+                    child: Container(
+                      height: controller.model_list.length * (112.h) +
+                          35.h -
+                          controller.page * 18.h,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                                itemCount: controller.model_list.length,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (_, index) {
+                                  return _chargeHistoryCard(
+                                      controller.model_list[index]);
+                                }),
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ]),
-        floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Get.to(() => ChargeHistoryFilter(
-                    isWallet: false,
-                  ));
-            },
-            backgroundColor: kOnboardingColors,
-            child: SvgPicture.asset('assets/svg/filter_alt.svg')),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.to(() => ChargeHistoryFilter(
+                  isWallet: false,
+                ));
+          },
+          backgroundColor: kOnboardingColors,
+          child: SvgPicture.asset('assets/svg/filter_alt.svg')),
     );
   }
 
@@ -355,72 +334,6 @@ class _ChargeScreenState extends State<ChargeScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // InkWell(
-        //   onTap: () {
-        //     Get.toNamed(Routes.qrScanPageRoute);
-        //   },
-        //   child: Container(
-        //     height: size.height * 0.12,
-        //     width: size.width,
-        //     decoration: BoxDecoration(
-        //       borderRadius: BorderRadius.circular(20),
-        //       color: Color(0xff333333),
-        //     ),
-        //     child: Row(
-        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //       crossAxisAlignment: CrossAxisAlignment.end,
-        //       children: [
-        //         Padding(
-        //           padding: EdgeInsets.only(
-        //             left: size.width * 0.04,
-        //             // top: size.height * 0.02,
-        //             // bottom: size.height * 0.02,
-        //           ),
-        //           child: Column(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             mainAxisAlignment: MainAxisAlignment.center,
-        //             children: [
-        //               CustomBigText(
-        //                 text: "Scan and Charge",
-        //                 size: 17.sp,
-        //                 color: kwhite,
-        //                 fontWeight: FontWeight.bold,
-        //               ),
-        //               SizedBox(
-        //                 height: size.height * 0.017,
-        //               ),
-        //               CustomSmallText(
-        //                 text: "Scan and charge to avail new",
-        //                 size: 10.sp,
-        //                 color: kwhite,
-        //               ),
-        //               CustomSmallText(
-        //                 text: "offers and rewards",
-        //                 size: 11.sp,
-        //                 color: kwhite,
-        //               )
-        //             ],
-        //           ),
-        //         ),
-        //         Padding(
-        //           padding: EdgeInsets.only(top: 11.h),
-        //           child: SvgPicture.asset("assets/svg/G2.svg"),
-        //         )
-        //       ],
-        //     ),
-        //   ),
-        // ),
-        // SizedBox(
-        //   height: size.height * 0.02,
-        // ),
-        // Center(
-        //   child: CustomBigText(
-        //     text: "Charging History",
-        //     fontWeight: FontWeight.w500,
-        //     size: 14.sp,
-        //     color: Color.fromARGB(255, 59, 59, 59),
-        //   ),
-        // ),
         SizedBox(
           height: size.height * 0.025,
         ),
@@ -428,7 +341,7 @@ class _ChargeScreenState extends State<ChargeScreen>
           child: Obx(
             () => ListView.builder(
                 itemCount: controller.model_list.length,
-                // shrinkWrap: true,
+                shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (_, index) {
                   return _chargeHistoryCard(controller.model_list[index]);

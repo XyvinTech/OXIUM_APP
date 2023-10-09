@@ -66,7 +66,6 @@ class CommonFunctions {
   void handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
 
-
     if (Get.currentRoute == Routes.rfidNumberRoute)
       showError(response.message!);
     else
@@ -128,7 +127,7 @@ class CommonFunctions {
     _getOrderResponse['result']['status'] = "P";
     if (Get.currentRoute == Routes.rfidNumberRoute)
       _getOrderResponse['result']['rfidAmountPaid'] = "Y";
-  
+
     var res = await CallAPI()
         .postData(_getOrderResponse['result'], 'payment/savePayment');
     ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
@@ -155,7 +154,6 @@ class CommonFunctions {
   Future<Map<String, dynamic>> getEvTemplates() async {
     ResponseModel res = await CallAPI().getData('evtemplates', {});
     if (res.statusCode == 200 && res.body['success']) {
-
       Map list = res.body['result']['vehicleDetails'] ?? {};
       Map<String, dynamic> response = {};
       List<VehicleModel> brandVehicles = [];
@@ -385,6 +383,7 @@ class CommonFunctions {
     kLog(id);
     var res = await CallAPI().getData('chargersbystation', {
       "stationId": "$id",
+      "username": appData.userModel.value.username,
     });
     // //kLog(res.statusCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
@@ -412,11 +411,13 @@ class CommonFunctions {
     }
   }
 
-  Future<bool> postReviewForChargeStation(
-      int id, int rating, String review) async {
+  Future<bool> postReviewForChargeStation(int id, int rating, String review,
+      {String? chargerName}) async {
+    kLog(chargerName ?? 'null');
     var res = await CallAPI().postData(
       {
         "stationId": id,
+        if (chargerName != null) 'chargerName': chargerName,
         "rating": rating,
         "review": review.trim(),
         'name': appData.userModel.value.username,
@@ -745,6 +746,7 @@ class CommonFunctions {
     });
     if (res.statusCode == 200 && res.body['success']) {
       List<ChargeTransactionModel> list = [];
+      appData.totalElements = res.body['result']['totalElements'];
       res.body['result']['content'].forEach((element) {
         list.add(ChargeTransactionModel.fromJson(element));
       });

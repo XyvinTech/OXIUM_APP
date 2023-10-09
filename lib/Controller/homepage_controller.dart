@@ -4,6 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freelancer_app/Controller/charging_screen_controller.dart';
+import 'package:freelancer_app/Controller/filter_screen_controller.dart';
 import 'package:freelancer_app/Controller/trips_screen_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
@@ -41,10 +43,10 @@ class HomePageController extends GetxController {
   RxString done = 'do'.obs;
   RxInt activeIndex = 0.obs;
   RxInt reload = 0.obs;
-  RxBool isCharging = false.obs;
+  // RxBool isCharging = false.obs;
 
   //NEW HELP PAGE STARTS
-  CarouselController carouselController =CarouselController();
+  Rx<CarouselController> carouselController = CarouselController().obs;
   RxDouble currentIndex = 0.0.obs;
   String phnNumber = "+919778687615";
   RxList carouselText = [
@@ -85,29 +87,11 @@ class HomePageController extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
-    MapFunctions().bytesBlue = await ImageByteConverter.getBytesFromAsset(
-        "assets/svg/blue_marker.png", 70);
-    MapFunctions().bytesGreen = await ImageByteConverter.getBytesFromAsset(
-        "assets/svg/green_marker.png", 70);
-    MapFunctions().bytesGray = await ImageByteConverter.getBytesFromAsset(
-        "assets/svg/gray_marker.png", 70);
-    MapFunctions().navigationMarker =
-        await ImageByteConverter.getBytesFromAsset(
-            "assets/images/pointer.png", 70);
-    MapFunctions().carMarker = await ImageByteConverter.getBytesFromAsset(
-        "assets/images/CSAR.png", 70);
-    MapFunctions().myMarker = await ImageByteConverter.getBytesFromAsset(
-        "assets/images/myMarker.png", 60);
-
-    // Position? pos = await MapFunctions().getCurrentPosition();
+    getActiveBooking(false);
+    await _initImages();
     Position? pos = await MapFunctions().getCurrentPosition();
-    // if (pos == null) pos = await MapFunctions().getCurrentPosition();
-
-    // MapFunctions().animateToNewPosition(LatLng(pos!.latitude, pos.longitude));
-    // MapFunctions().animateToNewPosition(LatLng(28.670988, 77.2794488));
     if (pos != null) {
-
-      await getNearestChargestations(pos);
+      getNearestChargestations(pos);
       MapFunctions().addMyPositionMarker(pos, MapFunctions().markers_homepage);
     }
     Future.delayed(Duration(milliseconds: 1000), () {
@@ -122,27 +106,48 @@ class HomePageController extends GetxController {
     SocketRepo().closeSocket();
   }
 
+  _initImages() async {
+    MapFunctions().bytesBlue = await ImageByteConverter.getBytesFromAsset(
+        "assets/svg/blue_marker.png", 70);
+    MapFunctions().bytesGreen = await ImageByteConverter.getBytesFromAsset(
+        "assets/svg/green_marker.png", 70);
+    MapFunctions().bytesGray = await ImageByteConverter.getBytesFromAsset(
+        "assets/svg/gray_marker.png", 70);
+    MapFunctions().navigationMarker =
+        await ImageByteConverter.getBytesFromAsset(
+            "assets/images/pointer.png", 70);
+    MapFunctions().carMarker = await ImageByteConverter.getBytesFromAsset(
+        "assets/images/CSAR.png", 70);
+    MapFunctions().myMarker = await ImageByteConverter.getBytesFromAsset(
+        "assets/images/myMarker.png", 60);
+  }
+
   getNearestChargestations(Position pos) async {
     showLoading('Fetching nearby charge stations.\nPlease wait...');
-    await getActiveBooking(false);
+
     station_marker_list = await CommonFunctions().getNearestChargstations(pos);
-    assignCardsToMapScreen(station_marker_list);
     hideLoading();
-    MapFunctions().markers_homepage.clear();
-    int index = 0;
-    station_marker_list.forEach((element) {
-  
-      MapFunctions().addMarkerHomePage(
-        id: element.id.toString(),
-        latLng: LatLng(element.lattitude, element.longitude),
-        isBusy: element.isBusy,
-        status: element.charger_status.trim(),
-        // element.charger_status.trim() != 'Connected' || element.isBusy,
-        controller: this,
-        carouselIndex: index,
-      );
-      index++;
-    });
+    /*Apply filter if applicable and use filterpage station_marker_list*/
+    var _filterController = await Get.put(FilterScreenController());
+    _filterController.station_marker_List = station_marker_list.toList();
+    _filterController.applyFilter();
+    _filterController.onClose();
+
+    // assignCardsToMapScreen(_filterController.station_marker_List);
+    // MapFunctions().markers_homepage.clear();
+    // int index = 0;
+    // _filterController.station_marker_List.forEach((element) {
+    //   MapFunctions().addMarkerHomePage(
+    //     id: element.id.toString(),
+    //     latLng: LatLng(element.lattitude, element.longitude),
+    //     isBusy: element.isBusy,
+    //     status: element.charger_status.trim(),
+    //     // element.charger_status.trim() != 'Connected' || element.isBusy,
+    //     controller: this,
+    //     carouselIndex: index,
+    //   );
+    //   index++;
+    // });
   }
 
   assignCardsToMapScreen(List<StationMarkerModel> list) {
@@ -347,19 +352,25 @@ class HomePageController extends GetxController {
 
   getActiveBooking(bool isClickOnCard) async {
     BookingModel _bookingModel = await CommonFunctions().getActiveBooking();
-
     if (_bookingModel.bookingId != -1) {
-      ChargingStatusModel _status = await CommonFunctions()
-          .getChargingStatus("${_bookingModel.bookingId}");
-  
-      isCharging.value = true;
-      if (!isClickOnCard) return;
+      // ChargingStatusModel _status = await CommonFunctions()
+      //     .getChargingStatus("${_bookingModel.bookingId}");
+
+      // isCharging.value = true;
+      if (!isClickOnCard) {
+        ChargingScreenController _chargingController =
+            await Get.put(ChargingScreenController());
+        await _chargingController.getChargingStatus(_bookingModel.bookingId);
+        _chargingController.onClose();
+        return;
+      }
+      kLog(_bookingModel.toJson());
       appData.qr =
-          '0-${_bookingModel.chargerName}-${_bookingModel.chargingpoint}-${_bookingModel.bookedvia}';
+          '${0}-${_bookingModel.chargerName}-${_bookingModel.chargingpoint}-${_bookingModel.bookedvia}';
       Get.toNamed(Routes.chargingPageRoute,
           arguments: [appData.qr, _bookingModel]);
     } else {
-      isCharging.value = false;
+      SocketRepo().isCharging.value = false;
       // Get.offAllNamed(Routes.homePageRoute);
     }
   }
@@ -379,7 +390,6 @@ class HomePageController extends GetxController {
   Future<void> openWhatsApp() async {
     var url = "https://wa.me/${phnNumber}";
     if (await launch(url)) {
-  
       if (Platform.isAndroid) {
         await launch(url);
       } else if (Platform.isIOS) {

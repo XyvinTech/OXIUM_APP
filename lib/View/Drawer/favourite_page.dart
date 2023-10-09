@@ -143,7 +143,9 @@ class FavouriteScreen extends GetView<FavouritePageController> {
                                 ),
                                 width(size.width * .035),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    controller.changeFavoriteStatus(model.id);
+                                  },
                                   child: Container(
                                     height: 35.h,
                                     width: 35.w,

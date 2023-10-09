@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-import 'dart:ffi';
-import 'dart:io';
 
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
@@ -14,7 +11,6 @@ import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
-import '../Singletones/dialogs.dart';
 import '../Utils/routes.dart';
 import '../Utils/utils.dart';
 
@@ -63,7 +59,7 @@ class ChargingScreenController extends GetxController {
         chargerName: chargerName,
         chargingPoint: chargingPoint);
     hideLoading();
-    if (res) {
+    if (res && isStart) {
       if (isStart) getChargingStatus(bookingId);
     } else
       toDisconnected();
@@ -103,7 +99,7 @@ class ChargingScreenController extends GetxController {
         tranId: status_model.value.tran_id,
         fun: (message) {
           _timer?.cancel();
-          if (message['status'] == 'C') {
+          if (message != null && message['status'] == 'C') {
             status_model.value.status = 'C';
           } else if (message != null) {
             status_model.value = ChargingStatusModel.fromJson(message);
@@ -140,13 +136,14 @@ class ChargingScreenController extends GetxController {
 
   _repeatCall() async {
     //pop the dialog if status not I and dialog is opened.
+    kLog(chargingStatus.value);
     if (Get.isDialogOpen == true &&
         status_model.value.status != 'I' &&
         chargingStatus.value == 'initiating') {
       Get.back();
     }
     if (Get.isDialogOpen == true &&
-        chargingStatus.value == 'finishing' &&
+        chargingStatus.value != 'initiating' &&
         chargingStatus.value != 'R') {
       Get.back();
     }

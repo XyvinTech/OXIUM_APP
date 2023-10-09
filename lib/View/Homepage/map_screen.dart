@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
+import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:geolocator/geolocator.dart';
@@ -90,7 +91,6 @@ class _MapScreenState extends State<MapScreen>
                         //     isBusy: false,
                         //     controller: controller);
                         controller.reload++;
-                        
                       },
                     ),
                   ),
@@ -243,7 +243,7 @@ class _MapScreenState extends State<MapScreen>
               //     )),
               Obx(
                 () => Visibility(
-                  visible: controller.isCharging.value,
+                  visible: SocketRepo().isCharging.value,
                   child: Positioned(
                       top: 80.h,
                       left: 10.w,
@@ -318,7 +318,8 @@ class _MapScreenState extends State<MapScreen>
                       // color: Colors.amber,
                       child: Obx(
                         () => CarouselSlider(
-                          carouselController: controller.carouselController ,
+                          carouselController:
+                              controller.carouselController.value,
                           items: controller.cards,
                           options: CarouselOptions(
                             height: 150.h,
@@ -327,11 +328,12 @@ class _MapScreenState extends State<MapScreen>
                             enlargeCenterPage: true,
                             padEnds: true,
                             onPageChanged: (index, reason) {
-                              MapFunctions().animateToNewPosition(LatLng(
-                                  controller
-                                      .station_marker_list[index].lattitude,
-                                  controller
-                                      .station_marker_list[index].longitude));
+                              LatLng latlng = MapFunctions()
+                                  .markers_homepage
+                                  .toList()[index]
+                                  .position;
+                              MapFunctions().animateToNewPosition(
+                                  LatLng(latlng.latitude, latlng.longitude));
                             },
                           ),
                         ),

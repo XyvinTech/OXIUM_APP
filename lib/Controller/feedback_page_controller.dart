@@ -17,7 +17,7 @@ class FeedBackPageController extends GetxController {
   //   "Custom"
   // ].obs;
   RxInt selectedRating = 0.obs;
-  String stationId = '-1';
+  int stationId = -1;
   Rx<ChargingStatusModel> status_model = kChargingStatusModel.obs;
   TextEditingController feedbackController = TextEditingController();
   List<String> seperator = [];
@@ -32,9 +32,11 @@ class FeedBackPageController extends GetxController {
   getArguments() {
     // '253-z1-1-Q  for QR code. A for App'
     var arg = Get.arguments;
-    if (arg != null) {
+    if (arg != null && arg is int) {
+      stationId = Get.arguments;
+    } else if (arg != null) {
       seperator = (arg[0] as String).split('-');
-      stationId = seperator[0];
+      stationId = int.parse(seperator[0]);
       status_model.value = arg[1];
     }
   }
@@ -44,11 +46,12 @@ class FeedBackPageController extends GetxController {
       EasyLoading.showInfo('Please select your experience rating');
       return false;
     }
-
     showLoading(kLoading);
     kLog(stationId);
+    kLog(seperator[1]);
     bool status = await CommonFunctions().postReviewForChargeStation(
-        int.parse(stationId), selectedRating.value, feedbackController.text);
+        stationId, selectedRating.value, feedbackController.text,
+        chargerName: seperator.isEmpty ? null : seperator[1]);
     hideLoading();
     if (status) {
       FocusScope.of(context).unfocus();
