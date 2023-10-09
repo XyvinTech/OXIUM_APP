@@ -132,14 +132,14 @@ class WalletHistoryFilterPage extends GetView<WalletPageController> {
                               () => Row(
                                 children: [
                                   ChipOptions(
-                                      name: "Completed",
+                                      name: "Success",
                                       isSelected: controller.payment_status
                                           .contains('P'),
                                       fun: (value) {
                                         controller.addRemoveOptionToStatus('P');
                                       }),
                                   ChipOptions(
-                                    name: "Pending",
+                                    name: "Failed",
                                     isSelected:
                                         controller.payment_status.contains('I'),
                                     fun: (value) {

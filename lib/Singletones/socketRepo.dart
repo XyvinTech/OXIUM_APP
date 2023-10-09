@@ -8,6 +8,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
 import '../Utils/api.dart';
+import '../Utils/routes.dart';
 
 class SocketRepo {
   //make it singleTone class
@@ -25,7 +26,7 @@ class SocketRepo {
     channel = WebSocketChannel.connect(wsUrl);
     bool isMessageNull = false;
     channel?.stream.listen((message) {
-      kLog(message);
+      // kLog(message);
       isMessageNull = message == null ||
           (message ==
                   'Welcome! You are now connected to booking id: $bookingId.' ||
@@ -36,7 +37,8 @@ class SocketRepo {
       // channel?.sink.add('received!');
     }).onDone(() {
       kLog('connection closed with ocpp');
-      if (Get.isDialogOpen == true) Get.back();
+      if (Get.currentRoute == Routes.chargingPageRoute &&
+          Get.isDialogOpen == true) Get.back();
       isCharging.value = false;
     });
   }

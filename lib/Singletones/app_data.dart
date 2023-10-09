@@ -25,6 +25,8 @@ class AppData {
   String notification_token = '';
   int totalElements = 0;
 
+  double gettingLowAllertValue = 70;
+
 //FOR FILTER PAGE SO THAT THE DATA DON'T DELETED WHEN CONTROLLER DISPOSES
   List<RxList<FilterModel>> filterList = [
     RxList([

@@ -306,7 +306,7 @@ class Dialogs {
                     height(10.h),
                     CustomBigText(
                       text: balance != null
-                          ? "Balance is getting low!\n 50 Coins left"
+                          ? "Balance is getting low!\nLess than ${appData.gettingLowAllertValue} Coins left"
                           : "Not Enough Credit\nto Charge",
                       size: 20.sp,
                       align: TextAlign.center,
@@ -458,74 +458,74 @@ class Dialogs {
 
   gunStatusAlert(String title, String subtitle) {
     Get.dialog(
-      AlertDialog(
-        backgroundColor: kwhite,
-        contentPadding: EdgeInsets.all(0),
-        alignment: Alignment.topCenter,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.w)),
-        content: Container(
-          padding: EdgeInsets.all(10.w),
-          height: 100.h,
-          // width: 348.w,
-          decoration: BoxDecoration(),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/images/gun.png',
-                      height: 40,
-                      width: 40,
-                    ),
-                    width(10.w),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
+        AlertDialog(
+          backgroundColor: kwhite,
+          contentPadding: EdgeInsets.all(0),
+          alignment: Alignment.topCenter,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.w)),
+          content: Container(
+            padding: EdgeInsets.all(10.w),
+            height: 100.h,
+            // width: 348.w,
+            decoration: BoxDecoration(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/gun.png',
+                        height: 40,
+                        width: 40,
+                      ),
+                      width(10.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              title,
+                              style: GoogleFonts.montserrat(
+                                  color: Color(0xff333333),
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            height(5.h),
+                            Text(
+                              subtitle,
+                              style: GoogleFonts.montserrat(
+                                  color: Color(0xff4f4f4f),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            title,
-                            style: GoogleFonts.montserrat(
-                                color: Color(0xff333333),
-                                fontWeight: FontWeight.w700),
-                          ),
-                          height(5.h),
-                          Text(
-                            subtitle,
-                            style: GoogleFonts.montserrat(
-                                color: Color(0xff4f4f4f),
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13),
+                          InkWell(
+                            child: Icon(Icons.close),
+                            onTap: () {
+                              Get.back();
+                            },
                           ),
                         ],
-                      ),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          child: Icon(Icons.close),
-                          onTap: () {
-                            Get.back();
-                          },
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              )
-            ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-      barrierDismissible: true,
-      barrierColor: Colors.transparent,
-    );
+        barrierDismissible: false,
+        barrierColor: Colors.transparent,
+        name: title);
   }
 
   wallet_transaction_popup({

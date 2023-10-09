@@ -26,6 +26,7 @@ class ChargingScreenController extends GetxController {
   Rx<BookingModel> booking_model = kBookingModel.obs;
   RxList<int> time = [0, 0].obs;
   String qr_or_app_data = '';
+  bool showLowBalanceOnlyOnce = true;
   onInit() {
     super.onInit();
     qr_or_app_data =
@@ -52,17 +53,18 @@ class ChargingScreenController extends GetxController {
   }
 
   Future changeStatus({required bool isStart, required int bookingId}) async {
-    showLoading(kLoading);
+    // showLoading(kLoading);
     bool res = await CommonFunctions().changeChargingStatus(
         isStart: isStart,
         bookingId: bookingId.toString(),
         chargerName: chargerName,
         chargingPoint: chargingPoint);
-    hideLoading();
+    // hideLoading();
     if (res && isStart) {
-      if (isStart) getChargingStatus(bookingId);
-    } else
-      toDisconnected();
+      getChargingStatus(bookingId);
+    } else if (res) {
+      // toDisconnected();
+    }
   }
 
   Future getChargingStatus(int bookingId) async {
@@ -80,6 +82,7 @@ class ChargingScreenController extends GetxController {
       res = kChargingStatusModel;
       kLog('retry');
     }
+    showLowBalanceOnlyOnce = true;
     _repeatCall();
     status_model.value.Capacity = booking_model.value.capacity;
     status_model.value.OutputType = booking_model.value.outputType;
@@ -90,24 +93,22 @@ class ChargingScreenController extends GetxController {
         (booking_model.value.taxes) * status_model.value.unit;
     Timer? _timer;
     String time = '';
-    bool showLowBalanceOnlyOnce = true;
+
 ////INIT WEBSOCKET FROM HERE
 
-    await Future.delayed(Duration(seconds: 5));
+    await SocketRepo().closeSocket();
     SocketRepo().initSocket(
         bookingId: bookingId,
         tranId: status_model.value.tran_id,
         fun: (message) {
-          _timer?.cancel();
+          kLog('init socket');
+          // _timer?.cancel();
           if (message != null && message['status'] == 'C') {
             status_model.value.status = 'C';
           } else if (message != null) {
             status_model.value = ChargingStatusModel.fromJson(message);
           }
-          if (showLowBalanceOnlyOnce && status_model.value.balance < 50) {
-            showLowBalanceOnlyOnce = false;
-            Dialogs().notEnoughCreditPopUp(balance: status_model.value.balance);
-          }
+
           appData.userModel.value.balanceAmount = status_model.value.balance;
           status_model.value.Capacity = booking_model.value.capacity;
           status_model.value.OutputType = booking_model.value.outputType;
@@ -119,34 +120,22 @@ class ChargingScreenController extends GetxController {
           kLog(status_model.value.toJson().toString());
           _repeatCall();
 // This timer is for if there is no update within the interval then close the session by checking /bookingStatus api
-          if (status_model.value.status == 'R' ||
-              status_model.value.status == 'I')
-            _timer = Timer.periodic(Duration(seconds: 30), (timer) async {
-              kLog('getting status from loop');
-              var res = await CommonFunctions()
-                  .getChargingStatus(bookingId.toString());
-              if (res.Connector != -1) status_model.value = res;
-              _repeatCall();
-              if (status_model.value.status != 'R') _timer?.cancel();
-            });
-          time = status_model.value.lastupdated;
+          // if (status_model.value.status == 'R' ||
+          //     status_model.value.status == 'I')
+          //   _timer = Timer.periodic(Duration(seconds: 30), (timer) async {
+          //     kLog('getting status from loop');
+          //     var res = await CommonFunctions()
+          //         .getChargingStatus(bookingId.toString());
+          //     if (res.Connector != -1) status_model.value = res;
+          //     _repeatCall();
+          //     if (status_model.value.status != 'R') _timer?.cancel();
+          //   });
+          // time = status_model.value.lastupdated;
         });
     // });
   }
 
   _repeatCall() async {
-    //pop the dialog if status not I and dialog is opened.
-    kLog(chargingStatus.value);
-    if (Get.isDialogOpen == true &&
-        status_model.value.status != 'I' &&
-        chargingStatus.value == 'initiating') {
-      Get.back();
-    }
-    if (Get.isDialogOpen == true &&
-        chargingStatus.value != 'initiating' &&
-        chargingStatus.value != 'R') {
-      Get.back();
-    }
     //Normal status check starts from here
     if (status_model.value.status == 'I') {
       if (Get.isDialogOpen == false)
@@ -158,7 +147,6 @@ class ChargingScreenController extends GetxController {
       if (chargingStatus.value != 'progress' &&
           chargingStatus.value != 'finishing') {
         toConnected();
-
         Future.delayed(Duration(seconds: 1), () => toProgress());
       } else if (chargingStatus.value == 'progress') {
         time.value = getTimeDifference(
@@ -168,11 +156,13 @@ class ChargingScreenController extends GetxController {
             .createLocalNotification(100, status_model.value.SOC, 1);
       }
     } else if (status_model.value.status == 'C') {
-      toCompleted();
+      // toCompleted();
+      toFinished();
       _timer?.cancel();
       NotificationService().cancelLocalNotification(1);
     } else if (status_model.value.status.isNotEmpty &&
-        status_model.value.status == 'E') {
+        (status_model.value.status == 'E' ||
+            status_model.value.status == 'F')) {
       toDisconnected();
       _timer?.cancel();
       NotificationService().cancelLocalNotification(1);
@@ -182,6 +172,30 @@ class ChargingScreenController extends GetxController {
       toFinished();
       SocketRepo().closeSocket();
       NotificationService().cancelLocalNotification(1);
+    }
+
+    //pop the dialog if status not I and dialog is opened.
+    kLog(chargingStatus.value);
+    if (Get.currentRoute == Routes.chargingPageRoute &&
+        Get.isDialogOpen == true &&
+        status_model.value.status != 'I' &&
+        chargingStatus.value == 'connected') {
+      kLog('kill from init');
+      Get.back();
+    }
+    if (Get.currentRoute == Routes.chargingPageRoute &&
+        Get.isDialogOpen == true &&
+        chargingStatus.value == 'finishing' &&
+        status_model.value.status != 'R') {
+      kLog('kill from finish');
+      Get.back();
+    }
+    if (Get.isDialogOpen != true &&
+        showLowBalanceOnlyOnce &&
+        status_model.value.status == 'R' &&
+        status_model.value.balance < appData.gettingLowAllertValue) {
+      showLowBalanceOnlyOnce = false;
+      Dialogs().notEnoughCreditPopUp(balance: status_model.value.balance);
     }
   }
 

@@ -105,7 +105,7 @@ List<dynamic> calculateAvailabiliy(
 
 String getTimeFromTimeStamp(String timestamp, String format) {
   if (timestamp.isEmpty) return '00:00 AM';
-  DateTime dateTime = DateTime.parse(timestamp);
+  DateTime dateTime = DateTime.parse(timestamp).toLocal();
   String formattedString = DateFormat(format).format(dateTime);
   //formattedString);
   return formattedString;
