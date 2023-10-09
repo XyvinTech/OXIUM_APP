@@ -95,17 +95,20 @@ class WalletHistoryFilterPage extends GetView<WalletPageController> {
                           children: [
                             ChipOptions(
                               name: "Admin Topup",
-                              isSelected:
-                                  controller.payment_mode.contains('CMS'),
+                              isSelected: controller.payment_mode
+                                  .contains(controller.adminTopUp),
                               fun: (value) {
-                                controller.addRemoveOptionToMode('CMS', value);
+                                controller.addRemoveOptionToMode(
+                                    controller.adminTopUp);
                               },
                             ),
                             ChipOptions(
                               name: "Wallet Topup",
-                              isSelected: controller.payment_mode.contains('M'),
+                              isSelected: controller.payment_mode
+                                  .contains(controller.walletTopUp),
                               fun: (value) {
-                                controller.addRemoveOptionToMode('M', value);
+                                controller.addRemoveOptionToMode(
+                                    controller.walletTopUp);
                               },
                             )
                           ],
@@ -119,51 +122,47 @@ class WalletHistoryFilterPage extends GetView<WalletPageController> {
                     // ),
 
                     GetBuilder<WalletPageController>(builder: (snapshot) {
-                      return Visibility(
-                        visible: controller.payment_mode.contains('M'),
-                        child: Column(
-                          children: [
-                            SizedBox(height: size.height * 0.05),
-                            CustomBigText(text: "Payment Status"),
-                            SizedBox(height: size.height * 0.02),
-                            FittedBox(
-                              child: Obx(
-                                () => Row(
-                                  children: [
-                                    ChipOptions(
-                                        name: "Completed",
-                                        isSelected: controller.payment_status
-                                            .contains('P'),
-                                        fun: (value) {
-                                          controller
-                                              .addRemoveOptionToStatus('P');
-                                        }),
-                                    ChipOptions(
-                                      name: "Pending",
+                      return Column(
+                        children: [
+                          SizedBox(height: size.height * 0.05),
+                          CustomBigText(text: "Payment Status"),
+                          SizedBox(height: size.height * 0.02),
+                          FittedBox(
+                            child: Obx(
+                              () => Row(
+                                children: [
+                                  ChipOptions(
+                                      name: "Completed",
                                       isSelected: controller.payment_status
-                                          .contains('I'),
+                                          .contains('P'),
                                       fun: (value) {
-                                        controller.addRemoveOptionToStatus('I');
-                                      },
-                                    ),
-                                    ChipOptions(
-                                      name: "Failed",
-                                      isSelected: controller.isFailed.value,
-                                      fun: (value) {
-                                        // if (!controller.payment_status
-                                        //     .contains('I'))
-                                        //   controller
-                                        //       .addRemoveOptionToStatus('I');
-                                        controller.isFailed.value =
-                                            !controller.isFailed.value;
-                                      },
-                                    ),
-                                  ],
-                                ),
+                                        controller.addRemoveOptionToStatus('P');
+                                      }),
+                                  ChipOptions(
+                                    name: "Pending",
+                                    isSelected:
+                                        controller.payment_status.contains('I'),
+                                    fun: (value) {
+                                      controller.addRemoveOptionToStatus('I');
+                                    },
+                                  ),
+                                  // ChipOptions(
+                                  //   name: "Failed",
+                                  //   isSelected: controller.isFailed.value,
+                                  //   fun: (value) {
+                                  //     // if (!controller.payment_status
+                                  //     //     .contains('I'))
+                                  //     //   controller
+                                  //     //       .addRemoveOptionToStatus('I');
+                                  //     controller.isFailed.value =
+                                  //         !controller.isFailed.value;
+                                  //   },
+                                  // ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       );
                     })
                   ],

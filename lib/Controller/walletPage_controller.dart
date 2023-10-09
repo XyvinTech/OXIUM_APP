@@ -22,7 +22,7 @@ class WalletPageController extends GetxController {
   RxList<String> payment_mode = RxList();
   RxList<String> payment_status = RxList();
   bool lock = false;
-  RxBool isFailed = false.obs;
+  String adminTopUp = 'AdminTopUp',walletTopUp = 'RZRWeb';
 
   @override
   void onInit() {
@@ -66,19 +66,13 @@ class WalletPageController extends GetxController {
       end = DateFormat('dd-MMM-yyyy')
           .format(DateFormat('dd/MM/yyyy').parse(endDate.text));
     }
-    if (payment_status.isEmpty && isFailed.value) {
-      payment_mode.clear();
-    }
-    if (isFailed.value && !payment_status.contains('I')) {
-      payment_status.add('I');
-    }
 
     var res = await CommonFunctions().getWalletTransactions(
         page.toString(),
         size.toString(),
         start,
         end,
-        payment_mode.join(',') + (isFailed.value ? ',' : ''),
+        payment_mode.join(','),
         payment_status.join(','));
     hideLoading();
 
@@ -103,13 +97,11 @@ class WalletPageController extends GetxController {
     hideLoading();
   }
 
-  addRemoveOptionToMode(String value, bool isSelected) {
-    payment_mode.clear();
-    payment_status.clear();
-    isFailed.value = false;
-    if (isSelected) {
+  addRemoveOptionToMode(String value) {
+    if (payment_mode.contains(value))
+      payment_mode.remove(value);
+    else
       payment_mode.add(value);
-    }
     update();
   }
 
@@ -125,7 +117,6 @@ class WalletPageController extends GetxController {
     endDate.clear();
     payment_mode.clear();
     payment_status.clear();
-    isFailed.value = false;
     await getWalletTransactions();
   }
 
