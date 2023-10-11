@@ -60,6 +60,7 @@ class ChargingScreenController extends GetxController {
         chargerName: chargerName,
         chargingPoint: chargingPoint);
     // hideLoading();
+    kLog(res);
     if (res && isStart) {
       getChargingStatus(bookingId);
     } else if (res) {

@@ -72,7 +72,7 @@ class CallAPI {
     log('GET + $endPoint');
     try {
       http.Response res = await http.get(
-        Uri.https(
+        Uri.http(
             // '35.154.49.246',
             _get_host,
             _get_middle_point + endPoint,
