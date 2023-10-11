@@ -178,8 +178,8 @@ class HomePageController extends GetxController {
         child: Container(
             margin: EdgeInsets.only(right: 20),
             padding: EdgeInsets.symmetric(vertical: 10.h),
-            height: size.height * 0.2,
-            width: size.width * 0.85,
+            // height: size.height * 0.2,
+            // width: size.width * 0.85,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.white,

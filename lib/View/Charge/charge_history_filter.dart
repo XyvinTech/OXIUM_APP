@@ -120,38 +120,42 @@ class ChargeHistoryFilter extends GetView<ChargeScreenController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: size.width * 0.02, right: size.width * 0.02),
-                    child: Container(
-                      height: size.height * 0.06,
-                      width: size.width * 0.4,
-                      child: StartedButton(
-                        color: Colors.white,
-                        text: "Clear Filer",
-                        textColor: kOnboardingColors,
-                        isIcon: false,
-                        onTap: () {
-                          // Get.back();
-                          controller.clearFilter();
-                        },
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.02, right: size.width * 0.02),
+                      child: Container(
+                        height: size.height * 0.06,
+                        width: size.width * 0.4,
+                        child: StartedButton(
+                          color: Colors.white,
+                          text: "Clear Filer",
+                          textColor: kOnboardingColors,
+                          isIcon: false,
+                          onTap: () {
+                            // Get.back();
+                            controller.clearFilter();
+                          },
+                        ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: size.width * 0.02, right: size.width * 0.02),
-                    child: Container(
-                      height: size.height * 0.06,
-                      width: size.width * 0.4,
-                      child: StartedButton(
-                        color: kOnboardingColors,
-                        text: "Apply",
-                        textColor: Colors.white,
-                        isIcon: false,
-                        onTap: () {
-                          controller.applyFilter();
-                        },
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.02, right: size.width * 0.02),
+                      child: Container(
+                        height: size.height * 0.06,
+                        width: size.width * 0.4,
+                        child: StartedButton(
+                          color: kOnboardingColors,
+                          text: "Apply",
+                          textColor: Colors.white,
+                          isIcon: false,
+                          onTap: () {
+                            controller.applyFilter();
+                          },
+                        ),
                       ),
                     ),
                   ),

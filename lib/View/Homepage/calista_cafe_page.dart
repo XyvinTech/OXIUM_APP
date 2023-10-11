@@ -482,38 +482,37 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       status = kUnavailable;
     if (!isConnected) status = kUnavailable;
 
-    return InkWell(
-      onTap: () {
-        if (status == kAvailable) controller.changeCharger(index, index1);
-      },
-      child: Container(
-        height: 65.h,
-        // width: size.width * 0.4,
-        margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: isSelected && status == kAvailable
-                ? Color(0xff6FCF97).withOpacity(.28)
-                : status == kBusy
-                    ? Color(0xffE37A2D).withOpacity(.2)
-                    : status == kFaulted
-                        ? Color.fromARGB(255, 249, 59, 45).withOpacity(.2)
-                        : Colors.white,
-            boxShadow: [BoxShadow(blurRadius: 7, color: Colors.grey.shade300)],
-            border: !isSelected
-                ? null
-                : Border.all(
-                    width: 1.3,
-                    color: isSelected
-                        ? Color(0xff6FCF97)
-                        : status == kBusy
-                            ? Color(0xffE37A2D)
-                            : status == kFaulted
-                                ? Color.fromARGB(255, 249, 59, 45)
-                                : status == kUnavailable
-                                    ? Color(0xff959595)
-                                    : Color(0xff0047C3).withOpacity(.6),
-                  )),
+    return Container(
+      height: 65.h,
+      margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: isSelected && status == kAvailable
+              ? Color(0xff6FCF97).withOpacity(.28)
+              : status == kBusy
+                  ? Color(0xffE37A2D).withOpacity(.2)
+                  : status == kFaulted
+                      ? Color.fromARGB(255, 249, 59, 45).withOpacity(.2)
+                      : Colors.white,
+          boxShadow: [BoxShadow(blurRadius: 7, color: Colors.grey.shade300)],
+          border: !isSelected
+              ? null
+              : Border.all(
+                  width: 1.3,
+                  color: isSelected
+                      ? Color(0xff6FCF97)
+                      : status == kBusy
+                          ? Color(0xffE37A2D)
+                          : status == kFaulted
+                              ? Color.fromARGB(255, 249, 59, 45)
+                              : status == kUnavailable
+                                  ? Color(0xff959595)
+                                  : Color(0xff0047C3).withOpacity(.6),
+                )),
+      child: InkWell(
+        onTap: () {
+          if (status == kAvailable) controller.changeCharger(index, index1);
+        },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Row(

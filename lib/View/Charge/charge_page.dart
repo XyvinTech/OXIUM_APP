@@ -36,287 +36,309 @@ class _ChargeScreenState extends State<ChargeScreen>
     size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xffF5F9FF),
-      body: Container(
-        height: size.height,
-        width: size.width,
-        child: CustomScrollView(
-            controller: controller.scrollController,
-            shrinkWrap: true,
-            slivers: [
-              SliverAppBar(
-                  floating: true,
-                  pinned: true,
-                  backgroundColor: Color(0xffF5F9FF),
-                  expandedHeight: size.height * 0.525,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                            left: size.width * 0.055,
-                            right: size.width * 0.055,
-                            top: size.height * 0.020,
-                            bottom: size.height * 0.02,
-                          ),
-                          child: Container(
-                            height: size.height * 0.43,
-                            width: size.width,
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                    color: kwhite,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        offset: Offset(0, 4),
-                                        spreadRadius: 0,
-                                        blurRadius: 32,
-                                        color:
-                                            Color(0xff000000).withOpacity(0.06),
-                                      )
-                                    ],
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: size.width * 0.055,
-                                        vertical: size.height * 0.02),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Obx(
-                                          () => Row(
-                                            children: [
-                                              cachedNetworkImage(
-                                                  appData.userModel.value
-                                                      .defaultVehicle.icon,
-                                                  width: size.width * .18),
-                                              SizedBox(
-                                                width: size.width * 0.04,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+      body: SafeArea(
+        child: Container(
+          height: size.height,
+          width: size.width,
+          child: CustomScrollView(
+              controller: controller.scrollController,
+              shrinkWrap: true,
+              slivers: [
+                SliverAppBar(
+                    floating: true,
+                    pinned: true,
+                    backgroundColor: Color(0xffF5F9FF),
+                    expandedHeight: size.height * 0.525,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: size.width * 0.055,
+                              right: size.width * 0.055,
+                              top: size.height * 0.020,
+                              bottom: size.height * 0.02,
+                            ),
+                            child: Container(
+                              height: size.height * 0.43,
+                              width: size.width,
+                              child: Column(
+                                children: [
+                                  Obx(
+                                    () => appData.userModel.value.defaultVehicle
+                                                .id ==
+                                            -1
+                                        ? SizedBox()
+                                        : Container(
+                                            width: size.width,
+                                            decoration: BoxDecoration(
+                                              color: kwhite,
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  offset: Offset(0, 4),
+                                                  spreadRadius: 0,
+                                                  blurRadius: 32,
+                                                  color: Color(0xff000000)
+                                                      .withOpacity(0.06),
+                                                )
+                                              ],
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      size.width * 0.055,
+                                                  vertical: size.height * 0.02),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  CustomSmallText(
-                                                    text: appData
-                                                        .userModel
-                                                        .value
-                                                        .defaultVehicle
-                                                        .vehicleDetails,
-                                                    size: 14.sp,
-                                                    fontWeight: FontWeight.w500,
+                                                  Obx(
+                                                    () => Row(
+                                                      children: [
+                                                        cachedNetworkImage(
+                                                            appData
+                                                                .userModel
+                                                                .value
+                                                                .defaultVehicle
+                                                                .icon,
+                                                            width: size.width *
+                                                                .18),
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.04,
+                                                        ),
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            CustomSmallText(
+                                                              text: appData
+                                                                  .userModel
+                                                                  .value
+                                                                  .defaultVehicle
+                                                                  .vehicleDetails,
+                                                              size: 14.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                            CustomBigText(
+                                                              text: appData
+                                                                  .userModel
+                                                                  .value
+                                                                  .defaultVehicle
+                                                                  .modelName,
+                                                              size: 15.sp,
+                                                              color: Color(
+                                                                  0xff4F4F4F),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                  CustomBigText(
-                                                    text: appData
-                                                        .userModel
-                                                        .value
-                                                        .defaultVehicle
-                                                        .modelName,
-                                                    size: 15.sp,
-                                                    color: Color(0xff4F4F4F),
+                                                  //refresh button
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Get.toNamed(Routes
+                                                          .myvehicleRoute);
+                                                    },
+                                                    child: Image.asset(
+                                                      "assets/images/refresh.png",
+                                                      height:
+                                                          size.height * 0.025,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                            ],
+                                            ),
                                           ),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.02,
+                                  ),
+                                  //resereve charger card
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                      top: size.height * 0.07,
+                                      bottom: size.height * 0.02,
+                                    ),
+                                    height: size.height * 0.285,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                      color: kwhite,
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          offset: Offset(0, 4),
+                                          spreadRadius: 0,
+                                          blurRadius: 32,
+                                          color: Color(0xff000000)
+                                              .withOpacity(0.06),
+                                        )
+                                      ],
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Obx(
+                                                  () => CustomBigText(
+                                                    text: appData.userModel
+                                                            .value.total_units
+                                                            .toStringAsFixed(2)
+                                                            .toString() +
+                                                        ' KwH',
+                                                    size: 17.sp,
+                                                    color: Color(0xff0047C3),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: size.height * 0.008,
+                                                ),
+                                                CustomSmallText(
+                                                  text: "Energy Charged",
+                                                  fontWeight: FontWeight.w500,
+                                                  size: 14.sp,
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              height: size.height * 0.04,
+                                              width: size.width * 0.0055,
+                                              color: Color(0xffBDBDBD),
+                                            ),
+                                            Column(
+                                              children: [
+                                                Obx(
+                                                  () => CustomBigText(
+                                                    text: appData.userModel
+                                                        .value.total_sessions
+                                                        .toString(),
+                                                    size: 17.sp,
+                                                    color: Color(0xff0047C3),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: size.height * 0.008,
+                                                ),
+                                                CustomSmallText(
+                                                  text: "Total Session",
+                                                  fontWeight: FontWeight.w500,
+                                                  size: 14.sp,
+                                                ),
+                                              ],
+                                            )
+                                          ],
                                         ),
-                                        //refresh button
-                                        InkWell(
-                                          onTap: () {
-                                            Get.toNamed(Routes.myvehicleRoute);
-                                          },
-                                          child: Image.asset(
-                                            "assets/images/refresh.png",
-                                            height: size.height * 0.025,
+                                        SizedBox(
+                                          height: size.height * 0.045,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            left: size.width * 0.055,
+                                            right: size.width * 0.055,
+                                          ),
+                                          child: AppButton(
+                                            text: "Start Charging",
+                                            sizeheight: size.height * 0.07,
+                                            onTap: () {
+                                              HomePageController
+                                                  homeController = Get.find();
+
+                                              homeController.pageController
+                                                  .animateToPage(0,
+                                                      curve: Curves.ease,
+                                                      duration: Duration(
+                                                          milliseconds: 200));
+                                              log('change');
+                                            },
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: size.height * 0.02,
-                                ),
-                                //resereve charger card
-                                Container(
-                                  padding: EdgeInsets.only(
-                                    top: size.height * 0.07,
-                                    bottom: size.height * 0.02,
-                                  ),
-                                  height: size.height * 0.285,
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                    color: kwhite,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        offset: Offset(0, 4),
-                                        spreadRadius: 0,
-                                        blurRadius: 32,
-                                        color:
-                                            Color(0xff000000).withOpacity(0.06),
-                                      )
-                                    ],
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Obx(
-                                                () => CustomBigText(
-                                                  text: appData.userModel.value
-                                                          .total_units
-                                                          .toStringAsFixed(2)
-                                                          .toString() +
-                                                      ' KwH',
-                                                  size: 17.sp,
-                                                  color: Color(0xff0047C3),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.008,
-                                              ),
-                                              CustomSmallText(
-                                                text: "Energy Charged",
-                                                fontWeight: FontWeight.w500,
-                                                size: 14.sp,
-                                              ),
-                                            ],
-                                          ),
-                                          Container(
-                                            height: size.height * 0.04,
-                                            width: size.width * 0.0055,
-                                            color: Color(0xffBDBDBD),
-                                          ),
-                                          Column(
-                                            children: [
-                                              Obx(
-                                                () => CustomBigText(
-                                                  text: appData.userModel.value
-                                                      .total_sessions
-                                                      .toString(),
-                                                  size: 17.sp,
-                                                  color: Color(0xff0047C3),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: size.height * 0.008,
-                                              ),
-                                              CustomSmallText(
-                                                text: "Total Session",
-                                                fontWeight: FontWeight.w500,
-                                                size: 14.sp,
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: size.height * 0.045,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          left: size.width * 0.055,
-                                          right: size.width * 0.055,
-                                        ),
-                                        child: AppButton(
-                                          text: "Start Charging",
-                                          sizeheight: size.height * 0.07,
-                                          onTap: () {
-                                            HomePageController homeController =
-                                                Get.find();
-
-                                            homeController.pageController
-                                                .animateToPage(0,
-                                                    curve: Curves.ease,
-                                                    duration: Duration(
-                                                        milliseconds: 200));
-                                            log('change');
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                height(15.h),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(size.height * .09),
-                    child: Container(
-                      color: kwhite,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: size.height * 0.01,
-                          ),
-                          Container(
-                            height: size.height * 0.006,
-                            width: size.width * 0.25,
-                            color: Color(0xffD9D9D9),
-                          ),
-                          // SizedBox(
-                          //   height: size.height * 0.005,
-                          // ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.055),
-                            child: Container(
-                              height: size.height * .06,
-                              width: double.infinity,
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: size.height * .01),
-                              child: CustomSmallText(
-                                text: "Charging History",
-                                size: 15.sp,
-                                color: Color.fromARGB(255, 63, 63, 63),
+                                  height(15.h),
+                                ],
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                  )),
-              SliverToBoxAdapter(
-                child: Obx(
-                  () => Container(
-                    // height: controller.boxHeight.value,
-                    color: Colors.white,
-                    child: Container(
-                      height: controller.model_list.length * (112.h) +
-                          35.h -
-                          controller.page * 18.h,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: ListView.builder(
-                                itemCount: controller.model_list.length,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (_, index) {
-                                  return _chargeHistoryCard(
-                                      controller.model_list[index]);
-                                }),
-                          ),
-                        ],
+                    bottom: PreferredSize(
+                      preferredSize: Size.fromHeight(size.height * .09),
+                      child: Container(
+                        color: kwhite,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: size.height * 0.01,
+                            ),
+                            Container(
+                              height: size.height * 0.006,
+                              width: size.width * 0.25,
+                              color: Color(0xffD9D9D9),
+                            ),
+                            // SizedBox(
+                            //   height: size.height * 0.005,
+                            // ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * 0.055),
+                              child: Container(
+                                height: size.height * .06,
+                                width: double.infinity,
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: size.height * .01),
+                                child: CustomSmallText(
+                                  text: "Charging History",
+                                  size: 15.sp,
+                                  color: Color.fromARGB(255, 63, 63, 63),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+                SliverToBoxAdapter(
+                  child: Obx(
+                    () => Container(
+                      // height: controller.boxHeight.value,
+                      color: Colors.white,
+                      child: Container(
+                        height: controller.model_list.length * (112.h) +
+                            35.h -
+                            controller.page * 18.h,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                  itemCount: controller.model_list.length,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (_, index) {
+                                    return _chargeHistoryCard(
+                                        controller.model_list[index]);
+                                  }),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ]),
+              ]),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {

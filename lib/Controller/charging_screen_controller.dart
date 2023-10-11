@@ -64,7 +64,8 @@ class ChargingScreenController extends GetxController {
       getChargingStatus(bookingId);
     } else if (res) {
       // toDisconnected();
-    }
+    } else
+      toDisconnected();
   }
 
   Future getChargingStatus(int bookingId) async {

@@ -29,7 +29,7 @@ class VehicleModel {
   });
   factory VehicleModel.fromjson(Map<String, dynamic> json) {
     return VehicleModel(
-        id: json['id'],
+        id: json['id']??-1,
         icon: json['icon'] ?? '',
         vehicleDetails: json['vehicleDetails'] ?? '',
         defaultVehicle: json['defaultVehicle'] ?? '',

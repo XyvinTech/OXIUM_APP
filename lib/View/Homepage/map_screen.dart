@@ -322,7 +322,7 @@ class _MapScreenState extends State<MapScreen>
                               controller.carouselController.value,
                           items: controller.cards,
                           options: CarouselOptions(
-                            height: 150.h,
+                            height: 160.h,
                             enlargeFactor: 0.2,
                             enableInfiniteScroll: false,
                             enlargeCenterPage: true,
