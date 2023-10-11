@@ -1,5 +1,6 @@
 {
     "editor.fontSize": 17,
     "cmake.sourceDirectory": "${workspaceFolder}/linux",
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "java.configuration.updateBuildConfiguration": "disabled"
 }
