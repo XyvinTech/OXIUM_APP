@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
@@ -145,20 +146,23 @@ Future<String> getDownloadFolderpath() async {
     // directory = await getExternalStorageDirectory();
     kLog((await getExternalStorageDirectory()).toString());
     directory = Directory('/storage/emulated/0');
+    path = '${directory.path}/Download';
   } else if (Platform.isIOS) {
     directory = await getApplicationDocumentsDirectory();
+    // directory = await getDownloadsDirectory();
+    path = '${directory.path}';
   }
-  path = '${directory.path}/Download';
+  kLog(path);
   return path;
 }
 
 getTimeDifference({required String startTime, required String endtime}) {
   if (startTime.isEmpty || endtime.isEmpty) return [0, 0];
-  DateTime apiTime = DateTime.parse(startTime);
+  DateTime apiTime = DateTime.parse(startTime).toLocal();
 
 // Get the current time
-  DateTime now = DateTime.now();
-  if (endtime.isNotEmpty) now = DateTime.parse(endtime);
+  DateTime now = DateTime.now().toLocal();
+  if (endtime.isNotEmpty) now = DateTime.parse(endtime).toLocal();
 
 // Calculate the time difference in milliseconds
   int difference = now.difference(apiTime).inMilliseconds;
@@ -175,26 +179,31 @@ String extractPhoneNumber(String phoneNumber) {
 }
 
 Future<bool> getStoragePermission() async {
-  DeviceInfoPlugin plugin = DeviceInfoPlugin();
-  AndroidDeviceInfo android = await plugin.androidInfo;
-  if (android.version.sdkInt < 33) {
-    if (await Permission.storage.request().isGranted) {
-      return true;
-    } else if (await Permission.storage.request().isPermanentlyDenied) {
-      await openAppSettings();
-      return false;
-    } else if (await Permission.audio.request().isDenied) {
-      return false;
+  if (Platform.isAndroid) {
+    DeviceInfoPlugin plugin = DeviceInfoPlugin();
+    AndroidDeviceInfo android = await plugin.androidInfo;
+    if (android.version.sdkInt < 33) {
+      if (await Permission.storage.request().isGranted) {
+        return true;
+      } else if (await Permission.storage.request().isPermanentlyDenied) {
+        await openAppSettings();
+        return false;
+      } else if (await Permission.audio.request().isDenied) {
+        return false;
+      }
+    } else {
+      if (await Permission.photos.request().isGranted) {
+        return true;
+      } else if (await Permission.photos.request().isPermanentlyDenied) {
+        await openAppSettings();
+        return false;
+      } else if (await Permission.photos.request().isDenied) {
+        return false;
+      }
     }
-  } else {
-    if (await Permission.photos.request().isGranted) {
-      return true;
-    } else if (await Permission.photos.request().isPermanentlyDenied) {
-      await openAppSettings();
-      return false;
-    } else if (await Permission.photos.request().isDenied) {
-      return false;
-    }
+  } else if (Platform.isIOS) {
+    PermissionStatus res = await Permission.storage.request();
+    return res.isGranted;
   }
   return false;
 }

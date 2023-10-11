@@ -48,7 +48,7 @@ class ChargingScreenController extends GetxController {
   }
 
   onClose() {
-    super.onClose(); 
+    super.onClose();
     _timer?.cancel();
   }
 
@@ -152,8 +152,8 @@ class ChargingScreenController extends GetxController {
         Future.delayed(Duration(seconds: 1), () => toProgress());
       } else if (chargingStatus.value == 'progress') {
         time.value = getTimeDifference(
-            startTime: status_model.value.startTime,
-            endtime: status_model.value.lastupdated);
+            startTime: booking_model.value.start_time,
+            endtime: DateTime.now().toIso8601String());
         NotificationService()
             .createLocalNotification(100, status_model.value.SOC, 1);
       }
@@ -192,7 +192,8 @@ class ChargingScreenController extends GetxController {
       kLog('kill from finish');
       Get.back();
     }
-    if (Get.isDialogOpen != true &&
+    if (status_model.value.tran_id == -1 &&
+        Get.isDialogOpen != true &&
         showLowBalanceOnlyOnce &&
         status_model.value.status == 'R' &&
         status_model.value.balance < appData.gettingLowAllertValue) {

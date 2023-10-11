@@ -103,9 +103,10 @@ class ShareExperienceScreen extends GetView<FeedBackPageController> {
                       children: List.generate(
                           5,
                           (index) => Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15.w),
-                                child: SvgPicture.asset(
-                                  "assets/svg/star_rate.svg",
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: Image.asset(
+                                  "assets/images/emojis/gray${index + 1}.png",
+                                  height: 35.w,
                                 ),
                               )),
                     ),

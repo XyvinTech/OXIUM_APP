@@ -28,18 +28,18 @@ class CallAPI {
   // String _get_middle_point = '/api/app/';
 
   //IOS:
-  String socketHost = 'ws://localhost:5609';
-  String _host = 'http://localhost:8080';
-  String _get_host = 'localhost:8080';
-  String _url = 'http://localhost:8080/api/app/';
-  String _get_middle_point = '/api/app/';
+  // String socketHost = 'ws://localhost:5609';
+  // String _host = 'http://localhost:8080';
+  // String _get_host = 'localhost:8080';
+  // String _url = 'http://localhost:8080/api/app/';
+  // String _get_middle_point = '/api/app/';
 
   //***PROD: ALSO MAKE HTTP TO HTTPS Uri.https ***\
-  // String socketHost = 'ws://cms.goecworld.com:5609';
-  // String _host = 'https://cms.goecworld.com';
-  // String _get_host = 'cms.goecworld.com';
-  // String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
-  // String _get_middle_point = '/Chargetron/api/app/';
+  String socketHost = 'ws://cms.goecworld.com:5609';
+  String _host = 'https://cms.goecworld.com';
+  String _get_host = 'cms.goecworld.com';
+  String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
+  String _get_middle_point = '/Chargetron/api/app/';
 
 /////////POST DATA/////////////////
   Future<ResponseModel> postData(
@@ -79,7 +79,7 @@ class CallAPI {
     log('GET + $endPoint');
     try {
       http.Response res = await http.get(
-        Uri.http(
+        Uri.https(
             // '35.154.49.246',
             _get_host,
             _get_middle_point + endPoint,
@@ -257,8 +257,7 @@ class CallAPI {
           status: '${(percentage * 100.0).toStringAsFixed(0)} %');
     }).onDone(() async {
       hideLoading();
-      final file =
-          File('${(await getDownloadFolderpath())}/invoice_$fileName.pdf');
+      final file = File('${(await getDownloadFolderpath())}/$fileName.pdf');
       await file.writeAsBytes(_bytes);
       showSuccess('Downloaded successfully');
     });
