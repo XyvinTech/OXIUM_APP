@@ -367,7 +367,7 @@ class CommonFunctions {
       "longitude": "${pos.longitude}",
     });
     // //kLog(res.statusCode.toString())usCode.toString());
-    kLog(res.body.toString());
+    // kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<StationMarkerModel> list = [];
       res.body['result'].forEach((element) {

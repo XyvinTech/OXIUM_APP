@@ -20,11 +20,18 @@ class CallAPI {
   CallAPI._internal();
 
   int timeOutSec = 15;
-  //DEV:
-  String socketHost = 'ws://10.0.2.2:5609';
-  String _host = 'http://10.0.2.2:8080';
-  String _get_host = '10.0.2.2:8080';
-  String _url = 'http://10.0.2.2:8080/api/app/';
+  //ANDROID:
+  // String socketHost = 'ws://10.0.2.2:5609';
+  // String _host = 'http://10.0.2.2:8080';
+  // String _get_host = '10.0.2.2:8080';
+  // String _url = 'http://10.0.2.2:8080/api/app/';
+  // String _get_middle_point = '/api/app/';
+
+  //IOS:
+  String socketHost = 'ws://localhost:5609';
+  String _host = 'http://localhost:8080';
+  String _get_host = 'localhost:8080';
+  String _url = 'http://localhost:8080/api/app/';
   String _get_middle_point = '/api/app/';
 
   //***PROD: ALSO MAKE HTTP TO HTTPS Uri.https ***\

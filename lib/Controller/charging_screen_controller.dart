@@ -48,7 +48,7 @@ class ChargingScreenController extends GetxController {
   }
 
   onClose() {
-    super.onClose();
+    super.onClose(); 
     _timer?.cancel();
   }
 
