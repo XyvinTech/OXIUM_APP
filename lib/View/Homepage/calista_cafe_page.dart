@@ -361,6 +361,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                             controller.reviewController.text = '';
                             // Get.dialog(Dialogs().writeReviewDialog(controller));
                             // Get.toNamed(Routes.thankfeedbackPageRoute);
+                            kLog(controller.model.value.id);
                             Get.toNamed(
                               Routes.paymentfeedbackPageRoute,
                               arguments: controller.model.value.id,

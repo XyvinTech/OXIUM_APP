@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
@@ -19,13 +20,21 @@ class SocketRepo {
   SocketRepo._internal();
   WebSocketChannel? channel;
   RxBool isCharging = false.obs;
+  int count = 0;
   initSocket(
       {required int bookingId, required int tranId, required Function fun}) {
     final wsUrl = Uri.parse(
         '${CallAPI().socketHost}/mobileAppChargingStatus/$bookingId/$tranId');
     channel = WebSocketChannel.connect(wsUrl);
     bool isMessageNull = false;
+
+    if (count < 0) {
+      kLog('false return $count');
+      return;
+    }
+    count++;
     channel?.stream.listen((message) {
+      kLog('connected to $wsUrl  and count = $count');
       // kLog(message);
       isMessageNull = message == null ||
           (message ==
@@ -40,6 +49,7 @@ class SocketRepo {
       if (Get.currentRoute == Routes.chargingPageRoute &&
           Get.isDialogOpen == true) Get.back();
       isCharging.value = false;
+      count--;
     });
   }
 

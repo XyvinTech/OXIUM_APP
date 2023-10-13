@@ -87,7 +87,6 @@ class HomePageController extends GetxController {
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
-    getActiveBooking(false);
     await _initImages();
     Position? pos = await MapFunctions().getCurrentPosition();
     if (pos != null) {
@@ -124,7 +123,7 @@ class HomePageController extends GetxController {
 
   getNearestChargestations(Position pos) async {
     showLoading('Fetching nearby charge stations.\nPlease wait...');
-
+    await getActiveBooking(false, refresh: true);
     station_marker_list = await CommonFunctions().getNearestChargstations(pos);
     hideLoading();
     /*Apply filter if applicable and use filterpage station_marker_list*/
@@ -350,14 +349,20 @@ class HomePageController extends GetxController {
     }).toList();
   }
 
-  getActiveBooking(bool isClickOnCard) async {
+  getActiveBooking(bool isClickOnCard, {bool refresh = false}) async {
     BookingModel _bookingModel = await CommonFunctions().getActiveBooking();
     if (_bookingModel.bookingId != -1) {
       // ChargingStatusModel _status = await CommonFunctions()
       //     .getChargingStatus("${_bookingModel.bookingId}");
 
       // isCharging.value = true;
-      if (!isClickOnCard) {
+      if (refresh && !SocketRepo().isCharging.value) {
+        ChargingScreenController _chargingController =
+            await Get.put(ChargingScreenController());
+        await _chargingController.getChargingStatus(_bookingModel.bookingId);
+        _chargingController.onClose();
+        return;
+      } else if (!isClickOnCard) {
         ChargingScreenController _chargingController =
             await Get.put(ChargingScreenController());
         await _chargingController.getChargingStatus(_bookingModel.bookingId);
@@ -389,7 +394,7 @@ class HomePageController extends GetxController {
   //NEW HELP PAGE STARTS
   Future<void> openWhatsApp() async {
     var url = "https://wa.me/${phnNumber}";
-    if (await launch(url)) {
+    if (await canLaunchUrl(Uri.parse(url))) {
       if (Platform.isAndroid) {
         await launch(url);
       } else if (Platform.isIOS) {

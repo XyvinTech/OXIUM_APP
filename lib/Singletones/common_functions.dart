@@ -572,7 +572,7 @@ class CommonFunctions {
       },
     );
     ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
-    kLog(res.body.toString());
+    kLog("active bookint: " + res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return BookingModel.fromJson(res.body['result']);
     } else {
@@ -772,7 +772,7 @@ class CommonFunctions {
     var res = await CallAPI().getData('favoritestations', {
       'username': appData.userModel.value.username,
     });
-    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
+    kLog(res.body.toString());
     if (res.statusCode == 200 && res.body.isNotEmpty && res.body['success']) {
       List<FavoriteModel> list = [];
       res.body['result'].forEach((element) {

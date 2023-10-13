@@ -34,10 +34,12 @@ class FeedBackPageController extends GetxController {
     var arg = Get.arguments;
     if (arg != null && arg is int) {
       stationId = Get.arguments;
+      kLog('id: $stationId');
     } else if (arg != null) {
       seperator = (arg[0] as String).split('-');
       stationId = int.parse(seperator[0]);
       status_model.value = arg[1];
+      kLog('not id');
     }
   }
 
@@ -48,7 +50,7 @@ class FeedBackPageController extends GetxController {
     }
     showLoading(kLoading);
     kLog(stationId);
-    kLog(seperator[1]);
+    kLog(seperator);
     bool status = await CommonFunctions().postReviewForChargeStation(
         stationId, selectedRating.value, feedbackController.text,
         chargerName: seperator.isEmpty ? null : seperator[1]);

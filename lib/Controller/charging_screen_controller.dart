@@ -27,6 +27,7 @@ class ChargingScreenController extends GetxController {
   RxList<int> time = [0, 0].obs;
   String qr_or_app_data = '';
   bool showLowBalanceOnlyOnce = true;
+  ChargingStatusModel rest_api_status_model = kChargingStatusModel;
   onInit() {
     super.onInit();
     qr_or_app_data =
@@ -80,21 +81,31 @@ class ChargingScreenController extends GetxController {
     while (status_model.value.tran_id == -1 &&
         status_model.value.Connector != -1) {
       res = await CommonFunctions().getChargingStatus(bookingId.toString());
-      if (res.Connector != -1) status_model.value = res;
+      if (res.Connector != -1) rest_api_status_model = status_model.value = res;
       res = kChargingStatusModel;
-      kLog('retry');
-    }
+     
+    } 
+    kLog('rest: ' + status_model.toJson().toString());
     showLowBalanceOnlyOnce = true;
     _repeatCall();
-    status_model.value.Capacity = booking_model.value.capacity;
-    status_model.value.OutputType = booking_model.value.outputType;
-    status_model.value.ConnectorType = booking_model.value.connectorType;
-    status_model.value.amount =
-        (booking_model.value.tariff) * status_model.value.unit;
-    status_model.value.taxamount =
-        (booking_model.value.taxes) * status_model.value.unit;
-    Timer? _timer;
-    String time = '';
+    if (status_model.value.Capacity != 0) {
+      status_model.value.Capacity = booking_model.value.capacity == 0
+          ? rest_api_status_model.Capacity
+          : booking_model.value.capacity;
+      status_model.value.OutputType = booking_model.value.outputType.isEmpty
+          ? rest_api_status_model.OutputType
+          : booking_model.value.outputType;
+      status_model.value.ConnectorType =
+          booking_model.value.connectorType.isEmpty
+              ? rest_api_status_model.ConnectorType
+              : booking_model.value.connectorType;
+      status_model.value.amount =
+          (booking_model.value.tariff) * status_model.value.unit;
+      status_model.value.taxamount =
+          (booking_model.value.taxes) * status_model.value.unit;
+      Timer? _timer;
+      String time = '';
+    }
 
 ////INIT WEBSOCKET FROM HERE
 
@@ -112,14 +123,22 @@ class ChargingScreenController extends GetxController {
           }
 
           appData.userModel.value.balanceAmount = status_model.value.balance;
-          status_model.value.Capacity = booking_model.value.capacity;
-          status_model.value.OutputType = booking_model.value.outputType;
-          status_model.value.ConnectorType = booking_model.value.connectorType;
+          status_model.value.Capacity = booking_model.value.capacity == 0
+              ? rest_api_status_model.Capacity
+              : booking_model.value.capacity;
+          status_model.value.OutputType = booking_model.value.outputType.isEmpty
+              ? rest_api_status_model.OutputType
+              : booking_model.value.outputType;
+          status_model.value.ConnectorType =
+              booking_model.value.connectorType.isEmpty
+                  ? rest_api_status_model.ConnectorType
+                  : booking_model.value.connectorType;
+
           status_model.value.amount =
               (booking_model.value.tariff) * status_model.value.unit;
           status_model.value.taxamount =
               (booking_model.value.taxes) * status_model.value.unit;
-          kLog(status_model.value.toJson().toString());
+          kLog("socket: " + status_model.value.toJson().toString());
           _repeatCall();
 // This timer is for if there is no update within the interval then close the session by checking /bookingStatus api
           // if (status_model.value.status == 'R' ||
@@ -177,7 +196,7 @@ class ChargingScreenController extends GetxController {
     }
 
     //pop the dialog if status not I and dialog is opened.
-    kLog(chargingStatus.value);
+    kLog("repeat: " + chargingStatus.value);
     if (Get.currentRoute == Routes.chargingPageRoute &&
         Get.isDialogOpen == true &&
         status_model.value.status != 'I' &&
