@@ -608,7 +608,7 @@ class CommonFunctions {
       "deviceId": chargerName,
       "requestStatus": isStart ? "StartTransaction" : "StopTransaction",
       "bookingId": bookingId
-    }.toString());
+    });
     var res = await CallAPI().postData(
       {
         "chargingpoint": int.parse(chargingPoint),
@@ -619,7 +619,7 @@ class CommonFunctions {
       'changestatus',
     );
     ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
-    kLog(res.body.toString());
+    kLog("changeStatus: " + res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
     } else {

@@ -170,6 +170,12 @@ class HomePageController extends GetxController {
                   e.charger_status.length == 9
               ? kAvailable
               : kUnavailable;
+      List<String> connector = e.charger_type.split(',');
+      int connectorCount = 0;
+      if (connector.length > 2) {
+        connectorCount = connector.length - 2;
+        connector = connector.getRange(0, 2).toList();
+      }
       return GestureDetector(
         onTap: () {
           getChargeStationDetails(e.id.toString(), isCardTap: true);
@@ -287,33 +293,42 @@ class HomePageController extends GetxController {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: e.charger_type
-                              .split(',')
-                              .map((e) => e.isEmpty
-                                  ? SizedBox()
-                                  : Align(
-                                      alignment: Alignment.center,
-                                      child: Container(
-                                        // height: 12,
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 5.w, vertical: 2.w),
-                                        margin: EdgeInsets.only(right: 5.w),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: Color.fromRGBO(
-                                              184, 210, 255, 0.6),
-                                        ),
-                                        child: Center(
-                                          child: CustomText(
-                                            text: e,
-                                            size: 10.sp,
-                                            color: Color(0xff0047C3),
+                          children: [
+                            Row(
+                              children: connector
+                                  .map((e) => e.isEmpty
+                                      ? SizedBox()
+                                      : Align(
+                                          alignment: Alignment.center,
+                                          child: Container(
+                                            // height: 12,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 5.w, vertical: 2.w),
+                                            margin: EdgeInsets.only(right: 5.w),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Color.fromRGBO(
+                                                  184, 210, 255, 0.6),
+                                            ),
+                                            child: Center(
+                                              child: CustomText(
+                                                text: e,
+                                                size: 10.sp,
+                                                color: Color(0xff0047C3),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                    ))
-                              .toList(),
+                                        ))
+                                  .toList(),
+                            ),
+                            if (connectorCount > 0)
+                              CustomText(
+                                text: "+$connectorCount",
+                                size: 10.sp,
+                                color: Color(0xff0047C3),
+                              ),
+                          ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,

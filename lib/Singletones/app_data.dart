@@ -31,7 +31,7 @@ class AppData {
   List<RxList<FilterModel>> filterList = [
     RxList([
       FilterModel(title: 'Available', isSelected: false),
-      FilterModel(title: 'Busy', isSelected: false),
+      // FilterModel(title: 'Busy', isSelected: false),
       FilterModel(title: 'Faulty', isSelected: false),
     ]),
     RxList([

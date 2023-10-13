@@ -61,7 +61,6 @@ class ChargingScreenController extends GetxController {
         chargerName: chargerName,
         chargingPoint: chargingPoint);
     // hideLoading();
-    kLog(res);
     if (res && isStart) {
       getChargingStatus(bookingId);
     } else if (res) {
@@ -75,37 +74,37 @@ class ChargingScreenController extends GetxController {
 
     ChargingStatusModel res =
         await CommonFunctions().getChargingStatus(bookingId.toString());
-    if (res.Connector != -1) status_model.value = res;
+    if (res.Connector != -1) {
+      rest_api_status_model = status_model.value = res;
+    }
     res = kChargingStatusModel;
     //Try untill the transaction table updated by charger.
     while (status_model.value.tran_id == -1 &&
         status_model.value.Connector != -1) {
       res = await CommonFunctions().getChargingStatus(bookingId.toString());
-      if (res.Connector != -1) rest_api_status_model = status_model.value = res;
+      if (res.Connector != -1) status_model.value = res;
       res = kChargingStatusModel;
-     
-    } 
-    kLog('rest: ' + status_model.toJson().toString());
+    }
+    kLog('rest: ' + rest_api_status_model.toJson().toString());
     showLowBalanceOnlyOnce = true;
     _repeatCall();
-    if (status_model.value.Capacity != 0) {
-      status_model.value.Capacity = booking_model.value.capacity == 0
-          ? rest_api_status_model.Capacity
-          : booking_model.value.capacity;
-      status_model.value.OutputType = booking_model.value.outputType.isEmpty
-          ? rest_api_status_model.OutputType
-          : booking_model.value.outputType;
-      status_model.value.ConnectorType =
-          booking_model.value.connectorType.isEmpty
-              ? rest_api_status_model.ConnectorType
-              : booking_model.value.connectorType;
-      status_model.value.amount =
-          (booking_model.value.tariff) * status_model.value.unit;
-      status_model.value.taxamount =
-          (booking_model.value.taxes) * status_model.value.unit;
-      Timer? _timer;
-      String time = '';
-    }
+
+    status_model.value.Capacity = booking_model.value.capacity == 0
+        ? rest_api_status_model.Capacity
+        : booking_model.value.capacity;
+    status_model.value.OutputType = booking_model.value.outputType.isEmpty
+        ? rest_api_status_model.OutputType
+        : booking_model.value.outputType;
+    status_model.value.ConnectorType = booking_model.value.connectorType.isEmpty
+        ? rest_api_status_model.ConnectorType
+        : booking_model.value.connectorType;
+    status_model.value.amount =
+        (booking_model.value.tariff) * status_model.value.unit;
+    status_model.value.taxamount =
+        (booking_model.value.taxes) * status_model.value.unit;
+    kLog('post rest: ' + status_model.toJson().toString());
+    Timer? _timer;
+    String time = '';
 
 ////INIT WEBSOCKET FROM HERE
 
@@ -114,7 +113,6 @@ class ChargingScreenController extends GetxController {
         bookingId: bookingId,
         tranId: status_model.value.tran_id,
         fun: (message) {
-          kLog('init socket');
           // _timer?.cancel();
           if (message != null && message['status'] == 'C') {
             status_model.value.status = 'C';
@@ -123,6 +121,7 @@ class ChargingScreenController extends GetxController {
           }
 
           appData.userModel.value.balanceAmount = status_model.value.balance;
+
           status_model.value.Capacity = booking_model.value.capacity == 0
               ? rest_api_status_model.Capacity
               : booking_model.value.capacity;

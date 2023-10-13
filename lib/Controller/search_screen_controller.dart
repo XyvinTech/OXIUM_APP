@@ -13,17 +13,17 @@ class SearchScreenController extends GetxController {
   final Debouncer debouncer = Debouncer(milliseconds: 1000);
 
   List<String> suggestions = [
-    'Cafe with charge point',
-    'Charge point near me',
-    'Show near by charging station',
-    'Cafe with charge point',
+    // 'Cafe with charge point',
+    // 'Charge point near me',
+    // 'Show near by charging station',
+    // 'Cafe with charge point',
   ];
   // RxList<ChargeStationDetailsModel> chargingCafeModelList = RxList();
   RxList<SearchStationrModel> search_list = RxList();
 
   getSearchedChargeStationList(String name) async {
     if (name.isEmpty) return;
-    
+
     search_list.value = await CommonFunctions().getSearchedChargeStations(name);
   }
 }

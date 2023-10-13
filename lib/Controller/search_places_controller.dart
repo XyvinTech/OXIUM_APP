@@ -13,10 +13,10 @@ class SearchPlacesScreenController extends GetxController {
   RxBool isShowCross = false.obs;
   RxList<AutocompletePrediction> autoCompletePrediction = RxList();
   List<String> suggestions = [
-    'Cafe with charge point',
-    'Charge point near me',
-    'Show near by charging station',
-    'Cafe with charge point',
+    // 'Cafe with charge point',
+    // 'Charge point near me',
+    // 'Show near by charging station',
+    // 'Cafe with charge point',
   ];
   @override
   onInit() async {
