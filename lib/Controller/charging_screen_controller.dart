@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
@@ -7,10 +6,8 @@ import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Singletones/dialogs.dart';
 import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/Utils/local_notifications.dart';
-import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-
 import '../Utils/routes.dart';
 import '../Utils/utils.dart';
 
@@ -65,8 +62,7 @@ class ChargingScreenController extends GetxController {
       getChargingStatus(bookingId);
     } else if (res) {
       // toDisconnected();
-    } else
-      toDisconnected();
+    } else if (isStart) toDisconnected();
   }
 
   Future getChargingStatus(int bookingId) async {
@@ -113,7 +109,7 @@ class ChargingScreenController extends GetxController {
         bookingId: bookingId,
         tranId: status_model.value.tran_id,
         fun: (message) {
-          // _timer?.cancel();
+          _timer?.cancel();
           if (message != null && message['status'] == 'C') {
             status_model.value.status = 'C';
           } else if (message != null) {
@@ -140,17 +136,18 @@ class ChargingScreenController extends GetxController {
           kLog("socket: " + status_model.value.toJson().toString());
           _repeatCall();
 // This timer is for if there is no update within the interval then close the session by checking /bookingStatus api
-          // if (status_model.value.status == 'R' ||
-          //     status_model.value.status == 'I')
-          //   _timer = Timer.periodic(Duration(seconds: 30), (timer) async {
-          //     kLog('getting status from loop');
-          //     var res = await CommonFunctions()
-          //         .getChargingStatus(bookingId.toString());
-          //     if (res.Connector != -1) status_model.value = res;
-          //     _repeatCall();
-          //     if (status_model.value.status != 'R') _timer?.cancel();
-          //   });
-          // time = status_model.value.lastupdated;
+          if (status_model.value.status == 'R' ||
+              status_model.value.status == 'I')
+            _timer = Timer.periodic(Duration(seconds: 10), (timer) async {
+              kLog('getting status from loop');
+              var res = await CommonFunctions()
+                  .getChargingStatus(bookingId.toString());
+              if (res.Connector != -1) status_model.value = res;
+              _repeatCall();
+              if (status_model.value.status != 'R' &&
+                  status_model.value.status != 'I') _timer?.cancel();
+            });
+          time = status_model.value.lastupdated;
         });
     // });
   }
@@ -199,7 +196,8 @@ class ChargingScreenController extends GetxController {
     if (Get.currentRoute == Routes.chargingPageRoute &&
         Get.isDialogOpen == true &&
         status_model.value.status != 'I' &&
-        chargingStatus.value == 'connected') {
+        (chargingStatus.value == 'connected' ||
+            chargingStatus.value == 'disconnected')) {
       kLog('kill from init');
       Get.back();
     }

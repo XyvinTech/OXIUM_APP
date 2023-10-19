@@ -23,15 +23,15 @@ class ChargingScreen extends GetView<ChargingScreenController> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Obx(() => SafeArea(
-              child: SingleChildScrollView(
-                child: Container(
-                    padding: EdgeInsets.only(left: 21.w, right: 21.w),
+              child: Container(
+                  padding: EdgeInsets.only(left: 21.w, right: 21.w),
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * .0,
-                              vertical: size.height * .02),
+                              vertical: size.height * .015),
                           child: Row(
                             children: [
                               InkWell(
@@ -39,7 +39,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                     Get.back();
                                   },
                                   child: Container(
-                                      padding: EdgeInsets.all(5),
+                                      padding: EdgeInsets.all(8),
                                       child: SvgPicture.asset(
                                           'assets/svg/arrow_back_ios.svg'))),
                               Expanded(
@@ -55,9 +55,9 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                           ),
                         ),
                         Container(
-                          height: 400.h,
+                          height: 380.h,
                           width: double.infinity,
-                          padding: EdgeInsets.only(top: 39.h, bottom: 42.h),
+                          padding: EdgeInsets.only(top: 30.h, bottom: 42.h),
                           decoration: BoxDecoration(
                               color: kwhite,
                               borderRadius: BorderRadius.circular(20).r,
@@ -443,8 +443,8 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                           ),
                         ),
                       ],
-                    )),
-              ),
+                    ),
+                  )),
             )));
   }
 

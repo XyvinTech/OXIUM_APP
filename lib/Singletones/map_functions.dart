@@ -7,7 +7,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:freelancer_app/Controller/charging_screen_controller.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
+import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -30,7 +33,7 @@ class MapFunctions {
   bool isIdle = false;
   late GoogleMapController controller;
   GoogleMapController? dirMapController;
-  late StreamSubscription mapStream;
+  StreamSubscription? mapStream;
   StreamSubscription<CompassEvent>? headingListener;
   late Timer mapTimer;
   double zoom = 10;
@@ -64,7 +67,7 @@ class MapFunctions {
 
   void dispose() {
     controller.dispose();
-    mapStream.cancel();
+    mapStream?.cancel();
     dirMapController?.dispose();
     headingListener?.cancel();
     mapTimer.cancel();
@@ -161,13 +164,51 @@ class MapFunctions {
   }
 
   Future<void> myPositionListener() async {
-    if ((await checkLocationPermission())) {
-      startMapTimer();
-      getHeading();
-      mapStream = await Geolocator.getPositionStream().listen((event) async {
-        curPos = event;
-        updateMarkers(event);
-      });
+    try {
+      if ((await checkLocationPermission())) {
+        startMapTimer();
+        getHeading();
+        mapStream = await Geolocator.getPositionStream().listen((event) async {
+          curPos = event;
+          updateMarkers(event);
+        });
+      }
+    } on Exception catch (e) {
+      kLog(e.toString());
+    }
+  }
+
+  checkAppCycleAndStopStreamStartStream(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        print("app in resumed");
+        myPositionListener();
+        //If phone is locked then socket connection gets disconnected.
+        if (!SocketRepo().isCharging.value) {
+          var res = await CommonFunctions().getActiveBooking();
+          if (res.bookingId != -1) {
+            if (Get.currentRoute == Routes.chargingPageRoute) {
+              ChargingScreenController _controller = Get.find();
+              _controller.getChargingStatus(res.bookingId);
+            } else {
+              HomePageController _controller = Get.find();
+              _controller.getActiveBooking(false);
+            }
+          }
+        }
+        break;
+      case AppLifecycleState.inactive:
+        print("app in inactive");
+        if (mapStream != null) mapStream?.cancel();
+        break;
+      case AppLifecycleState.paused:
+        print("app in paused");
+        if (mapStream != null) mapStream?.cancel();
+        break;
+      case AppLifecycleState.detached:
+        print("app in detached");
+        if (mapStream != null) mapStream?.cancel();
+        break;
     }
   }
 
