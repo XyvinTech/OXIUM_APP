@@ -54,6 +54,8 @@ final Position kPosition = Position(
     longitude: 78.9629,
     latitude: 20.5937,
     timestamp: DateTime.now(),
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
     accuracy: 0,
     altitude: 0,
     heading: 0,

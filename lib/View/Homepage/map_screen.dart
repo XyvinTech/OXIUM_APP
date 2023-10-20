@@ -87,6 +87,8 @@ class _MapScreenState extends State<MapScreen>
                       },
                       onTap: (value) {
                         controller.getNearestChargestations(Position(
+                          headingAccuracy: 0,
+                          altitudeAccuracy: 0,
                             longitude: value.longitude,
                             latitude: value.latitude,
                             timestamp: DateTime.now(),

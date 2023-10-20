@@ -1,6 +1,4 @@
 PODS:
-  - app_tracking_transparency (0.0.1):
-    - Flutter
   - AppAuth (1.6.2):
     - AppAuth/Core (= 1.6.2)
     - AppAuth/ExternalUserAgent (= 1.6.2)
@@ -9,30 +7,30 @@ PODS:
     - AppAuth/Core
   - device_info_plus (0.0.1):
     - Flutter
-  - Firebase/CoreOnly (10.10.0):
-    - FirebaseCore (= 10.10.0)
-  - Firebase/Messaging (10.10.0):
+  - Firebase/CoreOnly (10.15.0):
+    - FirebaseCore (= 10.15.0)
+  - Firebase/Messaging (10.15.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 10.10.0)
-  - firebase_core (2.14.0):
-    - Firebase/CoreOnly (= 10.10.0)
+    - FirebaseMessaging (~> 10.15.0)
+  - firebase_core (2.19.0):
+    - Firebase/CoreOnly (= 10.15.0)
     - Flutter
-  - firebase_messaging (14.6.3):
-    - Firebase/Messaging (= 10.10.0)
+  - firebase_messaging (14.7.1):
+    - Firebase/Messaging (= 10.15.0)
     - firebase_core
     - Flutter
-  - FirebaseCore (10.10.0):
+  - FirebaseCore (10.15.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
-  - FirebaseCoreInternal (10.13.0):
+  - FirebaseCoreInternal (10.16.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseInstallations (10.13.0):
+  - FirebaseInstallations (10.16.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
-  - FirebaseMessaging (10.10.0):
+  - FirebaseMessaging (10.15.0):
     - FirebaseCore (~> 10.0)
     - FirebaseInstallations (~> 10.0)
     - GoogleDataTransport (~> 9.2)
@@ -109,13 +107,13 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - permission_handler_apple (9.1.0):
+  - permission_handler_apple (9.1.1):
     - Flutter
   - PromisesObjC (2.3.1)
   - qr_code_scanner (0.2.0):
     - Flutter
     - MTBBarcodeScanner
-  - razorpay-pod (1.3.3)
+  - razorpay-pod (1.3.4)
   - razorpay_flutter (1.1.10):
     - Flutter
     - razorpay-pod
@@ -130,11 +128,8 @@ PODS:
   - Toast (4.0.0)
   - url_launcher_ios (0.0.1):
     - Flutter
-  - workmanager (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
-  - app_tracking_transparency (from `.symlinks/plugins/app_tracking_transparency/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
@@ -156,7 +151,6 @@ DEPENDENCIES:
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
-  - workmanager (from `.symlinks/plugins/workmanager/ios`)
 
 SPEC REPOS:
   trunk:
@@ -180,8 +174,6 @@ SPEC REPOS:
     - Toast
 
 EXTERNAL SOURCES:
-  app_tracking_transparency:
-    :path: ".symlinks/plugins/app_tracking_transparency/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
   firebase_core:
@@ -224,20 +216,17 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
-  workmanager:
-    :path: ".symlinks/plugins/workmanager/ios"
 
 SPEC CHECKSUMS:
-  app_tracking_transparency: 5b1745ef9ade815f7455cb6a0848349589afb7c5
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
-  device_info_plus: 7545d84d8d1b896cb16a4ff98c19f07ec4b298ea
-  Firebase: facd334e557a979bd03a0b58d90fd56b52b8aba0
-  firebase_core: 85b6664038311940ad60584eaabc73103c61f5de
-  firebase_messaging: db0dab2713aafcf69591a1dc4ee8af7d8bba2abd
-  FirebaseCore: d027ff503d37edb78db98429b11f580a24a7df2a
-  FirebaseCoreInternal: b342e37cd4f5b4454ec34308f073420e7920858e
-  FirebaseInstallations: b28af1b9f997f1a799efe818c94695a3728c352f
-  FirebaseMessaging: 8a3b9a8b98ce72a42d22e69865cf662e38d2d6f5
+  device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
+  Firebase: 66043bd4579e5b73811f96829c694c7af8d67435
+  firebase_core: fd674fcc642742ef7289acea60bd21a1a021bd98
+  firebase_messaging: 4f6c9f2920785b409108c8b5f1f8cdaf89d8def2
+  FirebaseCore: 2cec518b43635f96afe7ac3a9c513e47558abd2e
+  FirebaseCoreInternal: 26233f705cc4531236818a07ac84d20c333e505a
+  FirebaseInstallations: b822f91a61f7d1ba763e5ccc9d4f2e6f2ed3b3ee
+  FirebaseMessaging: 0c0ae1eb722ef0c07f7801e5ded8dccd1357d6d4
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_compass: cbbd285cea1584c7ac9c4e0c3e1f17cbea55e855
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
@@ -256,19 +245,18 @@ SPEC CHECKSUMS:
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
-  package_info_plus: fd030dabf36271f146f1f3beacd48f564b0f17f7
-  path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
-  permission_handler_apple: 8f116445eff3c0e7c65ad60f5fef5490aa94b4e4
+  package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
+  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
-  razorpay-pod: a0a0de741488584dcc9513b9c3999bbb08d4e95d
+  razorpay-pod: df3aa440969489d242c40ec606db9a0c7095743f
   razorpay_flutter: 84b3bfd206ae9c9c2a9ba585524a1b3d8102b6c1
-  share_plus: 599aa54e4ea31d4b4c0e9c911bcc26c55e791028
-  shared_preferences_foundation: e2dae3258e06f44cc55f49d42024fd8dd03c590c
+  share_plus: c3fef564749587fc939ef86ffb283ceac0baf9f5
+  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
-  workmanager: 0afdcf5628bbde6924c21af7836fed07b42e30e6
 
 PODFILE CHECKSUM: 4571a1f3212399845c03f58fe4b92c393ac1e2af
 
