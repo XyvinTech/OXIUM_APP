@@ -162,12 +162,9 @@ class HomePageController extends GetxController {
             .toPrecision(2);
       }
       List<String> amenities = e.amenities.split(',');
-      String available = e.charger_status.contains('Connected') &&
-              e.charger_status.length == 9 &&
-              e.isBusy
+      String available = e.charger_status.contains(',Connected') && e.isBusy
           ? kBusy
-          : e.charger_status.contains('Connected') &&
-                  e.charger_status.length == 9
+          : e.charger_status.contains(',Connected')
               ? kAvailable
               : kUnavailable;
       List<String> connector = e.charger_type.split(',');

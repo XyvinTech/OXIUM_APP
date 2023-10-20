@@ -354,12 +354,11 @@ class MapFunctions {
           // });
         },
         markerId: MarkerId(id),
-        icon: BitmapDescriptor.fromBytes(
-            status.contains('Connected') && status.length == 9 && isBusy
-                ? bytesGreen!
-                : status.contains('Connected') && status.length == 9
-                    ? bytesBlue!
-                    : bytesGray!),
+        icon: BitmapDescriptor.fromBytes(status.contains(',Connected') && isBusy
+            ? bytesGreen!
+            : status.contains(',Connected')
+                ? bytesBlue!
+                : bytesGray!),
         position: latLng,
         anchor: Offset(.5, .5)));
   }
