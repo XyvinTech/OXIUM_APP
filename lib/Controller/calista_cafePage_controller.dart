@@ -58,6 +58,7 @@ class CalistaCafePageController extends GetxController {
   getChargeStationDetails(String stationId) async {
     showLoading(kLoading);
     model.value = await CommonFunctions().getChargeStationDetails(stationId);
+    kLog(model.value.toJson());
     amenities.value = model.value.amenities.split(',');
     kLog(model.value.isFavorite.toString());
     if (MapFunctions().curPos.latitude != 0) {

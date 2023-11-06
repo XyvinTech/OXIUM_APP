@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -475,6 +474,8 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       status = kUnavailable;
     else if (evport.ocppStatus == kAvailable || evport.ocppStatus.isEmpty)
       status = kAvailable;
+    else if (evport.ocppStatus == kPreparing || evport.ocppStatus.isEmpty)
+      status = kPreparing;
     else if (evport.ocppStatus == 'Charging')
       status = kBusy;
     else if (evport.ocppStatus == kFaulted)
@@ -488,7 +489,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: isSelected && status == kAvailable
+          color: isSelected && (status == kAvailable || status == kPreparing)
               ? Color(0xff6FCF97).withOpacity(.28)
               : status == kBusy
                   ? Color(0xffE37A2D).withOpacity(.2)
@@ -512,7 +513,8 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 )),
       child: InkWell(
         onTap: () {
-          if (status == kAvailable) controller.changeCharger(index, index1);
+          if (status == kAvailable || status == kPreparing)
+            controller.changeCharger(index, index1);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -584,7 +586,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: isConnected
-                      ? status == kAvailable
+                      ? (status == kAvailable || status == kPreparing)
                           ? Color(0xff219653)
                           : status == kBusy
                               ? Color(0xffE37A2D)
@@ -599,7 +601,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 text: status,
                 size: 12,
                 color: isConnected
-                    ? status == kAvailable
+                    ? (status == kAvailable || status == kPreparing)
                         ? Color(0xff219653)
                         : status == kBusy
                             ? Color(0xffE37A2D)

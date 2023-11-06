@@ -44,6 +44,7 @@ final String kLoginButtonPhone = 'Login with Phone';
 final String kLoginTermsAndPrivay = 'Login with Phone';
 final String kAll = 'All';
 final String kAvailable = 'Available';
+final String kPreparing = 'Preparing';
 final String kUnavailable = 'Unavailable';
 final String kFaulted = 'Faulted';
 final String kBusy = 'Busy';
@@ -270,7 +271,7 @@ final TextStyle kApphintTextStyle2 = TextStyle(
 Logger logger = Logger();
 kLog(Object value) {
   // logger.d(value);
-  log(value.toString());
+  logger.d(value.toString());
   // logger.t("Trace log");
 
   // logger.d("Debug log");
