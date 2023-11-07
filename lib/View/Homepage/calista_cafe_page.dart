@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,7 +10,6 @@ import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../Singletones/dialogs.dart';
 import '../../Utils/routes.dart';
@@ -39,16 +39,17 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
         fit: StackFit.expand,
         children: [
           RefreshIndicator(
-            displacement: 250,
-            backgroundColor: Colors.yellow,
-            color: Colors.red,
-            strokeWidth: 3,
+            displacement: 100,
+            backgroundColor: Colors.white,
+            color: kOnboardingColors,
+            strokeWidth: 3.5,
             triggerMode: RefreshIndicatorTriggerMode.onEdge,
             onRefresh: () async {
               await controller.getChargeStationDetails(
                   controller.model.value.id.toString());
             },
             child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
                   Container(
@@ -1074,25 +1075,25 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     );
   }
 
-  Widget reviewProgressBar(String title, double value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        LinearPercentIndicator(
-          width: size.width * .3,
-          animation: true,
-          lineHeight: 6.0,
-          animationDuration: 1000,
-          percent: value,
-          barRadius: Radius.circular(15),
-          progressColor: Color(0xff0047C3),
-          padding: EdgeInsets.zero,
-        ),
-        Spacer(),
-        CustomText(text: title, color: Colors.grey, size: 12)
-      ],
-    );
-  }
+  // Widget reviewProgressBar(String title, double value) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.start,
+  //     children: [
+  //       LinearPercentIndicator(
+  //         width: size.width * .3,
+  //         animation: true,
+  //         lineHeight: 6.0,
+  //         animationDuration: 1000,
+  //         percent: value,
+  //         barRadius: Radius.circular(15),
+  //         progressColor: Color(0xff0047C3),
+  //         padding: EdgeInsets.zero,
+  //       ),
+  //       Spacer(),
+  //       CustomText(text: title, color: Colors.grey, size: 12)
+  //     ],
+  //   );
+  // }
 
   Widget customerReviewCard() {
     return Padding(
