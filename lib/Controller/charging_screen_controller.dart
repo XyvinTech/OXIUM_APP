@@ -38,7 +38,8 @@ class ChargingScreenController extends GetxController {
     chargerName = seperator[1];
     chargingPoint = seperator[2];
     bookingVia = seperator[3];
-    if (booking_model.value.status == 'R') {
+    if (booking_model.value.status == 'R' ||
+        booking_model.value.status == 'U') {
       getChargingStatus(booking_model.value.bookingId);
     } else {
       changeStatus(isStart: true, bookingId: booking_model.value.bookingId);
@@ -183,7 +184,8 @@ class ChargingScreenController extends GetxController {
       toDisconnected();
       _timer?.cancel();
       NotificationService().cancelLocalNotification(1);
-    } else if (status_model.value.status.isEmpty) {
+    } else if (status_model.value.status.isEmpty ||
+        status_model.value.status == 'U') {
       toReconnect();
     } else {
       toFinished();

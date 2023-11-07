@@ -11,6 +11,7 @@ import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Singletones/injector.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/Utils/debouncer.dart';
@@ -103,6 +104,7 @@ class HomePageController extends GetxController {
     NotificationService().cancelLocalNotification(1);
     super.onClose();
     SocketRepo().closeSocket();
+    Injector().dispose();
   }
 
   _initImages() async {
