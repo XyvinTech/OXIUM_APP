@@ -50,6 +50,7 @@ class Injector {
           kLog('connection restored');
           Get.snackbar('Connected to internet', 'Internet connection restored',
               backgroundColor: Colors.green.shade400,
+              colorText: Colors.white,
               duration: Duration(seconds: 5));
           if (Get.currentRoute == Routes.loginpageRoute) {
             Get.offAllNamed(Routes.homePageRoute);
@@ -64,6 +65,7 @@ class Injector {
           Get.snackbar(
               'No Internet', 'You device is not connected to the internet',
               backgroundColor: Colors.red.shade500,
+              colorText: Colors.white,
               isDismissible: false,
               duration: Duration(hours: 1));
         });
@@ -76,6 +78,7 @@ class Injector {
         Get.snackbar(
             'Connection turned off.', 'Please turn on internet connection.',
             backgroundColor: Colors.red.shade500,
+            colorText: Colors.white,
             isDismissible: false,
             duration: Duration(hours: 1));
       });
