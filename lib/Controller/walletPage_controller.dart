@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Model/orderModel.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:validators/validators.dart';
 
 import '../Singletones/common_functions.dart';
@@ -22,7 +23,7 @@ class WalletPageController extends GetxController {
   RxList<String> payment_mode = RxList();
   RxList<String> payment_status = RxList();
   bool lock = false;
-  String adminTopUp = 'AdminTopUp',walletTopUp = 'RZRWeb';
+  String adminTopUp = 'AdminTopUp', walletTopUp = 'RZRWeb';
 
   @override
   void onInit() {
@@ -89,6 +90,23 @@ class WalletPageController extends GetxController {
         amount: int.parse(amountController.text),
         order_id: order_id,
         descirption: 'Top up your account');
+  }
+
+  verifyPayment(int transactionId, String orderId) async {
+    kLog('value');
+    showLoading('Verifying payment...\n$kLoading');
+    bool res = await CommonFunctions().savePaymentRazorpay(
+        PaymentSuccessResponse('', '', ''),
+        transactionId: transactionId,
+        orderId: orderId);
+    hideLoading();
+    if (res) {
+      Get.back();
+      showSuccess('Successfully verified!');
+      getWalletTransactions();
+    } else {
+      showError('Failed to verify payment!');
+    }
   }
 
   getUserProfile() async {

@@ -81,6 +81,7 @@ class ChargingScreenController extends GetxController {
       res = await CommonFunctions().getChargingStatus(bookingId.toString());
       if (res.Connector != -1) status_model.value = res;
       res = kChargingStatusModel;
+      await Future.delayed(Duration(seconds: 10));
     }
     kLog('rest: ' + rest_api_status_model.toJson().toString());
     showLowBalanceOnlyOnce = true;

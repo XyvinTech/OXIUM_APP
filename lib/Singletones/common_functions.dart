@@ -120,31 +120,49 @@ class CommonFunctions {
     }
   }
 
-  Future<void> savePaymentRazorpay(PaymentSuccessResponse payResponse) async {
-    if (_getOrderResponse == null) return;
-    _getOrderResponse['result']['pgPaymentId'] = payResponse.paymentId;
-    _getOrderResponse['result']['pgSIgnature'] = payResponse.signature;
-    _getOrderResponse['result']['status'] = "P";
-    if (Get.currentRoute == Routes.rfidNumberRoute)
-      _getOrderResponse['result']['rfidAmountPaid'] = "Y";
-
-    var res = await CallAPI()
-        .postData(_getOrderResponse['result'], 'payment/savePayment');
-    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
+  Future<bool> savePaymentRazorpay(PaymentSuccessResponse payResponse,
+      {int transactionId = -1, String orderId = ''}) async {
+    var payload;
+    if (_getOrderResponse != null) {
+      _getOrderResponse['result']['pgPaymentId'] = payResponse.paymentId;
+      _getOrderResponse['result']['pgOrderId'] = payResponse.orderId;
+      _getOrderResponse['result']['pgSIgnature'] = payResponse.signature;
+      _getOrderResponse['result']['status'] = "P";
+      if (transactionId != -1)
+        _getOrderResponse['result']['transactionId'] = transactionId;
+      if (Get.currentRoute == Routes.rfidNumberRoute)
+        _getOrderResponse['result']['rfidAmountPaid'] = "Y";
+      payload = _getOrderResponse['result'];
+    } else if (transactionId != -1) {
+      payload = {
+        'transactionId': transactionId,
+        'pgPaymentId': '',
+        'pgOrderId': orderId
+      };
+    } else {
+      showError('Failed to update. Response is Empty');
+      return false;
+    }
+    kLog(payload);
+    var res = await CallAPI().postData(payload, 'payment/savePayment');
+    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
     _getOrderResponse = null;
     if (res.statusCode == 200 && res.body['success']) {
       //TODO: what to do if RFID purchase successful
       if (Get.currentRoute == Routes.rfidNumberRoute) {
         showSuccess('Payment successful!');
-      } else if (Get.currentRoute == Routes.popupPageRoute &&
+      } else if (transactionId == -1 &&
+          Get.currentRoute == Routes.popupPageRoute &&
           appData.qr.isNotEmpty) {
         Dialogs().rechargePopUp(isSuccess: true);
       }
+      return true;
     } else {
       if (Get.currentRoute == Routes.rfidNumberRoute)
         showError('Payment failed with error code ${res.statusCode}!');
-      else
-        Dialogs().rechargePopUp(isSuccess: false);
+      else if (transactionId == -1) Dialogs().rechargePopUp(isSuccess: false);
+      return false;
     }
   }
 
@@ -366,7 +384,7 @@ class CommonFunctions {
       "longitude": "${pos.longitude}",
     });
     // //kLog(res.statusCode.toString())usCode.toString());
-    kLog(res.body.toString());
+    // kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<StationMarkerModel> list = [];
       res.body['result'].forEach((element) {
@@ -571,7 +589,7 @@ class CommonFunctions {
       },
     );
     ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
-    kLog("active bookint: " + res.body.toString());
+    kLog("active booking: " + res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return BookingModel.fromJson(res.body['result']);
     } else {
@@ -618,7 +636,8 @@ class CommonFunctions {
       'changestatus',
     );
     ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
-    kLog("changeStatus: " + res.body.toString());
+    kLog("changeStatus: ${res.statusCode} " + res.body.toString());
+    // showError("status: ${res.statusCode} \n" + res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
     } else {

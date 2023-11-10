@@ -162,6 +162,9 @@ getTimeDifference({required String startTime, required String endtime}) {
   DateTime now = DateTime.now().toLocal();
   if (endtime.isNotEmpty) now = DateTime.parse(endtime).toLocal();
 
+  print(apiTime);
+  print(now);
+
 // Calculate the time difference in milliseconds
   int difference = now.difference(apiTime).inMilliseconds;
 

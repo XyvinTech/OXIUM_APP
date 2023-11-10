@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/qr_controller.dart';
+import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/orderModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
@@ -537,12 +538,10 @@ class Dialogs {
     if (model.status == 'P') {
       title = 'Success';
       color = Color(0xff219653);
-    }
-    // else if (model.statusUpdateBy == 'M' && model.status == 'I') {
-    //   title = 'Pending';
-    //   color = Color(0xffDF8600);
-    // }
-    else {
+    } else if (model.status == 'I') {
+      title = 'Pending';
+      color = Color(0xffDF8600);
+    } else {
       title = 'Failed';
       color = Color(0xffDC2525);
     }
@@ -728,26 +727,48 @@ class Dialogs {
                   ),
                   height(size.height * 0.04),
                   Visibility(
-                    visible: title == 'Success',
+                    visible: title == 'Success' || title == 'Pending',
                     child: InkWell(
                       onTap: () {
                         //TODO: on download invoice
-                        CommonFunctions()
-                            .downloadWalletInvoice(model.transactionId);
-                        kLog(model.bookingId.toString());
+                        if (title == 'Success') {
+                          CommonFunctions()
+                              .downloadWalletInvoice(model.transactionId);
+                          kLog(model.bookingId.toString());
+                        } else if (title == 'Pending') {
+                          WalletPageController _controller = Get.find();
+                          _controller.verifyPayment(
+                              model.transactionId, model.pgOrderId);
+                        }
                       },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/svg/download.svg'),
-                          width(size.width * .02),
-                          CustomBigText(
-                            text: 'Download invoice',
-                            color: Color(0xff0047C3),
-                            size: 15,
-                          )
-                        ],
-                      ),
+                      child: title == 'Success'
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/svg/download.svg'),
+                                width(size.width * .02),
+                                CustomBigText(
+                                  text: 'Download invoice',
+                                  color: Color(0xff0047C3),
+                                  size: 15,
+                                )
+                              ],
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.refresh,
+                                  color: Color(0xffDF8600),
+                                ),
+                                width(size.width * .02),
+                                CustomBigText(
+                                  text: 'Verify Payment',
+                                  color: Color(0xffDF8600),
+                                  size: 15,
+                                )
+                              ],
+                            ),
                     ),
                   ),
                   height(25.h),

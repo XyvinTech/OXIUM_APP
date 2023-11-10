@@ -352,12 +352,10 @@ class _WalletScreenState extends State<WalletScreen>
     if (model.status == 'P') {
       title = 'Success';
       color = Color(0xff219653);
-    }
-    // else if (model.type == controller. && model.status == 'I') {
-    //   title = 'Pending';
-    //   color = Color(0xffDF8600);
-    // }
-    else {
+    } else if (model.status == 'I') {
+      title = 'Pending';
+      color = Color(0xffDF8600);
+    } else {
       title == 'Failed';
       color = Color(0xffDC2525);
     }
