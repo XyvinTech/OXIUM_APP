@@ -76,7 +76,9 @@ class WalletPageController extends GetxController {
         payment_mode.join(','),
         payment_status.join(','));
     hideLoading();
-
+    // if (isVerifyPayment)
+    //   modelList.value = res;
+    // else
     modelList.addAll(res);
   }
 
@@ -92,18 +94,19 @@ class WalletPageController extends GetxController {
         descirption: 'Top up your account');
   }
 
-  verifyPayment(int transactionId, String orderId) async {
+  verifyPayment(int transactionId, String orderId, int index) async {
     kLog('value');
     showLoading('Verifying payment...\n$kLoading');
-    bool res = await CommonFunctions().savePaymentRazorpay(
+    OrderModel res = await CommonFunctions().savePaymentRazorpay(
         PaymentSuccessResponse('', '', ''),
         transactionId: transactionId,
         orderId: orderId);
     hideLoading();
-    if (res) {
+    if (res.transactionId != -1) {
       Get.back();
-      showSuccess('Successfully verified!');
-      await getWalletTransactions();
+      // showSuccess('Successfully verified!');
+      modelList[index] = res;
+      getUserProfile();
     } else {
       showError('Failed to verify payment!');
     }

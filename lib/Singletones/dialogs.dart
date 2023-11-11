@@ -530,7 +530,7 @@ class Dialogs {
   }
 
   wallet_transaction_popup({
-    required OrderModel model,
+    required OrderModel model,required int index
   }) {
     kLog(model.status);
     String title = '';
@@ -738,7 +738,7 @@ class Dialogs {
                         } else if (title == 'Pending') {
                           WalletPageController _controller = Get.find();
                           _controller.verifyPayment(
-                              model.transactionId, model.pgOrderId);
+                              model.transactionId, model.pgOrderId,index);
                         }
                       },
                       child: title == 'Success'

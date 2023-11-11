@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Controller/notification_screen_controller.dart';
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
@@ -120,7 +121,7 @@ class CommonFunctions {
     }
   }
 
-  Future<bool> savePaymentRazorpay(PaymentSuccessResponse payResponse,
+  Future<OrderModel> savePaymentRazorpay(PaymentSuccessResponse payResponse,
       {int transactionId = -1, String orderId = ''}) async {
     var payload;
     if (_getOrderResponse != null) {
@@ -141,7 +142,7 @@ class CommonFunctions {
       };
     } else {
       showError('Failed to update. Response is Empty');
-      return false;
+      return kOrderModel;
     }
     kLog(payload);
     var res = await CallAPI().postData(payload, 'payment/savePayment');
@@ -157,12 +158,12 @@ class CommonFunctions {
           appData.qr.isNotEmpty) {
         Dialogs().rechargePopUp(isSuccess: true);
       }
-      return true;
+      return OrderModel.fromJson(res.body['result']);
     } else {
       if (Get.currentRoute == Routes.rfidNumberRoute)
         showError('Payment failed with error code ${res.statusCode}!');
       else if (transactionId == -1) Dialogs().rechargePopUp(isSuccess: false);
-      return false;
+      return kOrderModel;
     }
   }
 

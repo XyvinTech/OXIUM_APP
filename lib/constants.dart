@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
+import 'package:freelancer_app/Model/orderModel.dart';
 import 'package:freelancer_app/Model/reviewMode.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
@@ -184,6 +185,23 @@ final ReviewModel kReviewModel = ReviewModel(
     review: '',
     userName: '',
     creationDateTime: '');
+
+final OrderModel kOrderModel = OrderModel(
+    transactionId: -1,
+    type: '',
+    pgOrderId: '',
+    pgPaymentId: '',
+    bookingId: -1,
+    appuserName: '',
+    amount: 0,
+    pgSIgnature: '',
+    status: '',
+    pgOrderGenTime: '',
+    lastUpdateTime: '',
+    paymentMode: '',
+    pgLog: '',
+    statusUpdateBy: '',
+    rfidAmountPaid: '');
 
 //app-Textstyles
 
