@@ -282,24 +282,26 @@ class _WalletScreenState extends State<WalletScreen>
                     child: Column(
                       children: [
                         Expanded(
-                          child: ListView.builder(
-                              itemCount: controller.modelList.length,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (_, index) {
-                                return Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: size.width * .03,
-                                      vertical: 8.h),
-                                  child: InkWell(
-                                    onTap: () {
-                                      Dialogs().wallet_transaction_popup(
-                                          model: controller.modelList[index]);
-                                    },
-                                    child: _creditCard(
-                                        model: controller.modelList[index]),
-                                  ),
-                                );
-                              }),
+                          child: Obx(
+                            () => ListView.builder(
+                                itemCount: controller.modelList.length,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (_, index) {
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: size.width * .03,
+                                        vertical: 8.h),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Dialogs().wallet_transaction_popup(
+                                            model: controller.modelList[index]);
+                                      },
+                                      child: _creditCard(
+                                          model: controller.modelList[index]),
+                                    ),
+                                  );
+                                }),
+                          ),
                         )
                       ],
                     ),

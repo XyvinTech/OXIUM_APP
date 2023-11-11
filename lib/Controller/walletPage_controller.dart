@@ -103,7 +103,7 @@ class WalletPageController extends GetxController {
     if (res) {
       Get.back();
       showSuccess('Successfully verified!');
-      getWalletTransactions();
+      await getWalletTransactions();
     } else {
       showError('Failed to verify payment!');
     }
