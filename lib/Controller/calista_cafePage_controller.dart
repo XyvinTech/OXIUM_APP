@@ -56,8 +56,9 @@ class CalistaCafePageController extends GetxController {
 
 //THIS FUNCTION IS NOT USED HERE. IF NEEDED THEN WE WILL USE IT
   getChargeStationDetails(String stationId) async {
-    showLoading(kLoading);
+    // showLoading(kLoading);
     model.value = await CommonFunctions().getChargeStationDetails(stationId);
+    kLog(model.value.toJson());
     amenities.value = model.value.amenities.split(',');
     kLog(model.value.isFavorite.toString());
     if (MapFunctions().curPos.latitude != 0) {
@@ -70,7 +71,7 @@ class CalistaCafePageController extends GetxController {
           .toPrecision(2);
     }
     isOpen.value = isTimeInRange(model.value.startTime, model.value.stopTime);
-    hideLoading();
+    // hideLoading();
   }
 
   changeCharger(int index, int index_grid) {

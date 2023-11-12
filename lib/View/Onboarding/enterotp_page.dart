@@ -84,9 +84,7 @@ class EnterOtpPage extends GetView<OtpNumberPageController> {
                               inactiveColor: Color(0xffE0E0E0),
                               activeColor: Color(0xff0047C3).withOpacity(0.6),
                             ),
-                            onChanged: (valu) {
-                              print(valu);
-                            }),
+                            onChanged: (valu) {}),
                       ),
                       SizedBox(
                         height: 20.h,

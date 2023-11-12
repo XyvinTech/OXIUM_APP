@@ -133,11 +133,11 @@ abstract class AppPages {
       binding: VehicleScreenBinding(),
       page: () => VehicleSearchScreen(),
     ),
-    GetPage(
-      name: Routes.bottomNavPageRoute,
-      binding: CalistaCafePageBindings(),
-      page: () => BottomNavScreen(),
-    ),
+    // GetPage(
+    //   name: Routes.bottomNavPageRoute,
+    //   binding: CalistaCafePageBindings(),
+    //   page: () => BottomNavScreen(),
+    // ),
     GetPage(
       name: Routes.reviewPageRoute,
       binding: ReviewPageBindings(),

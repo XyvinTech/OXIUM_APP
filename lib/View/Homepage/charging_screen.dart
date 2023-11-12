@@ -12,6 +12,7 @@ import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
+import '../../Singletones/dialogs.dart';
 import 'ChargningAnimations/gradiant_circular_progressbar.dart';
 import 'ChargningAnimations/percentage_circular_progress_indicator.dart';
 
@@ -22,15 +23,15 @@ class ChargingScreen extends GetView<ChargingScreenController> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Obx(() => SafeArea(
-              child: SingleChildScrollView(
-                child: Container(
-                    padding: EdgeInsets.only(left: 21.w, right: 21.w),
+              child: Container(
+                  padding: EdgeInsets.only(left: 21.w, right: 21.w),
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * .0,
-                              vertical: size.height * .02),
+                              vertical: size.height * .015),
                           child: Row(
                             children: [
                               InkWell(
@@ -38,7 +39,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                     Get.back();
                                   },
                                   child: Container(
-                                      padding: EdgeInsets.all(5),
+                                      padding: EdgeInsets.all(8),
                                       child: SvgPicture.asset(
                                           'assets/svg/arrow_back_ios.svg'))),
                               Expanded(
@@ -54,9 +55,9 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                           ),
                         ),
                         Container(
-                          height: 400.h,
+                          height: 380.h,
                           width: double.infinity,
-                          padding: EdgeInsets.only(top: 39.h, bottom: 42.h),
+                          padding: EdgeInsets.only(top: 30.h, bottom: 42.h),
                           decoration: BoxDecoration(
                               color: kwhite,
                               borderRadius: BorderRadius.circular(20).r,
@@ -339,7 +340,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                     ),
                                     CustomSmallText(
                                       text:
-                                          '₹ ${controller.status_model.value.tariff} /KwH',
+                                          '₹ ${controller.booking_model.value.tariff} /KwH',
                                       size: 12,
                                     ),
                                   ],
@@ -372,7 +373,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                           children: [
                                             CustomBigText(
                                               text:
-                                                  "₹${(controller.status_model.value.amount + controller.status_model.value.taxamount).toStringAsFixed(2)}",
+                                                  "₹${(controller.status_model.value.amount).toStringAsFixed(2)}",
                                               size: 16.sp,
                                               color: Color(0xff0047C3),
                                             ),
@@ -403,6 +404,9 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       controller.chargingStatus.value =
                                           'finishing';
                                     }
+                                    if (Get.isDialogOpen == false)
+                                      Dialogs().gunStatusAlert('Finishing up',
+                                          'Please wait till Charging session is finished to unplug the charger');
                                     controller.changeStatus(
                                         isStart: false,
                                         bookingId: controller
@@ -439,8 +443,8 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                           ),
                         ),
                       ],
-                    )),
-              ),
+                    ),
+                  )),
             )));
   }
 

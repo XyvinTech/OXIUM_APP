@@ -64,7 +64,7 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
                             List<VehicleModel> def = controller.myVehicleList
                                 .where((p0) => p0.defaultVehicle == 'Y')
                                 .toList();
-                            kLog(controller.myVehicleList[index].id.toString());
+                            // kLog(controller.myVehicleList[index].id.toString());
                             // if (def.isNotEmpty && index == 0) {
                             //   return _myVehicle(def[0]);
                             // } else {

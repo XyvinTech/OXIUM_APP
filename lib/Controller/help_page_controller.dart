@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,7 +23,7 @@ class HelpPageController extends GetxController {
   Future<void> openWhatsApp() async {
     var url = "https://wa.me/${phnNumber}";
     if (await launch(url)) {
-      print("launching $url");
+      kLog("launching $url");
       if (Platform.isAndroid) {
         await launch(url);
       } else if (Platform.isIOS) {

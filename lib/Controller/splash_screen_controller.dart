@@ -26,7 +26,7 @@ class SplashScreenController extends GetxController {
 
     appData.token = await getString('token') ?? appData.token;
     appData.userModel.value.username = await getString('username') ?? '';
-    kLog('username: ' + appData.userModel.value.username);
+    // kLog('username: ' + appData.userModel.value.username);
     // appData.userModel.value.username = '9778203391';
     // appData.token =
     //     'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5Nzc4MjAzMzkxIiwic2NvcGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpc3MiOiJodHRwOi8vZXpib3QuY29tIiwiaWF0IjoxNjkwODc5NDMyLCJleHAiOjE3MjI0MTU0MzJ9.ietGzHoA6IZklUiPuBF1oWpwxya46Hb76To9ZVWL1Ik';
@@ -34,16 +34,16 @@ class SplashScreenController extends GetxController {
     kLog(appData.token);
 
     var res = await CommonFunctions().getUserProfile();
-    kLog(res.username);
+    // kLog(res.username);
     if (res.username.isEmpty) {
       Get.offAllNamed(Routes.loginpageRoute);
     } else {
       // BookingModel _bookingModel = await CommonFunctions().getActiveBooking();
-      // print(_bookingModel.toJson());
+      //_bookingModel.toJson());
       // if (_bookingModel.bookingId != -1) {
       //   ChargingStatusModel _status = await CommonFunctions()
       //       .getChargingStatus("${_bookingModel.bookingId}");
-      //   print(_status.toJson());
+      //  _status.toJson());
       //   appData.qr =
       //       '0-${_bookingModel.chargerName}-${_bookingModel.chargingpoint}-${_bookingModel.bookedvia}';
       //   Get.offAllNamed(Routes.chargingPageRoute,

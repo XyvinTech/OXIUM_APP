@@ -1,10 +1,8 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/chargePage_controller.dart';
-import 'package:freelancer_app/Controller/filter_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -122,38 +120,42 @@ class ChargeHistoryFilter extends GetView<ChargeScreenController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: size.width * 0.02, right: size.width * 0.02),
-                    child: Container(
-                      height: size.height * 0.06,
-                      width: size.width * 0.4,
-                      child: StartedButton(
-                        color: Colors.white,
-                        text: "Clear Filer",
-                        textColor: kOnboardingColors,
-                        isIcon: false,
-                        onTap: () {
-                          // Get.back();
-                          controller.clearFilter();
-                        },
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.02, right: size.width * 0.02),
+                      child: Container(
+                        height: size.height * 0.06,
+                        width: size.width * 0.4,
+                        child: StartedButton(
+                          color: Colors.white,
+                          text: "Clear Filer",
+                          textColor: kOnboardingColors,
+                          isIcon: false,
+                          onTap: () {
+                            // Get.back();
+                            controller.clearFilter();
+                          },
+                        ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: size.width * 0.02, right: size.width * 0.02),
-                    child: Container(
-                      height: size.height * 0.06,
-                      width: size.width * 0.4,
-                      child: StartedButton(
-                        color: kOnboardingColors,
-                        text: "Apply",
-                        textColor: Colors.white,
-                        isIcon: false,
-                        onTap: () {
-                          controller.applyFilter();
-                        },
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.02, right: size.width * 0.02),
+                      child: Container(
+                        height: size.height * 0.06,
+                        width: size.width * 0.4,
+                        child: StartedButton(
+                          color: kOnboardingColors,
+                          text: "Apply",
+                          textColor: Colors.white,
+                          isIcon: false,
+                          onTap: () {
+                            controller.applyFilter();
+                          },
+                        ),
                       ),
                     ),
                   ),

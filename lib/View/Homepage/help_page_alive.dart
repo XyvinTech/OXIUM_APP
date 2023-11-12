@@ -151,7 +151,7 @@ class _HelpPageAliveState extends State<HelpPageAlive>
                         controller.carouselText.asMap().entries.map((entry) {
                       return GestureDetector(
                         onTap: () {
-                          controller.carouselController!
+                          controller.carouselController.value
                               .animateToPage(entry.key);
                         },
                         child: Container(

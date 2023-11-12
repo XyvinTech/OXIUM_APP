@@ -42,6 +42,7 @@ class FavouriteScreen extends GetView<FavouritePageController> {
                         text: 'Favourites',
                         size: 16,
                         color: Color(0xff828282),
+                        textOverflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -122,7 +123,9 @@ class FavouriteScreen extends GetView<FavouritePageController> {
                                                     size: 15.sp,
                                                   ),
                                                   CustomText(
-                                                      text: model.rating,
+                                                      text: double.parse(
+                                                              model.rating)
+                                                          .toStringAsFixed(2),
                                                       size: 12,
                                                       color: Color(0xffF2994A)),
                                                 ]),
@@ -143,7 +146,9 @@ class FavouriteScreen extends GetView<FavouritePageController> {
                                 ),
                                 width(size.width * .035),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    controller.changeFavoriteStatus(model.id);
+                                  },
                                   child: Container(
                                     height: 35.h,
                                     width: 35.w,

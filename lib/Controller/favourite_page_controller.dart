@@ -24,4 +24,14 @@ class FavouritePageController extends GetxController {
   gotoStationDetailsPage(String stationId) async {
     Get.toNamed(Routes.calistaCafePageRoute, arguments: stationId);
   }
+
+  changeFavoriteStatus(int stationId) async {
+    showLoading(kLoading);
+    bool res = await CommonFunctions()
+        .changeFavorite(stationId: stationId, makeFavorite: false);
+    if (res) {
+      await getFavorites();
+    }
+    hideLoading();
+  }
 }

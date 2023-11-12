@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/chargePage_controller.dart';
 import 'package:freelancer_app/Controller/filter_screen_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
@@ -91,24 +94,37 @@ class WalletHistoryFilterPage extends GetView<WalletPageController> {
                     ),
                     FittedBox(
                       child: Obx(
-                        () => Row(
-                          children: [
-                            ChipOptions(
-                              name: "Admin Topup",
-                              isSelected:
-                                  controller.payment_mode.contains('CMS'),
-                              fun: (value) {
-                                controller.addRemoveOptionToMode('CMS', value);
-                              },
-                            ),
-                            ChipOptions(
-                              name: "Wallet Topup",
-                              isSelected: controller.payment_mode.contains('M'),
-                              fun: (value) {
-                                controller.addRemoveOptionToMode('M', value);
-                              },
-                            )
-                          ],
+                        () => SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: ChipOptions(
+                                  name: "Admin Topup",
+                                  isSelected: controller.payment_mode
+                                      .contains(controller.adminTopUp)
+                                      .obs,
+                                  fun: (value) {
+                                    controller.addRemoveOptionToMode(
+                                        controller.adminTopUp);
+                                  },
+                                ),
+                              ),
+                              width(8.w),
+                              Expanded(
+                                child: ChipOptions(
+                                  name: "Wallet Topup",
+                                  isSelected: controller.payment_mode
+                                      .contains(controller.walletTopUp)
+                                      .obs,
+                                  fun: (value) {
+                                    controller.addRemoveOptionToMode(
+                                        controller.walletTopUp);
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -119,51 +135,59 @@ class WalletHistoryFilterPage extends GetView<WalletPageController> {
                     // ),
 
                     GetBuilder<WalletPageController>(builder: (snapshot) {
-                      return Visibility(
-                        visible: controller.payment_mode.contains('M'),
-                        child: Column(
-                          children: [
-                            SizedBox(height: size.height * 0.05),
-                            CustomBigText(text: "Payment Status"),
-                            SizedBox(height: size.height * 0.02),
-                            FittedBox(
-                              child: Obx(
-                                () => Row(
+                      return Column(
+                        children: [
+                          SizedBox(height: size.height * 0.05),
+                          CustomBigText(text: "Payment Status"),
+                          SizedBox(height: size.height * 0.02),
+                          FittedBox(
+                            child: Obx(
+                              () => SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
                                   children: [
-                                    ChipOptions(
-                                        name: "Completed",
+                                    Expanded(
+                                      child: ChipOptions(
+                                          name: "Success",
+                                          isSelected: controller.payment_status
+                                              .contains('P')
+                                              .obs,
+                                          fun: (value) {
+                                            controller
+                                                .addRemoveOptionToStatus('P');
+                                          }),
+                                    ),
+                                    width(8.w),
+                                    Expanded(
+                                      child: ChipOptions(
+                                        name: "Failed",
                                         isSelected: controller.payment_status
-                                            .contains('P'),
+                                            .contains('I')
+                                            .obs,
                                         fun: (value) {
                                           controller
-                                              .addRemoveOptionToStatus('P');
-                                        }),
-                                    ChipOptions(
-                                      name: "Pending",
-                                      isSelected: controller.payment_status
-                                          .contains('I'),
-                                      fun: (value) {
-                                        controller.addRemoveOptionToStatus('I');
-                                      },
+                                              .addRemoveOptionToStatus('I');
+                                        },
+                                      ),
                                     ),
-                                    ChipOptions(
-                                      name: "Failed",
-                                      isSelected: controller.isFailed.value,
-                                      fun: (value) {
-                                        // if (!controller.payment_status
-                                        //     .contains('I'))
-                                        //   controller
-                                        //       .addRemoveOptionToStatus('I');
-                                        controller.isFailed.value =
-                                            !controller.isFailed.value;
-                                      },
-                                    ),
+                                    // ChipOptions(
+                                    //   name: "Failed",
+                                    //   isSelected: controller.isFailed.value,
+                                    //   fun: (value) {
+                                    //     // if (!controller.payment_status
+                                    //     //     .contains('I'))
+                                    //     //   controller
+                                    //     //       .addRemoveOptionToStatus('I');
+                                    //     controller.isFailed.value =
+                                    //         !controller.isFailed.value;
+                                    //   },
+                                    // ),
                                   ],
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       );
                     })
                   ],
@@ -173,38 +197,42 @@ class WalletHistoryFilterPage extends GetView<WalletPageController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: size.width * 0.02, right: size.width * 0.02),
-                    child: Container(
-                      height: size.height * 0.06,
-                      width: size.width * 0.4,
-                      child: StartedButton(
-                        color: Colors.white,
-                        text: "Clear Filer",
-                        textColor: kOnboardingColors,
-                        isIcon: false,
-                        onTap: () {
-                          // Get.back();
-                          controller.clearFilter();
-                        },
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.02, right: size.width * 0.02),
+                      child: Container(
+                        height: size.height * 0.06,
+                        width: size.width * 0.4,
+                        child: StartedButton(
+                          color: Colors.white,
+                          text: "Clear Filer",
+                          textColor: kOnboardingColors,
+                          isIcon: false,
+                          onTap: () {
+                            // Get.back();
+                            controller.clearFilter();
+                          },
+                        ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: size.width * 0.02, right: size.width * 0.02),
-                    child: Container(
-                      height: size.height * 0.06,
-                      width: size.width * 0.4,
-                      child: StartedButton(
-                        color: kOnboardingColors,
-                        text: "Apply",
-                        textColor: Colors.white,
-                        isIcon: false,
-                        onTap: () {
-                          controller.applyFilter();
-                        },
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 0.02, right: size.width * 0.02),
+                      child: Container(
+                        height: size.height * 0.06,
+                        width: size.width * 0.4,
+                        child: StartedButton(
+                          color: kOnboardingColors,
+                          text: "Apply",
+                          textColor: Colors.white,
+                          isIcon: false,
+                          onTap: () {
+                            controller.applyFilter();
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -364,7 +392,7 @@ class CustomDateTimePicekr extends StatelessWidget {
 class ChipOptions extends StatelessWidget {
   final String name;
   final Function(bool value) fun;
-  final bool isSelected;
+  final RxBool isSelected;
   ChipOptions(
       {super.key,
       required this.name,
@@ -373,42 +401,47 @@ class ChipOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // RxBool isSelected = false.obs;
-
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: InputChip(
-        labelPadding: EdgeInsets.only(
-          left: isSelected ? 20 : 30,
-          top: 5,
-          bottom: 5,
-        ),
-        deleteIcon: isSelected
-            ? Icon(
-                Icons.clear,
-                color: kOnboardingColors,
-              )
-            : Container(
-                height: 0,
-                width: 0,
-              ),
-        onDeleted: () {
-          fun(false);
-        },
-        side: BorderSide(width: 2, color: Color.fromARGB(255, 203, 232, 255)),
-        label: CustomBigText(
-          text: name,
-          size: 16,
-          color: kOnboardingColors,
-        ),
-        selected: isSelected,
-        onSelected: (value) {
-          fun(value);
-        },
-        selectedColor: Color.fromARGB(255, 203, 232, 255),
-        backgroundColor: Colors.transparent,
-        showCheckmark: false,
-        disabledColor: Colors.white,
+    return InkWell(
+      onTap: () {
+        isSelected.value = !isSelected.value;
+        log(isSelected.value.toString());
+        fun(isSelected.value);
+      },
+      child: Obx(
+        () => Container(
+            padding: EdgeInsets.symmetric(vertical: 10.h),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: !isSelected.value
+                    ? Colors.transparent
+                    : Color.fromARGB(207, 77, 158, 224),
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(
+                    color: Color.fromARGB(255, 203, 232, 255), width: 2)),
+            child: Stack(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                ),
+                CustomBigText(
+                  text: name,
+                  size: 16.sp,
+                  color: kOnboardingColors,
+                ),
+                width(5.w),
+                Positioned(
+                  right: 8,
+                  child: isSelected.value
+                      ? Icon(
+                          Icons.close,
+                          color: Color.fromARGB(255, 25, 55, 93),
+                        )
+                      : Container(),
+                )
+              ],
+            )),
       ),
     );
   }

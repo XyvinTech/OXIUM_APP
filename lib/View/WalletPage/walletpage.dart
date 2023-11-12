@@ -293,7 +293,8 @@ class _WalletScreenState extends State<WalletScreen>
                                   child: InkWell(
                                     onTap: () {
                                       Dialogs().wallet_transaction_popup(
-                                          model: controller.modelList[index]);
+                                          model: controller.modelList[index],
+                                          index: index);
                                     },
                                     child: _creditCard(
                                         model: controller.modelList[index]),
@@ -352,7 +353,7 @@ class _WalletScreenState extends State<WalletScreen>
     if (model.status == 'P') {
       title = 'Success';
       color = Color(0xff219653);
-    } else if (model.statusUpdateBy == 'M' && model.status == 'I') {
+    } else if (model.status == 'I') {
       title = 'Pending';
       color = Color(0xffDF8600);
     } else {
@@ -386,7 +387,7 @@ class _WalletScreenState extends State<WalletScreen>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CircleAvatar(
-                    child: SvgPicture.asset(model.statusUpdateBy == 'M'
+                    child: SvgPicture.asset(model.type == 'RZRWeb'
                         ? 'assets/svg/wallet_topup.svg'
                         : 'assets/svg/admin_topup.svg')),
                 width(size.width * .02),
@@ -399,7 +400,7 @@ class _WalletScreenState extends State<WalletScreen>
                       size: 10.sp,
                     ),
                     CustomBigText(
-                      text: model.statusUpdateBy == 'M'
+                      text: model.type == controller.walletTopUp
                           ? 'Wallet Topup'
                           : 'Admin Topup',
                       letterspacing: -0.408,

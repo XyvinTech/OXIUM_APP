@@ -5,11 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
 import 'package:freelancer_app/Model/chargingStatusModel.dart';
+import 'package:freelancer_app/Model/orderModel.dart';
 import 'package:freelancer_app/Model/reviewMode.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:logger/logger.dart';
 
 late Size size = Size(0, 0);
 double zoom = 15;
@@ -43,6 +45,7 @@ final String kLoginButtonPhone = 'Login with Phone';
 final String kLoginTermsAndPrivay = 'Login with Phone';
 final String kAll = 'All';
 final String kAvailable = 'Available';
+final String kPreparing = 'Preparing';
 final String kUnavailable = 'Unavailable';
 final String kFaulted = 'Faulted';
 final String kBusy = 'Busy';
@@ -53,6 +56,8 @@ final Position kPosition = Position(
     longitude: 78.9629,
     latitude: 20.5937,
     timestamp: DateTime.now(),
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
     accuracy: 0,
     altitude: 0,
     heading: 0,
@@ -109,7 +114,10 @@ final StationMarkerModel kStationMarkerModel = StationMarkerModel(
     charger_status: '',
     ac_dc: '',
     charger_type: '',
-    charger_capacity: '');
+    charger_capacity: '',
+    locationName: '',
+    rating: 0,
+    address: '');
 
 final BookingModel kBookingModel = BookingModel(
     bookingId: -1,
@@ -148,6 +156,7 @@ final BookingModel kBookingModel = BookingModel(
     tariff: 0);
 
 final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
+    tran_id: -1,
     Connector: -1,
     amount: 0,
     SOC: 0,
@@ -165,7 +174,8 @@ final ChargingStatusModel kChargingStatusModel = ChargingStatusModel(
     Capacity: 0,
     OutputType: '',
     ConnectorType: '',
-    taxamount: 0);
+    taxamount: 0,
+    balance: 0);
 
 final ReviewModel kReviewModel = ReviewModel(
     stationId: -1,
@@ -175,6 +185,23 @@ final ReviewModel kReviewModel = ReviewModel(
     review: '',
     userName: '',
     creationDateTime: '');
+
+final OrderModel kOrderModel = OrderModel(
+    transactionId: -1,
+    type: '',
+    pgOrderId: '',
+    pgPaymentId: '',
+    bookingId: -1,
+    appuserName: '',
+    amount: 0,
+    pgSIgnature: '',
+    status: '',
+    pgOrderGenTime: '',
+    lastUpdateTime: '',
+    paymentMode: '',
+    pgLog: '',
+    statusUpdateBy: '',
+    rfidAmountPaid: '');
 
 //app-Textstyles
 
@@ -259,9 +286,21 @@ final TextStyle kApphintTextStyle2 = TextStyle(
   fontWeight: FontWeight.w400,
   color: Color.fromARGB(251, 105, 105, 105),
 );
+Logger logger = Logger();
+kLog(Object value) {
+  // logger.d(value);
+  logger.d(value.toString());
+  // logger.t("Trace log");
 
-kLog(String value) {
-  log(value);
+  // logger.d("Debug log");
+
+  // logger.i("Info log");
+
+  // logger.w("Warning log");
+
+  // logger.e("Error log", error: 'Test Error');
+
+  // logger.f("What a fatal log");
 }
 
 class Const {

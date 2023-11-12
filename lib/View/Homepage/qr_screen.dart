@@ -121,7 +121,7 @@ class QrScreen extends GetView<QrController> {
         //       inactiveColor: Color(0xffBDBDBD),
         //     ),
         //     onChanged: (valu) {
-        //       print(valu);
+        //      valu);
         //     }),
         // SizedBox(
         //   height: 15.h,

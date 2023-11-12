@@ -57,12 +57,12 @@
 //     );
 
 //     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-//       print('User granted permission');
+//      
 //     } else if (settings.authorizationStatus ==
 //         AuthorizationStatus.provisional) {
-//       print('User granted provisional permission');
+//       
 //     } else {
-//       print('User declined or has not accepted permission');
+//      
 //     }
 //   }
 
@@ -151,9 +151,9 @@
 //   }
 
 //   static redirectWhenClickedOnLocalNotifications(NotificationResponse message) {
-//     print('local notification clicked: ' + message.payload.toString());
+//     
 //     var data = jsonDecode(message.payload ?? '');
-//     print(data);
+//     
 //     if (data['isPromotional'] ?? false) {
 //       Get.toNamed(Routes.notificationPageRoute);
 //     }
@@ -191,12 +191,9 @@
 //         },
 //         body: bodyData,
 //       );
-//       print(res.body);
-//       print(bodyData);
-//       print(token);
-//       print('done');
+//      
 //     } catch (e) {
-//       print("error push notification");
+//      
 //     }
 //   }
 
@@ -205,7 +202,7 @@
 //     await FirebaseMessaging.instance.getToken().then((token) {
 //       appData.notification_token = token ?? '';
 //       kLog('notification_token: ' + (token ?? 'no token'));
-//       print('notification_token: ' + (token ?? 'no token'));
+//       
 //     });
 //     // await userCollection.update({"player_id": mtoken});
 //   }
@@ -218,13 +215,10 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:freelancer_app/Utils/routes.dart';
-import 'package:freelancer_app/Utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:permission_handler/permission_handler.dart';
 
 import '../Singletones/app_data.dart';
 import '../constants.dart';
@@ -277,12 +271,12 @@ class FireBaseNotification {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
+      kLog('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
+      kLog('User granted provisional permission');
     } else {
-      print('User declined or has not accepted permission');
+      kLog('User declined or has not accepted permission');
     }
   }
 
@@ -365,10 +359,10 @@ class FireBaseNotification {
   }
 
   static redirectWhenClickedOnLocalNotifications(NotificationResponse message) {
-    print('local notification clicked: ' + message.payload.toString());
-    print('context');
+    kLog('local notification clicked: ' + message.payload.toString());
+    kLog('context');
     // var data = jsonDecode(message.payload ?? '');
-    // print(data);
+  
     // Get.toNamed(Routes.notificationPageRoute);
   }
 
@@ -404,12 +398,8 @@ class FireBaseNotification {
         },
         body: bodyData,
       );
-      print(res.body);
-      print(bodyData);
-      print(token);
-      print('done');
     } catch (e) {
-      print("error push notification");
+  
     }
   }
 
@@ -419,7 +409,7 @@ class FireBaseNotification {
       await FirebaseMessaging.instance.getToken().then((token) {
         appData.notification_token = token ?? '';
         kLog('notification_token: ' + (token ?? 'no token'));
-        print('notification_token: ' + (token ?? 'no token'));
+        
       });
       // await userCollection.update({"player_id": mtoken});
     }

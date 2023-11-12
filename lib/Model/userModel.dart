@@ -12,7 +12,7 @@ class UserModel {
   final String rfid;
   final int total_sessions;
   final double total_units;
-  final double balanceAmount;
+  double balanceAmount;
   final VehicleModel defaultVehicle;
 
   UserModel({

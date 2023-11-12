@@ -6,7 +6,6 @@ import 'package:freelancer_app/Controller/review_page_controller.dart';
 import 'package:freelancer_app/Model/reviewMode.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../Singletones/dialogs.dart';
@@ -59,78 +58,80 @@ class ReviewPage extends GetView<ReviewPageController> {
               //   ),
               // ),
               height(size.height * .022),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * .04),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              // height: size.height * .023,
-                              padding: EdgeInsets.symmetric(
-                                vertical: size.height * .005,
-                                horizontal: size.width * .02,
-                              ),
-                              width: size.width * .17,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffFFE1C7)),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Color(0xffF2994A),
-                                      size: 17,
-                                    ),
-                                    CustomText(
-                                        text: controller.totalRating.value,
-                                        size: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xffF2994A)),
-                                  ]),
-                            ),
-                            height(size.height * .006),
-                            Obx(
-                              () => CustomText(
-                                  text:
-                                      '${controller.totalElements.value} Reviews',
-                                  color: Colors.grey),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: size.width * .005,
-                      height: size.height * .1,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.grey.shade300),
-                    ),
-                    Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * .09),
-                          child: Column(children: [
-                            reviewProgressBar('5', .3),
-                            reviewProgressBar('4', .7),
-                            reviewProgressBar('3', .5),
-                            reviewProgressBar('2', .8),
-                            reviewProgressBar('1', .1),
-                          ]),
-                        ))
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: size.width * .04),
+              //   child: Row(
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       Expanded(
+              //         flex: 2,
+              //         child: Align(
+              //           alignment: Alignment.center,
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             children: [
+              //               Container(
+              //                 // height: size.height * .023,
+              //                 padding: EdgeInsets.symmetric(
+              //                   vertical: size.height * .005,
+              //                   horizontal: size.width * .02,
+              //                 ),
+              //                 width: size.width * .17,
+              //                 decoration: BoxDecoration(
+              //                     borderRadius: BorderRadius.circular(10),
+              //                     color: Color(0xffFFE1C7)),
+              //                 child: Row(
+              //                     mainAxisAlignment: MainAxisAlignment.center,
+              //                     children: [
+              //                       Icon(
+              //                         Icons.star,
+              //                         color: Color(0xffF2994A),
+              //                         size: 17,
+              //                       ),
+              //                       CustomText(
+              //                           text: controller.totalRating.value,
+              //                           size: 15,
+              //                           fontWeight: FontWeight.bold,
+              //                           color: Color(0xffF2994A)),
+              //                     ]),
+              //               ),
+              //               height(size.height * .006),
+              //               Obx(
+              //                 () => CustomText(
+              //                     text:
+              //                         '${controller.totalElements.value} Reviews',
+              //                     color: Colors.grey),
+              //               )
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //       Container(
+              //         width: size.width * .005,
+              //         height: size.height * .1,
+              //         decoration: BoxDecoration(
+              //             borderRadius: BorderRadius.circular(8),
+              //             color: Colors.grey.shade300),
+              //       ),
+              //       Expanded(
+              //           flex: 3,
+              //           child: Padding(
+              //             padding: EdgeInsets.symmetric(
+              //                 horizontal: size.width * .09),
+              //             child: Column(children: [
+              //               reviewProgressBar('5', .3),
+              //               reviewProgressBar('4', .7),
+              //               reviewProgressBar('3', .5),
+              //               reviewProgressBar('2', .8),
+              //               reviewProgressBar('1', .1),
+              //             ]),
+              //           ))
+              //     ],
+              //   ),
+              // ),
+              
+              
               height(size.height * .04),
               InkWell(
                 onTap: () {
@@ -170,25 +171,25 @@ class ReviewPage extends GetView<ReviewPageController> {
         ));
   }
 
-  Widget reviewProgressBar(String title, double value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        LinearPercentIndicator(
-          width: size.width * .3,
-          animation: true,
-          lineHeight: 6.0,
-          animationDuration: 1000,
-          percent: value,
-          barRadius: Radius.circular(15),
-          progressColor: Color(0xff0047C3),
-          padding: EdgeInsets.zero,
-        ),
-        Spacer(),
-        CustomText(text: title, color: Colors.grey, size: 12)
-      ],
-    );
-  }
+  // Widget reviewProgressBar(String title, double value) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.start,
+  //     children: [
+  //       LinearPercentIndicator(
+  //         width: size.width * .3,
+  //         animation: true,
+  //         lineHeight: 6.0,
+  //         animationDuration: 1000,
+  //         percent: value,
+  //         barRadius: Radius.circular(15),
+  //         progressColor: Color(0xff0047C3),
+  //         padding: EdgeInsets.zero,
+  //       ),
+  //       Spacer(),
+  //       CustomText(text: title, color: Colors.grey, size: 12)
+  //     ],
+  //   );
+  // }
 
   Widget customerReviewCard(ReviewModel model) {
     DateTime dateTime = DateTime.parse(model.creationDateTime);

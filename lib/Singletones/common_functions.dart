@@ -1,5 +1,8 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 
+import 'dart:developer';
+
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Controller/notification_screen_controller.dart';
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
@@ -44,7 +47,7 @@ class CommonFunctions {
 
   Future<void> handlePaymentSuccess(PaymentSuccessResponse response) async {
     //TODO: call api here when it is success payment
-    print("////////////////////");
+
     kLog(response.paymentId.toString());
     kLog(response.orderId.toString());
     kLog(response.signature.toString());
@@ -63,21 +66,19 @@ class CommonFunctions {
 
   void handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
-    print("////////////////////");
 
     if (Get.currentRoute == Routes.rfidNumberRoute)
       showError(response.message!);
     else
       Dialogs().rechargePopUp(isSuccess: false);
 
-    print(response.error);
     closeRazorPay();
   }
 
   void handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet was selected
-    print("////////////////////");
-    print(response);
+
+    kLog(response);
   }
 
   void openRazorPay(
@@ -90,6 +91,7 @@ class CommonFunctions {
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWallet);
     var options = {
       'key': 'rzp_test_dUTjpvCb45rzpc',
+      // 'key': 'rzp_live_zXZzgqRAKu6Hvd',
       'amount': amount * 100, //in the smallest currency sub-unit.
       'name': 'GOEC',
       'order_id': order_id, // Generate order_id using Orders API
@@ -109,7 +111,7 @@ class CommonFunctions {
     String payment_id = Uuid().v4().substring(0, 20);
     var res = await CallAPI().postData(
         {"amount": amount * 100, "paymentId": payment_id}, 'payment/getorder');
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     _getOrderResponse = res.body;
     if (res.statusCode == 200)
       return res.body['result']['pgOrderId'];
@@ -119,32 +121,49 @@ class CommonFunctions {
     }
   }
 
-  Future<void> savePaymentRazorpay(PaymentSuccessResponse payResponse) async {
-    if (_getOrderResponse == null) return;
-    _getOrderResponse['result']['pgPaymentId'] = payResponse.paymentId;
-    _getOrderResponse['result']['pgSIgnature'] = payResponse.signature;
-    _getOrderResponse['result']['status'] = "P";
-    if (Get.currentRoute == Routes.rfidNumberRoute)
-      _getOrderResponse['result']['rfidAmountPaid'] = "Y";
-    print(_getOrderResponse);
-    var res = await CallAPI()
-        .postData(_getOrderResponse['result'], 'payment/savePayment');
+  Future<OrderModel> savePaymentRazorpay(PaymentSuccessResponse payResponse,
+      {int transactionId = -1, String orderId = ''}) async {
+    var payload;
+    if (_getOrderResponse != null) {
+      _getOrderResponse['result']['pgPaymentId'] = payResponse.paymentId;
+      _getOrderResponse['result']['pgOrderId'] = payResponse.orderId;
+      _getOrderResponse['result']['pgSIgnature'] = payResponse.signature;
+      _getOrderResponse['result']['status'] = "P";
+      if (transactionId != -1)
+        _getOrderResponse['result']['transactionId'] = transactionId;
+      if (Get.currentRoute == Routes.rfidNumberRoute)
+        _getOrderResponse['result']['rfidAmountPaid'] = "Y";
+      payload = _getOrderResponse['result'];
+    } else if (transactionId != -1) {
+      payload = {
+        'transactionId': transactionId,
+        'pgPaymentId': '',
+        'pgOrderId': orderId
+      };
+    } else {
+      showError('Failed to update. Response is Empty');
+      return kOrderModel;
+    }
+    kLog(payload);
+    var res = await CallAPI().postData(payload, 'payment/savePayment');
     kLog(res.statusCode.toString());
+    kLog(res.body.toString());
     _getOrderResponse = null;
     if (res.statusCode == 200 && res.body['success']) {
       //TODO: what to do if RFID purchase successful
-
       if (Get.currentRoute == Routes.rfidNumberRoute) {
         showSuccess('Payment successful!');
-      } else if (Get.currentRoute == Routes.popupPageRoute &&
+      } else if (transactionId == -1 &&
+          Get.currentRoute == Routes.popupPageRoute &&
           appData.qr.isNotEmpty) {
         Dialogs().rechargePopUp(isSuccess: true);
       }
+      return OrderModel.fromJson(res.body['result']);
     } else {
       if (Get.currentRoute == Routes.rfidNumberRoute)
         showError('Payment failed with error code ${res.statusCode}!');
-      else
-        Dialogs().rechargePopUp(isSuccess: false);
+      else if (transactionId == -1) Dialogs().rechargePopUp(isSuccess: false);
+      return kOrderModel;
     }
   }
 
@@ -153,7 +172,6 @@ class CommonFunctions {
   Future<Map<String, dynamic>> getEvTemplates() async {
     ResponseModel res = await CallAPI().getData('evtemplates', {});
     if (res.statusCode == 200 && res.body['success']) {
-      print(res.body);
       Map list = res.body['result']['vehicleDetails'] ?? {};
       Map<String, dynamic> response = {};
       List<VehicleModel> brandVehicles = [];
@@ -194,7 +212,7 @@ class CommonFunctions {
       if (isDefault) "defaultVehicle": 'Y',
     }, 'ev');
     kLog(ev.id.toString());
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     return (res.statusCode == 200 && res.body['success']);
   }
@@ -209,7 +227,7 @@ class CommonFunctions {
   //     "evRegNumber": regNumber,
   //     "defaultVehicle": isDefault ? 'Y' : 'N',
   //   }, 'ev');
-  //   kLog(res.statusCode.toString());
+  //   //kLog(res.statusCode.toString())usCode.toString());
   //   kLog(res.body.toString());
   //   return (res.statusCode == 200 && res.body['success']);
   // }
@@ -242,9 +260,8 @@ class CommonFunctions {
     var res = await CallAPI().getData('appuser', {
       "username": appData.userModel.value.username,
     });
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['result'] != null) {
-      kLog(appData.token);
       kLog(res.body.toString());
       return appData.userModel.value = UserModel.fromJson(res.body['result']);
     } else {
@@ -264,7 +281,7 @@ class CommonFunctions {
       "name": name,
       "email": email,
     }, 'appuser');
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
     } else {
@@ -331,7 +348,7 @@ class CommonFunctions {
     var res = await CallAPI().getData('rfidbyusername', {
       "user": appData.userModel.value.username,
     });
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 &&
         res.body['success'] &&
@@ -367,6 +384,8 @@ class CommonFunctions {
       "lattitude": "${pos.latitude}",
       "longitude": "${pos.longitude}",
     });
+    // //kLog(res.statusCode.toString())usCode.toString());
+    // kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<StationMarkerModel> list = [];
       res.body['result'].forEach((element) {
@@ -382,8 +401,9 @@ class CommonFunctions {
     kLog(id);
     var res = await CallAPI().getData('chargersbystation', {
       "stationId": "$id",
+      "username": appData.userModel.value.username,
     });
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return ChargeStationDetailsModel.fromJson(res.body['result']);
     } else {
@@ -396,7 +416,7 @@ class CommonFunctions {
     var res = await CallAPI().getData('stationsbyname', {
       'name': name,
     });
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<SearchStationrModel> list = [];
@@ -409,18 +429,20 @@ class CommonFunctions {
     }
   }
 
-  Future<bool> postReviewForChargeStation(
-      int id, int rating, String review) async {
+  Future<bool> postReviewForChargeStation(int id, int rating, String review,
+      {String? chargerName}) async {
+    kLog(chargerName ?? 'null');
     var res = await CallAPI().postData(
       {
         "stationId": id,
+        if (chargerName != null) 'chargerName': chargerName,
         "rating": rating,
         "review": review.trim(),
         'name': appData.userModel.value.username,
       },
       'review',
     );
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
@@ -457,7 +479,7 @@ class CommonFunctions {
       },
       'appuser',
     );
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
@@ -474,7 +496,7 @@ class CommonFunctions {
         "otp": otp,
       },
     );
-    kLog(res.statusCode.toString());
+    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return await getToken(username, res.body['result'] ?? '');
@@ -495,7 +517,7 @@ class CommonFunctions {
       },
       'appuserauth',
     );
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return res;
@@ -528,7 +550,7 @@ class CommonFunctions {
       },
       'booking',
     );
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       //cancel booking if booking already exist issue arises and status == 'S'
@@ -567,8 +589,8 @@ class CommonFunctions {
         "username": appData.userModel.value.username,
       },
     );
-    kLog(res.statusCode.toString());
-    kLog(res.body.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
+    kLog("active booking: " + res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return BookingModel.fromJson(res.body['result']);
     } else {
@@ -584,7 +606,7 @@ class CommonFunctions {
         "bookingId": bookingId,
       },
     );
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return BookingModel.fromJson(res.body['result']);
@@ -604,7 +626,7 @@ class CommonFunctions {
       "deviceId": chargerName,
       "requestStatus": isStart ? "StartTransaction" : "StopTransaction",
       "bookingId": bookingId
-    }.toString());
+    });
     var res = await CallAPI().postData(
       {
         "chargingpoint": int.parse(chargingPoint),
@@ -614,8 +636,9 @@ class CommonFunctions {
       },
       'changestatus',
     );
-    kLog(res.statusCode.toString());
-    kLog(res.body.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
+    kLog("changeStatus: ${res.statusCode} " + res.body.toString());
+    // showError("status: ${res.statusCode} \n" + res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
     } else {
@@ -627,7 +650,7 @@ class CommonFunctions {
     var res = await CallAPI().getData('bookingstatus', {
       'bookingId': bookingId,
     });
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode != 200) {
       ChargingStatusModel model = kChargingStatusModel;
@@ -657,7 +680,7 @@ class CommonFunctions {
       );
     }
 
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       return true;
@@ -674,7 +697,7 @@ class CommonFunctions {
       'minRating': '1',
       'maxRating': '5',
     });
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<ReviewModel> list = [];
       res.body['result']['content'].forEach((element) {
@@ -696,7 +719,7 @@ class CommonFunctions {
       if (mode.isNotEmpty) 'paymentModes': mode,
       if (status.isNotEmpty) 'statuses': status,
     });
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<OrderModel> list = [];
       WalletPageController _walletPageController = Get.find();
@@ -717,7 +740,7 @@ class CommonFunctions {
       'size': size,
       'username': appData.userModel.value.username
     });
-    kLog(res.statusCode.toString());
+    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['success']) {
       List<NotificationModel> list = [];
       NotificationScreenController _walletPageController = Get.find();
@@ -742,6 +765,7 @@ class CommonFunctions {
     });
     if (res.statusCode == 200 && res.body['success']) {
       List<ChargeTransactionModel> list = [];
+      appData.totalElements = res.body['result']['totalElements'];
       res.body['result']['content'].forEach((element) {
         list.add(ChargeTransactionModel.fromJson(element));
       });
@@ -757,11 +781,17 @@ class CommonFunctions {
         'booking_invoice_$bookingId');
   }
 
+  downloadWalletInvoice(int tranId) async {
+    kLog(tranId.toString());
+    await CallAPI()
+        .download('walletinvoice?tranId=$tranId', 'wallet_invoice_$tranId');
+  }
+
   Future<List<FavoriteModel>> getFavorites() async {
     var res = await CallAPI().getData('favoritestations', {
       'username': appData.userModel.value.username,
     });
-    kLog(res.statusCode.toString());
+    kLog(res.body.toString());
     if (res.statusCode == 200 && res.body.isNotEmpty && res.body['success']) {
       List<FavoriteModel> list = [];
       res.body['result'].forEach((element) {

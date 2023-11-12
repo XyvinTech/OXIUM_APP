@@ -7,7 +7,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:freelancer_app/Controller/charging_screen_controller.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
+import 'package:freelancer_app/Singletones/common_functions.dart';
+import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -30,7 +33,7 @@ class MapFunctions {
   bool isIdle = false;
   late GoogleMapController controller;
   GoogleMapController? dirMapController;
-  late StreamSubscription mapStream;
+  StreamSubscription? mapStream;
   StreamSubscription<CompassEvent>? headingListener;
   late Timer mapTimer;
   double zoom = 10;
@@ -64,7 +67,7 @@ class MapFunctions {
 
   void dispose() {
     controller.dispose();
-    mapStream.cancel();
+    mapStream?.cancel();
     dirMapController?.dispose();
     headingListener?.cancel();
     mapTimer.cancel();
@@ -161,14 +164,51 @@ class MapFunctions {
   }
 
   Future<void> myPositionListener() async {
-    kLog('listener');
-    if ((await checkLocationPermission())) {
-      startMapTimer();
-      getHeading();
-      mapStream = await Geolocator.getPositionStream().listen((event) async {
-        curPos = event;
-        updateMarkers(event);
-      });
+    try {
+      if ((await checkLocationPermission())) {
+        startMapTimer();
+        getHeading();
+        mapStream = await Geolocator.getPositionStream().listen((event) async {
+          curPos = event;
+          updateMarkers(event);
+        });
+      }
+    } on Exception catch (e) {
+      kLog(e.toString());
+    }
+  }
+
+  checkAppCycleAndStopStreamStartStream(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        print("app in resumed");
+        myPositionListener();
+        //If phone is locked then socket connection gets disconnected.
+        if (!SocketRepo().isCharging.value) {
+          var res = await CommonFunctions().getActiveBooking();
+          if (res.bookingId != -1) {
+            if (Get.currentRoute == Routes.chargingPageRoute) {
+              ChargingScreenController _controller = Get.find();
+              _controller.getChargingStatus(res.bookingId);
+            } else {
+              HomePageController _controller = Get.find();
+              _controller.getActiveBooking(false);
+            }
+          }
+        }
+        break;
+      case AppLifecycleState.inactive:
+        print("app in inactive");
+        if (mapStream != null) mapStream?.cancel();
+        break;
+      case AppLifecycleState.paused:
+        print("app in paused");
+        if (mapStream != null) mapStream?.cancel();
+        break;
+      case AppLifecycleState.detached:
+        print("app in detached");
+        if (mapStream != null) mapStream?.cancel();
+        break;
     }
   }
 
@@ -255,7 +295,7 @@ class MapFunctions {
             northeast: LatLng(maxLat, maxLong)),
         30));
     zoom = await dirMapController!.getZoomLevel();
-    var leg = directionsResult.value.routes!.first.legs!.first;
+    // var leg = directionsResult.value.routes!.first.legs!.first;
     controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng((minLat + maxLat) / 2, (minLong + maxLong) / 2),
         zoom: zoom - .5,
@@ -273,10 +313,10 @@ class MapFunctions {
     //   //     await controller.getScreenCoordinate(LatLng(minLat, minLong));
     //   // ScreenCoordinate maxScreen =
     //   //     await controller.getScreenCoordinate(LatLng(maxLat, maxLong));
-    //   // print(minScreen);
-    //   // print(maxScreen);
-    //   // print(size);
-    //   // print(isNavigation);
+    //   //minScreen);
+    //   //maxScreen);
+    //   //size);
+    //   //isNavigation);
     //   // if (isNavigation) {
     //   //   controller.animateCamera(CameraUpdate.zoomBy(-.7));
     //   //   Future.delayed(Duration(milliseconds: 500), () {
@@ -298,16 +338,20 @@ class MapFunctions {
     required bool isBusy,
     required HomePageController controller,
     required String status,
+    required int carouselIndex,
   }) {
-    kLog(status);
-    kLog(status.contains('Connected').toString());
+    // kLog(status);
+    // kLog(status.contains('Connected').toString());
     markers_homepage.add(Marker(
         onTap: () async {
           MapFunctions().isFocused = false;
+          kLog(carouselIndex);
+          controller.carouselController.value.animateToPage(carouselIndex);
+          kLog(latLng);
           await MapFunctions().animateToNewPosition(latLng);
-          Future.delayed(Duration(milliseconds: 500), () {
-            controller.getChargeStationDetails(id);
-          });
+          // Future.delayed(Duration(milliseconds: 500), () {
+          //   // controller.getChargeStationDetails(id);
+          // });
         },
         markerId: MarkerId(id),
         icon: BitmapDescriptor.fromBytes(status.contains(',Connected') && isBusy
@@ -328,15 +372,15 @@ class MapFunctions {
       );
       if (result != null && result.predictions != null) {
         result.predictions!.forEach((element) {
-          kLog(element.placeId.toString());
-          kLog(element.description.toString());
+          // kLog(element.placeId.toString());
+          // kLog(element.description.toString());
         });
       }
 
       return result?.predictions ?? [];
     } on Exception catch (e) {
       // TODO
-      kLog(e.toString());
+      logger.e(e.toString());
     }
 
     return [];
@@ -345,7 +389,7 @@ class MapFunctions {
   Future<DetailsResponse?> getDetailsByPlaceId(String placeId) async {
     DetailsResponse? res = await googlePlace.details.get(placeId);
     if (res != null && res.status == 'OK') {
-      // print(res.result!.geometry!.location!.lat);
+      //res.result!.geometry!.location!.lat);
       return res;
     }
     return null;

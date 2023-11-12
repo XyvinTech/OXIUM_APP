@@ -21,8 +21,7 @@ class EnterNumberPage extends GetView<LoginPageController> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    // print(size.height);
-    // print(size.width);
+  
     return Scaffold(
       backgroundColor: kwhite,
       appBar: PreferredSize(
@@ -92,8 +91,7 @@ class EnterNumberPage extends GetView<LoginPageController> {
                                       favorite: ['IN', 'BD'],
                                       showPhoneCode: true,
                                       onSelect: (Country country) {
-                                        print(
-                                            'Select country: ${country.displayName}');
+                                      
                                         controller.country.value =
                                             country.phoneCode;
                                       },

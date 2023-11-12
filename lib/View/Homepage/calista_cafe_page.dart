@@ -1,4 +1,4 @@
-import 'package:expandable/expandable.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,7 +10,6 @@ import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../Singletones/dialogs.dart';
 import '../../Utils/routes.dart';
@@ -40,16 +39,17 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
         fit: StackFit.expand,
         children: [
           RefreshIndicator(
-            displacement: 250,
-            backgroundColor: Colors.yellow,
-            color: Colors.red,
-            strokeWidth: 3,
+            displacement: 100,
+            backgroundColor: Colors.white,
+            color: kOnboardingColors,
+            strokeWidth: 3.5,
             triggerMode: RefreshIndicatorTriggerMode.onEdge,
             onRefresh: () async {
               await controller.getChargeStationDetails(
                   controller.model.value.id.toString());
             },
             child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
                   Container(
@@ -154,7 +154,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                           return Row(
                                             children: [
                                               SvgPicture.asset(
-                                                  'assets/svg/${controller.amenities[index]}.svg'),
+                                                'assets/svg/${controller.amenities[index]}.svg',
+                                                color: Colors.grey.shade500,
+                                              ),
                                               width(size.width * .01),
                                               Expanded(
                                                 child: CustomText(
@@ -359,11 +361,11 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                             controller.reviewController.text = '';
                             // Get.dialog(Dialogs().writeReviewDialog(controller));
                             // Get.toNamed(Routes.thankfeedbackPageRoute);
-                            Get.toNamed(Routes.paymentfeedbackPageRoute,
-                                arguments: [
-                                  controller.model.value.id.toString(),
-                                  kChargingStatusModel,
-                                ]);
+                            kLog(controller.model.value.id);
+                            Get.toNamed(
+                              Routes.paymentfeedbackPageRoute,
+                              arguments: controller.model.value.id,
+                            );
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -473,6 +475,8 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       status = kUnavailable;
     else if (evport.ocppStatus == kAvailable || evport.ocppStatus.isEmpty)
       status = kAvailable;
+    else if (evport.ocppStatus == kPreparing || evport.ocppStatus.isEmpty)
+      status = kPreparing;
     else if (evport.ocppStatus == 'Charging')
       status = kBusy;
     else if (evport.ocppStatus == kFaulted)
@@ -481,38 +485,38 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       status = kUnavailable;
     if (!isConnected) status = kUnavailable;
 
-    return InkWell(
-      onTap: () {
-        if (status == kAvailable) controller.changeCharger(index, index1);
-      },
-      child: Container(
-        height: 65.h,
-        // width: size.width * 0.4,
-        margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: isSelected && status == kAvailable
-                ? Color(0xff6FCF97).withOpacity(.28)
-                : status == kBusy
-                    ? Color(0xffE37A2D).withOpacity(.2)
-                    : status == kFaulted
-                        ? Color.fromARGB(255, 249, 59, 45).withOpacity(.2)
-                        : Colors.white,
-            boxShadow: [BoxShadow(blurRadius: 7, color: Colors.grey.shade300)],
-            border: !isSelected
-                ? null
-                : Border.all(
-                    width: 1.3,
-                    color: isSelected
-                        ? Color(0xff6FCF97)
-                        : status == kBusy
-                            ? Color(0xffE37A2D)
-                            : status == kFaulted
-                                ? Color.fromARGB(255, 249, 59, 45)
-                                : status == kUnavailable
-                                    ? Color(0xff959595)
-                                    : Color(0xff0047C3).withOpacity(.6),
-                  )),
+    return Container(
+      height: 65.h,
+      margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: isSelected && (status == kAvailable || status == kPreparing)
+              ? Color(0xff6FCF97).withOpacity(.28)
+              : status == kBusy
+                  ? Color(0xffE37A2D).withOpacity(.2)
+                  : status == kFaulted
+                      ? Color.fromARGB(255, 249, 59, 45).withOpacity(.2)
+                      : Colors.white,
+          boxShadow: [BoxShadow(blurRadius: 7, color: Colors.grey.shade300)],
+          border: !isSelected
+              ? null
+              : Border.all(
+                  width: 1.3,
+                  color: isSelected
+                      ? Color(0xff6FCF97)
+                      : status == kBusy
+                          ? Color(0xffE37A2D)
+                          : status == kFaulted
+                              ? Color.fromARGB(255, 249, 59, 45)
+                              : status == kUnavailable
+                                  ? Color(0xff959595)
+                                  : Color(0xff0047C3).withOpacity(.6),
+                )),
+      child: InkWell(
+        onTap: () {
+          if (status == kAvailable || status == kPreparing)
+            controller.changeCharger(index, index1);
+        },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Row(
@@ -583,7 +587,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: isConnected
-                      ? status == kAvailable
+                      ? (status == kAvailable || status == kPreparing)
                           ? Color(0xff219653)
                           : status == kBusy
                               ? Color(0xffE37A2D)
@@ -598,7 +602,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 text: status,
                 size: 12,
                 color: isConnected
-                    ? status == kAvailable
+                    ? (status == kAvailable || status == kPreparing)
                         ? Color(0xff219653)
                         : status == kBusy
                             ? Color(0xffE37A2D)
@@ -895,7 +899,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
   }
 
   Widget _responseDialougebox() {
-    kLog('value');
     return AlertDialog(
       backgroundColor: kwhite,
       contentPadding: EdgeInsets.all(0),
@@ -1072,25 +1075,25 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     );
   }
 
-  Widget reviewProgressBar(String title, double value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        LinearPercentIndicator(
-          width: size.width * .3,
-          animation: true,
-          lineHeight: 6.0,
-          animationDuration: 1000,
-          percent: value,
-          barRadius: Radius.circular(15),
-          progressColor: Color(0xff0047C3),
-          padding: EdgeInsets.zero,
-        ),
-        Spacer(),
-        CustomText(text: title, color: Colors.grey, size: 12)
-      ],
-    );
-  }
+  // Widget reviewProgressBar(String title, double value) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.start,
+  //     children: [
+  //       LinearPercentIndicator(
+  //         width: size.width * .3,
+  //         animation: true,
+  //         lineHeight: 6.0,
+  //         animationDuration: 1000,
+  //         percent: value,
+  //         barRadius: Radius.circular(15),
+  //         progressColor: Color(0xff0047C3),
+  //         padding: EdgeInsets.zero,
+  //       ),
+  //       Spacer(),
+  //       CustomText(text: title, color: Colors.grey, size: 12)
+  //     ],
+  //   );
+  // }
 
   Widget customerReviewCard() {
     return Padding(

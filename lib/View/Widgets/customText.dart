@@ -6,6 +6,7 @@ Widget CustomText({
   required String text,
   double? size,
   Color? color,
+  int? maxLines,
   bool isAutoSize = false,
   FontWeight? fontWeight,
   TextOverflow? overflow,
@@ -18,7 +19,7 @@ Widget CustomText({
   TextStyle style = isRoboto == null || !isRoboto
       ? TextStyle(
           fontStyle: isItalic ? FontStyle.italic : null,
-          fontSize: size ?? 16, 
+          fontSize: size ?? 16,
           color: color ?? Colors.black,
           fontWeight: fontWeight ?? FontWeight.normal,
           letterSpacing: letterSpacing ?? null,
@@ -32,7 +33,12 @@ Widget CustomText({
           fontWeight: fontWeight ?? FontWeight.normal,
           letterSpacing: letterSpacing ?? null);
   return !isAutoSize
-      ? Text(text, style: style)
+      ? Text(
+          text,
+          style: style,
+          maxLines: maxLines,
+          overflow: overflow,
+        )
       : AutoSizeText(
           text,
           style: style,

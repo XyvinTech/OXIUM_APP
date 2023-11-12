@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/qr_controller.dart';
+import 'package:freelancer_app/Controller/walletPage_controller.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/orderModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
@@ -28,6 +31,17 @@ class Dialogs {
   Dialogs._internal();
 
   tariffPopUp(BookingModel _bookingModel) {
+    RxInt second = 60.obs;
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      if (Get.isDialogOpen == false) {
+        timer.cancel();
+      }
+      second--;
+      if (second <= 0 && Get.isDialogOpen == true) {
+        Get.back();
+        timer.cancel();
+      }
+    });
     Get.dialog(
         AlertDialog(
           backgroundColor: kscaffoldBackgroundColor,
@@ -50,16 +64,24 @@ class Dialogs {
                         color: Color(0xff828282),
                         size: 15,
                         fontWeight: FontWeight.bold),
-                    IconButton(
-                      onPressed: () {
+                    InkWell(
+                      onTap: () {
                         Get.back();
                         if (Get.currentRoute == Routes.qrScanPageRoute) {
                           QrController _controller = Get.find();
                           _controller.qrViewController?.resumeCamera();
                         }
                       },
-                      icon: Icon(Icons.close),
-                      splashRadius: 20,
+                      child: Row(
+                        children: [
+                          Obx(() => Text(
+                                "${second.value}",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 13, fontWeight: FontWeight.bold),
+                              )),
+                          Icon(Icons.close),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -230,7 +252,7 @@ class Dialogs {
         barrierDismissible: false);
   }
 
-  notEnoughCreditPopUp() {
+  notEnoughCreditPopUp({double? balance}) {
     Get.dialog(
         AlertDialog(
             backgroundColor: kwhite,
@@ -284,14 +306,16 @@ class Dialogs {
                     ),
                     height(10.h),
                     CustomBigText(
-                      text: "Not Enough Credit\nto Charge",
+                      text: balance != null
+                          ? "Balance is getting low!\nLess than ${appData.gettingLowAllertValue} Coins left"
+                          : "Not Enough Credit\nto Charge",
                       size: 20.sp,
                       align: TextAlign.center,
                       color: Color(0xff4F4F4F),
                     ),
                     height(10.h),
                     CustomSmallText(
-                      text: "Recharge for a minimum of 200 Coins charging",
+                      text: "Recharge for a minimum of 100 Coins",
                       size: 13.sp,
                       textAlign: TextAlign.center,
                     ),
@@ -433,8 +457,80 @@ class Dialogs {
         barrierDismissible: false);
   }
 
+  gunStatusAlert(String title, String subtitle) {
+    Get.dialog(
+        AlertDialog(
+          backgroundColor: kwhite,
+          contentPadding: EdgeInsets.all(0),
+          alignment: Alignment.topCenter,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.w)),
+          content: Container(
+            padding: EdgeInsets.all(10.w),
+            height: 100.h,
+            // width: 348.w,
+            decoration: BoxDecoration(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/gun.png',
+                        height: 40,
+                        width: 40,
+                      ),
+                      width(10.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              title,
+                              style: GoogleFonts.montserrat(
+                                  color: Color(0xff333333),
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            height(5.h),
+                            Text(
+                              subtitle,
+                              style: GoogleFonts.montserrat(
+                                  color: Color(0xff4f4f4f),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            child: Icon(Icons.close),
+                            onTap: () {
+                              Get.back();
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        barrierDismissible: false,
+        barrierColor: Colors.transparent,
+        name: title);
+  }
+
   wallet_transaction_popup({
-    required OrderModel model,
+    required OrderModel model,required int index
   }) {
     kLog(model.status);
     String title = '';
@@ -442,7 +538,7 @@ class Dialogs {
     if (model.status == 'P') {
       title = 'Success';
       color = Color(0xff219653);
-    } else if (model.statusUpdateBy == 'M' && model.status == 'I') {
+    } else if (model.status == 'I') {
       title = 'Pending';
       color = Color(0xffDF8600);
     } else {
@@ -513,7 +609,7 @@ class Dialogs {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomSmallText(
-                              text: model.statusUpdateBy == 'M'
+                              text: model.type == 'RZRWeb'
                                   ? 'Wallet Topup'
                                   : 'Admin topup',
                               letterspacing: -0.408,
@@ -631,26 +727,48 @@ class Dialogs {
                   ),
                   height(size.height * 0.04),
                   Visibility(
-                    visible: title == 'Success',
+                    visible: title == 'Success' || title == 'Pending',
                     child: InkWell(
                       onTap: () {
                         //TODO: on download invoice
-                        CommonFunctions()
-                            .downloadBookingInvoice(model.bookingId);
-                        kLog(model.bookingId.toString());
+                        if (title == 'Success') {
+                          CommonFunctions()
+                              .downloadWalletInvoice(model.transactionId);
+                          kLog(model.bookingId.toString());
+                        } else if (title == 'Pending') {
+                          WalletPageController _controller = Get.find();
+                          _controller.verifyPayment(
+                              model.transactionId, model.pgOrderId,index);
+                        }
                       },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/svg/download.svg'),
-                          width(size.width * .02),
-                          CustomBigText(
-                            text: 'Download invoice',
-                            color: Color(0xff0047C3),
-                            size: 15,
-                          )
-                        ],
-                      ),
+                      child: title == 'Success'
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset('assets/svg/download.svg'),
+                                width(size.width * .02),
+                                CustomBigText(
+                                  text: 'Download invoice',
+                                  color: Color(0xff0047C3),
+                                  size: 15,
+                                )
+                              ],
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.refresh,
+                                  color: Color(0xffDF8600),
+                                ),
+                                width(size.width * .02),
+                                CustomBigText(
+                                  text: 'Verify Payment',
+                                  color: Color(0xffDF8600),
+                                  size: 15,
+                                )
+                              ],
+                            ),
                     ),
                   ),
                   height(25.h),

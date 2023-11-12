@@ -254,8 +254,7 @@ class PartnerScreen extends GetView<PartnerPageController> {
                                         favorite: ['IN', 'BD'],
                                         showPhoneCode: true,
                                         onSelect: (Country country) {
-                                          print(
-                                              'Select country: ${country.displayName}');
+                                         
                                           controller.country.value =
                                               country.phoneCode;
                                         },
@@ -955,8 +954,7 @@ class PartnerScreen extends GetView<PartnerPageController> {
                                 // showCountryPicker(
                                 //   context: context,
                                 //   onSelect: (Country country) {
-                                //     print(
-                                //         'Select country: ${country.displayName}');
+                                //     
                                 //     controller.countryName.value = country.name;
                                 //   },
                                 // );
@@ -973,8 +971,7 @@ class PartnerScreen extends GetView<PartnerPageController> {
                               // showCountryPicker(
                               //   context: context,
                               //   onSelect: (Country country) {
-                              //     print(
-                              //         'Select country: ${country.displayName}');
+                              //  
                               //     controller.countryName.value = country.name;
                               //   },
                               // );

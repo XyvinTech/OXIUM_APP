@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
+import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:geolocator/geolocator.dart';
@@ -25,7 +26,19 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+   MapFunctions(). checkAppCycleAndStopStreamStartStream(state);
+  }
+
   @override
   bool get wantKeepAlive => true;
 
@@ -74,6 +87,8 @@ class _MapScreenState extends State<MapScreen>
                       },
                       onTap: (value) {
                         controller.getNearestChargestations(Position(
+                          headingAccuracy: 0,
+                          altitudeAccuracy: 0,
                             longitude: value.longitude,
                             latitude: value.latitude,
                             timestamp: DateTime.now(),
@@ -90,8 +105,6 @@ class _MapScreenState extends State<MapScreen>
                         //     isBusy: false,
                         //     controller: controller);
                         controller.reload++;
-                        // print(MapFunctions().markers_homepage.where((element) =>
-                        //     element.markerId == MarkerId('myMarker')));
                       },
                     ),
                   ),
@@ -244,7 +257,7 @@ class _MapScreenState extends State<MapScreen>
               //     )),
               Obx(
                 () => Visibility(
-                  visible: controller.isCharging.value,
+                  visible: SocketRepo().isCharging.value,
                   child: Positioned(
                       top: 80.h,
                       left: 10.w,
@@ -284,7 +297,7 @@ class _MapScreenState extends State<MapScreen>
               ),
               Positioned(
                 bottom: size.height * .01,
-                right: size.width * .03,
+                right: size.width * .00,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -312,23 +325,34 @@ class _MapScreenState extends State<MapScreen>
                         ],
                       ),
                     ),
-                    // Container(
-                    //   // height: size.height * 0.3,
-                    //   width: size.width,
-                    //   padding: EdgeInsets.symmetric(vertical: 10.h),
-                    //   color: Colors.amber,
-                    //   child: CarouselSlider(
-                    //     items: cards,
-                    //     options: CarouselOptions(
-                    //       height: 170.h,
-                    //       enlargeFactor: 0.2,
-                    //       enableInfiniteScroll: false,
-                    //       enlargeCenterPage: true,
-                    //       padEnds: true,
-                    //       onPageChanged: (index, reason) {},
-                    //     ),
-                    //   ),
-                    // )
+                    Container(
+                      // height: size.height * 0.3,
+                      width: size.width,
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      // color: Colors.amber,
+                      child: Obx(
+                        () => CarouselSlider(
+                          carouselController:
+                              controller.carouselController.value,
+                          items: controller.cards,
+                          options: CarouselOptions(
+                            height: 160.h,
+                            enlargeFactor: 0.2,
+                            enableInfiniteScroll: false,
+                            enlargeCenterPage: true,
+                            padEnds: true,
+                            onPageChanged: (index, reason) {
+                              LatLng latlng = MapFunctions()
+                                  .markers_homepage
+                                  .toList()[index]
+                                  .position;
+                              MapFunctions().animateToNewPosition(
+                                  LatLng(latlng.latitude, latlng.longitude));
+                            },
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -385,24 +409,4 @@ class _MapScreenState extends State<MapScreen>
           )),
     );
   }
-
-  List<Widget> cards = [
-    Container(
-      margin: EdgeInsets.only(right: 20),
-      height: size.height * 0.2,
-      width: size.width * 0.85,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.black,
-      ),
-    ),
-    Container(
-      height: size.height * 0.2,
-      width: size.width * 0.85,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.green,
-      ),
-    ),
-  ];
 }

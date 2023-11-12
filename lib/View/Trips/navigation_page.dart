@@ -19,7 +19,7 @@ class NavigationScreen extends GetView<NavigationScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    print(MapFunctions().markers);
+  
     size = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -42,11 +42,11 @@ class NavigationScreen extends GetView<NavigationScreenController> {
                     onMapCreated: (controller) {
                       MapFunctions().dirMapController = controller;
                       MapFunctions().setMapStyle(controller);
-                      kLog('loading map');
+                      // kLog('loading map');
                       MapFunctions().getCurrentPosition();
                     },
                     onTap: (value) {
-                      print(value);
+                    
                       // MapFunctions().setMapFitToPolyline(
                       //     MapFunctions().polylines,
                       //     MapFunctions().dirMapController);

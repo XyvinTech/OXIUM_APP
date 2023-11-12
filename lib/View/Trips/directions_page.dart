@@ -41,11 +41,11 @@ class DirectionsScreen extends GetView<DirectionsScreenController> {
                       onMapCreated: (controller) {
                         MapFunctions().dirMapController = controller;
                         MapFunctions().setMapStyle(controller);
-                        kLog('loading map');
+                        // kLog('loading map');
                         MapFunctions().getCurrentPosition();
                       },
                       onTap: (value) {
-                        print(value);
+                  
                         MapFunctions().setMapFitToPolyline(
                             MapFunctions().polylines,
                             MapFunctions().dirMapController!);

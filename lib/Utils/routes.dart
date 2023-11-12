@@ -22,7 +22,7 @@ class Routes {
   static String orderRfidPageRoute = '/orderrfid';
   static String rfidNumberRoute = '/rfidNumber';
   static String vehiclesearchPageRoute = '/vehiclesearch';
-  static String bottomNavPageRoute = '/bottomNav';
+  // static String bottomNavPageRoute = '/bottomNav';
 
 //
   //charge
