@@ -637,6 +637,7 @@ class CommonFunctions {
       'changestatus',
     );
     ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
+    EasyLoading.showToast(res.body['message']);
     kLog("changeStatus: ${res.statusCode} " + res.body.toString());
     // showError("status: ${res.statusCode} \n" + res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
