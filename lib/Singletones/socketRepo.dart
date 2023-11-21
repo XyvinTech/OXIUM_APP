@@ -46,7 +46,6 @@ class SocketRepo {
       // channel?.sink.add('received!');
     }).onDone(() {
       kLog('connection closed with ocpp');
-      print('connection closed with socket');
       if (Get.currentRoute == Routes.chargingPageRoute &&
           Get.isDialogOpen == true) Get.back();
       isCharging.value = false;

@@ -21,12 +21,17 @@ class CallAPI {
 
   int timeOutSec = 15;
   //ANDROID:
-  String socketHost = 'ws://10.0.2.2:5609';
-  String _host = 'http://10.0.2.2:8080';
-  String _get_host = '10.0.2.2:8080';
-  String _url = 'http://10.0.2.2:8080/api/app/';
+  // String socketHost = 'ws://10.0.2.2:5609';
+  // String _host = 'http://10.0.2.2:8080';
+  // String _get_host = '10.0.2.2:8080';
+  // String _url = 'http://10.0.2.2:8080/api/app/';
+  // String _get_middle_point = '/api/app/';
+  //DEVELOPMENT: 
+  String socketHost = 'ws://43.204.193.14:5609';
+  String _host = 'http://43.204.193.14:8080';
+  String _get_host = '43.204.193.14:8080';
+  String _url = 'http://43.204.193.14:8080/api/app/';
   String _get_middle_point = '/api/app/';
-
   //IOS:
   // String socketHost = 'ws://localhost:5609';
   // String _host = 'http://localhost:8080';
@@ -40,6 +45,8 @@ class CallAPI {
   // String _get_host = 'cms.goecworld.com';
   // String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
   // String _get_middle_point = '/Chargetron/api/app/';
+
+
 
 /////////POST DATA/////////////////
   Future<ResponseModel> postData(

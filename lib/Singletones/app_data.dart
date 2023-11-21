@@ -1,3 +1,4 @@
+import 'package:freelancer_app/Model/bookingModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Utils/debouncer.dart';
 import 'package:freelancer_app/constants.dart';
@@ -24,6 +25,7 @@ class AppData {
   String rechargeAmount = '';
   String notification_token = '';
   int totalElements = 0;
+  BookingModel tempBookingModel = kBookingModel;
 
   double gettingLowAllertValue = 70;
 

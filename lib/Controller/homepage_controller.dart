@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/charging_screen_controller.dart';
@@ -371,10 +372,12 @@ class HomePageController extends GetxController {
 
       // isCharging.value = true;
       if (refresh && !SocketRepo().isCharging.value) {
+        appData.tempBookingModel = _bookingModel;
         ChargingScreenController _chargingController =
             await Get.put(ChargingScreenController());
         await _chargingController.getChargingStatus(_bookingModel.bookingId);
         _chargingController.onClose();
+        appData.tempBookingModel = kBookingModel;
         return;
       } else if (!isClickOnCard) {
         ChargingScreenController _chargingController =

@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Controller/notification_screen_controller.dart';
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
@@ -17,6 +18,7 @@ import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Model/userModel.dart';
 import 'package:freelancer_app/Model/vehicleModel.dart';
 import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/Utils/SharedPreferenceUtils.dart';
 import 'package:freelancer_app/Utils/api.dart';
 import 'package:freelancer_app/Utils/routes.dart';
@@ -528,7 +530,14 @@ class CommonFunctions {
 
   //CHARGING API's
   Future createBookingAndCheck(String qr) async {
-    showLoading(kLoading);
+    HomePageController _controller = Get.find();
+    showLoading('Checking existing active session...');
+    await _controller.getActiveBooking(false, refresh: true);
+    if (SocketRepo().isCharging.value) {
+      showError('Active session is going on');
+      return;
+    }
+    showLoading('Creating booking...');
     BookingModel res = await CommonFunctions().createBooking(qr: qr);
     hideLoading();
     if (res.status == 'S') {
@@ -554,10 +563,8 @@ class CommonFunctions {
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       //cancel booking if booking already exist issue arises and status == 'S'
-      if (res.body['result']['status'] == 'S' &&
-          res.body['message'].trim() == 'Booking Already Exist') {
-        bool isCancelled =
-            await cancelBooking(res.body['result']['bookingId'], qr: qr);
+      if (res.body['message'].trim() == 'Undefined session found') {
+        bool isCancelled = await cancelBooking(res.body['result']['bookingId']);
         if (isCancelled) {
           return await createBooking(qr: qr);
         }
@@ -567,14 +574,17 @@ class CommonFunctions {
       if (res.body['message'] == "Booking not allowed") {
         showError('Failed to connect with charger. Please try again later!');
         kBookingModel.status = 'F';
-      } else if (!res.body['success']) kBookingModel.status = 'X';
+      } else if (!res.body['success']) {
+        kBookingModel.status = 'X';
+      }
       return kBookingModel;
     }
   }
 
-  Future<bool> cancelBooking(int bookingId, {required String qr}) async {
+  Future<bool> cancelBooking(int bookingId) async {
     var res = await CallAPI()
         .getData('changebookingstatus', {"bookingId": "$bookingId"});
+    kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['success']) {
       kLog('booking cancelled successfully');
       return true;
@@ -621,7 +631,7 @@ class CommonFunctions {
     required String bookingId,
     required bool isStart,
   }) async {
-    kLog({
+    logger.t({
       "chargingpoint": int.parse(chargingPoint),
       "deviceId": chargerName,
       "requestStatus": isStart ? "StartTransaction" : "StopTransaction",

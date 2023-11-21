@@ -30,9 +30,10 @@ class ChargingScreenController extends GetxController {
     qr_or_app_data =
         Get.arguments != null ? Get.arguments[0] ?? '253-z1-1-Q' : '444-t1-1-Q';
     booking_model.value = Get.arguments != null
-        ? Get.arguments[1] ?? kBookingModel
-        : kBookingModel;
+        ? Get.arguments[1] ?? appData.tempBookingModel
+        : appData.tempBookingModel;
     kLog(qr_or_app_data);
+    kLog(Get.arguments.toString());
     List<String> seperator = qr_or_app_data.split('-');
     stationId = seperator[0];
     chargerName = seperator[1];
@@ -139,7 +140,8 @@ class ChargingScreenController extends GetxController {
           _repeatCall();
 // This timer is for if there is no update within the interval then close the session by checking /bookingStatus api
           if (status_model.value.status == 'R' ||
-              status_model.value.status == 'I')
+              status_model.value.status == 'I' ||
+              status_model.value.status == 'U')
             _timer = Timer.periodic(Duration(seconds: 10), (timer) async {
               kLog('getting status from loop');
               var res = await CommonFunctions()
