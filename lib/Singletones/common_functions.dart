@@ -90,8 +90,8 @@ class CommonFunctions {
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWallet);
     var options = {
-      'key': 'rzp_test_dUTjpvCb45rzpc',
-      // 'key': 'rzp_live_zXZzgqRAKu6Hvd',
+      // 'key': 'rzp_test_dUTjpvCb45rzpc',
+      'key': 'rzp_live_zXZzgqRAKu6Hvd',
       'amount': amount * 100, //in the smallest currency sub-unit.
       'name': 'GOEC',
       'order_id': order_id, // Generate order_id using Orders API
