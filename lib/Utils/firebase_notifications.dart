@@ -119,7 +119,7 @@
 //               NotificationDetails(
 //                 android: AndroidNotificationDetails(
 //                   channel.id, channel.name,
-//                   // TODO add a proper drawable resource to android, for now using
+//                   
 //                   //      one that already exists in example app.
 //                   icon: 'logo',
 //                   playSound: false,
@@ -212,8 +212,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:freelancer_app/Utils/routes.dart';
@@ -312,10 +310,10 @@ class FireBaseNotification {
     );
   }
 
-  Future<Uint8List> _getByteArrayFromUrl(String url) async {
-    final http.Response response = await http.get(Uri.parse(url));
-    return response.bodyBytes;
-  }
+  // Future<Uint8List> _getByteArrayFromUrl(String url) async {
+  //   final http.Response response = await http.get(Uri.parse(url));
+  //   return response.bodyBytes;
+  // }
 
   void listenFCM() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
@@ -390,7 +388,7 @@ class FireBaseNotification {
         },
       );
 
-      var res = await http.post(
+     await http.post(
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
         headers: <String, String>{
           'Content-Type': 'application/json',

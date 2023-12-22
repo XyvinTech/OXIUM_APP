@@ -1,7 +1,5 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
-
 import '../Model/RFIDModel.dart';
 import '../Singletones/common_functions.dart';
 import '../Utils/toastUtils.dart';
@@ -16,7 +14,6 @@ class RfidPageController extends GetxController {
   RxList carouselImage = [
     "assets/images/carouselOne.png",
     "assets/images/carouselTwo.png",
-    
     "assets/images/carouselThree.png",
   ].obs;
   CarouselController? carouselController;
@@ -25,7 +22,7 @@ class RfidPageController extends GetxController {
   RxList<RFIDModel> rfid_list = RxList();
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
     getRFIDPriceAndUserRFID();
   }
@@ -54,7 +51,7 @@ class RfidPageController extends GetxController {
 
   @override
   void onClose() {
-    // TODO: implement onClose
+    // / implement onClose
     CommonFunctions().closeRazorPay();
     super.onClose();
   }

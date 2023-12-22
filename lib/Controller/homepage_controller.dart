@@ -1,15 +1,16 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/charging_screen_controller.dart';
 import 'package:freelancer_app/Controller/filter_screen_controller.dart';
 import 'package:freelancer_app/Controller/trips_screen_controller.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
-import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
 import 'package:freelancer_app/Model/stationMarkerModel.dart';
 import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Singletones/injector.dart';
@@ -19,7 +20,6 @@ import 'package:freelancer_app/Utils/debouncer.dart';
 import 'package:freelancer_app/Utils/image_byte_converter.dart';
 import 'package:freelancer_app/Utils/local_notifications.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:geolocator/geolocator.dart';
@@ -29,13 +29,9 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Model/bookingModel.dart';
-import '../Model/chargingStatusModel.dart';
-import '../Model/notificationModel.dart';
 import '../Singletones/app_data.dart';
 import '../Utils/routes.dart';
 import '../View/Homepage/homepage.dart';
-import '../View/Widgets/apptext.dart';
-import '../View/Widgets/cached_network_image.dart';
 import 'chargePage_controller.dart';
 import 'notification_screen_controller.dart';
 
@@ -87,7 +83,6 @@ class HomePageController extends GetxController {
 
   @override
   void onInit() async {
-    // TODO: implement onInit
     super.onInit();
     await _initImages();
     Position? pos = await MapFunctions().getCurrentPosition();
@@ -155,15 +150,13 @@ class HomePageController extends GetxController {
   assignCardsToMapScreen(List<StationMarkerModel> list) {
     cards.value = list.map((e) {
       double distance = 0;
-      if (MapFunctions().curPos != null) {
-        distance = (MapFunctions.distanceBetweenCoordinates(
-                    MapFunctions().curPos.latitude,
-                    MapFunctions().curPos.longitude,
-                    e.lattitude,
-                    e.longitude) /
-                1000.0)
-            .toPrecision(2);
-      }
+      distance = (MapFunctions.distanceBetweenCoordinates(
+                  MapFunctions().curPos.latitude,
+                  MapFunctions().curPos.longitude,
+                  e.lattitude,
+                  e.longitude) /
+              1000.0)
+          .toPrecision(2);
       List<String> amenities = e.amenities.split(',');
       String available = e.charger_status.contains(',Connected') && e.isBusy
           ? kBusy
@@ -334,10 +327,9 @@ class HomePageController extends GetxController {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             available == kAvailable
-                                ? SvgPicture.asset(
-                                    'assets/svg/tick.svg',
-                                    color: Colors.green,
-                                  )
+                                ? SvgPicture.asset('assets/svg/tick.svg',
+                                    colorFilter: ColorFilter.mode(
+                                        Colors.green, BlendMode.srcIn))
                                 : Icon(
                                     Icons.info_outline,
                                     color: Colors.grey,

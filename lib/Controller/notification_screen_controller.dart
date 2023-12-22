@@ -14,7 +14,7 @@ class NotificationScreenController extends GetxController {
   bool isLoading = false;
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
     getNotifications();
     _scrollListen();

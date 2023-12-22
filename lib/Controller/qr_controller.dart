@@ -30,7 +30,7 @@ class QrController extends GetxController {
 
   @override
   void onClose() {
-    // TODO: implement onClose
+    // / implement onClose
     super.onClose();
     qrViewController?.dispose();
   }

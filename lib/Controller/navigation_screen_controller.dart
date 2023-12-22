@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/state_manager.dart';
 import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
@@ -15,7 +13,7 @@ class NavigationScreenController extends GetxController {
   Rx<DirectionsResult> directionsResult = DirectionsResult().obs;
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
     MapFunctions()
         .markers

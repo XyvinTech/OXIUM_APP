@@ -19,7 +19,7 @@ class DirectionsScreenController extends GetxController {
   String route_via = '';
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
     getArguments();
     initMap();
@@ -48,7 +48,7 @@ class DirectionsScreenController extends GetxController {
 
   @override
   void onClose() {
-    // TODO: implement onClose
+    // / implement onClose
     super.onClose();
     MapFunctions().dirMapController?.dispose();
     MapFunctions().timer?.cancel();

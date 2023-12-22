@@ -175,7 +175,9 @@ class FilterScreen extends GetView<FilterScreenController> {
                                                   4)
                                             SvgPicture.asset(
                                               'assets/svg/${title.toLowerCase()}.svg',
-                                              color: Colors.grey.shade800,
+                                              colorFilter: ColorFilter.mode(
+                                                  Colors.grey.shade800,
+                                                  BlendMode.srcIn),
                                             ),
                                           width(size.width * .03),
                                           CustomText(

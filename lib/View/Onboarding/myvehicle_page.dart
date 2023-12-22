@@ -61,7 +61,7 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
                           shrinkWrap: true,
                           itemCount: controller.myVehicleList.length,
                           itemBuilder: ((context, index) {
-                            List<VehicleModel> def = controller.myVehicleList
+                             controller.myVehicleList
                                 .where((p0) => p0.defaultVehicle == 'Y')
                                 .toList();
                             // kLog(controller.myVehicleList[index].id.toString());

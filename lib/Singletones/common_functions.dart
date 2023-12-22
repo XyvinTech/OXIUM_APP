@@ -1,7 +1,4 @@
 // import 'package:firebase_auth/firebase_auth.dart';
-
-import 'dart:developer';
-
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Controller/notification_screen_controller.dart';
@@ -44,11 +41,15 @@ class CommonFunctions {
   CommonFunctions._internal();
   //code starts from here
 
+  String base_Url = 'https://dlupfxb3p6.execute-api.ap-south-1.amazonaws.com/';
+  String user_Url =
+      'http://alb-762634556.ap-south-1.elb.amazonaws.com:5688/api/v1/';
+
   final _razorpay = Razorpay();
   var _getOrderResponse;
 
   Future<void> handlePaymentSuccess(PaymentSuccessResponse response) async {
-    //TODO: call api here when it is success payment
+    /// call api here when it is success payment
 
     kLog(response.paymentId.toString());
     kLog(response.orderId.toString());
@@ -152,7 +153,7 @@ class CommonFunctions {
     kLog(res.body.toString());
     _getOrderResponse = null;
     if (res.statusCode == 200 && res.body['success']) {
-      //TODO: what to do if RFID purchase successful
+      /// what to do if RFID purchase successful
       if (Get.currentRoute == Routes.rfidNumberRoute) {
         showSuccess('Payment successful!');
       } else if (transactionId == -1 &&
@@ -259,9 +260,8 @@ class CommonFunctions {
   }
 
   Future<UserModel> getUserProfile() async {
-    var res = await CallAPI().getData('appuser', {
-      "username": appData.userModel.value.username,
-    });
+    var res = await CallAPI().newGetData(
+        user_Url + 'users/user/' + appData.userModel.value.username);
     // //kLog(res.statusCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['result'] != null) {
       kLog(res.body.toString());
@@ -275,6 +275,24 @@ class CommonFunctions {
       return kUserModel;
     }
   }
+
+  // Future<UserModel> getUserProfile() async {
+  //   var res = await CallAPI().getData('appuser', {
+  //     "username": appData.userModel.value.username,
+  //   });
+  //   // //kLog(res.statusCode.toString())usCode.toString());
+  //   if (res.statusCode == 200 && res.body['result'] != null) {
+  //     kLog(res.body.toString());
+  //     return appData.userModel.value = UserModel.fromJson(res.body['result']);
+  //   } else {
+  //     kUserModel.username = '';
+  //     if (res.statusCode == 500) {
+  //       clearData();
+  //       appData.token = '';
+  //     }
+  //     return kUserModel;
+  //   }
+  // }
 
   Future<bool> putUserNameEmail(String name, String email) async {
     kLog('username' + appData.userModel.value.username);
@@ -475,15 +493,13 @@ class CommonFunctions {
   // }
 
   Future<bool> login(String username) async {
-    var res = await CallAPI().postData(
-      {
-        "username": username.trim(),
-      },
-      'appuser',
+    var res = await CallAPI().newGetData(
+      user_Url + 'users/sendOtp/' + username.trim(),
     );
     // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
-    if (res.statusCode == 200 && res.body['success']) {
+    if (res.statusCode == 200 && res.body['status']) {
+      logger.d(res.body['otp']);
       return true;
     } else {
       return false;
@@ -491,18 +507,14 @@ class CommonFunctions {
   }
 
   Future<ResponseModel> verifyOTP(String username, String otp) async {
-    var res = await CallAPI().getData(
-      'verifyOTP',
-      {
-        "username": username.replaceAll(' ', ''),
-        "otp": otp,
-      },
+    var res = await CallAPI().newPutData(
+      {"otp": otp},
+      user_Url + 'users/login/' + username.replaceAll(' ', ''),
     );
-    // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
-    if (res.statusCode == 200 && res.body['success']) {
-      return await getToken(username, res.body['result'] ?? '');
-    } else if (res.statusCode == 200 && !res.body['success']) {
+    if (res.statusCode == 200 && res.body['status']) {
+      return res;
+    } else if (res.statusCode == 200 && !res.body['status']) {
       showError(res.body['message'] + '!');
       return ResponseModel(statusCode: 500, body: '');
     } else {
@@ -510,23 +522,23 @@ class CommonFunctions {
     }
   }
 
-  Future<ResponseModel> getToken(String username, String password) async {
-    var res = await CallAPI().postData(
-      {
-        "username": username.replaceAll(' ', ''),
-        "password": password,
-        "deviceToken": appData.notification_token,
-      },
-      'appuserauth',
-    );
-    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
-    kLog(res.body.toString());
-    if (res.statusCode == 200 && res.body['success']) {
-      return res;
-    } else {
-      return ResponseModel(statusCode: 500, body: '');
-    }
-  }
+  // Future<ResponseModel> getToken(String username, String password) async {
+  //   var res = await CallAPI().postData(
+  //     {
+  //       "username": username.replaceAll(' ', ''),
+  //       "password": password,
+  //       "deviceToken": appData.notification_token,
+  //     },
+  //     'appuserauth',
+  //   );
+  //   ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
+  //   kLog(res.body.toString());
+  //   if (res.statusCode == 200 && res.body['success']) {
+  //     return res;
+  //   } else {
+  //     return ResponseModel(statusCode: 500, body: '');
+  //   }
+  // }
 
   //CHARGING API's
   Future createBookingAndCheck(String qr) async {

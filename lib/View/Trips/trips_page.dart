@@ -26,6 +26,7 @@ class _TripsScreenState extends State<TripsScreen>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -508,7 +509,7 @@ class _TripsScreenState extends State<TripsScreen>
               children: [
                 Row(
                   children: [
-                    //TODO: use cached network image here
+                    
                     Image.asset(
                       "assets/images/coffee.png",
                       height: size.height * 0.055,

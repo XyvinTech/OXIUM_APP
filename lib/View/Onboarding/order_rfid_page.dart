@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:freelancer_app/Controller/order_rfid_controller.dart';
 import 'package:freelancer_app/Controller/rfid_page_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:get/get.dart';

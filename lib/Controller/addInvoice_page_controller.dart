@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:get/get.dart';
-
 import '../Singletones/dialogs.dart';
 import '../Utils/utils.dart';
-import '../View/Widgets/apptext.dart';
 
 class AddInvoiceDetailsController extends GetxController {
   final TextEditingController nameController = TextEditingController();

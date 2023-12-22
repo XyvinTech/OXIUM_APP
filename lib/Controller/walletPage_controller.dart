@@ -27,7 +27,7 @@ class WalletPageController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
     getWalletTransactions();
     _scrollListen();

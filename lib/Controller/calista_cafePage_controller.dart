@@ -30,7 +30,7 @@ class CalistaCafePageController extends GetxController {
       destination = AutocompletePrediction().obs;
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
 
     super.onInit();
     if (Get.arguments != null) {

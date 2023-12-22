@@ -100,7 +100,7 @@ Widget ChargeTransactionDialog(
                 visible: model.status == 'C',
                 child: InkWell(
                   onTap: () {
-                    //TODO: on download invoice
+                    /// on download invoice
                     CommonFunctions().downloadBookingInvoice(model.bookingId);
                   },
                   child: Row(

@@ -31,7 +31,6 @@ import 'package:freelancer_app/View/Homepage/homepage.dart';
 import 'package:freelancer_app/View/Homepage/qr_screen.dart';
 import 'package:freelancer_app/View/Homepage/review_page.dart';
 import 'package:freelancer_app/View/Onboarding/addvehicles_page.dart';
-import 'package:freelancer_app/View/Onboarding/bottom_nav_page.dart';
 import 'package:freelancer_app/View/Onboarding/enternumber_page.dart';
 import 'package:freelancer_app/View/Onboarding/enterotp_page.dart';
 import 'package:freelancer_app/View/Onboarding/login_page.dart';

@@ -320,7 +320,9 @@ class CardTrip extends StatelessWidget {
                         children: [
                           SvgPicture.asset(
                             "assets/svg/bookmark.svg",
-                            color: Color(0xffF2F2F2),
+                            colorFilter:
+                      ColorFilter.mode(Color(0xffF2F2F2), BlendMode.srcIn),
+                            
                           ),
                           width(size.width * 0.015),
                           CustomBigText(
@@ -379,7 +381,8 @@ class CardTrip extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   "assets/svg/conversation_path.svg",
-                  color: Color(0xffF2994A),
+                  colorFilter:
+                      ColorFilter.mode(Color(0xffF2994A), BlendMode.srcIn),
                   height: size.height * 0.02,
                   width: size.width * 0.04,
                 ),
@@ -525,6 +528,4 @@ class CardTrip extends StatelessWidget {
       ),
     );
   }
-
-
 }

@@ -1,6 +1,5 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/walletPage_controller.dart';
@@ -13,9 +12,8 @@ import 'package:freelancer_app/View/WalletPage/wallet_filter_page.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-
 import '../../Singletones/app_data.dart';
-import '../Charge/charge_history_filter.dart';
+
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
@@ -31,6 +29,7 @@ class _WalletScreenState extends State<WalletScreen>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     size = MediaQuery.of(context).size;
     kLog((size.height * 0.16).toString());
     kLog(135.h.toString());

@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,8 +9,6 @@ import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../Singletones/dialogs.dart';
 import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../Widgets/cached_network_image.dart';
@@ -155,7 +152,10 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                             children: [
                                               SvgPicture.asset(
                                                 'assets/svg/${controller.amenities[index]}.svg',
-                                                color: Colors.grey.shade500,
+                                               
+                                                colorFilter: ColorFilter.mode(
+                                                  Colors.grey.shade500,
+                                                  BlendMode.srcIn)
                                               ),
                                               width(size.width * .01),
                                               Expanded(
@@ -180,7 +180,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                             ),
                             InkWell(
                               onTap: () {
-                                //TODO: call api for adding as favorite or removing from favorite
                                 controller.changeFavoriteStatus();
                               },
                               child: Container(
@@ -356,7 +355,6 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                       children: [
                         InkWell(
                           onTap: () {
-                            //TODO: open review write dialog
                             controller.selectedRating.value = 0;
                             controller.reviewController.text = '';
                             // Get.dialog(Dialogs().writeReviewDialog(controller));
@@ -466,9 +464,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required bool isConnected,
   }) {
     //////////LOGIC CODES////////
-    List res = calculateAvailabiliy([evport], isConnected);
-    int available = res[1];
-    String trailing = res[0];
+    // List res = calculateAvailabiliy([evport], isConnected);
+    // int available = res[1];
+    // String trailing = res[0];
     ///////END LOGIC CODES///////
     String status;
     if (!isConnected)
@@ -714,294 +712,294 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     );
   }
 
-  Widget _chargerCard({
-    required String title,
-    required String subTitle,
-    required List<EvPortModel> evPorts,
-    required int index,
-    required bool isConnected,
-  }) {
-    //////////LOGIC CODES////////
-    List res = calculateAvailabiliy(evPorts, isConnected);
-    int available = res[1];
-    String trailing = res[0];
-    ///////END LOGIC CODES///////
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.04, vertical: size.height * 0.01),
-        height: size.height * 0.08,
-        decoration: BoxDecoration(
-            color: kwhite,
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(
-              width: 1.5,
-              color: Color(0xffBFD6FF).withOpacity(.6),
-            )),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: size.height * 0.00),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Obx(
-                    () => CustomBigText(
-                      text: title,
-                      size: 13,
-                      color: controller.selectedCharger.value == index
-                          ? Color(0xff0047C3)
-                          : Color(0xff4f4f4f),
-                    ),
-                  ),
-                  height(size.height * 0.004),
-                  CustomSmallText(
-                    text: subTitle,
-                    size: 12,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Row(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    height: size.height * 0.03,
-                    width: size.width * 0.25,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: available > 0
-                          ? Color(0xff219653).withOpacity(0.24)
-                          : trailing == kBusy
-                              ? kBusyColor
-                              : trailing == kFaulted
-                                  ? Color.fromARGB(255, 249, 59, 45)
-                                      .withOpacity(.2)
-                                  : Color(0xff959595).withOpacity(.2),
-                    ),
-                    child: CustomBigText(
-                      text: trailing,
-                      size: 12,
-                      color: available > 0
-                          ? Color(0xff219653)
-                          : trailing == kBusy
-                              ? Color(0xffE37A2D)
-                              : trailing == kFaulted
-                                  ? Color.fromARGB(255, 249, 59, 45)
-                                  : Color(0xff333333),
-                    ),
-                  ),
-                  width(size.width * 0.06),
-                  SvgPicture.asset("assets/svg/arrow_downward_ios.svg")
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _chargerCard({
+  //   required String title,
+  //   required String subTitle,
+  //   required List<EvPortModel> evPorts,
+  //   required int index,
+  //   required bool isConnected,
+  // }) {
+  //   //////////LOGIC CODES////////
+  //   List res = calculateAvailabiliy(evPorts, isConnected);
+  //   int available = res[1];
+  //   String trailing = res[0];
+  //   ///////END LOGIC CODES///////
+  //   return Padding(
+  //     padding: EdgeInsets.symmetric(horizontal: size.width * 0.00),
+  //     child: Container(
+  //       padding: EdgeInsets.symmetric(
+  //           horizontal: size.width * 0.04, vertical: size.height * 0.01),
+  //       height: size.height * 0.08,
+  //       decoration: BoxDecoration(
+  //           color: kwhite,
+  //           borderRadius: BorderRadius.circular(15),
+  //           border: Border.all(
+  //             width: 1.5,
+  //             color: Color(0xffBFD6FF).withOpacity(.6),
+  //           )),
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           Padding(
+  //             padding: EdgeInsets.only(top: size.height * 0.00),
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: [
+  //                 Obx(
+  //                   () => CustomBigText(
+  //                     text: title,
+  //                     size: 13,
+  //                     color: controller.selectedCharger.value == index
+  //                         ? Color(0xff0047C3)
+  //                         : Color(0xff4f4f4f),
+  //                   ),
+  //                 ),
+  //                 height(size.height * 0.004),
+  //                 CustomSmallText(
+  //                   text: subTitle,
+  //                   size: 12,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //           Container(
+  //             child: Row(
+  //               children: [
+  //                 Container(
+  //                   alignment: Alignment.center,
+  //                   height: size.height * 0.03,
+  //                   width: size.width * 0.25,
+  //                   decoration: BoxDecoration(
+  //                     borderRadius: BorderRadius.circular(10),
+  //                     color: available > 0
+  //                         ? Color(0xff219653).withOpacity(0.24)
+  //                         : trailing == kBusy
+  //                             ? kBusyColor
+  //                             : trailing == kFaulted
+  //                                 ? Color.fromARGB(255, 249, 59, 45)
+  //                                     .withOpacity(.2)
+  //                                 : Color(0xff959595).withOpacity(.2),
+  //                   ),
+  //                   child: CustomBigText(
+  //                     text: trailing,
+  //                     size: 12,
+  //                     color: available > 0
+  //                         ? Color(0xff219653)
+  //                         : trailing == kBusy
+  //                             ? Color(0xffE37A2D)
+  //                             : trailing == kFaulted
+  //                                 ? Color.fromARGB(255, 249, 59, 45)
+  //                                 : Color(0xff333333),
+  //                   ),
+  //                 ),
+  //                 width(size.width * 0.06),
+  //                 SvgPicture.asset("assets/svg/arrow_downward_ios.svg")
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget _dialougebox() {
-    return AlertDialog(
-      backgroundColor: kwhite,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      contentPadding: EdgeInsets.all(0),
-      content: Container(
-          padding: EdgeInsets.all(20.w),
-          height: 460.h,
-          width: 348.w,
-          decoration: BoxDecoration(
-              // borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0, 4),
-                  blurRadius: 32,
-                  color: Color(0xff000000).withOpacity(0.06),
-                )
-              ]),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CustomSmallText(
-                text: "How is your Experience?",
-                size: 16.sp,
-                letterspacing: -0.41,
-              ),
-              height(20.h),
-              Padding(
-                padding: EdgeInsets.only(left: 10.w),
-                child: Obx(
-                  () => Row(
-                    children: List.generate(
-                        5,
-                        (index) => Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              child: GestureDetector(
-                                onTap: () {
-                                  controller.selectedRating.value = index + 1;
-                                },
-                                child: SvgPicture.asset(
-                                  controller.selectedRating.value == 0 ||
-                                          controller.selectedRating.value - 1 <
-                                              index
-                                      ? "assets/svg/star_rate.svg"
-                                      : "assets/svg/star_rate3.svg",
-                                ),
-                              ),
-                            )),
-                  ),
-                ),
-              ),
-              height(25.h),
-              TextFormField(
-                minLines: 7,
-                maxLines: 7,
-                controller: controller.reviewController,
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                    hintText: "Leave Your Feedback here",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(
-                          color: Color(0xff908484),
-                        )),
-                    hintStyle: GoogleFonts.poppins(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: -0.41,
-                        color: Color(0xffBDBDBD)),
-                    contentPadding: EdgeInsets.only(left: 20.w, top: 25.h)),
-              ),
-              height(20.h),
-              _button(
-                  button: "Leave feedback",
-                  onTap: () async {
-                    bool status = await controller.postReviewForChargeStation();
-                    if (status) Get.dialog(_responseDialougebox());
-                  }),
-              height(20.h),
-              CustomBigText(
-                ontap: () {
-                  Get.back();
-                },
-                text: "Cancel",
-                size: 15.sp,
-                color: Color(0xff0047C3),
-              )
-            ],
-          )),
-    );
-  }
+  // Widget _dialougebox() {
+  //   return AlertDialog(
+  //     backgroundColor: kwhite,
+  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+  //     contentPadding: EdgeInsets.all(0),
+  //     content: Container(
+  //         padding: EdgeInsets.all(20.w),
+  //         height: 460.h,
+  //         width: 348.w,
+  //         decoration: BoxDecoration(
+  //             // borderRadius: BorderRadius.circular(20),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                 offset: Offset(0, 4),
+  //                 blurRadius: 32,
+  //                 color: Color(0xff000000).withOpacity(0.06),
+  //               )
+  //             ]),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.center,
+  //           children: [
+  //             CustomSmallText(
+  //               text: "How is your Experience?",
+  //               size: 16.sp,
+  //               letterspacing: -0.41,
+  //             ),
+  //             height(20.h),
+  //             Padding(
+  //               padding: EdgeInsets.only(left: 10.w),
+  //               child: Obx(
+  //                 () => Row(
+  //                   children: List.generate(
+  //                       5,
+  //                       (index) => Padding(
+  //                             padding: EdgeInsets.symmetric(horizontal: 10.w),
+  //                             child: GestureDetector(
+  //                               onTap: () {
+  //                                 controller.selectedRating.value = index + 1;
+  //                               },
+  //                               child: SvgPicture.asset(
+  //                                 controller.selectedRating.value == 0 ||
+  //                                         controller.selectedRating.value - 1 <
+  //                                             index
+  //                                     ? "assets/svg/star_rate.svg"
+  //                                     : "assets/svg/star_rate3.svg",
+  //                               ),
+  //                             ),
+  //                           )),
+  //                 ),
+  //               ),
+  //             ),
+  //             height(25.h),
+  //             TextFormField(
+  //               minLines: 7,
+  //               maxLines: 7,
+  //               controller: controller.reviewController,
+  //               keyboardType: TextInputType.multiline,
+  //               decoration: InputDecoration(
+  //                   hintText: "Leave Your Feedback here",
+  //                   border: OutlineInputBorder(
+  //                       borderRadius: BorderRadius.circular(20),
+  //                       borderSide: BorderSide(
+  //                         color: Color(0xff908484),
+  //                       )),
+  //                   hintStyle: GoogleFonts.poppins(
+  //                       fontSize: 15.sp,
+  //                       fontWeight: FontWeight.w400,
+  //                       letterSpacing: -0.41,
+  //                       color: Color(0xffBDBDBD)),
+  //                   contentPadding: EdgeInsets.only(left: 20.w, top: 25.h)),
+  //             ),
+  //             height(20.h),
+  //             _button(
+  //                 button: "Leave feedback",
+  //                 onTap: () async {
+  //                   bool status = await controller.postReviewForChargeStation();
+  //                   if (status) Get.dialog(_responseDialougebox());
+  //                 }),
+  //             height(20.h),
+  //             CustomBigText(
+  //               ontap: () {
+  //                 Get.back();
+  //               },
+  //               text: "Cancel",
+  //               size: 15.sp,
+  //               color: Color(0xff0047C3),
+  //             )
+  //           ],
+  //         )),
+  //   );
+  // }
 
-  Widget _responseDialougebox() {
-    return AlertDialog(
-      backgroundColor: kwhite,
-      contentPadding: EdgeInsets.all(0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.w)),
-      content: Container(
-        padding: EdgeInsets.all(20.w),
-        // height: 300.h,
-        width: 348.w,
-        decoration: BoxDecoration(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 80.h,
-              width: 80.w,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xffEBF8F1),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    height: 40.h,
-                    width: 40.w,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          width: 2.w,
-                          color: Color(0xff05A660),
-                        )),
-                    child: Center(
-                      child: Image.asset(
-                        "assets/images/vector1.png",
-                        height: 17,
-                        width: 17,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            height(15.h),
-            CustomBigText(
-              text: "Thank you for your response",
-              size: 20.sp,
-              color: Color(0xff4F4F4F),
-            ),
-            height(10.h),
-            CustomSmallText(
-              text: "Your response has been added",
-              size: 13.sp,
-            ),
-            height(10.h),
-            InkWell(
-              onTap: () {
-                Get.toNamed(Routes.homePageRoute);
-              },
-              child: Container(
-                height: 56.h,
-                width: 156.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40.r),
-                  color: Color(0xff0047C3),
-                ),
-                child: Center(
-                  child: CustomBigText(
-                    text: "Back to Maps",
-                    size: 15.sp,
-                    color: Color(0xffF2F2F2),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _responseDialougebox() {
+  //   return AlertDialog(
+  //     backgroundColor: kwhite,
+  //     contentPadding: EdgeInsets.all(0),
+  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.w)),
+  //     content: Container(
+  //       padding: EdgeInsets.all(20.w),
+  //       // height: 300.h,
+  //       width: 348.w,
+  //       decoration: BoxDecoration(),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.center,
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           Container(
+  //             height: 80.h,
+  //             width: 80.w,
+  //             decoration: BoxDecoration(
+  //               shape: BoxShape.circle,
+  //               color: Color(0xffEBF8F1),
+  //             ),
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: [
+  //                 Container(
+  //                   height: 40.h,
+  //                   width: 40.w,
+  //                   decoration: BoxDecoration(
+  //                       shape: BoxShape.circle,
+  //                       border: Border.all(
+  //                         width: 2.w,
+  //                         color: Color(0xff05A660),
+  //                       )),
+  //                   child: Center(
+  //                     child: Image.asset(
+  //                       "assets/images/vector1.png",
+  //                       height: 17,
+  //                       width: 17,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //           height(15.h),
+  //           CustomBigText(
+  //             text: "Thank you for your response",
+  //             size: 20.sp,
+  //             color: Color(0xff4F4F4F),
+  //           ),
+  //           height(10.h),
+  //           CustomSmallText(
+  //             text: "Your response has been added",
+  //             size: 13.sp,
+  //           ),
+  //           height(10.h),
+  //           InkWell(
+  //             onTap: () {
+  //               Get.toNamed(Routes.homePageRoute);
+  //             },
+  //             child: Container(
+  //               height: 56.h,
+  //               width: 156.w,
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(40.r),
+  //                 color: Color(0xff0047C3),
+  //               ),
+  //               child: Center(
+  //                 child: CustomBigText(
+  //                   text: "Back to Maps",
+  //                   size: 15.sp,
+  //                   color: Color(0xffF2F2F2),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget _button({required String button, required void Function() onTap}) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: 55.h,
-        width: 237.w,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40.r),
-          color: Color(0xff0047C3),
-        ),
-        child: Center(
-          child: CustomBigText(
-            text: button,
-            size: 14.sp,
-            color: Color(0xffF2F2F2),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _button({required String button, required void Function() onTap}) {
+  //   return InkWell(
+  //     onTap: onTap,
+  //     child: Container(
+  //       height: 55.h,
+  //       width: 237.w,
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(40.r),
+  //         color: Color(0xff0047C3),
+  //       ),
+  //       child: Center(
+  //         child: CustomBigText(
+  //           text: button,
+  //           size: 14.sp,
+  //           color: Color(0xffF2F2F2),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget navigationCard() {
     return Padding(

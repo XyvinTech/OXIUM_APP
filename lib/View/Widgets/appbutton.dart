@@ -242,7 +242,8 @@ class PositionedButton extends StatelessWidget {
                 ]),
             child: SvgPicture.asset(
               svgUrl,
-              color: svgColor,
+              colorFilter: ColorFilter.mode(svgColor, BlendMode.srcIn),
+            
               height: 22,
               width: 22,
             )),

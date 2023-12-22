@@ -1,11 +1,8 @@
 import 'dart:convert';
 
-import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-
 import 'package:web_socket_channel/status.dart' as status;
 
 import '../Utils/api.dart';

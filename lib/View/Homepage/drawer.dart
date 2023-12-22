@@ -1,18 +1,14 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Utils/routes.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
 import '../../Singletones/app_data.dart';
 import '../Drawer/getOtp_bottomSheet.dart';
-import '../Widgets/appbutton.dart';
 import '../Widgets/cached_network_image.dart';
 
 Widget CustomDrawer(BuildContext context) {
@@ -222,7 +218,8 @@ Widget CustomDrawer(BuildContext context) {
                       SvgPicture.asset(
                         'assets/svg/favorite.svg',
                         width: 24.sp,
-                        color: Color(0xff4f4f4f),
+                        colorFilter: ColorFilter.mode(
+                            Color(0xff4f4f4f), BlendMode.srcIn),
                       ),
                       width(size.width * .04),
                       CustomText(

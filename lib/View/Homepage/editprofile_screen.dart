@@ -6,12 +6,10 @@ import 'package:freelancer_app/View/Widgets/phonenumtext_field.dart';
 import 'package:get/get.dart';
 
 import '../../Singletones/app_data.dart';
-import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/cached_network_image.dart';
 import '../Widgets/customText.dart';
-import 'addInvoice_page.dart';
 
 class EditProfileScreen extends GetView<EditProfileScreenController> {
   const EditProfileScreen({super.key});

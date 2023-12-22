@@ -209,6 +209,9 @@ class MapFunctions {
         print("app in detached");
         if (mapStream != null) mapStream?.cancel();
         break;
+      case AppLifecycleState.hidden:
+        // / Handle this case.
+        break;
     }
   }
 
@@ -379,7 +382,7 @@ class MapFunctions {
 
       return result?.predictions ?? [];
     } on Exception catch (e) {
-      // TODO
+      
       logger.e(e.toString());
     }
 
@@ -419,7 +422,8 @@ class MapFunctions {
     polylineString = '';
     polylines = {};
     markers = {};
-    //TODO: get the place id of source and destination if it is not available (if user choose my location)
+
+    /// get the place id of source and destination if it is not available (if user choose my location)
 
     // '${pickup.lat},${pickup.lng}'
     final request = await DirectionsRequest(
@@ -475,10 +479,8 @@ class MapFunctions {
       kLog('direction get complete');
       return finalResponse;
     } on Exception {
-      // TODO
       return null;
     }
-    return null;
   }
 
   animatePolyline(String points, RxInt reload) {

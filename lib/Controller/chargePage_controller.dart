@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
@@ -29,7 +27,7 @@ class ChargeScreenController extends GetxController
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     // tabController = TabController(length: 1, vsync: this);
     super.onInit();
     // tabController.addListener(() {
@@ -43,7 +41,7 @@ class ChargeScreenController extends GetxController
 
   @override
   void onClose() {
-    // TODO: implement onClose
+    // / implement onClose
     super.onClose();
     scrollController.dispose();
   }

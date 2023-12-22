@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/otpnumberPage_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';

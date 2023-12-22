@@ -26,7 +26,7 @@ class CallAPI {
   // String _get_host = '10.0.2.2:8080';
   // String _url = 'http://10.0.2.2:8080/api/app/';
   // String _get_middle_point = '/api/app/';
-  //DEVELOPMENT: 
+  //DEVELOPMENT:
   String socketHost = 'ws://43.204.193.14:5609';
   String _host = 'http://43.204.193.14:8080';
   String _get_host = '43.204.193.14:8080';
@@ -46,7 +46,67 @@ class CallAPI {
   // String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
   // String _get_middle_point = '/Chargetron/api/app/';
 
+  Future<ResponseModel> newGetData(String url) async {
+    var body;
+    log('GET + $url');
+    try {
+      http.Response res = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'JWT-${appData.token}',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      if (res.statusCode == 200) {
+        body = json.decode(res.body);
+      } else
+        logger.e(res.statusCode);
 
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      logger.e(e.toString());
+      hideLoading();
+      showError('Failed to get data');
+    }
+
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
+  Future<ResponseModel> newPutData(
+      Map<String, dynamic> data, String url) async {
+    try {
+      log('PUT $url');
+      http.Response res = await http.put(
+        Uri.parse(url),
+        body: jsonEncode(data),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'JWT-${appData.token}',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      log('PUT request end');
+      var body;
+      kLog(res.statusCode.toString());
+      kLog(res.body.toString());
+      if (res.statusCode == 200)
+        body = json.decode(res.body);
+      else
+        logger.e(res.statusCode);
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      logger.e(e.toString());
+      hideLoading();
+      showError('Failed to put data');
+      // TOD
+    }
+    return ResponseModel(statusCode: 404, body: null);
+  }
 
 /////////POST DATA/////////////////
   Future<ResponseModel> postData(
@@ -74,7 +134,6 @@ class CallAPI {
     } on Exception catch (e) {
       logger.e(e.toString());
       hideLoading();
-      // TODO
     }
     return ResponseModel(statusCode: 404, body: null);
   }
@@ -109,7 +168,6 @@ class CallAPI {
       logger.e(e.toString());
       hideLoading();
       showError('Failed to get data');
-      // TODO
     }
 
     return ResponseModel(statusCode: 404, body: null);
@@ -144,7 +202,6 @@ class CallAPI {
       logger.e(e.toString());
       hideLoading();
       showError('Failed to put data');
-      // TODO
     }
     return ResponseModel(statusCode: 404, body: null);
   }
@@ -177,7 +234,7 @@ class CallAPI {
       logger.e(e.toString());
       hideLoading();
       showError('Failed to delete!');
-      // TODO:
+      // /
     }
     return ResponseModel(statusCode: 404, body: null);
   }

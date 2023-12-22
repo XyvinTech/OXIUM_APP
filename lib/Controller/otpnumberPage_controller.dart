@@ -22,7 +22,7 @@ class OtpNumberPageController extends GetxController {
   RxInt s = 30.obs;
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
     phone = Get.arguments == null ? '' : Get.arguments;
     startTimer();

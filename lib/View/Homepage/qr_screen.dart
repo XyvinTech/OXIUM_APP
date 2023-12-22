@@ -1,15 +1,9 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Controller/qr_controller.dart';
-import 'package:freelancer_app/Singletones/app_data.dart';
-import 'package:freelancer_app/View/Widgets/apptext.dart';
-import 'package:get/get.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
-
-import '../../Singletones/common_functions.dart';
-import '../../Utils/routes.dart';
-import '../Widgets/button.dart';
 
 class QrScreen extends GetView<QrController> {
   const QrScreen({super.key});
@@ -149,7 +143,7 @@ class QrScreen extends GetView<QrController> {
         // MainBtn(
         //   text: "Proceed",
         //   onPressed: () {
-        //     //TODO: whatever needed if code is entered.
+        //     /// whatever needed if code is entered.
         //     appData.qr = '444-t1-1-Q';
         //     CommonFunctions().createBookingAndCheck(appData.qr);
         //   },

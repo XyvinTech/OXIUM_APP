@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Controller/notification_screen_controller.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/View/Widgets/cached_network_image.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';

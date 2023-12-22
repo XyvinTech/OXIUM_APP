@@ -87,7 +87,6 @@ class _GradientIndicatorState extends State<GradientIndicator>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _animationController?.dispose();
     super.dispose();
   }
@@ -194,7 +193,7 @@ class CoveringArcPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     size = Size.fromRadius(radius);
     double offset = strokeWidth / 2;
-    Rect rect = Offset(offset, offset) &
+    Offset(offset, offset) &
         Size(size.width - strokeWidth, size.height - strokeWidth);
     var paint = Paint()
       // ..strokeCap = StrokeCap.round

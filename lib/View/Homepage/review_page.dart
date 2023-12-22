@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:freelancer_app/Controller/calista_cafePage_controller.dart';
 import 'package:freelancer_app/Controller/review_page_controller.dart';
 import 'package:freelancer_app/Model/reviewMode.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:timeago/timeago.dart' as timeago;
-
-import '../../Singletones/dialogs.dart';
 import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
@@ -130,12 +126,11 @@ class ReviewPage extends GetView<ReviewPageController> {
               //     ],
               //   ),
               // ),
-              
-              
+
               height(size.height * .04),
               InkWell(
                 onTap: () {
-                  //TODO: open review write dialog
+                  /// open review write dialog
                   controller.calistaCafePageController.selectedRating.value = 0;
                   controller.calistaCafePageController.reviewController.text =
                       '';

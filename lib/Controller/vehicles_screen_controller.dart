@@ -32,7 +32,7 @@ class VehiclesScreenController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
     getAllVehicles();
     CommonFunctions().getUserProfile();
@@ -74,11 +74,11 @@ class VehiclesScreenController extends GetxController {
     isLoading = true;
     showLoading('Adding vehicle...');
     bool isSuccess = await CommonFunctions().addEvToUser(
-        userName: appData.userModel.value.username,
-        ev: selectedVehicle.value,
-        regNumber: numEditingController.text,
-        isDefault: false,
-        );
+      userName: appData.userModel.value.username,
+      ev: selectedVehicle.value,
+      regNumber: numEditingController.text,
+      isDefault: false,
+    );
     hideLoading();
     if (isSuccess) {
       showSuccess('Vehicle added successfully');

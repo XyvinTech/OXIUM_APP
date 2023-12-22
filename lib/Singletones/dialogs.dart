@@ -143,7 +143,10 @@ class Dialogs {
                               width(8.w),
                               SvgPicture.asset(
                                 'assets/svg/${_bookingModel.connectorType.toLowerCase()}.svg',
-                                color: Color(0xff4f4f4f),
+                              
+                                colorFilter: ColorFilter.mode(
+                                                  Color(0xff4f4f4f),
+                                                  BlendMode.srcIn)
                               ),
                             ],
                           ),
@@ -529,9 +532,7 @@ class Dialogs {
         name: title);
   }
 
-  wallet_transaction_popup({
-    required OrderModel model,required int index
-  }) {
+  wallet_transaction_popup({required OrderModel model, required int index}) {
     kLog(model.status);
     String title = '';
     Color color = Colors.transparent;
@@ -730,7 +731,7 @@ class Dialogs {
                     visible: title == 'Success' || title == 'Pending',
                     child: InkWell(
                       onTap: () {
-                        //TODO: on download invoice
+                        /// on download invoice
                         if (title == 'Success') {
                           CommonFunctions()
                               .downloadWalletInvoice(model.transactionId);
@@ -738,7 +739,7 @@ class Dialogs {
                         } else if (title == 'Pending') {
                           WalletPageController _controller = Get.find();
                           _controller.verifyPayment(
-                              model.transactionId, model.pgOrderId,index);
+                              model.transactionId, model.pgOrderId, index);
                         }
                       },
                       child: title == 'Success'

@@ -7,7 +7,7 @@
 //   RxDouble rfid_price = 0.0.obs;
 //   @override
 //   void onInit() {
-//     // TODO: implement onInit
+//     // / implement onInit
 //     super.onInit();
 //   }
 

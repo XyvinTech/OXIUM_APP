@@ -557,41 +557,41 @@ class PartnerScreen extends GetView<PartnerPageController> {
     );
   }
 
-  Widget _countryPickerField({
-    required TextEditingController controller,
-    required String hintText,
-    required Size size,
-    Widget? icon,
-    void Function()? ontap,
-  }) {
-    return Container(
-      height: 56.h,
-      width: double.maxFinite,
-      child: TextField(
-        controller: controller,
-        style: TextStyle(
-          color: Color(0xff828282),
-        ),
-        decoration: InputDecoration(
-          suffixIcon: InkWell(onTap: ontap ?? null, child: icon ?? null),
-          hintText: hintText,
-          hintStyle: TextStyle(
-            color: Colors.grey,
-          ),
-          // contentPadding: EdgeInsets.only(left: 20),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(40.r),
-              borderSide: BorderSide(color: Color(0xffE0E0E5))),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(40.r),
-              borderSide: BorderSide(color: Color(0xffE0E0E5))),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(40.r),
-              borderSide: BorderSide(color: Color(0xff628EDB))),
-        ),
-      ),
-    );
-  }
+  // Widget _countryPickerField({
+  //   required TextEditingController controller,
+  //   required String hintText,
+  //   required Size size,
+  //   Widget? icon,
+  //   void Function()? ontap,
+  // }) {
+  //   return Container(
+  //     height: 56.h,
+  //     width: double.maxFinite,
+  //     child: TextField(
+  //       controller: controller,
+  //       style: TextStyle(
+  //         color: Color(0xff828282),
+  //       ),
+  //       decoration: InputDecoration(
+  //         suffixIcon: InkWell(onTap: ontap ?? null, child: icon ?? null),
+  //         hintText: hintText,
+  //         hintStyle: TextStyle(
+  //           color: Colors.grey,
+  //         ),
+  //         // contentPadding: EdgeInsets.only(left: 20),
+  //         border: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(40.r),
+  //             borderSide: BorderSide(color: Color(0xffE0E0E5))),
+  //         enabledBorder: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(40.r),
+  //             borderSide: BorderSide(color: Color(0xffE0E0E5))),
+  //         focusedBorder: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(40.r),
+  //             borderSide: BorderSide(color: Color(0xff628EDB))),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget Partner() {
     return SingleChildScrollView(

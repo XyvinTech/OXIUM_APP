@@ -19,11 +19,12 @@ class VehicleSearchScreen extends GetView<VehiclesScreenController> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
         controller.isVisible.value = false;
         controller.isSelectedVehicleindex.value = -1;
-        return true;
+        return;
       },
       child: SafeArea(
         child: Scaffold(

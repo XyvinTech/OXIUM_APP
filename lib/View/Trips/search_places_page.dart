@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/View/Widgets/textfield_home.dart';
 import 'package:get/get.dart';
-import 'package:google_place/google_place.dart';
 
 import '../../Controller/search_places_controller.dart';
 import '../../Utils/toastUtils.dart';
@@ -147,7 +146,7 @@ class SearchPlacesScreen extends GetView<SearchPlacesScreenController> {
                 children: [
                   InkWell(
                     onTap: () async {
-                    controller.onSearchResultClicked();
+                      controller.onSearchResultClicked();
                     },
                     child: Container(
                       margin:
@@ -158,7 +157,8 @@ class SearchPlacesScreen extends GetView<SearchPlacesScreenController> {
                             Expanded(
                               child: SvgPicture.asset(
                                 'assets/svg/location_searching.svg',
-                                color: Color(0xff0047C3),
+                                colorFilter: ColorFilter.mode(
+                                    Color(0xff0047C3), BlendMode.srcIn),
                               ),
                             ),
                             width(size.width * .02),

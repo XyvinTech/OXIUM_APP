@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:math' as math;
-import 'dart:math';
+// import 'dart:math' as math;
+// import 'dart:math';
 import 'package:flutter/material.dart';
 
 class GradientLoadingIndicator extends StatefulWidget {
@@ -12,7 +12,7 @@ class GradientLoadingIndicator extends StatefulWidget {
 class _GradientLoadingIndicatorState extends State<GradientLoadingIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  bool _isLoading = false;
+  // bool _isLoading = false;
 
   @override
   void initState() {
@@ -24,7 +24,7 @@ class _GradientLoadingIndicatorState extends State<GradientLoadingIndicator>
         setState(() {});
       });
     _controller.repeat();
-    _isLoading = true;
+    // _isLoading = true;
     Future.delayed(Duration(milliseconds: 2000), () {
       setState(() {
         // _isLoading = false;
@@ -51,50 +51,50 @@ class _GradientLoadingIndicatorState extends State<GradientLoadingIndicator>
   }
 }
 
-class _GradientPainter extends CustomPainter {
-  final double angle;
-  final bool isLoading;
+// class _GradientPainter extends CustomPainter {
+//   final double angle;
+//   final bool isLoading;
 
-  _GradientPainter({
-    required this.angle,
-    required this.isLoading,
-  });
+//   _GradientPainter({
+//     required this.angle,
+//     required this.isLoading,
+//   });
 
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..shader = SweepGradient(
-        colors: [
-          Colors.blue,
-          Colors.green,
-          Colors.yellow,
-          Colors.red,
-        ],
-      ).createShader(Rect.fromCircle(
-        center: Offset(size.width / 2, size.height / 2),
-        radius: size.width / 2,
-      ))
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 10;
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final paint = Paint()
+//       ..shader = SweepGradient(
+//         colors: [
+//           Colors.blue,
+//           Colors.green,
+//           Colors.yellow,
+//           Colors.red,
+//         ],
+//       ).createShader(Rect.fromCircle(
+//         center: Offset(size.width / 2, size.height / 2),
+//         radius: size.width / 2,
+//       ))
+//       ..style = PaintingStyle.stroke
+//       ..strokeWidth = 10;
 
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = math.min(size.width, size.height) / 2;
+//     final center = Offset(size.width / 2, size.height / 2);
+//     final radius = math.min(size.width, size.height) / 2;
 
-    if (isLoading) {
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        0,
-        pi,
-        false,
-        paint,
-      );
-    }
-  }
+//     if (isLoading) {
+//       canvas.drawArc(
+//         Rect.fromCircle(center: center, radius: radius),
+//         0,
+//         pi,
+//         false,
+//         paint,
+//       );
+//     }
+//   }
 
-  @override
-  bool shouldRepaint(_GradientPainter oldDelegate) =>
-      angle != oldDelegate.angle;
-}
+//   @override
+//   bool shouldRepaint(_GradientPainter oldDelegate) =>
+//       angle != oldDelegate.angle;
+// }
 
 class BulbPainter extends CustomPainter {
   @override

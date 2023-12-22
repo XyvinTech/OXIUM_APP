@@ -5,10 +5,7 @@ import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
 import '../Utils/routes.dart';
 
 class LoginPageController extends GetxController {
@@ -40,7 +37,7 @@ class LoginPageController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     // textEditingController.addListener(() {
     //   enablenameTextfield.value = nameEditingController.text.isNotEmpty;
     // });

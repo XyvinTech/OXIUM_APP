@@ -19,7 +19,7 @@ class TripsScreenController extends GetxController
   Rx<DirectionsResult> directionsResult = DirectionsResult().obs;
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
 
     tabController = TabController(length: 2, vsync: this);
     super.onInit();

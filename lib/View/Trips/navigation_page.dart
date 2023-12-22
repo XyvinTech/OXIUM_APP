@@ -250,7 +250,8 @@ class NavigationScreen extends GetView<NavigationScreenController> {
           padding: EdgeInsets.symmetric(vertical: size.height * .02),
           child: SvgPicture.asset(
             'assets/svg/alt_route.svg',
-            color: Colors.green,
+           
+                  colorFilter:   ColorFilter.mode(Colors.green, BlendMode.srcIn),
           ),
         )
       ]),

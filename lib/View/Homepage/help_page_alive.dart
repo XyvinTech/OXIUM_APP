@@ -8,7 +8,6 @@ import '../../Controller/homepage_controller.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/apptext.dart';
-import '../Widgets/customText.dart';
 
 class HelpPageAlive extends StatefulWidget {
   const HelpPageAlive({super.key});
@@ -26,6 +25,7 @@ class _HelpPageAliveState extends State<HelpPageAlive>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(
         child: Scaffold(
       backgroundColor: Color(0xffF5F9FF),

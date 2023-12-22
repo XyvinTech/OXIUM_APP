@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:freelancer_app/Controller/directions_screen_controller.dart';
 import 'package:freelancer_app/Controller/explore_trip_screen_controller.dart';
 import 'package:freelancer_app/View/Widgets/customText.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Singletones/map_functions.dart';
-import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/apptext.dart';
-import '../Widgets/rounded_container.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExploreTripScreen extends GetView<ExploreTripScreenController> {
@@ -45,7 +40,6 @@ class ExploreTripScreen extends GetView<ExploreTripScreenController> {
                   MapFunctions().getCurrentPosition();
                 },
                 onTap: (value) {
-               
                   MapFunctions().setMapFitToPolyline(MapFunctions().polylines,
                       MapFunctions().dirMapController!);
                   controller.reload++;
@@ -103,7 +97,8 @@ class ExploreTripScreen extends GetView<ExploreTripScreenController> {
                           children: [
                             SvgPicture.asset(
                               "assets/svg/conversation_path.svg",
-                              color: Color(0xffF2994A),
+                              colorFilter: ColorFilter.mode(
+                                  Color(0xffF2994A), BlendMode.srcIn),
                               height: size.height * 0.02,
                               width: size.width * 0.04,
                             ),

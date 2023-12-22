@@ -6,9 +6,8 @@ import 'package:freelancer_app/Controller/help_page_controller.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-
 import '../../Utils/toastUtils.dart';
-import '../Widgets/customText.dart';
+
 
 class HelpScreen extends GetView<HelpPageController> {
   const HelpScreen({super.key});

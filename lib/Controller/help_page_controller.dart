@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_controller.dart';
@@ -61,7 +63,7 @@ class HelpPageController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
   }
 }

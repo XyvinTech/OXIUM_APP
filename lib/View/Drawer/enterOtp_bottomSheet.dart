@@ -1,12 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:linear_progress_bar/linear_progress_bar.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
-import '../../Controller/loginpage_controller.dart';
 import '../../Model/apiResponseModel.dart';
 import '../../Singletones/app_data.dart';
 import '../../Singletones/common_functions.dart';
@@ -79,7 +74,7 @@ class EnterOtpSheet extends StatelessWidget {
 
     // @override
     // void onInit() {
-    //   // TODO: implement onInit
+    //   // / implement onInit
     //   //super.onInit();
     //   phone = Get.arguments == null ? '' : Get.arguments;
     //   startTimer();
@@ -173,9 +168,7 @@ class EnterOtpSheet extends StatelessWidget {
                                 inactiveColor: Color(0xffE0E0E0),
                                 activeColor: Color(0xff0047C3).withOpacity(0.6),
                               ),
-                              onChanged: (valu) {
-                              
-                              }),
+                              onChanged: (valu) {}),
                         ),
                         SizedBox(
                           height: 20.h,

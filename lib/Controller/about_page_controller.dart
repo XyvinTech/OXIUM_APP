@@ -13,7 +13,7 @@ class AboutPageController extends GetxController {
   ].obs;
   @override
   void onReady() {
-    // TODO: implement onReady
+    // / implement onReady
     super.onReady();
   }
 }

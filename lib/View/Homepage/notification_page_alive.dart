@@ -27,6 +27,7 @@ class _NotiPageAliveState extends State<NotiPageAlive>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Color(0xffF0F1F6),

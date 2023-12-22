@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:freelancer_app/Model/evPortsModel.dart';
 import 'package:intl/intl.dart';
@@ -70,7 +68,7 @@ List<dynamic> calculateAvailabiliy(
     List<EvPortModel> evPorts, bool isConnected) {
   int available = 0,
       busy = 0,
-      unAvailable = 0,
+      // unAvailable = 0,
       faulty = 0,
       total = evPorts.length;
   String trailing = '';
@@ -82,8 +80,8 @@ List<dynamic> calculateAvailabiliy(
       busy++;
     else if (element.ocppStatus == kFaulted)
       faulty++;
-    else
-      unAvailable++;
+    // else
+      // unAvailable++;
   });
   if (available > 0)
     trailing = '$kAvailable $available/$total';

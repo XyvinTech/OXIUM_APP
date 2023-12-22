@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freelancer_app/Model/bookingModel.dart';
@@ -79,12 +77,12 @@ final VehicleModel kVehicleModel = VehicleModel(
     numberOfPorts: 0,
     evPort: []);
 final UserModel kUserModel = UserModel(
-    id: -1,
+    id: '-1',
     username: '',
-    phone: '',
+    // phone: '',
     email: '',
     image: '',
-    status: '',
+    // status: '',
     name: '',
     total_sessions: 0,
     total_units: 0,

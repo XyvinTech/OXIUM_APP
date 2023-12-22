@@ -14,7 +14,7 @@ class ReviewPageController extends GetxController {
   RxInt totalElements = 0.obs;
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
     if (Get.arguments != null) {
       totalRating.value = Get.arguments[0];

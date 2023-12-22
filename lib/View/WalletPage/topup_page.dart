@@ -263,89 +263,89 @@ class PopUpPage extends GetView<WalletPageController> {
     );
   }
 
-  _topupCard(
-      {required String title,
-      required Color color,
-      Gradient? gradient,
-      Color? textColor}) {
-    return Container(
-      height: size.height * 0.15,
-      width: size.width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(
-          width: 1.5,
-          color: Color(0xffE0E0E0),
-        ),
-      ),
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            height: size.height * 0.04,
-            decoration: BoxDecoration(
-              gradient: gradient,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-              ),
-              color: color,
-            ),
-            child: CustomBigText(
-              text: title,
-              size: 12,
-              letterspacing: -0.0408,
-              color: textColor ?? Color(0xffF2F2F2),
-            ),
-          ),
-          height(size.height * 0.02),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomBigText(
-                      text: "100 Coins",
-                      color: Color(0xff0047C3),
-                      letterspacing: -0.408,
-                    ),
-                    height(size.height * 0.002),
-                    CustomSmallText(
-                      text: "Added Expiry : 30 days",
-                      size: 13,
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: size.height * 0.023),
-                  child: Row(
-                    children: [
-                      Text(
-                        "₹",
-                        style: TextStyle(
-                            fontFamily: "Arial",
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff0047C3)),
-                      ),
-                      width(4.w),
-                      CustomSmallText(
-                        text: "2000",
-                        size: 20,
-                        color: Color(0xff0047C3),
-                        fontWeight: FontWeight.w600,
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  // _topupCard(
+  //     {required String title,
+  //     required Color color,
+  //     Gradient? gradient,
+  //     Color? textColor}) {
+  //   return Container(
+  //     height: size.height * 0.15,
+  //     width: size.width,
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(15),
+  //       border: Border.all(
+  //         width: 1.5,
+  //         color: Color(0xffE0E0E0),
+  //       ),
+  //     ),
+  //     child: Column(
+  //       children: [
+  //         Container(
+  //           alignment: Alignment.center,
+  //           height: size.height * 0.04,
+  //           decoration: BoxDecoration(
+  //             gradient: gradient,
+  //             borderRadius: BorderRadius.only(
+  //               topLeft: Radius.circular(15),
+  //               topRight: Radius.circular(15),
+  //             ),
+  //             color: color,
+  //           ),
+  //           child: CustomBigText(
+  //             text: title,
+  //             size: 12,
+  //             letterspacing: -0.0408,
+  //             color: textColor ?? Color(0xffF2F2F2),
+  //           ),
+  //         ),
+  //         height(size.height * 0.02),
+  //         Padding(
+  //           padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+  //           child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   CustomBigText(
+  //                     text: "100 Coins",
+  //                     color: Color(0xff0047C3),
+  //                     letterspacing: -0.408,
+  //                   ),
+  //                   height(size.height * 0.002),
+  //                   CustomSmallText(
+  //                     text: "Added Expiry : 30 days",
+  //                     size: 13,
+  //                   )
+  //                 ],
+  //               ),
+  //               Padding(
+  //                 padding: EdgeInsets.only(bottom: size.height * 0.023),
+  //                 child: Row(
+  //                   children: [
+  //                     Text(
+  //                       "₹",
+  //                       style: TextStyle(
+  //                           fontFamily: "Arial",
+  //                           fontSize: 20.sp,
+  //                           fontWeight: FontWeight.w400,
+  //                           color: Color(0xff0047C3)),
+  //                     ),
+  //                     width(4.w),
+  //                     CustomSmallText(
+  //                       text: "2000",
+  //                       size: 20,
+  //                       color: Color(0xff0047C3),
+  //                       fontWeight: FontWeight.w600,
+  //                     )
+  //                   ],
+  //                 ),
+  //               )
+  //             ],
+  //           ),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 }

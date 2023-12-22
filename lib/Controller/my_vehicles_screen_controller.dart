@@ -14,7 +14,7 @@ class MyVehiclesScreenController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     getMyVehicles();
     super.onInit();
   }

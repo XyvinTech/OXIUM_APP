@@ -5,9 +5,7 @@ import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Utils/SharedPreferenceUtils.dart';
 import 'package:freelancer_app/Utils/firebase_notifications.dart';
 import 'package:freelancer_app/Utils/routes.dart';
-import 'package:freelancer_app/View/Widgets/apptext.dart';
 import 'package:get/get.dart';
-
 import '../../Utils/toastUtils.dart';
 import '../../constants.dart';
 import '../Widgets/cached_network_image.dart';

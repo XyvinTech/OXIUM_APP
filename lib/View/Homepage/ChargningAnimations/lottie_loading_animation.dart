@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:freelancer_app/constants.dart';
 import 'package:lottie/lottie.dart';
 
 class LottieLoadingWidget extends StatefulWidget {
@@ -16,8 +15,7 @@ class _LottieLoadingWidgetState extends State<LottieLoadingWidget>
   late AnimationController _animationController;
   @override
   void initState() {
-    // TODO: implement initState
-
+    super.initState();
     _animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
     _animationController.repeat(reverse: false);

@@ -4,7 +4,6 @@ import 'package:freelancer_app/Singletones/app_data.dart';
 import 'package:freelancer_app/Singletones/map_functions.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class FilterScreenController extends GetxController {
@@ -21,7 +20,7 @@ class FilterScreenController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     station_marker_List = Get.arguments ?? [];
     super.onInit();
   }

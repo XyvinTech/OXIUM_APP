@@ -1,27 +1,21 @@
-import 'dart:async';
-
-import 'package:freelancer_app/Model/bookingModel.dart';
-import 'package:freelancer_app/Model/chargingStatusModel.dart';
-import 'package:freelancer_app/Utils/utils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
 
 import '../Singletones/app_data.dart';
 import '../Singletones/common_functions.dart';
 import '../Utils/SharedPreferenceUtils.dart';
-import '../Utils/local_notifications.dart';
 import '../Utils/routes.dart';
 
 class SplashScreenController extends GetxController {
   RxInt reload = 0.obs;
   @override
   void onReady() {
-    // TODO: implement onReady
+    // / implement onReady
     super.onReady();
   }
 
   void onInit() async {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
 
     appData.token = await getString('token') ?? appData.token;

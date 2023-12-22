@@ -1,6 +1,5 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
@@ -24,7 +23,6 @@ import '../../Singletones/common_functions.dart';
 import '../../Utils/routes.dart';
 import 'help_page_alive.dart';
 import 'notification_page_alive.dart';
-import 'notification_screen.dart';
 
 class HomePageScreen extends GetView<HomePageController> {
   HomePageScreen({Key? key}) : super(key: key);
@@ -111,15 +109,13 @@ showBottomSheetWhenClickedOnMarker(
   // CalistaCafePageController calcontroller =
   //     Get.put(CalistaCafePageController());
   double distance = 0;
-  if (MapFunctions().curPos != null) {
-    distance = (MapFunctions.distanceBetweenCoordinates(
-                MapFunctions().curPos.latitude,
-                MapFunctions().curPos.longitude,
-                model.lattitude,
-                model.longitude) /
-            1000.0)
-        .toPrecision(2);
-  }
+  distance = (MapFunctions.distanceBetweenCoordinates(
+              MapFunctions().curPos.latitude,
+              MapFunctions().curPos.longitude,
+              model.lattitude,
+              model.longitude) /
+          1000.0)
+      .toPrecision(2);
   List<String> amenities = model.amenities.split(',');
   bool available = false;
   List res = [];
@@ -133,10 +129,11 @@ showBottomSheetWhenClickedOnMarker(
     backgroundColor: Colors.transparent,
     context: kContext,
     isScrollControlled: true,
-    builder: (context) => WillPopScope(
-      onWillPop: () async {
+    builder: (context) => PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
         // calcontroller.dispose();
-        return true;
+        return ;
       },
       child: Stack(
         children: [

@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 Widget cachedNetworkImage(String imageUrl, {double? width, BoxFit? fit}) {

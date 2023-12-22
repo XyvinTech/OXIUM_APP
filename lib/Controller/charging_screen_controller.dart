@@ -103,7 +103,7 @@ class ChargingScreenController extends GetxController {
         (booking_model.value.taxes) * status_model.value.unit;
     kLog('post rest: ' + status_model.toJson().toString());
     Timer? _timer;
-    String time = '';
+    // String time = '';
 
 ////INIT WEBSOCKET FROM HERE
 
@@ -151,7 +151,7 @@ class ChargingScreenController extends GetxController {
               if (status_model.value.status != 'R' &&
                   status_model.value.status != 'I') _timer?.cancel();
             });
-          time = status_model.value.lastupdated;
+          // time = status_model.value.lastupdated;
         });
     // });
   }

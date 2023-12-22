@@ -10,7 +10,7 @@ class FavouritePageController extends GetxController {
   RxList<FavoriteModel> model_list = RxList();
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
     super.onInit();
     getFavorites();
   }

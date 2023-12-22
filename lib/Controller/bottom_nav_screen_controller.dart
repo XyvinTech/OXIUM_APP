@@ -12,14 +12,14 @@ class BottomNavScreenController extends GetxController
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    // / implement onInit
 
     super.onInit();
   }
 
   @override
   void onReady() {
-    // TODO: implement onReady
+    // / implement onReady
     super.onReady();
   }
 }

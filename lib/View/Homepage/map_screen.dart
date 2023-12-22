@@ -6,12 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelancer_app/Controller/homepage_controller.dart';
 import 'package:freelancer_app/Singletones/socketRepo.dart';
 import 'package:freelancer_app/View/Widgets/apptext.dart';
-import 'package:freelancer_app/View/Widgets/customText.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../../Singletones/map_functions.dart';
 import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
@@ -46,6 +44,7 @@ class _MapScreenState extends State<MapScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(
       child: Container(
           alignment: Alignment.center,
