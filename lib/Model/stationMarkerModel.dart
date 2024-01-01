@@ -1,8 +1,8 @@
 class StationMarkerModel {
-  final int id;
-  final String locationName;
+  final String id;
+  final String name;
   final String address;
-  final double lattitude;
+  final double latitude;
   final double longitude;
   final double rating;
   final bool isBusy;
@@ -14,8 +14,8 @@ class StationMarkerModel {
 
   StationMarkerModel({
     required this.id,
-    required this.locationName,
-    required this.lattitude,
+    required this.name,
+    required this.latitude,
     required this.longitude,
     required this.rating,
     required this.address,
@@ -29,41 +29,33 @@ class StationMarkerModel {
 
   factory StationMarkerModel.fromJson(Map<String, dynamic> json) {
     return StationMarkerModel(
-      id: json['id'],
-      lattitude: json['lattitude'] ?? 0,
+      id: json['_id'],
+      latitude: json['latitude'] ?? 0,
       longitude: json['longitude'] ?? 0,
-      rating: json['rating'] ?? 0,
+      rating: json['rating'].toDouble() ?? 0,
       isBusy: json['isBusy'] ?? false,
       amenities: json['amenities'] ?? '',
-      locationName: json['locationName'] ?? '',
+      name: json['name'] ?? '',
       address: json['address'] ?? '',
-      charger_status: json.containsKey('filter')
-          ? json['filter']['charger_status'] ?? ''
-          : '',
-      ac_dc:
-          json.containsKey('filter') ? json['filter']['outputType'] ?? '' : '',
-      charger_type: json.containsKey('filter')
-          ? json['filter']['connectorType'] ?? ''
-          : '',
-      charger_capacity:
-          json.containsKey('filter') ? json['filter']['capacity'] ?? '' : '',
+      charger_status: json['charger_status'] ?? '',
+      ac_dc: json['outputType'] ?? '',
+      charger_type: json['connectorType'] ?? '',
+      charger_capacity: json['capacity'] ?? '',
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "lattitude": lattitude,
+        "_id": id,
+        "latitude": latitude,
         "longitude": longitude,
         "isBusy": isBusy,
         "amenities": amenities,
-        "locationName": locationName,
+        "name": name,
         "address": address,
         "rating": rating,
-        "filter": {
-          "charger_status": charger_status,
-          "outputType": ac_dc,
-          "connectorType": charger_type,
-          "capacity": charger_capacity
-        }
+        "charger_status": charger_status,
+        "outputType": ac_dc,
+        "connectorType": charger_type,
+        "capacity": charger_capacity
       };
 }

@@ -1,19 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
-import 'package:freelancer_app/Singletones/app_data.dart';
-import 'package:freelancer_app/Utils/utils.dart';
-import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-import 'package:google_directions_api/google_directions_api.dart';
-import 'package:google_place/google_place.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'package:validators/validators.dart';
-
-import '../Singletones/common_functions.dart';
-import '../Singletones/map_functions.dart';
 import '../Utils/routes.dart';
 import '../Utils/toastUtils.dart';
+import 'package:flutter/material.dart';
+import '../Singletones/map_functions.dart';
+import 'package:share_plus/share_plus.dart';
+import '../Singletones/common_functions.dart';
+import 'package:freelancer_app/constants.dart';
+import 'package:google_place/google_place.dart';
+import 'package:freelancer_app/Utils/utils.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:google_directions_api/google_directions_api.dart';
+import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
 
 class CalistaCafePageController extends GetxController {
   RxInt selectedCharger = (-1).obs;
@@ -34,7 +32,7 @@ class CalistaCafePageController extends GetxController {
 
     super.onInit();
     if (Get.arguments != null) {
-      if (isNumeric('${Get.arguments}'))
+      if (Get.arguments is String)
         getChargeStationDetails('${Get.arguments}');
       else
         assignPreviouslyGotModel();
@@ -47,7 +45,7 @@ class CalistaCafePageController extends GetxController {
     distance.value = (MapFunctions.distanceBetweenCoordinates(
                 MapFunctions().curPos.latitude,
                 MapFunctions().curPos.longitude,
-                model.value.lattitude,
+                model.value.latitude,
                 model.value.longitude) /
             1000.0)
         .toPrecision(2);
@@ -65,7 +63,7 @@ class CalistaCafePageController extends GetxController {
       distance.value = (MapFunctions.distanceBetweenCoordinates(
                   MapFunctions().curPos.latitude,
                   MapFunctions().curPos.longitude,
-                  model.value.lattitude,
+                  model.value.latitude,
                   model.value.longitude) /
               1000.0)
           .toPrecision(2);
@@ -96,9 +94,9 @@ class CalistaCafePageController extends GetxController {
   startCharging() {
     appData.qr = '${model.value.id}' +
         '-' +
-        model.value.Chargers[selectedCharger.value].charger_name +
+        model.value.chargers[selectedCharger.value].chargerName +
         '-' +
-        '${model.value.Chargers[selectedCharger.value].evports[selectedType.value].seqNumber}' +
+        '${model.value.chargers[selectedCharger.value].evports[selectedType.value].seqNumber}' +
         '-' +
         'A';
     CommonFunctions().createBookingAndCheck(appData.qr);
@@ -113,7 +111,7 @@ class CalistaCafePageController extends GetxController {
       placeId: list[1],
     );
     list = await MapFunctions().getNameAndPlaceIdFromLatLng(
-        model.value.lattitude, model.value.longitude);
+        model.value.latitude, model.value.longitude);
     destination.value = AutocompletePrediction(
       description: list[0],
       placeId: list[1],
@@ -143,13 +141,13 @@ class CalistaCafePageController extends GetxController {
 
   launchOnGoogleMap() {
     launchUrlString(
-        'https://www.google.com/maps/dir/?api=1&destination=${model.value.lattitude},${model.value.longitude}',
+        'https://www.google.com/maps/dir/?api=1&destination=${model.value.latitude},${model.value.longitude}',
         mode: LaunchMode.externalApplication);
   }
 
   shareStationLocation() {
     Share.share(
-        'Check out the ${model.value.name} chargestation by clicking the following link:\n https://www.google.com/maps/dir/?api=1&destination=${model.value.lattitude},${model.value.longitude}',
+        'Check out the ${model.value.name} chargestation by clicking the following link:\n https://www.google.com/maps/dir/?api=1&destination=${model.value.latitude},${model.value.longitude}',
         subject: 'Checkout ${model.value.name} station!');
   }
 }

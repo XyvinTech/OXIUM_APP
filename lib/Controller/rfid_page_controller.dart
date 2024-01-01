@@ -1,9 +1,10 @@
-import 'package:carousel_slider/carousel_controller.dart';
-import 'package:get/get.dart';
-import '../Model/RFIDModel.dart';
-import '../Singletones/common_functions.dart';
-import '../Utils/toastUtils.dart';
 import '../constants.dart';
+import 'package:get/get.dart';
+// import '../Model/RFIDModel.dart';
+import '../Utils/toastUtils.dart';
+import '../Singletones/app_data.dart';
+import '../Singletones/common_functions.dart';
+import 'package:carousel_slider/carousel_controller.dart';
 
 class RfidPageController extends GetxController {
   RxList carouselText = [
@@ -19,7 +20,7 @@ class RfidPageController extends GetxController {
   CarouselController? carouselController;
   RxDouble currentIndex = 0.0.obs;
   RxInt rfid_price = 0.obs;
-  RxList<RFIDModel> rfid_list = RxList();
+  RxList rfid_list = RxList();
   @override
   void onInit() {
     // / implement onInit
@@ -30,13 +31,14 @@ class RfidPageController extends GetxController {
   getRFIDPriceAndUserRFID() async {
     showLoading(kLoading);
     rfid_price.value = await CommonFunctions().getRFIDPrice();
-    await getUserRFIDs();
+    rfid_list.value = appData.userModel.value.rfidTag;
+    //  getUserRFIDs();
     hideLoading();
   }
 
-  getUserRFIDs() async {
-    rfid_list.value = await CommonFunctions().getUserRFIDs();
-  }
+  // getUserRFIDs() async {
+  // rfid_list.value = await CommonFunctions().getUserRFIDs();
+  // }
 
   orderRFID() async {
     showLoading(kLoading);

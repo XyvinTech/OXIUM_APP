@@ -213,7 +213,7 @@ class RFIDnumberScreen extends GetView<RfidPageController> {
                                 color: Color(0xff4f4f4f),
                                 letterSpacing: 1,
                                 fontWeight: FontWeight.w600,
-                                text: controller.rfid_list[index].serialNumber,
+                                text: controller.rfid_list[index],
                                 size: 16,
                               ),
                             ),

@@ -1,48 +1,51 @@
 import 'package:freelancer_app/Model/chargerModel.dart';
 
 class ChargeStationDetailsModel {
-  final int id;
+  final String id;
   final String name;
-  final String location_name;
-  final String rating;
+  final String address;
+  final double rating;
   final String image;
-  final double lattitude;
+  final double latitude;
   final double longitude;
   final String amenities;
   final String startTime;
   final String stopTime;
   bool isFavorite;
-  final List<ChargerModel> Chargers;
+  final List<ChargerModel> chargers;
 
   ChargeStationDetailsModel({
     required this.id,
     required this.name,
-    required this.location_name,
+    required this.address,
     required this.rating,
     required this.image,
-    required this.lattitude,
+    required this.latitude,
     required this.longitude,
     required this.amenities,
     required this.isFavorite,
-    required this.Chargers,
+    required this.chargers,
     required this.startTime,
     required this.stopTime,
   });
 
   factory ChargeStationDetailsModel.fromJson(Map<String, dynamic> json) {
     return ChargeStationDetailsModel(
-      id: json['id'],
+      id: json['_id'],
       name: json['name'] ?? '',
-      location_name: json['location_name'] ?? '',
-      rating: json['rating'] == 'null' ? '0.0' : json['rating'] ?? '0.0',
-      image: json['image'] ?? '',
-      lattitude: json['lattitude'] ?? 0,
+      address: json['address'] ?? '',
+      rating: json['rating'].toDouble() ?? 0,
+      image: json['image'] == ''
+          ? 'https://sternbergclinic.com.au/wp-content/uploads/2020/03/placeholder.png'
+          : json['image'] ??
+              'https://sternbergclinic.com.au/wp-content/uploads/2020/03/placeholder.png',
+      latitude: json['latitude'] ?? 0,
       longitude: json['longitude'] ?? 0,
       amenities: json['amenities'] ?? '',
       startTime: json['startTime'] ?? '',
       stopTime: json['stopTime'] ?? '',
       isFavorite: json['isFavorite'] ?? false,
-      Chargers: json['Chargers']
+      chargers: json['chargers']
               .map<ChargerModel>((e) => ChargerModel.fromJson(e))
               .toList() ??
           [],
@@ -50,17 +53,17 @@ class ChargeStationDetailsModel {
   }
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "_id": id,
         "rating": rating,
         "name": name,
-        "location_name": location_name,
+        "address": address,
         "image": image,
-        "lattitude": lattitude,
+        "latitude": latitude,
         "longitude": longitude,
         "amenities": amenities,
         "isFavorite": isFavorite,
         "startTime": startTime,
         "stopTime": stopTime,
-        "Chargers": Chargers.map((e) => e.toJson()).toList()
+        "chargers": chargers.map((e) => e.toJson()).toList()
       };
 }

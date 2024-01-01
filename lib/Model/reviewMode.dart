@@ -1,40 +1,42 @@
 class ReviewModel {
-  final int stationId;
-  final String name;
+  // final int stationId;
+  // final String name;
   final String userName;
   final String image;
   final int rating;
   final String review;
-  final String creationDateTime;
+  final String createdAt;
 
   ReviewModel({
-    required this.stationId,
-    required this.name,
+    // required this.stationId,
+    // required this.name,
     required this.image,
     required this.rating,
     required this.review,
-    required this.creationDateTime,
+    required this.createdAt,
     required this.userName,
   });
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
     return ReviewModel(
-      stationId: json['stationId'],
-      name: json['name'] ?? '',
-      image: json['image'] ?? '',
+      // stationId: json['stationId'],
+      // name: json['name'] ?? '',
+      image: json['image'] == ''
+          ? 'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg'
+          : json['image'] ??
+              'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg',
       rating: json['rating'] ?? 0,
-      review: json['review'] ?? '',
-      userName: json['userName'] ?? '',
-      creationDateTime: json['creationDateTime'] ?? '',
+      review: json['comment'] ?? '',
+      userName: json['username'] ?? '',
+      createdAt: json['createdAt'] ?? '',
     );
   }
   Map<String, dynamic> toJson() => {
-        "stationId": stationId,
-        "name": name,
+        // "stationId": stationId,
+        // "name": name,
         "image": image,
         "rating": rating,
-        "review": review,
-        "userName": userName,
-        "creationDateTime": creationDateTime
+        "comment": review,
+        "username": userName,
+        "createdAt": createdAt
       };
 }
-

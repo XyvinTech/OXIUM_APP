@@ -196,7 +196,7 @@ class Dialogs {
                               children: [
                                 CustomSmallText(
                                   text: appData.userModel.value.defaultVehicle
-                                      .vehicleDetails,
+                                      .brand,
                                   size: 14.sp,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -735,7 +735,7 @@ class Dialogs {
                         if (title == 'Success') {
                           CommonFunctions()
                               .downloadWalletInvoice(model.transactionId);
-                          kLog(model.bookingId.toString());
+                          // kLog(model.bookingId.toString());
                         } else if (title == 'Pending') {
                           WalletPageController _controller = Get.find();
                           _controller.verifyPayment(

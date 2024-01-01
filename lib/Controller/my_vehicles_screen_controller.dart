@@ -1,12 +1,9 @@
 import 'dart:developer';
-
-import 'package:freelancer_app/Singletones/app_data.dart';
-import 'package:freelancer_app/Singletones/common_functions.dart';
-import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/constants.dart';
-import 'package:get/state_manager.dart';
-
 import '../Model/vehicleModel.dart';
+import 'package:get/state_manager.dart';
+import 'package:freelancer_app/constants.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/Singletones/common_functions.dart';
 
 class MyVehiclesScreenController extends GetxController {
   RxInt reload = 0.obs;
@@ -34,11 +31,8 @@ class MyVehiclesScreenController extends GetxController {
   setAsDefaultVehicle(VehicleModel model) async {
     showLoading(kLoading);
     log(model.id.toString());
-    bool res = await CommonFunctions().addEvToUser(
-      ev: model,
-      userName: appData.userModel.value.username,
+    bool res = await CommonFunctions().setDefaultVehicle(
       regNumber: model.evRegNumber,
-      isDefault: true,
     );
     // bool res = await CommonFunctions().setDefaultVehicle(
     //   userName: appData.userModel.value.username,

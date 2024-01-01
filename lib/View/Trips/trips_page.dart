@@ -101,7 +101,7 @@ class _TripsScreenState extends State<TripsScreen>
                                                 CrossAxisAlignment.start,
                                             children: [
                                               CustomSmallText(
-                                                text: appData.userModel.value.defaultVehicle.vehicleDetails,
+                                                text: appData.userModel.value.defaultVehicle.brand,
                                                 size: 12,
                                               ),
                                               CustomBigText(

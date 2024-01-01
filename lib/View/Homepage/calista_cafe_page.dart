@@ -101,12 +101,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                           ),
                                           Obx(
                                             () => CustomText(
-                                                text: controller.model.value
-                                                        .rating.isEmpty
-                                                    ? '0'
-                                                    : double.parse(controller
-                                                            .model.value.rating)
-                                                        .toStringAsFixed(2),
+                                                text: controller
+                                                    .model.value.rating
+                                                    .toStringAsFixed(2),
                                                 size: 12,
                                                 color: Color(0xffF2994A)),
                                           ),
@@ -151,12 +148,10 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                                           return Row(
                                             children: [
                                               SvgPicture.asset(
-                                                'assets/svg/${controller.amenities[index]}.svg',
-                                               
-                                                colorFilter: ColorFilter.mode(
-                                                  Colors.grey.shade500,
-                                                  BlendMode.srcIn)
-                                              ),
+                                                  'assets/svg/${controller.amenities[index]}.svg',
+                                                  colorFilter: ColorFilter.mode(
+                                                      Colors.grey.shade500,
+                                                      BlendMode.srcIn)),
                                               width(size.width * .01),
                                               Expanded(
                                                 child: CustomText(
@@ -218,7 +213,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                               flex: 3,
                               child: Obx(
                                 () => CustomText(
-                                    text: controller.model.value.location_name,
+                                    text: controller.model.value.address,
                                     size: 12,
                                     color: Color(0xff4F4F4F)),
                               ),
@@ -318,28 +313,28 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                   Obx(
                     () => ListView.builder(
                         shrinkWrap: true,
-                        itemCount: controller.model.value.Chargers.length,
+                        itemCount: controller.model.value.chargers.length,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           ChargerModel charger =
-                              controller.model.value.Chargers[index];
-                          bool isConnected = controller
-                                  .model.value.Chargers[index].ocppStatus ==
-                              'Connected';
+                              controller.model.value.chargers[index];
+                          bool isAvailable = controller
+                                  .model.value.chargers[index].ocppStatus ==
+                              'Available';
                           return Container(
                               // height: 500.h,
                               margin: EdgeInsets.symmetric(
                                   horizontal: size.width * .04,
                                   vertical: size.height * .01),
                               child: _chargerCardExpanded(
-                                title: charger.charger_name,
+                                title: charger.chargerName,
                                 subTitle: charger.outputType +
                                     ' ' +
                                     charger.capacity +
                                     ' KwH',
                                 evPorts: charger.evports,
                                 index: index,
-                                isConnected: isConnected,
+                                isAvailable: isAvailable,
                               ));
                         }),
                   ),
@@ -382,8 +377,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                         InkWell(
                           onTap: () {
                             Get.toNamed(Routes.reviewPageRoute, arguments: [
-                              double.parse(controller.model.value.rating)
-                                  .toStringAsFixed(2),
+                              controller.model.value.rating.toStringAsFixed(2),
                               controller.model.value.id
                             ]);
                           },
@@ -461,7 +455,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required EvPortModel evport,
     required int index,
     required int index1,
-    required bool isConnected,
+    required bool isAvailable,
   }) {
     //////////LOGIC CODES////////
     // List res = calculateAvailabiliy([evport], isConnected);
@@ -469,7 +463,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     // String trailing = res[0];
     ///////END LOGIC CODES///////
     String status;
-    if (!isConnected)
+    if (!isAvailable)
       status = kUnavailable;
     else if (evport.ocppStatus == kAvailable || evport.ocppStatus.isEmpty)
       status = kAvailable;
@@ -481,7 +475,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
       status = kFaulted;
     else
       status = kUnavailable;
-    if (!isConnected) status = kUnavailable;
+    if (!isAvailable) status = kUnavailable;
 
     return Container(
       height: 65.h,
@@ -537,7 +531,9 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    "assets/svg/${evport.connectorType.toLowerCase().trim()}.svg",
+                    //FIXME
+                    // "assets/svg/${evport.connectorType.toLowerCase().trim()}.svg",
+                    "assets/svg/css.svg",
                     width: 25.w,
                     // color: isSelected
                     //     ? Color(0xff4f4f4f)
@@ -584,7 +580,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 width: 10.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: isConnected
+                  color: isAvailable
                       ? (status == kAvailable || status == kPreparing)
                           ? Color(0xff219653)
                           : status == kBusy
@@ -599,7 +595,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
               CustomBigText(
                 text: status,
                 size: 12,
-                color: isConnected
+                color: isAvailable
                     ? (status == kAvailable || status == kPreparing)
                         ? Color(0xff219653)
                         : status == kBusy
@@ -621,7 +617,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
     required String subTitle,
     required List<EvPortModel> evPorts,
     required int index,
-    required bool isConnected,
+    required bool isAvailable,
   }) {
     return Container(
       // color: Colors.amber,
@@ -631,7 +627,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
           padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
           alignment: Alignment.center,
           height: 70.h +
-              77.h * (controller.model.value.Chargers[index].evports.length),
+              77.h * (controller.model.value.chargers[index].evports.length),
           child: Column(
             children: [
               Container(
@@ -670,7 +666,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                     ),
                     CustomSmallText(
                       text:
-                          '₹ ${controller.model.value.Chargers[index].tariff} /KwH',
+                          '₹ ${controller.model.value.chargers[index].tariff} /KwH',
                       size: 12,
                     ),
                   ],
@@ -699,7 +695,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                             index: index,
                             index1: index_grid,
                             evport: evPorts[index_grid],
-                            isConnected: isConnected,
+                            isAvailable: isAvailable,
                           );
                         });
                       }),
@@ -1032,7 +1028,7 @@ class CalistaCafeScreen extends GetView<CalistaCafePageController> {
                 ),
                 Obx(
                   () => Text(
-                    controller.model.value.location_name,
+                    controller.model.value.address,
                     style: GoogleFonts.inter(
                         textStyle: TextStyle(
                       fontSize: 14,

@@ -99,7 +99,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                                 progress: (controller
                                                             .status_model
                                                             .value
-                                                            .SOC /
+                                                            .soc /
                                                         100.0) +
                                                     .001),
                                       )),
@@ -116,7 +116,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       height(5.h),
                                       CustomText(
                                         text:
-                                            '${controller.status_model.value.SOC}%',
+                                            '${controller.status_model.value.soc}%',
                                         isItalic: true,
                                         fontWeight: FontWeight.w700,
                                         size: 20,
@@ -253,7 +253,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                                   .userModel
                                                   .value
                                                   .defaultVehicle
-                                                  .vehicleDetails),
+                                                  .brand),
                                           CustomBigText(
                                             text: appData.userModel.value
                                                 .defaultVehicle.modelName,
@@ -304,7 +304,7 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                   children: [
                                     CustomBigText(
                                       text:
-                                          "${controller.status_model.value.OutputType} ${controller.status_model.value.Capacity} KwH",
+                                          "${controller.status_model.value.outputType} ${controller.status_model.value.capacity} KwH",
                                       size: 14.sp,
                                       color: Color(0xff4F4F4F),
                                     ),
@@ -312,16 +312,16 @@ class ChargingScreen extends GetView<ChargingScreenController> {
                                       children: [
                                         CustomBigText(
                                           text:
-                                              "${controller.status_model.value.ConnectorType}",
+                                              "${controller.status_model.value.connectorType}",
                                           size: 14.sp,
                                           color: Color(0xff4F4F4F),
                                         ),
                                         SizedBox(width: 14.w),
                                         if (controller.status_model.value
-                                            .ConnectorType.isNotEmpty)
+                                            .connectorType.isNotEmpty)
                                           SvgPicture.asset(
                                               height: 24.h,
-                                              "assets/svg/${controller.status_model.value.ConnectorType.toLowerCase()}.svg")
+                                              "assets/svg/${controller.status_model.value.connectorType.toLowerCase()}.svg")
                                       ],
                                     )
                                   ],

@@ -1,25 +1,26 @@
 class FavoriteModel {
-  final int id;
+  final String id;
   final String rating;
   final String name;
   final String image;
-  final double lattitude;
+  final double latitude;
   final double longitude;
   FavoriteModel({
     required this.id,
     required this.rating,
     required this.name,
     required this.image,
-    required this.lattitude,
+    required this.latitude,
     required this.longitude,
   });
   factory FavoriteModel.fromJson(Map<String, dynamic> json) {
     return FavoriteModel(
-      id: json['id'] ?? -1,
-      rating: json['rating'] == 'null' ? '0' : json['rating'] ?? '0',
+      id: json['id'] ?? '-1',
+      rating: json['rating'].toString(),
       name: json['name'] ?? '',
-      image: json['image'] ?? '',
-      lattitude: json['lattitude'] ?? 0,
+      image: json['image'] ??
+          'https://sternbergclinic.com.au/wp-content/uploads/2020/03/placeholder.png',
+      latitude: json['latitude'] ?? 0,
       longitude: json['longitude'] ?? 0,
     );
   }
@@ -28,7 +29,7 @@ class FavoriteModel {
         "rating": rating,
         "name": name,
         "image": image,
-        "lattitude": lattitude,
+        "latitude": latitude,
         "longitude": longitude
       };
 }

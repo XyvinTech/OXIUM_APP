@@ -64,7 +64,7 @@ class _ChargeScreenState extends State<ChargeScreen>
                                   Obx(
                                     () => appData.userModel.value.defaultVehicle
                                                 .id ==
-                                            -1
+                                            '-1'
                                         ? SizedBox()
                                         : Container(
                                             width: size.width,
@@ -117,7 +117,7 @@ class _ChargeScreenState extends State<ChargeScreen>
                                                                   .userModel
                                                                   .value
                                                                   .defaultVehicle
-                                                                  .vehicleDetails,
+                                                                  .brand,
                                                               size: 14.sp,
                                                               fontWeight:
                                                                   FontWeight

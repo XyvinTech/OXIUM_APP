@@ -174,9 +174,9 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Color(0xffB8CCF0))),
                   child: CustomText(
-                      text: appData.userModel.value.rfid.isEmpty
+                      text: appData.userModel.value.rfidTag.isEmpty
                           ? 'XXXXXXXXXXXXXX'
-                          : appData.userModel.value.rfid,
+                          : appData.userModel.value.rfidTag[0],
                       size: 17,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff828282)),

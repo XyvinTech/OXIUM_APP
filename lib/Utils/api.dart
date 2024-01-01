@@ -46,6 +46,35 @@ class CallAPI {
   // String _url = 'https://cms.goecworld.com/Chargetron/api/app/';
   // String _get_middle_point = '/Chargetron/api/app/';
 
+  Future<ResponseModel> newPostData(
+      Map<String, dynamic> data, String url) async {
+    try {
+      kLog('POST $url');
+      http.Response res = await http.post(
+        Uri.parse(url),
+        body: jsonEncode(data),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'JWT-${appData.token}',
+        },
+      ).timeout(Duration(seconds: timeOutSec), onTimeout: () {
+        return http.Response('Error', 408);
+      });
+      log('post request end');
+      var body;
+      if (res.statusCode == 200 || res.statusCode == 201)
+        body = json.decode(res.body);
+      else
+        logger.e(res.statusCode);
+      return ResponseModel(statusCode: res.statusCode, body: body);
+    } on Exception catch (e) {
+      logger.e(e.toString());
+      hideLoading();
+    }
+    return ResponseModel(statusCode: 404, body: null);
+  }
+
   Future<ResponseModel> newGetData(String url) async {
     var body;
     log('GET + $url');
@@ -129,7 +158,8 @@ class CallAPI {
       if (res.statusCode == 200)
         body = json.decode(res.body);
       else
-        logger.e(res.statusCode);
+        logger.f(_url + endPoint);
+      logger.e(res.statusCode);
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
       logger.e(e.toString());
@@ -161,7 +191,9 @@ class CallAPI {
       if (res.statusCode == 200) {
         body = json.decode(res.body);
       } else
-        logger.e(res.statusCode);
+        logger.f(_get_host + _get_middle_point + endPoint);
+      logger.f(params);
+      logger.e(res.statusCode);
 
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
@@ -196,7 +228,8 @@ class CallAPI {
       if (res.statusCode == 200)
         body = json.decode(res.body);
       else
-        logger.e(res.statusCode);
+        logger.f(_url + endPoint);
+      logger.e(res.statusCode);
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {
       logger.e(e.toString());
@@ -227,7 +260,8 @@ class CallAPI {
       if (res.statusCode == 200) {
         body = json.decode(res.body);
       } else
-        logger.e(res.statusCode);
+        logger.f(_url + endPoint);
+      logger.e(res.statusCode);
 
       return ResponseModel(statusCode: res.statusCode, body: body);
     } on Exception catch (e) {

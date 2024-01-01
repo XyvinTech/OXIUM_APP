@@ -165,7 +165,7 @@ class PersonalVechileDetailsPage extends GetView<VehiclesScreenController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomSmallText(
-                          text: controller.selectedVehicle.value.vehicleDetails,
+                          text: controller.selectedVehicle.value.brand,
                           color: Color(0xff828282),
                         ),
                         CustomBigText(

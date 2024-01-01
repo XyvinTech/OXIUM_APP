@@ -232,7 +232,7 @@ class VehicleSearchScreen extends GetView<VehiclesScreenController> {
                                               CustomSmallText(
                                                 text: controller
                                                     .vehicle_list[index]
-                                                    .vehicleDetails,
+                                                    .brand,
                                                 color: Color(0xff828282),
                                               ),
                                               CustomBigText(

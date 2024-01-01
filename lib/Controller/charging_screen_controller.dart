@@ -14,10 +14,10 @@ import '../Utils/utils.dart';
 class ChargingScreenController extends GetxController {
   // connected finished completed disconnected progress
   RxString chargingStatus = "".obs;
-  String stationId = '';
+  // String stationId = '';
   String chargerName = '';
   String chargingPoint = '';
-  String bookingVia = '';
+  // String bookingVia = '';
   Timer? _timer;
   Rx<ChargingStatusModel> status_model = kChargingStatusModel.obs;
   Rx<BookingModel> booking_model = kBookingModel.obs;
@@ -35,10 +35,10 @@ class ChargingScreenController extends GetxController {
     kLog(qr_or_app_data);
     kLog(Get.arguments.toString());
     List<String> seperator = qr_or_app_data.split('-');
-    stationId = seperator[0];
+    // stationId = seperator[0];
     chargerName = seperator[1];
     chargingPoint = seperator[2];
-    bookingVia = seperator[3];
+    // bookingVia = seperator[3];
     if (booking_model.value.status == 'R' ||
         booking_model.value.status == 'U') {
       getChargingStatus(booking_model.value.bookingId);
@@ -72,15 +72,15 @@ class ChargingScreenController extends GetxController {
 
     ChargingStatusModel res =
         await CommonFunctions().getChargingStatus(bookingId.toString());
-    if (res.Connector != -1) {
+    if (res.connector != -1) {
       rest_api_status_model = status_model.value = res;
     }
     res = kChargingStatusModel;
     //Try untill the transaction table updated by charger.
     while (status_model.value.tran_id == -1 &&
-        status_model.value.Connector != -1) {
+        status_model.value.connector != -1) {
       res = await CommonFunctions().getChargingStatus(bookingId.toString());
-      if (res.Connector != -1) status_model.value = res;
+      if (res.connector != -1) status_model.value = res;
       res = kChargingStatusModel;
       await Future.delayed(Duration(seconds: 10));
     }
@@ -88,14 +88,14 @@ class ChargingScreenController extends GetxController {
     showLowBalanceOnlyOnce = true;
     _repeatCall();
 
-    status_model.value.Capacity = booking_model.value.capacity == 0
-        ? rest_api_status_model.Capacity
+    status_model.value.capacity = booking_model.value.capacity == 0
+        ? rest_api_status_model.capacity
         : booking_model.value.capacity;
-    status_model.value.OutputType = booking_model.value.outputType.isEmpty
-        ? rest_api_status_model.OutputType
+    status_model.value.outputType = booking_model.value.outputType.isEmpty
+        ? rest_api_status_model.outputType
         : booking_model.value.outputType;
-    status_model.value.ConnectorType = booking_model.value.connectorType.isEmpty
-        ? rest_api_status_model.ConnectorType
+    status_model.value.connectorType = booking_model.value.connectorType.isEmpty
+        ? rest_api_status_model.connectorType
         : booking_model.value.connectorType;
     status_model.value.amount =
         (booking_model.value.tariff) * status_model.value.unit;
@@ -121,15 +121,15 @@ class ChargingScreenController extends GetxController {
 
           appData.userModel.value.balanceAmount = status_model.value.balance;
 
-          status_model.value.Capacity = booking_model.value.capacity == 0
-              ? rest_api_status_model.Capacity
+          status_model.value.capacity = booking_model.value.capacity == 0
+              ? rest_api_status_model.capacity
               : booking_model.value.capacity;
-          status_model.value.OutputType = booking_model.value.outputType.isEmpty
-              ? rest_api_status_model.OutputType
+          status_model.value.outputType = booking_model.value.outputType.isEmpty
+              ? rest_api_status_model.outputType
               : booking_model.value.outputType;
-          status_model.value.ConnectorType =
+          status_model.value.connectorType =
               booking_model.value.connectorType.isEmpty
-                  ? rest_api_status_model.ConnectorType
+                  ? rest_api_status_model.connectorType
                   : booking_model.value.connectorType;
 
           status_model.value.amount =
@@ -146,7 +146,7 @@ class ChargingScreenController extends GetxController {
               kLog('getting status from loop');
               var res = await CommonFunctions()
                   .getChargingStatus(bookingId.toString());
-              if (res.Connector != -1) status_model.value = res;
+              if (res.connector != -1) status_model.value = res;
               _repeatCall();
               if (status_model.value.status != 'R' &&
                   status_model.value.status != 'I') _timer?.cancel();
@@ -174,7 +174,7 @@ class ChargingScreenController extends GetxController {
             startTime: booking_model.value.start_time,
             endtime: DateTime.now().toIso8601String());
         NotificationService()
-            .createLocalNotification(100, status_model.value.SOC, 1);
+            .createLocalNotification(100, status_model.value.soc, 1);
       }
     } else if (status_model.value.status == 'C') {
       // toCompleted();

@@ -24,11 +24,11 @@ class ReviewPageController extends GetxController {
     // if (id != -1) getReview(id);
   }
 
-  getReview(int stationId) async {
+  getReview(String stationId) async {
     showLoading(kLoading);
     var res = await CommonFunctions().getReviewOfStation(stationId.toString());
     hideLoading();
-    totalElements.value = res[0];
-    modelList.value = res[1];
+    totalElements.value = res.length;
+    modelList.value = res;
   }
 }

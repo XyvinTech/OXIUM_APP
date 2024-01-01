@@ -153,7 +153,7 @@ class HomePageController extends GetxController {
       distance = (MapFunctions.distanceBetweenCoordinates(
                   MapFunctions().curPos.latitude,
                   MapFunctions().curPos.longitude,
-                  e.lattitude,
+                  e.latitude,
                   e.longitude) /
               1000.0)
           .toPrecision(2);
@@ -203,7 +203,7 @@ class HomePageController extends GetxController {
                                   children: [
                                     Expanded(
                                       child: CustomText(
-                                          text: e.locationName,
+                                          text: e.name,
                                           overflow: TextOverflow.ellipsis,
                                           color: Color(0xff4F4F4F),
                                           fontWeight: FontWeight.bold),
@@ -216,14 +216,14 @@ class HomePageController extends GetxController {
                                     color: Color(0xff828282),
                                     fontWeight: FontWeight.normal,
                                     size: 12),
-                                if (amenities.isNotEmpty &&
-                                    amenities[0].isNotEmpty) ...[
+                                 ...[
                                   height(8.h),
                                   Container(
                                     width: double.infinity,
                                     child: Row(
                                       children: [
-                                        Row(
+                                      if (amenities.isNotEmpty &&
+                                    amenities[0].isNotEmpty)  Row(
                                             children: amenities
                                                 .map(
                                                   (e) => Padding(
@@ -380,7 +380,7 @@ class HomePageController extends GetxController {
       }
       kLog(_bookingModel.toJson());
       appData.qr =
-          '${0}-${_bookingModel.chargerName}-${_bookingModel.chargingpoint}-${_bookingModel.bookedvia}';
+          '${0}-${_bookingModel.chargerName}-${_bookingModel.chargingpoint}-Q';
       Get.toNamed(Routes.chargingPageRoute,
           arguments: [appData.qr, _bookingModel]);
     } else {

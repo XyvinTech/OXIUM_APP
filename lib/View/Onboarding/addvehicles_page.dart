@@ -353,7 +353,7 @@ class AddVehiclesPage extends GetView<VehiclesScreenController> {
                                                       text: controller
                                                           .selectedVehicleList[
                                                               index]
-                                                          .vehicleDetails,
+                                                          .brand,
                                                       color: Color(0xff828282),
                                                     ),
                                                     CustomBigText(

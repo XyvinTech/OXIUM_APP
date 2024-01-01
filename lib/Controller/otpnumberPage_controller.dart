@@ -64,7 +64,8 @@ class OtpNumberPageController extends GetxController {
       await saveString('username', appData.userModel.value.username);
       appData.userModel.value = await CommonFunctions().getUserProfile();
 
-      kLog(appData.userModel.value.username);
+      kLog(appData.userModel.value.name);
+      kLog(appData.userModel.value.email);
       if (appData.userModel.value.name.isEmpty ||
           appData.userModel.value.email.isEmpty) {
         Get.offAllNamed(Routes.addNameEmailPageRoute);

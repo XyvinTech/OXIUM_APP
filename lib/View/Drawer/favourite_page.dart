@@ -64,7 +64,7 @@ class FavouriteScreen extends GetView<FavouritePageController> {
                         FavoriteModel model = controller.model_list[index];
                         String distance =
                             (MapFunctions.distanceBetweenCoordinates(
-                                        model.lattitude,
+                                        model.latitude,
                                         model.longitude,
                                         MapFunctions().curPos.latitude,
                                         MapFunctions().curPos.longitude) /
@@ -81,68 +81,78 @@ class FavouriteScreen extends GetView<FavouritePageController> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Container(
-                                        height: 97.h,
-                                        width: 97.w,
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image:
-                                                    CachedNetworkImageProvider(
-                                                        model.image))),
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Container(
+                                          height: 97.h,
+                                          width: 97.w,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image:
+                                                      CachedNetworkImageProvider(
+                                                          model.image))),
+                                        ),
                                       ),
-                                    ),
-                                    width(20.w),
-                                    Padding(
-                                      padding: EdgeInsets.only(bottom: 12.h),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: size.height * .023,
-                                            width: size.width * .12,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: Color(0xffFFE1C7)),
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.star,
-                                                    color: Color(0xffF2994A),
-                                                    size: 15.sp,
-                                                  ),
-                                                  CustomText(
-                                                      text: double.parse(
-                                                              model.rating)
-                                                          .toStringAsFixed(2),
-                                                      size: 12,
-                                                      color: Color(0xffF2994A)),
-                                                ]),
+                                      width(20.w),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsets.only(bottom: 12.h),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                height: size.height * .023,
+                                                width: size.width * .12,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    color: Color(0xffFFE1C7)),
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.star,
+                                                        color:
+                                                            Color(0xffF2994A),
+                                                        size: 15.sp,
+                                                      ),
+                                                      CustomText(
+                                                          text: double.parse(
+                                                                  model.rating)
+                                                              .toStringAsFixed(
+                                                                  2),
+                                                          size: 12,
+                                                          color: Color(
+                                                              0xffF2994A)),
+                                                    ]),
+                                              ),
+                                              height(10.h),
+                                              CustomText(
+                                                  text: model.name,
+                                                  color: Color(0xff4F4F4F),
+                                                  fontWeight: FontWeight.bold),
+                                              CustomSmallText(
+                                                text: "$distance km Away",
+                                                size: 13,
+                                              )
+                                            ],
                                           ),
-                                          height(10.h),
-                                          CustomText(
-                                              text: model.name,
-                                              color: Color(0xff4F4F4F),
-                                              fontWeight: FontWeight.bold),
-                                          CustomSmallText(
-                                            text: "$distance km Away",
-                                            size: 13,
-                                          )
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 width(size.width * .035),
                                 InkWell(

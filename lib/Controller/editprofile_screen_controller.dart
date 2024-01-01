@@ -36,8 +36,13 @@ class EditProfileScreenController extends GetxController {
 
   updateUserProfile() async {
     showLoading('Updating profile...');
-    bool res = await CommonFunctions().putUserProfile(nameController.text,
-        emailController.text, '+' + country.value + phnNumberController.text);
+    bool res = await CommonFunctions().putUserProfile(
+      nameController.text,
+      emailController.text,
+      //withcountry code
+      // '+' + country.value + phnNumberController.text,
+      phnNumberController.text,
+    );
     hideLoading();
     if (res) {
       //showSuccess('Successfully updated profile!');

@@ -1,36 +1,33 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:freelancer_app/Controller/homepage_controller.dart';
-import 'package:freelancer_app/Controller/notification_screen_controller.dart';
-import 'package:freelancer_app/Controller/rfid_page_controller.dart';
-import 'package:freelancer_app/Controller/walletPage_controller.dart';
-import 'package:freelancer_app/Model/apiResponseModel.dart';
-import 'package:freelancer_app/Model/bookingModel.dart';
-import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
-import 'package:freelancer_app/Model/chargingStatusModel.dart';
-import 'package:freelancer_app/Model/orderModel.dart';
-import 'package:freelancer_app/Model/reviewMode.dart';
-import 'package:freelancer_app/Model/searchStationModel.dart';
-import 'package:freelancer_app/Model/stationMarkerModel.dart';
-import 'package:freelancer_app/Model/userModel.dart';
-import 'package:freelancer_app/Model/vehicleModel.dart';
-import 'package:freelancer_app/Singletones/app_data.dart';
-import 'package:freelancer_app/Singletones/socketRepo.dart';
-import 'package:freelancer_app/Utils/SharedPreferenceUtils.dart';
-import 'package:freelancer_app/Utils/api.dart';
-import 'package:freelancer_app/Utils/routes.dart';
-import 'package:freelancer_app/constants.dart';
-import 'package:geolocator/geolocator.dart';
+import 'dialogs.dart';
 import 'package:get/get.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:uuid/uuid.dart';
-
-import '../Model/RFIDModel.dart';
-import '../Model/chargeTransactionModel.dart';
+import '../Utils/toastUtils.dart';
 import '../Model/favoriteModel.dart';
 import '../Model/notificationModel.dart';
-import '../Utils/toastUtils.dart';
-import 'dialogs.dart';
+import 'package:geolocator/geolocator.dart';
+import '../Model/chargeTransactionModel.dart';
+import 'package:freelancer_app/Utils/api.dart';
+import 'package:freelancer_app/constants.dart';
+import 'package:freelancer_app/Utils/routes.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:freelancer_app/Model/userModel.dart';
+import 'package:freelancer_app/Model/orderModel.dart';
+import 'package:freelancer_app/Model/reviewMode.dart';
+import 'package:freelancer_app/Model/bookingModel.dart';
+import 'package:freelancer_app/Model/vehicleModel.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:freelancer_app/Singletones/app_data.dart';
+import 'package:freelancer_app/Model/apiResponseModel.dart';
+import 'package:freelancer_app/Singletones/socketRepo.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:freelancer_app/Model/searchStationModel.dart';
+import 'package:freelancer_app/Model/stationMarkerModel.dart';
+import 'package:freelancer_app/Model/chargingStatusModel.dart';
+import 'package:freelancer_app/Utils/SharedPreferenceUtils.dart';
+import 'package:freelancer_app/Controller/homepage_controller.dart';
+import 'package:freelancer_app/Model/chargeStationDetailsModel.dart';
+import 'package:freelancer_app/Controller/walletPage_controller.dart';
+import 'package:freelancer_app/Controller/notification_screen_controller.dart';
 
 class CommonFunctions {
   //make it singleTone class
@@ -41,9 +38,14 @@ class CommonFunctions {
   CommonFunctions._internal();
   //code starts from here
 
-  String base_Url = 'https://dlupfxb3p6.execute-api.ap-south-1.amazonaws.com/';
+  String base_Url =
+      'https://dlupfxb3p6.execute-api.ap-south-1.amazonaws.com/api/v1/';
   String user_Url =
-      'http://alb-762634556.ap-south-1.elb.amazonaws.com:5688/api/v1/';
+      'http://alb-762634556.ap-south-1.elb.amazonaws.com:5688/api/v1/users/';
+  String station_url =
+      'http://alb-762634556.ap-south-1.elb.amazonaws.com:5100/api/v1/chargingStations/';
+  String review_url =
+      'http://alb-762634556.ap-south-1.elb.amazonaws.com:5685/api/v1/review/';
 
   final _razorpay = Razorpay();
   var _getOrderResponse;
@@ -56,10 +58,10 @@ class CommonFunctions {
     kLog(response.signature.toString());
     //SAVE THE PAYEMENT TO CMS
     await savePaymentRazorpay(response);
-    if (Get.currentRoute == Routes.rfidNumberRoute) {
-      RfidPageController controller = Get.find();
-      controller.getUserRFIDs();
-    }
+    // if (Get.currentRoute == Routes.rfidNumberRoute) {
+    //   RfidPageController controller = Get.find();
+    //   controller.getUserRFIDs();
+    // }
     await CommonFunctions().getUserProfile();
     WalletPageController _walletPageController = Get.find();
     await _walletPageController.getWalletTransactions();
@@ -110,6 +112,7 @@ class CommonFunctions {
     _razorpay.clear();
   }
 
+//TODO
   Future<String> getOrderIdRazorpay(int amount) async {
     String payment_id = Uuid().v4().substring(0, 20);
     var res = await CallAPI().postData(
@@ -171,24 +174,24 @@ class CommonFunctions {
   }
 
   //////ADD VEHICLE APIS/////////////////////////////////////////////////////////////////
-  ///
+///////////////////////////////DONE////////////////////////////////
   Future<Map<String, dynamic>> getEvTemplates() async {
-    ResponseModel res = await CallAPI().getData('evtemplates', {});
-    if (res.statusCode == 200 && res.body['success']) {
-      Map list = res.body['result']['vehicleDetails'] ?? {};
+    ResponseModel res = await CallAPI().newGetData(base_Url + 'vehicle/list');
+    if (res.statusCode == 200 && res.body['status']) {
+      List list = res.body['result'] ?? [];
       Map<String, dynamic> response = {};
       List<VehicleModel> brandVehicles = [];
       List<String> brands = [kAll];
       VehicleModel ev;
-      list.forEach((key, val) {
+      list.forEach((element) {
         brandVehicles = [];
-        brands.add(key);
-        val.forEach((element) {
-          ev = VehicleModel.fromjson(element);
-          ev.vehicleDetails = key;
+        brands.add(element['brand']);
+        element['vehicles'].forEach((vehicleElement) {
+          ev = VehicleModel.fromjson(vehicleElement);
+          ev.brand = element['brand'];
           brandVehicles.add(ev);
         });
-        response[key] = brandVehicles;
+        response[element['brand']] = brandVehicles;
       });
       response['brands'] = brands;
       return response;
@@ -199,55 +202,43 @@ class CommonFunctions {
     }
   }
 
+///////////////////////////////DONE////////////////////////////////
   Future<bool> addEvToUser({
-    required String userName,
-    required VehicleModel ev,
+    required String vehicleId,
     required String regNumber,
-    bool isDefault = false,
   }) async {
-    ResponseModel res = await CallAPI().postData({
-      "username": userName,
-      "make": ev.vehicleDetails,
-      "model": ev.modelName,
-      "year": ev.year,
+    ResponseModel res = await CallAPI().newPutData({
       "evRegNumber": regNumber,
-      if (isDefault) "userEVId": ev.id,
-      if (isDefault) "defaultVehicle": 'Y',
-    }, 'ev');
-    kLog(ev.id.toString());
-    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
+      "vehicleId": vehicleId,
+    }, user_Url + 'addVehicle/' + appData.userModel.value.id);
     kLog(res.body.toString());
-    return (res.statusCode == 200 && res.body['success']);
+    return (res.statusCode == 200 && res.body['status']);
   }
 
-  // Future<bool> setDefaultVehicle({
-  //   required String userName,
-  //   required String regNumber,
-  //   bool isDefault = false,
-  // }) async {
-  //   ResponseModel res = await CallAPI().putData({
-  //     "username": userName,
-  //     "evRegNumber": regNumber,
-  //     "defaultVehicle": isDefault ? 'Y' : 'N',
-  //   }, 'ev');
-  //   //kLog(res.statusCode.toString())usCode.toString());
-  //   kLog(res.body.toString());
-  //   return (res.statusCode == 200 && res.body['success']);
-  // }
-
-  Future<bool> deleteEvOfUser(VehicleModel ev) async {
-    ResponseModel res = await CallAPI().deleteData({"userEVId": ev.id}, 'ev');
-    return (res.statusCode == 200 && res.body['success']);
+///////////////////////////////DONE////////////////////////////////
+  Future<bool> setDefaultVehicle({required String regNumber}) async {
+    ResponseModel res = await CallAPI().newPutData({
+      "vehicleId": regNumber,
+    }, user_Url + 'updateDefaultVehicle/' + appData.userModel.value.id);
+    kLog(res.body.toString());
+    return (res.statusCode == 200 && res.body['status']);
   }
 
+//? ///////////////////not implemented
+  Future<bool> deleteEvOfUser(String regNumber) async {
+    ResponseModel res = await CallAPI().newPutData(
+      {"evRegNumber": regNumber},
+      user_Url + 'removeVehicle/' + appData.userModel.value.id,
+    );
+    return (res.statusCode == 200 && res.body['status']);
+  }
+
+///////////////////////////////DONE////////////////////////////////
   Future<List<VehicleModel>> getUserEvs() async {
-    var res = await CallAPI().getData('userevs', {
-      "username": appData.userModel.value.username,
-    });
+    var res = await CallAPI()
+        .newGetData(user_Url + 'vehicleList/' + appData.userModel.value.id);
     kLog(res.body.toString());
-    if (res.statusCode == 200 &&
-        res.body['success'] != null &&
-        res.body['success']) {
+    if (res.statusCode == 200 && res.body['status']) {
       List<VehicleModel> list = [];
       res.body['result'].forEach((element) {
         list.add(VehicleModel.fromjson(element));
@@ -259,9 +250,10 @@ class CommonFunctions {
     }
   }
 
+///////////////////////////////DONE////////////////////////////////
   Future<UserModel> getUserProfile() async {
     var res = await CallAPI().newGetData(
-        user_Url + 'users/user/' + appData.userModel.value.username);
+        user_Url + 'user/byMobileNo/' + appData.userModel.value.username);
     // //kLog(res.statusCode.toString())usCode.toString());
     if (res.statusCode == 200 && res.body['result'] != null) {
       kLog(res.body.toString());
@@ -294,15 +286,15 @@ class CommonFunctions {
   //   }
   // }
 
+  ///////////////////////////////DONE////////////////////////////////
   Future<bool> putUserNameEmail(String name, String email) async {
     kLog('username' + appData.userModel.value.username);
-    var res = await CallAPI().putData({
-      "username": appData.userModel.value.username,
-      "name": name,
+    var res = await CallAPI().newPutData({
+      "username": name,
       "email": email,
-    }, 'appuser');
+    }, user_Url + 'update/byMobileNo/' + appData.userModel.value.username);
     // //kLog(res.statusCode.toString())usCode.toString());
-    if (res.statusCode == 200 && res.body['success']) {
+    if (res.statusCode == 200 && res.body['status']) {
       return true;
     } else {
       showError('Failed to save name and email.');
@@ -310,6 +302,22 @@ class CommonFunctions {
     }
   }
 
+  ///////////////////////////////DONE////////////////////////////////
+  Future<bool> putUserProfile(String name, String email, String phone) async {
+    var res = await CallAPI().newPutData({
+      "username": name,
+      "email": email,
+      "mobile": phone,
+    }, user_Url + 'update/byMobileNo/' + appData.userModel.value.username);
+    if (res.statusCode == 200 && res.body['status']) {
+      return true;
+    } else {
+      showError('Failed to save name and email.');
+      return false;
+    }
+  }
+
+//TODO
   Future<bool> putProfileImage(String fileData) async {
     kLog('put profile image');
     var res = await CallAPI().putData({
@@ -324,21 +332,7 @@ class CommonFunctions {
     }
   }
 
-  Future<bool> putUserProfile(String name, String email, String phone) async {
-    var res = await CallAPI().putData({
-      "username": appData.userModel.value.username,
-      "name": name,
-      "email": email,
-      "phone": phone,
-    }, 'appuser');
-    if (res.statusCode == 200 && res.body['success']) {
-      return true;
-    } else {
-      showError('Failed to save name and email.');
-      return false;
-    }
-  }
-
+//TODO
   Future<bool> deleteUser() async {
     var res = await CallAPI()
         .deleteData({}, 'appuser/id=${appData.userModel.value.id}');
@@ -352,6 +346,7 @@ class CommonFunctions {
     }
   }
 
+//TODO
   Future<int> getRFIDPrice() async {
     var res = await CallAPI().getData('rfidprice', {
       "username": appData.userModel.value.username,
@@ -364,24 +359,24 @@ class CommonFunctions {
     }
   }
 
-  Future<List<RFIDModel>> getUserRFIDs() async {
-    var res = await CallAPI().getData('rfidbyusername', {
-      "user": appData.userModel.value.username,
-    });
-    // //kLog(res.statusCode.toString())usCode.toString());
-    kLog(res.body.toString());
-    if (res.statusCode == 200 &&
-        res.body['success'] &&
-        res.body['result'] != null) {
-      List<RFIDModel> list = [];
-      res.body['result'].forEach((element) {
-        list.add(RFIDModel.fromJson(element));
-      });
-      return list;
-    } else {
-      return [];
-    }
-  }
+  // Future<List<RFIDModel>> getUserRFIDs() async {
+  //   var res = await CallAPI().getData('rfidbyusername', {
+  //     "user": appData.userModel.value.username,
+  //   });
+  //   // //kLog(res.statusCode.toString())usCode.toString());
+  //   kLog(res.body.toString());
+  //   if (res.statusCode == 200 &&
+  //       res.body['success'] &&
+  //       res.body['result'] != null) {
+  //     List<RFIDModel> list = [];
+  //     res.body['result'].forEach((element) {
+  //       list.add(RFIDModel.fromJson(element));
+  //     });
+  //     return list;
+  //   } else {
+  //     return [];
+  //   }
+  // }
 
   Future<List<VehicleModel>> getSearchedVehicles(String make) async {
     var res = await CallAPI().getData('evtemplate', {
@@ -399,14 +394,14 @@ class CommonFunctions {
     }
   }
 
+  ///////////////////////////////DONE////////////////////////////////
   Future<List<StationMarkerModel>> getNearestChargstations(Position pos) async {
-    var res = await CallAPI().getData('nearbystations', {
+    var res = await CallAPI().newPostData({
       "lattitude": "${pos.latitude}",
       "longitude": "${pos.longitude}",
-    });
-    // //kLog(res.statusCode.toString())usCode.toString());
-    // kLog(res.body.toString());
-    if (res.statusCode == 200 && res.body['success']) {
+    }, station_url + 'nearBy/list');
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['status']) {
       List<StationMarkerModel> list = [];
       res.body['result'].forEach((element) {
         list.add(StationMarkerModel.fromJson(element));
@@ -417,14 +412,14 @@ class CommonFunctions {
     }
   }
 
+  ///////////////////////////////DONE////////////////////////////////
   Future<ChargeStationDetailsModel> getChargeStationDetails(String id) async {
     kLog(id);
-    var res = await CallAPI().getData('chargersbystation', {
-      "stationId": "$id",
-      "username": appData.userModel.value.username,
-    });
+    var res = await CallAPI().newPostData({
+      "mobileNo": appData.userModel.value.username,
+    }, station_url + id);
     // //kLog(res.statusCode.toString())usCode.toString());
-    if (res.statusCode == 200 && res.body['success']) {
+    if (res.statusCode == 200 && res.body['status']) {
       return ChargeStationDetailsModel.fromJson(res.body['result']);
     } else {
       return kChargeStationDetailsModel;
@@ -449,25 +444,41 @@ class CommonFunctions {
     }
   }
 
-  Future<bool> postReviewForChargeStation(int id, int rating, String review,
+///////////////////////////////DONE////////////////////////////////
+  Future<bool> postReviewForChargeStation(String id, int rating, String review,
       {String? chargerName}) async {
-    kLog(chargerName ?? 'null');
-    var res = await CallAPI().postData(
+    var res = await CallAPI().newPostData(
       {
-        "stationId": id,
-        if (chargerName != null) 'chargerName': chargerName,
-        "rating": rating,
-        "review": review.trim(),
-        'name': appData.userModel.value.username,
+        "user": appData.userModel.value.id,
+        "chargingStation": id,
+        "rating": "$rating",
+        "comment": review.trim(),
+        if (chargerName != null) 'evMachine': chargerName,
       },
-      'review',
+      review_url + 'create',
     );
-    // //kLog(res.statusCode.toString())usCode.toString());
-    kLog(res.body.toString());
-    if (res.statusCode == 200 && res.body['success']) {
+    if ((res.statusCode == 200 || res.statusCode == 201) &&
+        res.body['status']) {
       return true;
     } else {
       return false;
+    }
+  }
+
+  ///////////////////////////////DONE////////////////////////////////
+  Future<List<ReviewModel>> getReviewOfStation(String stationId) async {
+    logger.d(stationId);
+    var res = await CallAPI().newPostData({
+      'chargingStation': stationId,
+    }, review_url + 'getReviews');
+    if (res.statusCode == 200 && res.body['status']) {
+      List<ReviewModel> list = [];
+      res.body['result'].forEach((element) {
+        list.add(ReviewModel.fromJson(element));
+      });
+      return list;
+    } else {
+      return [];
     }
   }
 
@@ -491,10 +502,10 @@ class CommonFunctions {
   //     kLog(e.code);
   //   }
   // }
-
+///////////////////////////////DONE////////////////////////////////
   Future<bool> login(String username) async {
     var res = await CallAPI().newGetData(
-      user_Url + 'users/sendOtp/' + username.trim(),
+      user_Url + 'sendOtp/' + username.trim(),
     );
     // //kLog(res.statusCode.toString())usCode.toString());
     kLog(res.body.toString());
@@ -506,10 +517,11 @@ class CommonFunctions {
     }
   }
 
+///////////////////////////////DONE////////////////////////////////
   Future<ResponseModel> verifyOTP(String username, String otp) async {
     var res = await CallAPI().newPutData(
       {"otp": otp},
-      user_Url + 'users/login/' + username.replaceAll(' ', ''),
+      user_Url + 'login/' + username.replaceAll(' ', ''),
     );
     kLog(res.body.toString());
     if (res.statusCode == 200 && res.body['status']) {
@@ -540,7 +552,8 @@ class CommonFunctions {
   //   }
   // }
 
-  //CHARGING API's
+  ////////////! HACK CHARGING API's //////////////////////
+  ///ontap
   Future createBookingAndCheck(String qr) async {
     HomePageController _controller = Get.find();
     showLoading('Checking existing active session...');
@@ -559,6 +572,7 @@ class CommonFunctions {
     }
   }
 
+  ///ontap
   Future<BookingModel> createBooking({required String qr}) async {
     List<String> seperator = qr.split('-');
     var res = await CallAPI().postData(
@@ -593,6 +607,7 @@ class CommonFunctions {
     }
   }
 
+  ///ontap
   Future<bool> cancelBooking(int bookingId) async {
     var res = await CallAPI()
         .getData('changebookingstatus', {"bookingId": "$bookingId"});
@@ -686,52 +701,9 @@ class CommonFunctions {
     }
   }
 
-  Future<bool> changeFavorite({
-    required int stationId,
-    required bool makeFavorite,
-  }) async {
-    var res;
-    if (makeFavorite) {
-      res = await CallAPI().postData(
-        {},
-        'favorites/$stationId',
-      );
-    } else {
-      res = await CallAPI().deleteData(
-        {},
-        'favorites/$stationId',
-      );
-    }
+  ////////////! HACK CHARGING API's //////////////////////
 
-    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
-    kLog(res.body.toString());
-    if (res.statusCode == 200 && res.body['success']) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  Future<List> getReviewOfStation(String stationId) async {
-    var res = await CallAPI().getData('review-data', {
-      'stationId': stationId,
-      'page': '0',
-      'size': '10',
-      'minRating': '1',
-      'maxRating': '5',
-    });
-    ////kLog(res.statusCode.toString())usCode.toString())usCode.toString());
-    if (res.statusCode == 200 && res.body['success']) {
-      List<ReviewModel> list = [];
-      res.body['result']['content'].forEach((element) {
-        list.add(ReviewModel.fromJson(element));
-      });
-      return [res.body['result']['totalElements'], list];
-    } else {
-      return [0, []];
-    }
-  }
-
+//TODO
   Future<List<OrderModel>> getWalletTransactions(String page, String size,
       String startdate, String enddate, String mode, String status) async {
     var res = await CallAPI().getData('paymentDetails', {
@@ -756,6 +728,7 @@ class CommonFunctions {
     }
   }
 
+  //TODO
   Future<List<NotificationModel>> getNotifications(
       String page, String size) async {
     var res = await CallAPI().getData('notifications', {
@@ -777,6 +750,7 @@ class CommonFunctions {
     }
   }
 
+//TODO
   Future<List<ChargeTransactionModel>> getChargeTransactions(
       String page, String size, String startdate, String enddate) async {
     var res = await CallAPI().getData('bookinglist', {
@@ -810,12 +784,13 @@ class CommonFunctions {
         .download('walletinvoice?tranId=$tranId', 'wallet_invoice_$tranId');
   }
 
+///////////////////////////////DONE////////////////////////////////
   Future<List<FavoriteModel>> getFavorites() async {
-    var res = await CallAPI().getData('favoritestations', {
-      'username': appData.userModel.value.username,
-    });
+    var res = await CallAPI().newPostData({
+      'mobileNo': appData.userModel.value.username,
+    }, station_url + 'favorite/list');
     kLog(res.body.toString());
-    if (res.statusCode == 200 && res.body.isNotEmpty && res.body['success']) {
+    if (res.statusCode == 200 && res.body.isNotEmpty && res.body['status']) {
       List<FavoriteModel> list = [];
       res.body['result'].forEach((element) {
         list.add(FavoriteModel.fromJson(element));
@@ -823,6 +798,36 @@ class CommonFunctions {
       return list;
     } else {
       return [];
+    }
+  }
+
+///////////////////////////////DONE////////////////////////////////
+  Future<bool> changeFavorite({
+    required String stationId,
+    required bool makeFavorite,
+  }) async {
+    logger.f(appData.userModel.value.id);
+    var res;
+    if (makeFavorite) {
+      res = await CallAPI().newPutData(
+        {
+          "favoriteStation": stationId,
+        },
+        user_Url + 'addFavoriteStation/' + appData.userModel.value.id,
+      );
+    } else {
+      res = await CallAPI().newPutData(
+        {
+          "favoriteStation": stationId,
+        },
+        user_Url + 'removeFavoriteStation/' + appData.userModel.value.id,
+      );
+    }
+    kLog(res.body.toString());
+    if (res.statusCode == 200 && res.body['status']) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

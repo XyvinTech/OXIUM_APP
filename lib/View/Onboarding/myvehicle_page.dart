@@ -62,7 +62,7 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
                           itemCount: controller.myVehicleList.length,
                           itemBuilder: ((context, index) {
                              controller.myVehicleList
-                                .where((p0) => p0.defaultVehicle == 'Y')
+                                .where((p0) => p0.defaultVehicle )
                                 .toList();
                             // kLog(controller.myVehicleList[index].id.toString());
                             // if (def.isNotEmpty && index == 0) {
@@ -105,11 +105,11 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
         padding: EdgeInsets.all(5.w),
         margin: EdgeInsets.only(bottom: 10.h),
         decoration: BoxDecoration(
-          color: model.defaultVehicle == 'Y' ? Color(0xffEFFFF6) : kwhite,
+          color: model.defaultVehicle  ? Color(0xffEFFFF6) : kwhite,
           borderRadius: BorderRadius.circular(30),
           border: Border.all(
             width: 2,
-            color: model.defaultVehicle == 'Y'
+            color: model.defaultVehicle 
                 ? Color.fromRGBO(135, 221, 171, 0.6)
                 : Color(0xffE0E0E0),
           ),
@@ -138,7 +138,7 @@ class MyVehiclePage extends GetView<MyVehiclesScreenController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomSmallText(
-                            text: model.vehicleDetails,
+                            text: model.brand,
                             color: Color(0xff828282),
                           ),
                           CustomBigText(

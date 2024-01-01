@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:freelancer_app/Singletones/common_functions.dart';
-import 'package:freelancer_app/Utils/toastUtils.dart';
-import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-
-import '../Model/vehicleModel.dart';
-import '../Singletones/app_data.dart';
 import '../Utils/routes.dart';
+import '../Model/vehicleModel.dart';
+import 'package:flutter/material.dart';
+import 'package:freelancer_app/constants.dart';
+import 'package:freelancer_app/Utils/toastUtils.dart';
+import 'package:freelancer_app/Singletones/common_functions.dart';
 
 class VehiclesScreenController extends GetxController {
   RxInt reload = 0.obs;
@@ -74,10 +72,8 @@ class VehiclesScreenController extends GetxController {
     isLoading = true;
     showLoading('Adding vehicle...');
     bool isSuccess = await CommonFunctions().addEvToUser(
-      userName: appData.userModel.value.username,
-      ev: selectedVehicle.value,
+      vehicleId: selectedVehicle.value.id,
       regNumber: numEditingController.text,
-      isDefault: false,
     );
     hideLoading();
     if (isSuccess) {

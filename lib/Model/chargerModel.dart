@@ -1,18 +1,18 @@
 import 'evPortsModel.dart';
 
 class ChargerModel {
-  final String charger_name;
+  final String chargerName;
   final String outputType;
-  final int totalPorts;
+  // final int totalPorts;
   final String capacity;
-  final double tariff;
+  final String tariff;
   final String ocppStatus;
   final List<EvPortModel> evports;
 
   ChargerModel({
-    required this.charger_name,
+    required this.chargerName,
     required this.outputType,
-    required this.totalPorts,
+    // required this.totalPorts,
     required this.evports,
     required this.capacity,
     required this.tariff,
@@ -21,12 +21,12 @@ class ChargerModel {
 
   factory ChargerModel.fromJson(Map<String, dynamic> json) {
     return ChargerModel(
-      charger_name: json['charger_name'],
+      chargerName: json['chargerName'],
       outputType: json['outputType'] ?? '',
-      totalPorts: json['totalPorts'] ?? 0,
+      // totalPorts: json['totalPorts'] ?? 0,
       capacity: json['capacity'] ?? '',
       ocppStatus: json['ocppStatus'] ?? '',
-      tariff: json['tariff'] ?? 0,
+      tariff: json['tariff'] ?? '',
       evports: json['evports']
               .map<EvPortModel>((e) => EvPortModel.fromJson(e))
               .toList() ??
@@ -35,9 +35,9 @@ class ChargerModel {
   }
 
   Map<String, dynamic> toJson() => {
-        "charger_name": charger_name,
+        "chargerName": chargerName,
         "outputType": outputType,
-        "totalPorts": totalPorts,
+        // "totalPorts": totalPorts,
         "capacity": capacity,
         "tariff": tariff,
         "ocppStatus": ocppStatus,

@@ -89,7 +89,7 @@ class FilterScreenController extends GetxController {
     list.forEach((element) {
       MapFunctions().addMarkerHomePage(
           id: element.id.toString(),
-          latLng: LatLng(element.lattitude, element.longitude),
+          latLng: LatLng(element.latitude, element.longitude),
           isBusy: element.isBusy,
           status: element.charger_status.trim(),
           controller: _controller,

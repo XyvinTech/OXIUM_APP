@@ -3,7 +3,6 @@ import 'package:freelancer_app/Singletones/common_functions.dart';
 import 'package:freelancer_app/Utils/toastUtils.dart';
 import 'package:freelancer_app/constants.dart';
 import 'package:get/get.dart';
-
 import '../Utils/routes.dart';
 
 class FavouritePageController extends GetxController {
@@ -25,7 +24,7 @@ class FavouritePageController extends GetxController {
     Get.toNamed(Routes.calistaCafePageRoute, arguments: stationId);
   }
 
-  changeFavoriteStatus(int stationId) async {
+  changeFavoriteStatus(String stationId) async {
     showLoading(kLoading);
     bool res = await CommonFunctions()
         .changeFavorite(stationId: stationId, makeFavorite: false);

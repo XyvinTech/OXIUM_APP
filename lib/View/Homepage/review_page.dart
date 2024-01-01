@@ -4,6 +4,7 @@ import 'package:freelancer_app/Controller/review_page_controller.dart';
 import 'package:freelancer_app/Model/reviewMode.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../../Utils/routes.dart';
 import '../../Utils/toastUtils.dart';
@@ -187,8 +188,10 @@ class ReviewPage extends GetView<ReviewPageController> {
   // }
 
   Widget customerReviewCard(ReviewModel model) {
-    DateTime dateTime = DateTime.parse(model.creationDateTime);
-    String time = timeago.format(dateTime);
+    DateTime formattedDateTime =
+        DateFormat('dd-MM-yyyy hh:mma').parseLoose(model.createdAt);
+    // // DateTime dateTime = DateTime.parse(model.createdAt);
+    String time = timeago.format(formattedDateTime);
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: size.width * .04, vertical: size.height * .00),
@@ -203,6 +206,11 @@ class ReviewPage extends GetView<ReviewPageController> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.grey.shade300,
+              image: DecorationImage(
+                image: NetworkImage(
+                    'https://sternbergclinic.com.au/wp-content/uploads/2020/03/placeholder.png'),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         )),

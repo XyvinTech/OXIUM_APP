@@ -1,28 +1,28 @@
 class NotificationModel {
-  final int id;
+  // final int id;
   final String title;
   final String body;
   final String timestamp;
   final String imageUrl;
-  final bool isPromotional;
+  // final bool isPromotional;
 
   NotificationModel({
-    required this.id,
+    // required this.id,
     required this.title,
     required this.body,
     required this.timestamp,
     required this.imageUrl,
-    required this.isPromotional,
+    // required this.isPromotional,
   });
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     return NotificationModel(
-      id: json['id'],
+      // id: json['id'],
       title: json['title'] ?? '',
       body: json['body'] ?? '',
       timestamp: json['ts'] ?? '',
       imageUrl: json['imageUrl'] ?? '',
-      isPromotional: json['isPromotional'] ?? false,
+      // isPromotional: json['isPromotional'] ?? false,
     );
   }
 
@@ -31,7 +31,7 @@ class NotificationModel {
         "title": title,
         "imageUrl": imageUrl,
         "ts": timestamp,
-        "isPromotional": isPromotional,
-        "id": id
+        // "isPromotional": isPromotional,
+        // "id": id
       };
 }

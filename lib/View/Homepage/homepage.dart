@@ -112,14 +112,14 @@ showBottomSheetWhenClickedOnMarker(
   distance = (MapFunctions.distanceBetweenCoordinates(
               MapFunctions().curPos.latitude,
               MapFunctions().curPos.longitude,
-              model.lattitude,
+              model.latitude,
               model.longitude) /
           1000.0)
       .toPrecision(2);
   List<String> amenities = model.amenities.split(',');
   bool available = false;
   List res = [];
-  model.Chargers.forEach((element) {
+  model.chargers.forEach((element) {
     res = calculateAvailabiliy(
         element.evports, element.ocppStatus == 'Connected');
     kLog(res.toString());
@@ -133,7 +133,7 @@ showBottomSheetWhenClickedOnMarker(
       canPop: false,
       onPopInvoked: (didPop) async {
         // calcontroller.dispose();
-        return ;
+        return;
       },
       child: Stack(
         children: [
@@ -216,10 +216,7 @@ showBottomSheetWhenClickedOnMarker(
                                       size: 15,
                                     ),
                                     CustomText(
-                                        text: model.rating.isEmpty
-                                            ? '0'
-                                            : double.parse(model.rating)
-                                                .toStringAsFixed(2),
+                                        text: model.rating.toStringAsFixed(2),
                                         size: 12,
                                         color: Color(0xffF2994A)),
                                   ]),
@@ -317,7 +314,6 @@ showBottomSheetWhenClickedOnMarker(
                       ),
                       Row(
                         children: [
-                         
                           InkWell(
                             onTap: () async {
                               showLoading(kLoading);
@@ -353,8 +349,6 @@ showBottomSheetWhenClickedOnMarker(
                   ),
                 )
               ]),
-           
-           
             ),
           ),
         ],
