@@ -67,6 +67,7 @@ class ChargingScreenController extends GetxController {
     } else if (isStart) toDisconnected();
   }
 
+  ///ChargingStatus
   Future getChargingStatus(int bookingId) async {
     // _timer = Timer.periodic(Duration(seconds: 7), (timer) async {
 
@@ -76,7 +77,8 @@ class ChargingScreenController extends GetxController {
       rest_api_status_model = status_model.value = res;
     }
     res = kChargingStatusModel;
-    //Try untill the transaction table updated by charger.
+
+    //? Try untill the transaction table updated by charger.
     while (status_model.value.tran_id == -1 &&
         status_model.value.connector != -1) {
       res = await CommonFunctions().getChargingStatus(bookingId.toString());
@@ -84,6 +86,7 @@ class ChargingScreenController extends GetxController {
       res = kChargingStatusModel;
       await Future.delayed(Duration(seconds: 10));
     }
+    //? ///////////////////
     kLog('rest: ' + rest_api_status_model.toJson().toString());
     showLowBalanceOnlyOnce = true;
     _repeatCall();
@@ -105,7 +108,7 @@ class ChargingScreenController extends GetxController {
     Timer? _timer;
     // String time = '';
 
-////INIT WEBSOCKET FROM HERE
+/////INIT WEBSOCKET FROM HERE
 
     await SocketRepo().closeSocket();
     SocketRepo().initSocket(

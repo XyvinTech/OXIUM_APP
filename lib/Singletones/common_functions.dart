@@ -346,14 +346,12 @@ class CommonFunctions {
     }
   }
 
-//TODO
+///////////////////////////////DONE////////////////////////////////
   Future<int> getRFIDPrice() async {
-    var res = await CallAPI().getData('rfidprice', {
-      "username": appData.userModel.value.username,
-    });
-
-    if (res.statusCode == 200) {
-      return res.body['result']['rfid_price'].toInt();
+    var res = await CallAPI()
+        .newGetData(base_Url + 'config/byName/rfid-default-price');
+    if (res.statusCode == 200 && res.body['status']) {
+      return double.parse(res.body['result']).toInt();
     } else {
       return 0;
     }

@@ -1,12 +1,10 @@
 import 'dart:convert';
-
-import 'package:freelancer_app/constants.dart';
-import 'package:get/get.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/status.dart' as status;
-
 import '../Utils/api.dart';
+import 'package:get/get.dart';
 import '../Utils/routes.dart';
+import 'package:freelancer_app/constants.dart';
+import 'package:web_socket_channel/status.dart' as status;
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class SocketRepo {
   //make it singleTone class
